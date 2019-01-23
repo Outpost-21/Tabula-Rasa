@@ -48,6 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bunker\Building_BunkerEmplacement.cs" />
+    <Compile Include="Bunker\Building_Bunker.cs" />
+    <Compile Include="Bunker\JobDriver_EnterEmplacement.cs" />
+    <Compile Include="Bunker\JobDriver_EnterBunker.cs" />
+    <Compile Include="Bunker\Verb_Emplacement.cs" />
+    <Compile Include="Bunker\Verb_Bunker.cs" />
     <Compile Include="O21ToolboxPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
