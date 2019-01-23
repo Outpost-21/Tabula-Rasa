@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>[O21] Toolbox</name>
+	<author>Neronix17</author>
+	<url></url>
+	<supportedVersions>
+		<li>1.0</li>
+	</supportedVersions>
+	<description>Utility mod, provides a lot of useful, reusable code primarily for Outpost 21 mods.</description>
+</ModMetaData>
