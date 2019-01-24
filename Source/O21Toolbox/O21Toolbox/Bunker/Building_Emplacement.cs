@@ -7,7 +7,7 @@ using Verse.AI;
 
 namespace O21Toolbox.Bunker
 {
-    public class Building_BunkerEmplacement : Building_TurretGun, IThingHolder
+    public class Building_Emplacement : Building_TurretGun, IThingHolder
     {
         [DefOf]
         public static class BunkerDefOf
@@ -19,9 +19,10 @@ namespace O21Toolbox.Bunker
 
         public int maxCount = 1;
 
-        public Building_BunkerEmplacement()
+        public Building_Emplacement()
         {
             this.innerContainer = new ThingOwner<Pawn>(this, false, LookMode.Deep);
+            this.top = new TurretTop(this);
         }
 
         public bool HasAnyContents
@@ -93,34 +94,22 @@ namespace O21Toolbox.Bunker
             });
         }
 
-        public override bool ClaimableBy(Faction fac)
-        {
-            bool any = this.innerContainer.Any;
-            bool result;
-            if (any)
-            {
-                for(int i = 0; i < this.innerContainer.Count; i++)
-                {
-                    bool flag = this.innerContainer[i].Faction == fac;
-                    if (flag)
-                    {
-                        return true;
-                    }
-                }
-                result = false;
-            }
-            else
-            {
-                result = base.ClaimableBy(fac);
-            }
-            return result;
-        }
-        
         private bool MannedByColonist
         {
             get
             {
                 return this.mannableComp != null && this.innerContainer != null && this.ContainedThing.Faction == Faction.OfPlayer;
+            }
+        }
+
+        private void UpdateGunVerbs()
+        {
+            List<Verb> allVerbs = this.gun.TryGetComp<CompEquippable>().AllVerbs;
+            for (int i = 0; i < allVerbs.Count; i++)
+            {
+                Verb verb = allVerbs[i];
+                verb.caster = this;
+                verb.castCompleteCallback = new Action(this.BurstComplete);
             }
         }
 
@@ -169,7 +158,6 @@ namespace O21Toolbox.Bunker
 
         public virtual void EjectContents()
         {
-            (this.AttackVerb as Verb_Emplacement).ResetVerb();
             this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near, null, null);
         }
 
@@ -202,7 +190,7 @@ namespace O21Toolbox.Bunker
                 item
             };
             }
-            if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.OnCell, Danger.Some, false))
+            if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.InteractionCell, Danger.Some, false))
             {
                 FloatMenuOption item2 = new FloatMenuOption(Translator.Translate("CannotUseNoPath"), (Action)null, MenuOptionPriority.Default, (Action)null, null, 0f, (Func<Rect, bool>)null, null);
                 return new List<FloatMenuOption>

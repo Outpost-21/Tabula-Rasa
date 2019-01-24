@@ -20,7 +20,7 @@ namespace O21Toolbox.Bunker
             enter.initAction = delegate ()
             {
                 Pawn actor = enter.actor;
-                Building_BunkerEmplacement building = (Building_BunkerEmplacement)actor.CurJob.targetA.Thing;
+                Building_Emplacement building = (Building_Emplacement)actor.CurJob.targetA.Thing;
                 Action action = delegate ()
                 {
                     bool flag = building.GetInner().InnerListForReading.Count >= building.maxCount;

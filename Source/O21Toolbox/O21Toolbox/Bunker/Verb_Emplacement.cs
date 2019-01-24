@@ -4,7 +4,7 @@ using Verse;
 
 namespace O21Toolbox.Bunker
 {
-    public class Verb_Emplacement : Verb_LaunchProjectile
+    public class Verb_Emplacement : Verb_Shoot
     {
         private Building_BunkerEmplacement bunker;
         

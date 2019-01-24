@@ -8,7 +8,7 @@ namespace O21Toolbox.Bunker
     {
         private Building_Bunker bunker;
 
-        private List<Verb> verbss;
+        private List<Verb> verbsList;
         
         public override void Reset()
         {
@@ -35,7 +35,7 @@ namespace O21Toolbox.Bunker
         
         protected override bool TryCastShot()
         {
-            this.verbss = new List<Verb>();
+            this.verbsList = new List<Verb>();
             bool flag = this.bunker == null;
             if (flag)
             {
@@ -46,10 +46,10 @@ namespace O21Toolbox.Bunker
                 bool flag2 = pawn.TryGetAttackVerb(this.currentTarget.Thing, false) != null;
                 if (flag2)
                 {
-                    this.verbss.Add(pawn.TryGetAttackVerb(this.currentTarget.Thing, false));
+                    this.verbsList.Add(pawn.TryGetAttackVerb(this.currentTarget.Thing, false));
                 }
             }
-            foreach (Verb verb in this.verbss)
+            foreach (Verb verb in this.verbsList)
             {
                 verb.caster = this.caster;
                 verb.TryStartCastOn(this.currentTarget, false, true);

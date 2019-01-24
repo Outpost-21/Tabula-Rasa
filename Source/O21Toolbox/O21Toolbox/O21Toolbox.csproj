@@ -14,10 +14,10 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,9 +33,11 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\Assemblies\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,14 +47,15 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bunker\Building_BunkerEmplacement.cs" />
+    <Compile Include="Bunker\Building_Emplacement.cs" />
     <Compile Include="Bunker\Building_Bunker.cs" />
     <Compile Include="Bunker\JobDriver_EnterEmplacement.cs" />
     <Compile Include="Bunker\JobDriver_EnterBunker.cs" />
-    <Compile Include="Bunker\Verb_Emplacement.cs" />
+    <None Include="Bunker\Verb_Emplacement.cs" />
     <Compile Include="Bunker\Verb_Bunker.cs" />
     <Compile Include="O21ToolboxPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
