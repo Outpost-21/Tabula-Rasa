@@ -18,7 +18,6 @@ namespace O21Toolbox.Spaceship
         {
             if (map.listerBuildings.AllBuildingsColonistOfClass<Building_OrbitalRelay>() == null)
             {
-                // No orbital relay on the map.
                 return null;
             }
             return map.listerBuildings.AllBuildingsColonistOfClass<Building_OrbitalRelay>().First() as Building_OrbitalRelay;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<EnterSMCDRMH>perform conversion on self</EnterSMCDRMH>
+	<CannotUseNotViable>cannot use, pawn is not a viable candidate</CannotUseNotViable>
+	
+	<EnterBunker>enter bunker</EnterBunker>
+	<EnterEmplacement>enter emplacement</EnterEmplacement>
+ 
+</LanguageData>
