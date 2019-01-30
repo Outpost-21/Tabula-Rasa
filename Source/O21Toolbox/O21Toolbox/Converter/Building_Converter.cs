@@ -52,14 +52,16 @@ namespace O21Toolbox.Converter
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
-            
-            if (!powerComp.PowerOn)
+            if (!converterComp.Props.requiresPower)
             {
-                FloatMenuOption item = new FloatMenuOption("CannotUseNoPower".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                return new List<FloatMenuOption>
+                if (!powerComp.PowerOn)
                 {
-                    item
-                };
+                    FloatMenuOption item = new FloatMenuOption("CannotUseNoPower".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
+                    return new List<FloatMenuOption>
+                        {
+                            item
+                        };
+                }
             }
             if (!ReservationUtility.CanReserve(myPawn, this, 1))
             {
@@ -96,13 +98,27 @@ namespace O21Toolbox.Converter
                     };
                 }
             }
-            if (!converterComp.Props.inputDefs.Contains(myPawn.def.defName))
+            if(converterComp.Props.inputDefs != null)
             {
-                FloatMenuOption item5 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                return new List<FloatMenuOption>
+                if (!converterComp.Props.inputDefs.Contains(myPawn.def.defName))
+                {
+                    FloatMenuOption item5 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
+                    return new List<FloatMenuOption>
                     {
                         item5
                     };
+                }
+            }
+            if (converterComp.Props.requiredHediffs != null)
+            {
+                if (!this.HasRequiredHediffs(myPawn))
+                {
+                    FloatMenuOption item5 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
+                    return new List<FloatMenuOption>
+                    {
+                        item5
+                    };
+                }
             }
             if (!this.HasAnyContents)
             {
@@ -118,6 +134,15 @@ namespace O21Toolbox.Converter
             };
             }
             return null;
+        }
+
+        public bool HasRequiredHediffs(Pawn pawn)
+        {
+            if(converterComp.Props.requiredHediffs.All(x => pawn.health.hediffSet.HasHediff(x, false)))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void CookIt()
@@ -168,8 +193,46 @@ namespace O21Toolbox.Converter
             pawn.workSettings = pawnToConvert.workSettings;
             pawn.Name = pawnToConvert.Name;
 
-            //Change body to hulk
-            pawn.story.bodyType = BodyTypeDefOf.Hulk;
+            // Change body if needed.
+            if(converterComp.Props.forcedBody != null)
+            {
+                string forcedBody = converterComp.Props.forcedBody;
+                switch (forcedBody)
+                {
+                    case "RANDOM_BODY":
+                        Log.Message("RANDOM_BODY variable is not implemented in the Converter yet.", false);
+                        break;
+                    case "Thin":
+                        pawn.story.bodyType = BodyTypeDefOf.Thin;
+                        break;
+                    case "Male":
+                        pawn.story.bodyType = BodyTypeDefOf.Male;
+                        break;
+                    case "Female":
+                        pawn.story.bodyType = BodyTypeDefOf.Female;
+                        break;
+                    case "Fat":
+                        pawn.story.bodyType = BodyTypeDefOf.Fat;
+                        break;
+                    case "Hulk":
+                        pawn.story.bodyType = BodyTypeDefOf.Hulk;
+                        break;
+                    default:
+                        Log.Message("Body type entered for converter does not fit any available body types. Change not applied.", false);
+                        break;
+                }
+            }
+
+            // Apply Forced Hediff if needed.
+            if(converterComp.Props.forcedHediff != null)
+            {
+                if (!pawn.health.hediffSet.hediffs.Contains(converterComp.Props.forcedHediff))
+                {
+                    pawn.health.hediffSet.AddDirect(converterComp.Props.forcedHediff);
+                }
+                Log.Message("Pawn already has forced Hediff, new hediff was not applied.", false);
+            }
+
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();
 
             return pawn;
