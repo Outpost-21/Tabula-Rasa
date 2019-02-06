@@ -137,6 +137,14 @@
     <None Include="Spaceship\PlaceWorker_NotUnderBuilding.cs" />
     <None Include="Spaceship\PlaceWorker_OnlyOneBuilding.cs" />
     <None Include="Spaceship\PlaceWorker_TotallyNotUnderRoof.cs" />
+    <Compile Include="PawnCrafter\Defs\DroidCraftingDef.cs" />
+    <Compile Include="PawnCrafter\Things\Building_PawnCrafter.cs" />
+    <Compile Include="PawnCrafter\Logic\IPawnCrafter.cs" />
+    <Compile Include="PawnCrafter\Logic\ThingOrderProcessor.cs" />
+    <Compile Include="PawnCrafter\Logic\ThingOrderRequest.cs" />
+    <Compile Include="PawnCrafter\Properties\PawnCrafterProperties.cs" />
+    <Compile Include="PawnCrafter\UI\Gizmos\Gizmo_PrinterPawnInfo.cs" />
+    <Compile Include="PawnCrafter\UI\Gizmos\Gizmo_TogglePrinting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
