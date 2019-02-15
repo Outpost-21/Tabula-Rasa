@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// Lets the player to turn on and off printing.
@@ -18,11 +18,11 @@ namespace Androids
 
         public IPawnCrafter printer;
 
-        public string labelStart = "AndroidGizmoTogglePrintingStartLabel";
-        public string descriptionStart = "AndroidGizmoTogglePrintingStartDescription";
+        public string labelStart = "GizmoTogglePawnCraftingStartLabel";
+        public string descriptionStart = "GizmoTogglePawnCraftingStartDescription";
 
-        public string labelStop = "AndroidGizmoTogglePrintingStopLabel";
-        public string descriptionStop = "AndroidGizmoTogglePrintingStopDescription";
+        public string labelStop = "GizmoTogglePawnCraftingStopLabel";
+        public string descriptionStop = "GizmoTogglePawnCraftingStopDescription";
 
         static Gizmo_TogglePrinting()
         {

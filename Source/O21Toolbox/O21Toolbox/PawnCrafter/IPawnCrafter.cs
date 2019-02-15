@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// Interface for Pawn crafters.

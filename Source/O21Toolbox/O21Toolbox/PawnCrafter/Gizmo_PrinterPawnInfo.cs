@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// When clicked shows the currently printed pawn.

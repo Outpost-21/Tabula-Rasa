@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// Helps in processing multiplie Thing Order Requests.

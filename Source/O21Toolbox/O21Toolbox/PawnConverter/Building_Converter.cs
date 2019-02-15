@@ -8,6 +8,7 @@ using RimWorld;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
+using AlienRace;
 
 namespace O21Toolbox.Converter
 {
@@ -152,15 +153,16 @@ namespace O21Toolbox.Converter
             {
                 if (item is Pawn val)
                 {
-                    convertedContainer.TryAdd(ConvertToSpaceMarine(val));
+                    convertedContainer.TryAdd(ConversionProcess(val));
                 }
             }
             this.innerContainer.ClearAndDestroyContents();
             this.innerContainer = convertedContainer;
         }
 
-        protected Pawn ConvertToSpaceMarine(Pawn pawnToConvert)
+        protected Pawn ConversionProcess(Pawn pawnToConvert)
         {
+            Gender outputGender = GetOutputGender(pawnToConvert);
 
             PawnGenerationRequest request = new PawnGenerationRequest(
                 converterComp.Props.outputDef,
@@ -170,61 +172,204 @@ namespace O21Toolbox.Converter
                 colonistRelationChanceFactor: 0f,
                 fixedBiologicalAge: pawnToConvert.ageTracker.AgeBiologicalYearsFloat,
                 fixedChronologicalAge: pawnToConvert.ageTracker.AgeChronologicalYearsFloat,
-                fixedGender: pawnToConvert.gender,
+                fixedGender: outputGender,
                 allowFood: false);
+            Pawn newPawn = PawnGenerator.GeneratePawn(request);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
 
-            //No pregenerated equipment.
+            // No pregenerated equipment.
             pawn?.equipment?.DestroyAllEquipment();
             pawn?.apparel?.DestroyAll();
             pawn?.inventory?.DestroyAll();
 
-            //Transfer everything from old pawn to new pawn
+            // Transfer everything from old pawn to new pawn
             pawn.drugs = pawnToConvert.drugs;
             pawn.foodRestriction = pawnToConvert.foodRestriction;
-            //pawn.guilt = pawnToConvert.guilt;
-            //pawn.health = pawnToConvert.health;
+            // pawn.guilt = pawnToConvert.guilt;
+            // pawn.health = pawnToConvert.health;
             pawn.health.hediffSet = pawnToConvert.health.hediffSet;
-            //pawn.needs = pawnToConvert.needs;
+            // pawn.needs = pawnToConvert.needs;
             pawn.records = pawnToConvert.records;
             pawn.skills = pawnToConvert.skills;
-            pawn.story = pawnToConvert.story;
+            // pawn.story = pawnToConvert.story;
+            TransferStory(pawn, pawnToConvert);
             pawn.timetable = pawnToConvert.timetable;
             pawn.workSettings = pawnToConvert.workSettings;
             pawn.Name = pawnToConvert.Name;
 
-            // Change body if needed.
-            if(converterComp.Props.forcedBody != null)
+            ApplyHairChange(pawn, newPawn);
+
+            ApplyHairColor(pawn, newPawn);
+
+            ApplySkinChange(pawn, newPawn);
+
+            ApplyHeadChange(pawn, newPawn);
+
+            ApplyBodyChange(pawn);
+
+            RemoveRequiredHediffs(pawn);
+
+            ApplyForcedHediff(pawn);
+
+            // FixPawnRelations(pawn, pawnToConvert);
+
+            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            
+            return pawn;
+        }
+
+        protected Pawn TransferStory(Pawn newPawn, Pawn oldPawn)
+        {
+            newPawn.story.childhood = oldPawn.story.childhood;
+            newPawn.story.adulthood = oldPawn.story.adulthood;
+            newPawn.story.title = oldPawn.story.title;
+            newPawn.story.traits = oldPawn.story.traits;
+            if(converterComp.Props.forcedHead == null)
             {
-                string forcedBody = converterComp.Props.forcedBody;
-                switch (forcedBody)
+                newPawn.story.crownType = oldPawn.story.crownType;
+            }
+            if(!converterComp.Props.forcedSkinColor && !converterComp.Props.randomSkinColor)
+            {
+                newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
+                newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
+            }
+            if (!converterComp.Props.randomHair && converterComp.Props.forcedHair == null)
+            {
+                newPawn.story.hairDef = oldPawn.story.hairDef;
+            }
+            if (!converterComp.Props.randomHairColor && !converterComp.Props.forcedHairColor)
+            {
+                newPawn.story.hairColor = oldPawn.story.hairColor;
+                if(oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond != null)
                 {
-                    case "RANDOM_BODY":
-                        Log.Message("RANDOM_BODY variable is not implemented in the Converter yet.", false);
-                        break;
-                    case "Thin":
-                        pawn.story.bodyType = BodyTypeDefOf.Thin;
-                        break;
-                    case "Male":
-                        pawn.story.bodyType = BodyTypeDefOf.Male;
-                        break;
-                    case "Female":
-                        pawn.story.bodyType = BodyTypeDefOf.Female;
-                        break;
-                    case "Fat":
-                        pawn.story.bodyType = BodyTypeDefOf.Fat;
-                        break;
-                    case "Hulk":
-                        pawn.story.bodyType = BodyTypeDefOf.Hulk;
-                        break;
-                    default:
-                        Log.Message("Body type entered for converter does not fit any available body types. Change not applied.", false);
-                        break;
+                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
+                }
+            }
+            newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
+
+            return newPawn;
+        }
+
+        protected Pawn ApplyHairChange(Pawn pawn, Pawn newPawn)
+        {
+            // Change hair if needed.
+            if (!converterComp.Props.randomHair)
+            {
+                if (converterComp.Props.forcedHair != null)
+                {
+                    pawn.story.hairDef = converterComp.Props.forcedHair;
                 }
             }
 
+            if (converterComp.Props.randomHair)
+            {
+                pawn.story.hairDef = newPawn.story.hairDef;
+            }
+
+            return pawn;
+        }
+
+        protected Pawn ApplyHairColor(Pawn pawn, Pawn newPawn)
+        {
+            // Change hair colour if needed.
+            if (converterComp.Props.forcedHairColor)
+            {
+                if (converterComp.Props.forcedHairColorOne)
+                {
+                    pawn.story.hairColor = converterComp.Props.hairColorOne;
+                }
+                if (converterComp.Props.forcedHairColorTwo)
+                {
+                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = converterComp.Props.hairColorTwo;
+                }
+            }
+            if (converterComp.Props.randomHairColor)
+            {
+                pawn.story.hairColor = newPawn.story.hairColor;
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
+            }
+            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+
+            return pawn;
+        }
+
+        protected Pawn ApplySkinChange(Pawn pawn, Pawn newPawn)
+        {
+            // Change skin colour if needed.
+            if (converterComp.Props.forcedSkinColor)
+            {
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = converterComp.Props.forcedSkinColorOne;
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = converterComp.Props.forcedSkinColorTwo;
+                Log.Error("Successfully changed skin for " + pawn.Name);
+            }
+            if (converterComp.Props.randomSkinColor)
+            {
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
+                Log.Error("Successfully changed skin for " + pawn.Name);
+            }
+            else
+            {
+                Log.Error("Failed to change skin for " + pawn.Name);
+            }
+            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+
+            return pawn;
+        }
+
+        protected Pawn ApplyHeadChange(Pawn pawn, Pawn newPawn)
+        {
+            // Change crown if needed.
+            if (converterComp.Props.forcedHead != null)
+            {
+                if (converterComp.Props.forcedHead == "RANDOM")
+                {
+                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType;
+                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                }
+                else
+                {
+                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = converterComp.Props.forcedHead;
+                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                }
+            }
+
+            return pawn;
+        }
+
+        protected Pawn ApplyBodyChange(Pawn pawn)
+        {
+            // Change body if needed.
+            if (converterComp.Props.forcedBody != null)
+            {
+                pawn.story.bodyType = converterComp.Props.forcedBody;
+                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            }
+
+            return pawn;
+        }
+
+        protected Pawn RemoveRequiredHediffs(Pawn pawn)
+        {
+            // Remove required hediffs if needed.
+            if (converterComp.Props.removeRequiredHediffs)
+            {
+                IEnumerable<HediffDef> enumerable = from def in converterComp.Props.requiredHediffs
+                                                    where pawn.health.hediffSet.HasHediff(def, false)
+                                                    select def;
+                foreach (HediffDef current in enumerable)
+                {
+                    pawn.health.hediffSet.hediffs.Remove(pawn.health.hediffSet.GetFirstHediffOfDef(current));
+                }
+            }
+
+            return pawn;
+        }
+
+        protected Pawn ApplyForcedHediff(Pawn pawn)
+        {
             // Apply Forced Hediff if needed.
-            if(converterComp.Props.forcedHediff != null)
+            if (converterComp.Props.forcedHediff != null)
             {
                 if (!pawn.health.hediffSet.hediffs.Contains(converterComp.Props.forcedHediff))
                 {
@@ -233,9 +378,34 @@ namespace O21Toolbox.Converter
                 Log.Message("Pawn already has forced Hediff, new hediff was not applied.", false);
             }
 
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
             return pawn;
+        }
+
+        private Gender GetOutputGender(Pawn inputPawn)
+        {
+            Gender outputGender;
+            if (converterComp.Props.outputSex != null)
+            {
+                string outputSex = converterComp.Props.outputSex;
+                switch (outputSex)
+                {
+                    case "Male":
+                        outputGender = Gender.Male;
+                        break;
+                    case "Female":
+                        outputGender = Gender.Male;
+                        break;
+                    default:
+                        Log.Message("Defined sex/gender does not exist in this context. Defaulting to original.", false);
+                        outputGender = inputPawn.gender;
+                        break;
+                }
+            }
+            else
+            {
+                outputGender = inputPawn.gender;
+            };
+            return outputGender;
         }
 
         public override void Tick()
@@ -291,17 +461,21 @@ namespace O21Toolbox.Converter
         public override void Draw()
         {
             base.Draw();
-            DrawCookingBar();
+            if (converterComp.Props.timerBarEnabled)
+            {
+                DrawTimerBar();
+            }
         }
 
-        public void DrawCookingBar()
+        public void DrawTimerBar()
         {
             //Replaced Drawhelper with vanilla drawer here
             GenDraw.FillableBarRequest fillableBarRequest = default(GenDraw.FillableBarRequest);
-            fillableBarRequest.size = new Vector2(0.55f, 0.16f);
+            fillableBarRequest.preRotationOffset = converterComp.Props.timerBarOffset;
+            fillableBarRequest.size = converterComp.Props.timerBarSize;
             fillableBarRequest.fillPercent = (float)ICookingTicking / (float)ICookingTime;
-            fillableBarRequest.filledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.9f, 0.9f, 0.10f));
-            fillableBarRequest.unfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.6f, 0.6f, 0.6f));
+            fillableBarRequest.filledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterComp.Props.timerBarFill);
+            fillableBarRequest.unfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterComp.Props.timerBarUnfill);
             Rot4 rotation = this.Rotation;
             rotation.Rotate(RotationDirection.Clockwise);
             fillableBarRequest.rotation = rotation;

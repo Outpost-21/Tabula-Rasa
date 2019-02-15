@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// Properties for pawn crafters.
@@ -30,42 +30,42 @@ namespace Androids
         /// <summary>
         /// Label on the letter when finished crafting.
         /// </summary>
-        public string pawnCraftedLetterLabel = "AndroidPrintedLetterLabel";
+        public string pawnCraftedLetterLabel = "PawnCraftedLetterLabel";
 
         /// <summary>
         /// Text on the letter when finished crafting.
         /// </summary>
-        public string pawnCraftedLetterText = "AndroidPrintedLetterDescription";
+        public string pawnCraftedLetterText = "PawnCraftedLetterDescription";
 
         /// <summary>
         /// Status text on the crafter.
         /// </summary>
-        public string crafterStatusText = "AndroidPrinterStatus";
+        public string crafterStatusText = "PawnCrafterStatus";
 
         /// <summary>
         /// Enum prefix text.
         /// </summary>
-        public string crafterStatusEnumText = "AndroidPrinterStatusEnum";
+        public string crafterStatusEnumText = "PawnCrafterStatusEnum";
 
         /// <summary>
         /// Crafter progress text.
         /// </summary>
-        public string crafterProgressText = "AndroidPrinterProgress";
+        public string crafterProgressText = "PawnCrafterProgress";
 
         /// <summary>
         /// Crafter materials text.
         /// </summary>
-        public string crafterMaterialsText = "AndroidPrinterMaterials";
+        public string crafterMaterialsText = "PawnCrafterMaterials";
 
         /// <summary>
         /// Crafter material need.
         /// </summary>
-        public string crafterMaterialNeedText = "AndroidPrinterNeed";
+        public string crafterMaterialNeedText = "PawnCrafterNeed";
 
         /// <summary>
         /// Crafter nutrition text.
         /// </summary>
-        public string crafterNutritionText = "AndroidNutrition";
+        public string crafterNutritionText = "PawnCrafterNutrition";
 
         /// <summary>
         /// How many ticks are required to craft the pawn.
@@ -125,5 +125,12 @@ namespace Androids
         {
             return (float)Math.Ceiling((double)ticksToCraft / resourceTick);
         }
+
+        /// <summary>
+        /// Whether or not to only list pawns designated to be craftable in this crafter.
+        /// True = Only designated pawns.
+        /// False = Any pawns, as long as they have no designation.
+        /// </summary>
+        public bool listOnlyAllowed = false;
     }
 }

@@ -3,32 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
-    /// <summary>
-    /// The state the printer currently is in.
-    /// </summary>
-    public enum CrafterStatus
-    {
-        /// <summary>
-        /// Does nothing in this mode.
-        /// </summary>
-        Idle = 0,
-        /// <summary>
-        /// Requires filling in the mode.
-        /// </summary>
-        Filling,
-        /// <summary>
-        /// Crafting in which it actively subtracts inputted resources.
-        /// </summary>
-        Crafting,
-        /// <summary>
-        /// Finished state where it resets itself to Idle.
-        /// </summary>
-        Finished
-    }
 
     /// <summary>
     /// Base class for all printers and crafters.
@@ -52,6 +32,14 @@ namespace Androids
         /// Storage settings for what nutrition sources to use.
         /// </summary>
         public StorageSettings inputSettings;
+        /// <summary>
+        /// Sustained sound.
+        /// </summary>
+        Sustainer soundSustainer;
+
+        //Repeat crafting stuff.
+        public PawnCraftingDef lastDef;
+        public bool repeatLastPawn = false;
 
         //Convenience variables
         /// <summary>
@@ -64,6 +52,7 @@ namespace Androids
         protected CompFlickable flickableComp;
         /// <summary>
         /// XML properties for the printer.
+        /// </summary>
         /// </summary>
         protected PawnCrafterProperties printerProperties;
         /// <summary>
@@ -165,6 +154,11 @@ namespace Androids
             }
 
             AdjustPowerNeed();
+
+            if (!respawningAfterLoad)
+            {
+                orderProcessor = new ThingOrderProcessor(ingredients, inputSettings);
+            }
         }
 
         public override void PostMake()
@@ -190,6 +184,10 @@ namespace Androids
             Scribe_Deep.Look(ref pawnBeingCrafted, "pawnBeingCrafted");
             Scribe_Deep.Look(ref inputSettings, "inputSettings");
             Scribe_Values.Look(ref craftingTime, "craftingTime");
+
+            Scribe_Deep.Look(ref orderProcessor, "orderProcessor", ingredients, inputSettings);
+            Scribe_Defs.Look(ref lastDef, "lastDef");
+            Scribe_Values.Look(ref repeatLastPawn, "repeatLastPawn");
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
@@ -224,6 +222,18 @@ namespace Androids
                 });
             }
 
+            gizmos.Insert(0, new Command_Toggle()
+            {
+                defaultLabel = "PawnCrafterRepeatLabel".Translate(),
+                defaultDesc = "PawnCrafterRepeatDescription".Translate(),
+                icon = ContentFinder<Texture2D>.Get("ui/designators/PlanOn", true),
+                isActive = () => repeatLastPawn,
+                toggleAction = delegate ()
+                {
+                    repeatLastPawn = !repeatLastPawn;
+                }
+            });
+
             return gizmos;
         }
 
@@ -246,10 +256,61 @@ namespace Androids
         /// </summary>
         public virtual void InitiatePawnCrafting()
         {
-            //Default behavior
-            pawnBeingCrafted = PawnGenerator.GeneratePawn(printerProperties.pawnKind, Faction);
+            if(crafterStatus != CrafterStatus.Idle)
+            {
+                //Default behavior
+                pawnBeingCrafted = PawnGenerator.GeneratePawn(printerProperties.pawnKind, Faction);
 
-            crafterStatus = CrafterStatus.Filling;
+                crafterStatus = CrafterStatus.Filling;
+            }
+
+            if(crafterStatus == CrafterStatus.Idle)
+            {
+                //Bring up Float Menu
+                //FloatMenuUtility.
+                List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
+                foreach (PawnCraftingDef def in DefDatabase<PawnCraftingDef>.AllDefs.OrderBy(def => def.orderID))
+                {
+                    if(def.recipeUser == null && printerProperties.listOnlyAllowed != true || def.recipeUser == this.def.defName)
+                    {
+                        bool disabled = false;
+                        string labelText = "";
+                        if (def.requiredResearch != null && !def.requiredResearch.IsFinished)
+                        {
+                            disabled = true;
+                        }
+
+                        if (disabled)
+                        {
+                            labelText = "PawnCrafterNeedsResearch".Translate(def.label, def.requiredResearch.LabelCap);
+                        }
+                        else
+                        {
+                            labelText = "PawnCrafterMake".Translate(def.label);
+                        }
+
+                        FloatMenuOption option = new FloatMenuOption(labelText,
+                        delegate ()
+                        {
+                            if (!disabled)
+                            {
+                                lastDef = def;
+                                MakePawnAndInitCrafting(def);
+                            }
+                        }
+                        );
+
+                        option.Disabled = disabled;
+                        floatMenuOptions.Add(option);
+                    }
+                }
+
+                if (floatMenuOptions.Count > 0)
+                {
+                    FloatMenu floatMenu = new FloatMenu(floatMenuOptions);
+                    Find.WindowStack.Add(floatMenu);
+                }
+            }
         }
 
         /// <summary>
@@ -284,7 +345,7 @@ namespace Androids
         /// </summary>
         public virtual void ExtraCrafterTickAction()
         {
-            switch (crafterStatus)
+            /**switch (crafterStatus)
             {
                 case CrafterStatus.Filling:
                     //Emit smoke
@@ -301,13 +362,63 @@ namespace Androids
                         MoteMaker.ThrowSmoke(Position.ToVector3(), Map, 1.33f);
                     }
                     break;
+            }**/
+            if (!powerComp.PowerOn && soundSustainer != null && !soundSustainer.Ended)
+                soundSustainer.End();
+
+            //Make construction effects
+            switch (crafterStatus)
+            {
+                case CrafterStatus.Filling:
+                    //Emit smoke
+                    if (powerComp.PowerOn && Current.Game.tickManager.TicksGame % 300 == 0)
+                    {
+                        MoteMaker.ThrowSmoke(Position.ToVector3(), Map, 1f);
+                    }
+                    break;
+
+                case CrafterStatus.Crafting:
+                    //Emit smoke
+                    if (powerComp.PowerOn && Current.Game.tickManager.TicksGame % 100 == 0)
+                    {
+                        for (int i = 0; i < 5; i++)
+                            MoteMaker.ThrowMicroSparks(Position.ToVector3() + new Vector3(Rand.Range(-1, 1), 0f, Rand.Range(-1, 1)), Map);
+                        for (int i = 0; i < 3; i++)
+                            MoteMaker.ThrowSmoke(Position.ToVector3() + new Vector3(Rand.Range(-1f, 1f), 0f, Rand.Range(-1f, 1f)), Map, Rand.Range(0.5f, 0.75f));
+                        MoteMaker.ThrowHeatGlow(Position, Map, 1f);
+
+                        if (soundSustainer == null || soundSustainer.Ended)
+                        {
+                            SoundDef soundDef = printerProperties.craftingSound;
+                            if (soundDef != null && soundDef.sustain)
+                            {
+                                SoundInfo info = SoundInfo.InMap(this, MaintenanceType.PerTick);
+                                soundSustainer = soundDef.TrySpawnSustainer(info);
+                            }
+                        }
+                    }
+                    if (soundSustainer != null && !soundSustainer.Ended)
+                        soundSustainer.Maintain();
+                    break;
+
+                default:
+                    {
+                        if (soundSustainer != null && !soundSustainer.Ended)
+                            soundSustainer.End();
+                    }
+                    break;
             }
         }
 
         public virtual void FinishAction()
         {
             //Add effects
-            FilthMaker.MakeFilth(InteractionCell, Map, RimWorld.ThingDefOf.Filth_Slime, 5);
+            orderProcessor.requestedItems.Clear();
+
+            if (repeatLastPawn && lastDef != null)
+            {
+                MakePawnAndInitCrafting(lastDef);
+            }
         }
 
         public override string GetInspectString()
@@ -594,5 +705,71 @@ namespace Androids
         {
             return crafterStatus;
         }
+
+        public void MakePawnAndInitCrafting(PawnCraftingDef def)
+        {
+            //Update costs.
+            orderProcessor.requestedItems.Clear();
+
+            foreach (ThingOrderRequest cost in def.costList)
+            {
+                ThingOrderRequest costCopy = new ThingOrderRequest();
+                costCopy.nutrition = cost.nutrition;
+                costCopy.thingDef = cost.thingDef;
+                costCopy.amount = cost.amount;
+
+                orderProcessor.requestedItems.Add(costCopy);
+            }
+
+            craftingTime = def.timeCost;
+
+            //Apply template.
+            if (def.useDroidCreator)
+            {
+                pawnBeingCrafted = DroidUtility.MakeDroidTemplate(def.pawnKind, Faction, Map.Tile);
+            }
+            else
+            {
+                //pawnBeingCrafted = PawnGenerator.GeneratePawn(def.pawnKind, Faction);
+                PawnGenerationRequest request = new PawnGenerationRequest(
+                    def.pawnKind,
+                faction: Faction.OfPlayer,
+                forceGenerateNewPawn: true,
+                canGeneratePawnRelations: false,
+                colonistRelationChanceFactor: 0f,
+                allowFood: false);
+                pawnBeingCrafted = PawnGenerator.GeneratePawn(request);
+
+                //No pregenerated equipment.
+                pawnBeingCrafted?.equipment?.DestroyAllEquipment();
+                pawnBeingCrafted?.apparel?.DestroyAll();
+                pawnBeingCrafted?.inventory?.DestroyAll();
+            }
+
+            crafterStatus = CrafterStatus.Filling;
+        }
+    }
+
+    /// <summary>
+    /// The state the printer currently is in.
+    /// </summary>
+    public enum CrafterStatus
+    {
+        /// <summary>
+        /// Does nothing in this mode.
+        /// </summary>
+        Idle = 0,
+        /// <summary>
+        /// Requires filling in the mode.
+        /// </summary>
+        Filling,
+        /// <summary>
+        /// Crafting in which it actively subtracts inputted resources.
+        /// </summary>
+        Crafting,
+        /// <summary>
+        /// Finished state where it resets itself to Idle.
+        /// </summary>
+        Finished
     }
 }

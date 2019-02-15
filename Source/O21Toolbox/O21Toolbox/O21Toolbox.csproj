@@ -35,6 +35,10 @@
       <HintPath>..\..\..\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AlienRace">
+      <HintPath>..\..\..\..\..\Mods_Old\AlienRace\Assemblies\AlienRace.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -51,6 +55,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Needs\JobDefOf.cs" />
+    <Compile Include="Needs\JobGiver_GetEnergy.cs" />
+    <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\NeedsDefOf.cs" />
+    <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
+    <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
+    <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
     <None Include="Spaceship\AirStrikeDef.cs" />
     <None Include="Spaceship\Building_AirStrikeBeacon.cs" />
     <None Include="Spaceship\Building_LandingPad.cs" />
@@ -128,23 +139,47 @@
     <None Include="Spaceship\LordToil_BoardSpaceship.cs" />
     <None Include="Spaceship\LordToil_EscortDownedPawn.cs" />
     <None Include="Spaceship\LordToil_HealColonists.cs" />
-    <Compile Include="Converter\Building_Converter.cs" />
-    <Compile Include="Converter\Comp_Converter.cs" />
-    <Compile Include="Converter\CompProperties_Converter.cs" />
-    <Compile Include="O21ToolboxPatches.cs" />
+    <Compile Include="Needs\CompProperties_EnergySource.cs" />
+    <Compile Include="Needs\CompProperties_EnergyTracker.cs" />
+    <Compile Include="Needs\Comp_EnergySource.cs" />
+    <Compile Include="Needs\Comp_EnergyTracker.cs" />
+    <Compile Include="Needs\EnergyHediffs.cs" />
+    <Compile Include="Needs\EnergyNeed.cs" />
+    <Compile Include="Needs\Comp_Hibernation.cs" />
+    <Compile Include="Needs\EnergySource_Fueled.cs" />
+    <Compile Include="Needs\ExtraReportStringProperties.cs" />
+    <Compile Include="Needs\FuelUtility.cs" />
+    <Compile Include="Needs\Gizmo_EnergySourceFueled.cs" />
+    <Compile Include="Needs\IExtraDisplayStats.cs" />
+    <Compile Include="Needs\JobDriver_Hibernate.cs" />
+    <Compile Include="Needs\JobDriver_RechargeEnergy.cs" />
+    <Compile Include="Needs\JobDriver_RechargeEnergyFromConsumable.cs" />
+    <Compile Include="Needs\JobDriver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\ThingOrderRequest.cs" />
+    <Compile Include="Needs\Utility_EnergyNeed.cs" />
+    <Compile Include="PawnConverter\Building_Converter.cs" />
+    <Compile Include="PawnConverter\Comp_Converter.cs" />
+    <Compile Include="PawnConverter\CompProperties_Converter.cs" />
+    <Compile Include="HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
     <None Include="Spaceship\PlaceWorker_NotUnderBuilding.cs" />
     <None Include="Spaceship\PlaceWorker_OnlyOneBuilding.cs" />
     <None Include="Spaceship\PlaceWorker_TotallyNotUnderRoof.cs" />
-    <Compile Include="PawnCrafter\Defs\DroidCraftingDef.cs" />
-    <Compile Include="PawnCrafter\Things\Building_PawnCrafter.cs" />
-    <Compile Include="PawnCrafter\Logic\IPawnCrafter.cs" />
-    <Compile Include="PawnCrafter\Logic\ThingOrderProcessor.cs" />
-    <Compile Include="PawnCrafter\Logic\ThingOrderRequest.cs" />
-    <Compile Include="PawnCrafter\Properties\PawnCrafterProperties.cs" />
-    <Compile Include="PawnCrafter\UI\Gizmos\Gizmo_PrinterPawnInfo.cs" />
-    <Compile Include="PawnCrafter\UI\Gizmos\Gizmo_TogglePrinting.cs" />
+    <Compile Include="PawnCrafter\PawnCraftingDef.cs" />
+    <Compile Include="PawnCrafter\JobDriver_FillAndroidPrinter.cs" />
+    <Compile Include="PawnCrafter\DroidSkill.cs" />
+    <Compile Include="PawnCrafter\DroidSpawnProperties.cs" />
+    <Compile Include="PawnCrafter\PawnCrafterWorkgiverProperties.cs" />
+    <Compile Include="PawnCrafter\Building_PawnCrafter.cs" />
+    <Compile Include="PawnCrafter\IPawnCrafter.cs" />
+    <Compile Include="PawnCrafter\ThingOrderProcessor.cs" />
+    <Compile Include="PawnCrafter\ThingOrderRequest.cs" />
+    <Compile Include="PawnCrafter\PawnCrafterProperties.cs" />
+    <Compile Include="PawnCrafter\Gizmo_PrinterPawnInfo.cs" />
+    <Compile Include="PawnCrafter\Gizmo_TogglePrinting.cs" />
+    <Compile Include="PawnCrafter\DroidUtility.cs" />
+    <Compile Include="PawnCrafter\WorkGiver_PawnCrafter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.PawnCrafter
 {
     /// <summary>
     /// Defines 
     /// </summary>
-    public class DroidCraftingDef : Def
+    public class PawnCraftingDef : Def
     {
         /// <summary>
         /// The cost to manufacture one Droid.
@@ -29,12 +29,17 @@ namespace Androids
         /// <summary>
         /// Whether to use the Utility way of creating the Droid or not.
         /// </summary>
-        public bool useDroidCreator = true;
+        public bool useDroidCreator = false;
 
         /// <summary>
         /// In what order to display this in menus.
         /// </summary>
         public int orderID = 0;
+
+        /// <summary>
+        /// Building defName that the pawns recipe should show up in.
+        /// </summary>
+        public string recipeUser = null;
 
         /// <summary>
         /// Research required in order for it to be craftable.

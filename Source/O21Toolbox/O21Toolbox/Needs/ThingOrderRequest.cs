@@ -1,12 +1,15 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using System.Xml;
+
+using UnityEngine;
+using RimWorld;
 using Verse;
 
-namespace Androids
+namespace O21Toolbox.Needs
 {
     /// <summary>
     /// Order request for a specific Thing.
@@ -56,15 +59,15 @@ namespace Androids
         {
             if (nutrition)
             {
-                if(thingFilter == null)
+                if (thingFilter == null)
                     return thing => (!thing.def?.ingestible.IsMeal ?? false) && thing.def.IsNutritionGivingIngestible;
                 else
-                    return delegate(Thing thing)
+                    return delegate (Thing thing)
                     {
-                        if(thingFilter.Allows(thing) && thing.def.IsNutritionGivingIngestible)
+                        if (thingFilter.Allows(thing) && thing.def.IsNutritionGivingIngestible)
                         {
                             Corpse corpse = thing as Corpse;
-                            if(corpse != null && corpse.IsDessicated())
+                            if (corpse != null && corpse.IsDessicated())
                                 return false;
                             return true;
                         }
@@ -89,7 +92,7 @@ namespace Androids
                 return;
             }
 
-            if(xmlRoot.Name.ToLower() == "nutrition")
+            if (xmlRoot.Name.ToLower() == "nutrition")
             {
                 //Log.Message("Nutrition=" + (float)ParseHelper.FromString(xmlRoot.FirstChild.Value, typeof(float)));
                 nutrition = true;
