@@ -55,11 +55,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alliances\AllianceDef.cs" />
+    <Compile Include="Bunker\CompProperties_Bunker.cs" />
+    <Compile Include="Bunker\Comp_Bunker.cs" />
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />
     <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
     <Compile Include="Needs\NeedsDefOf.cs" />
     <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
+    <Compile Include="Network\NetworkDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
     <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
     <None Include="Spaceship\AirStrikeDef.cs" />

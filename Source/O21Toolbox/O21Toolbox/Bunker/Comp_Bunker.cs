@@ -7,15 +7,15 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.PawnConverter
+namespace O21Toolbox.Bunker
 {
-    public class Comp_Converter : ThingComp
+    public class Comp_Bunker : ThingComp
     {
-        public CompProperties_Converter Props
+        public CompProperties_Bunker Props
         {
             get
             {
-                return (CompProperties_Converter)this.props;
+                return (CompProperties_Bunker)this.props;
             }
         }
 

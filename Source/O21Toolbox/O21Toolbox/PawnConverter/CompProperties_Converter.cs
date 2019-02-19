@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Converter
+namespace O21Toolbox.PawnConverter
 {
     public class CompProperties_Converter : CompProperties
     {
@@ -41,6 +41,10 @@ namespace O21Toolbox.Converter
         /// Sets required hediffs, all listed hediffs are required not just one or some.
         /// </summary>
         public List<HediffDef> requiredHediffs = null; // Needs More Testing.
+
+        public bool hediffSeverityMatters = false; // Needs More Testing.
+
+        public float requiredHediffSeverity = 1f; // Needs More Testing.
 
         /// <summary>
         /// Removes the hediffs listed in requiredHediffs during conversion.

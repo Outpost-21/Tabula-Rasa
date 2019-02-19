@@ -23,7 +23,7 @@ namespace O21Toolbox.Bunker
                 Building_Bunker building = (Building_Bunker)actor.CurJob.targetA.Thing;
                 Action action = delegate ()
                 {
-                    bool flag = building.GetInner().InnerListForReading.Count >= building.maxCount;
+                    bool flag = building.GetInner().InnerListForReading.Count >= building.bunkerComp.Props.pawnCapacity;
                     if (!flag)
                     {
                         actor.DeSpawn(DestroyMode.Vanish);

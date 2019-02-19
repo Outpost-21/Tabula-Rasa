@@ -10,7 +10,7 @@ using Verse.AI;
 using Verse.Sound;
 using AlienRace;
 
-namespace O21Toolbox.Converter
+namespace O21Toolbox.PawnConverter
 {
     public class Building_Converter : Building_Casket
     {
@@ -53,7 +53,7 @@ namespace O21Toolbox.Converter
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
-            if (!converterComp.Props.requiresPower)
+            if (converterComp.Props.requiresPower)
             {
                 if (!powerComp.PowerOn)
                 {
@@ -141,6 +141,22 @@ namespace O21Toolbox.Converter
         {
             if(converterComp.Props.requiredHediffs.All(x => pawn.health.hediffSet.HasHediff(x, false)))
             {
+                if (converterComp.Props.hediffSeverityMatters)
+                {
+                    IEnumerable<HediffDef> enumerable = from def in converterComp.Props.requiredHediffs
+                                                        where pawn.health.hediffSet.HasHediff(def, false)
+                                                        select def;
+                    foreach (HediffDef current in enumerable)
+                    {
+                        if (pawn.health.hediffSet.GetFirstHediffOfDef(current, false) != null)
+                        {
+                            if (pawn.health.hediffSet.GetFirstHediffOfDef(current, false).Severity < converterComp.Props.requiredHediffSeverity)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
                 return true;
             }
             return false;
@@ -410,39 +426,57 @@ namespace O21Toolbox.Converter
 
         public override void Tick()
         {
-            if (powerComp.PowerOn)
+            if (converterComp.Props.requiresPower)
+            {
+                if (powerComp.PowerOn)
+                {
+                    if (this.HasAnyContents)
+                    {
+                        //Not the best way but this just ticks up until max is reached.
+                        //It would be better to check the "endtime" with the Tickfinder
+                        ICookingTicking++;
+                        if (currentColour != red)
+                        {
+                            ChangeColour(red);
+                        }
+                        if (ICookingTicking >= ICookingTime)
+                        {
+                            CookIt();
+                            this.EjectContents();
+                            ICookingTicking = 0;
+                        }
+                    }
+                    else if (currentColour != green)
+                    {
+                        ChangeColour(green);
+                    }
+                }
+                else
+                {
+                    if (currentColour != red)
+                    {
+                        ChangeColour(red);
+                    }
+                    ICookingTicking = 0;
+                    if (this.HasAnyContents)
+                    {
+                        this.EjectContents();
+                    }
+                }
+            }
+            if (!converterComp.Props.requiresPower)
             {
                 if (this.HasAnyContents)
                 {
                     //Not the best way but this just ticks up until max is reached.
                     //It would be better to check the "endtime" with the Tickfinder
                     ICookingTicking++;
-                    if (currentColour != red)
-                    {
-                        ChangeColour(red);
-                    }
                     if (ICookingTicking >= ICookingTime)
                     {
                         CookIt();
                         this.EjectContents();
                         ICookingTicking = 0;
                     }
-                }
-                else if (currentColour != green)
-                {
-                    ChangeColour(green);
-                }
-            }
-            else
-            {
-                if (currentColour != red)
-                {
-                    ChangeColour(red);
-                }
-                ICookingTicking = 0;
-                if (this.HasAnyContents)
-                {
-                    this.EjectContents();
                 }
             }
         }
@@ -574,7 +608,7 @@ namespace O21Toolbox.Converter
         }
     }
 
-    public class JobDriver_Enterconverter : JobDriver_EnterCryptosleepCasket
+    public class JobDriver_EnterConverter : JobDriver_EnterCryptosleepCasket
     {
         protected override IEnumerable<Toil> MakeNewToils()
         {

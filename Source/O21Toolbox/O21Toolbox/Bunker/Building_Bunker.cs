@@ -17,7 +17,13 @@ namespace O21Toolbox.Bunker
 
         protected ThingOwner<Pawn> innerContainer;
 
-        public int maxCount = 1;
+        public Comp_Bunker bunkerComp;
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            bunkerComp = this.GetComp<Comp_Bunker>();
+        }
 
         public Building_Bunker()
         {
@@ -176,7 +182,7 @@ namespace O21Toolbox.Bunker
         public override string GetInspectString()
         {
             string text = base.GetInspectString();
-            string str = this.innerContainer.Count + "/" + this.maxCount;
+            string str = this.innerContainer.Count + "/" + this.bunkerComp.Props.pawnCapacity;
             bool flag = !text.NullOrEmpty();
             if (flag)
             {
@@ -188,7 +194,7 @@ namespace O21Toolbox.Bunker
                 "CasketContains".Translate(),
                 ": ",
                 str.CapitalizeFirst(),
-                (this.innerContainer.Count == this.maxCount) ? "(Full)" : ""
+                (this.innerContainer.Count == this.bunkerComp.Props.pawnCapacity) ? "(Full)" : ""
             });
         }
 
@@ -210,7 +216,7 @@ namespace O21Toolbox.Bunker
                     item2
                 };
             }
-            if (!this.HasAnyContents)
+            if (!this.HasAnyContents || (this.HasAnyContents && this.innerContainer.Count < this.bunkerComp.Props.pawnCapacity))
             {
                 FloatMenuOption item3 = new FloatMenuOption(Translator.Translate("EnterBunker"), (Action)delegate
                 {

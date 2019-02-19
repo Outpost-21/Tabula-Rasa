@@ -3,7 +3,7 @@
 	
 	<JobDef>
 		<defName>EnterConverter</defName>
-		<driverClass>O21Toolbox.Converter.JobDriver_EnterConverter</driverClass>
+		<driverClass>O21Toolbox.PawnConverter.JobDriver_EnterConverter</driverClass>
 		<reportString>using requisition relay.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>
