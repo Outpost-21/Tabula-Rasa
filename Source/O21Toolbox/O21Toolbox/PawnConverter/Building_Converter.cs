@@ -207,8 +207,9 @@ namespace O21Toolbox.PawnConverter
             // pawn.needs = pawnToConvert.needs;
             pawn.records = pawnToConvert.records;
             pawn.skills = pawnToConvert.skills;
-            // pawn.story = pawnToConvert.story;
+
             TransferStory(pawn, pawnToConvert);
+
             pawn.timetable = pawnToConvert.timetable;
             pawn.workSettings = pawnToConvert.workSettings;
             pawn.Name = pawnToConvert.Name;
@@ -236,33 +237,42 @@ namespace O21Toolbox.PawnConverter
 
         protected Pawn TransferStory(Pawn newPawn, Pawn oldPawn)
         {
-            newPawn.story.childhood = oldPawn.story.childhood;
-            newPawn.story.adulthood = oldPawn.story.adulthood;
-            newPawn.story.title = oldPawn.story.title;
-            newPawn.story.traits = oldPawn.story.traits;
-            if(converterComp.Props.forcedHead == null)
+            if (converterComp.Props.useOldStoryTransfer)
             {
-                newPawn.story.crownType = oldPawn.story.crownType;
-            }
-            if(!converterComp.Props.forcedSkinColor && !converterComp.Props.randomSkinColor)
-            {
-                newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
-                newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
-            }
-            if (!converterComp.Props.randomHair && converterComp.Props.forcedHair == null)
-            {
-                newPawn.story.hairDef = oldPawn.story.hairDef;
-            }
-            if (!converterComp.Props.randomHairColor && !converterComp.Props.forcedHairColor)
-            {
-                newPawn.story.hairColor = oldPawn.story.hairColor;
-                if(oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond != null)
-                {
-                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
-                }
-            }
-            newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                newPawn.story = oldPawn.story;
 
+                newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            }
+            else
+            {
+                newPawn.story.childhood = oldPawn.story.childhood;
+                newPawn.story.adulthood = oldPawn.story.adulthood;
+                newPawn.story.title = oldPawn.story.title;
+                newPawn.story.traits = oldPawn.story.traits;
+                if (converterComp.Props.forcedHead == null)
+                {
+                    newPawn.story.crownType = oldPawn.story.crownType;
+                }
+                if (!converterComp.Props.forcedSkinColor && !converterComp.Props.randomSkinColor)
+                {
+                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
+                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
+                }
+                if (!converterComp.Props.randomHair && converterComp.Props.forcedHair == null)
+                {
+                    newPawn.story.hairDef = oldPawn.story.hairDef;
+                }
+                if (!converterComp.Props.randomHairColor && !converterComp.Props.forcedHairColor)
+                {
+                    newPawn.story.hairColor = oldPawn.story.hairColor;
+                    if (oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond != null)
+                    {
+                        newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
+                    }
+                }
+                newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            }
+            
             return newPawn;
         }
 

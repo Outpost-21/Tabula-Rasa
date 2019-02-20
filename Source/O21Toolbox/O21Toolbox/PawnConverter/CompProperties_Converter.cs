@@ -27,6 +27,11 @@ namespace O21Toolbox.PawnConverter
         public List<string> inputDefs = null; // Done.
 
         /// <summary>
+        /// Vanilla humans don't like the new story transfer, it's better to use the old method for them.
+        /// </summary>
+        public bool useOldStoryTransfer = false;
+
+        /// <summary>
         /// Target output for converts. Uses pawnKinds to retrieve a target race as well as generating the random options for other variables.
         /// Doesn't change race at all if left 'null'.
         /// </summary>

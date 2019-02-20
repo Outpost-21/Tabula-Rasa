@@ -61,7 +61,9 @@
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />
     <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\MechanicalPawnProperties.cs" />
     <Compile Include="Needs\NeedsDefOf.cs" />
+    <Compile Include="Needs\Utility_MechanicalPawn.cs" />
     <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
     <Compile Include="Network\NetworkDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />

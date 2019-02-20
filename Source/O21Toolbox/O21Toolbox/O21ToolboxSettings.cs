@@ -18,14 +18,28 @@ namespace O21Toolbox
             O21ToolboxSettings.Instance = this;
         }
 
+        public bool FirstStartUp = true;
+        public bool EnergyNeedCompatMode = true;
+
         public override void ExposeData()
         {
-
+            Scribe_Values.Look<bool>(ref this.FirstStartUp, "FirstStartUp", true, true);
+            Scribe_Values.Look<bool>(ref this.EnergyNeedCompatMode, "EnergyNeedCompatMode", true, true);
         }
 
         public void ResetToDefault()
         {
 
+        }
+
+        public void SetBool(ref bool b, bool set)
+        {
+            b = set;
+        }
+
+        public void SetValue(ref int i, int set)
+        {
+            i = set;
         }
     }
 }
