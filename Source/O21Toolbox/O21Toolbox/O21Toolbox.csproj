@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alliances\AllianceDef.cs" />
+    <Compile Include="ApparelRestrict\CompProperties_BodyRestrict.cs" />
+    <Compile Include="ApparelRestrict\Comp_BodyRestrict.cs" />
+    <Compile Include="ApparelRestrict\RestrictionCheck.cs" />
     <Compile Include="Bunker\CompProperties_Bunker.cs" />
     <Compile Include="Bunker\Comp_Bunker.cs" />
     <Compile Include="Needs\JobDefOf.cs" />

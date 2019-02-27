@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 
 using Harmony;
+using Harmony.ILCopying;
 using UnityEngine;
 using RimWorld;
 using Verse;
 using System.Reflection;
 using O21Toolbox.ResearchBenchSub;
 using O21Toolbox.Needs;
+using O21Toolbox.ApparelRestrict;
 using Verse.AI;
 using RimWorld.Planet;
+using AlienRace;
 
 namespace O21Toolbox
 {
@@ -31,6 +34,8 @@ namespace O21Toolbox
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;
 
+        private static readonly Type patchType = typeof(HarmonyPatches);
+
         static HarmonyPatches()
         {
             //Try get needs.
@@ -38,6 +43,8 @@ namespace O21Toolbox
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
+
+            #region EnergyNeed
 
             //Patch, Method: Pawn_NeedsTracker
             {
@@ -209,12 +216,18 @@ namespace O21Toolbox
 
                 //Log.Message("Patched Alert_Boredom.BoredPawns");
             }
+            #endregion EnergyNeed
+
+            #region ApparelRestrict
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
+            #endregion ApparelRestrict
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         // Patches
 
+        #region ResearchBenchSub
         /// <summary>
         /// Patch for enabling comped research benches to act like they either are another bench, or act like they have a specific facility attached.
         /// </summary>
@@ -257,7 +270,9 @@ namespace O21Toolbox
             }
         }
         **/
+        #endregion ResearchBenchSub
 
+        #region EnergyNeedPatches
         public static bool Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood(
             ref List<Pawn> pawns, List<ThingDefCount> extraFood, int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction,
             WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
@@ -676,5 +691,67 @@ namespace O21Toolbox
         {
             return (Pawn)int_Pawn_InteractionsTracker_GetPawn.GetValue(instance);
         }
+        #endregion NeedEnergyPatches
+
+        #region ApparelRestrictPatches
+
+        /** public static void GenerateStartingApparelForPrefix(Pawn pawn)
+        {
+            Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
+            HarmonyPatches.apparelList = new HashSet<ThingStuffPair>();
+            foreach (ThingStuffPair thingStuffPair in traverse.GetValue<List<ThingStuffPair>>().ListFullCopy<ThingStuffPair>())
+            {
+                if (!RaceRestrictionSettings.CanWear(thingStuffPair.thing, pawn.def))
+                {
+                    HarmonyPatches.apparelList.Add(thingStuffPair);
+                }
+            }
+            traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
+        } **/
+
+        public static void AddHumanlikeOrdersPostfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
+        {
+            IntVec3 c = IntVec3.FromVector3(clickPos);
+            if (pawn.apparel == null)
+            {
+                return;
+            }
+            Apparel apparel = pawn.Map.thingGrid.ThingAt<Apparel>(c);
+            if (apparel == null)
+            {
+                return;
+            }
+            List<FloatMenuOption> list2 = (from fmo in opts
+                                           where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort))
+                                           select fmo).ToList<FloatMenuOption>();
+            if(list2.NullOrEmpty<FloatMenuOption>() || RaceRestrictionSettings.CanWear(apparel.def, pawn.def))
+            {
+                if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() == null)
+                {
+                    return;
+                }
+                if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
+                {
+                    if (RestrictionCheck.CanWear(apparel, pawn.story.bodyType))
+                    {
+                        return;
+                    }
+                }
+                foreach (FloatMenuOption item3 in list2)
+                {
+                    int index3 = opts.IndexOf(item3);
+                    opts.Remove(item3);
+                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort) + " (" + pawn.story.bodyType.LabelCap + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                }
+                return;
+            }
+            foreach (FloatMenuOption item3 in list2)
+            {
+                int index3 = opts.IndexOf(item3);
+                opts.Remove(item3);
+                opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort) + " (" + pawn.def.LabelCap + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+            }
+        }
+        #endregion ApparelRestrictPatches
     }
 }

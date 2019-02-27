@@ -326,17 +326,15 @@ namespace O21Toolbox.PawnConverter
             {
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = converterComp.Props.forcedSkinColorOne;
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = converterComp.Props.forcedSkinColorTwo;
-                Log.Error("Successfully changed skin for " + pawn.Name);
             }
             if (converterComp.Props.randomSkinColor)
             {
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
-                Log.Error("Successfully changed skin for " + pawn.Name);
             }
             else
             {
-                Log.Error("Failed to change skin for " + pawn.Name);
+
             }
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();
 
