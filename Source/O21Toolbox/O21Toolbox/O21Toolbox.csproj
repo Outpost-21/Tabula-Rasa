@@ -61,6 +61,28 @@
     <Compile Include="ApparelRestrict\RestrictionCheck.cs" />
     <Compile Include="Bunker\CompProperties_Bunker.cs" />
     <Compile Include="Bunker\Comp_Bunker.cs" />
+    <Compile Include="Laser\Building_LaserGun.cs" />
+    <Compile Include="Laser\Building_LaserGunDef.cs" />
+    <Compile Include="Laser\IBeamColorThing.cs" />
+    <Compile Include="Laser\IDrawnWeaponWithRotation.cs" />
+    <Compile Include="Laser\JobDefOf.cs" />
+    <Compile Include="Laser\JobDriver_ChangeLaserColor.cs" />
+    <Compile Include="Laser\LaserBeam.cs" />
+    <Compile Include="Laser\LaserBeamColoring.cs" />
+    <Compile Include="Laser\LaserBeamDef.cs" />
+    <Compile Include="Laser\LaserBeamGraphic.cs" />
+    <Compile Include="Laser\LaserGun.cs" />
+    <Compile Include="Laser\LaserGunDef.cs" />
+    <Compile Include="Laser\MeshMakerLaser.cs" />
+    <Compile Include="Laser\MoteLaserDectoration.cs" />
+    <Compile Include="Harmony\Patches\PatchGunDrawing.cs" />
+    <Compile Include="Harmony\Patches\PatchTuretTopDrawTurret.cs" />
+    <Compile Include="Laser\SpinningLaserGun.cs" />
+    <Compile Include="Laser\SpinningLaserGunBase.cs" />
+    <Compile Include="Laser\SpinningLaserGunDef.cs" />
+    <Compile Include="Laser\SpinningLaserGunTurret.cs" />
+    <Compile Include="Laser\ThingDefOf.cs" />
+    <Compile Include="Laser\ThingExtensions.cs" />
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />
     <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
@@ -68,9 +90,12 @@
     <Compile Include="Needs\NeedsDefOf.cs" />
     <Compile Include="Needs\Utility_MechanicalPawn.cs" />
     <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
-    <Compile Include="Network\NetworkDef.cs" />
+    <Compile Include="Networks\NetworkDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
     <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
+    <Compile Include="WeaponRestrict\CompProperties_ApparelRestrict.cs" />
+    <Compile Include="WeaponRestrict\Comp_ApparelRestrict.cs" />
+    <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
     <None Include="Spaceship\AirStrikeDef.cs" />
     <None Include="Spaceship\Building_AirStrikeBeacon.cs" />
     <None Include="Spaceship\Building_LandingPad.cs" />
@@ -169,7 +194,7 @@
     <Compile Include="PawnConverter\Building_Converter.cs" />
     <Compile Include="PawnConverter\Comp_Converter.cs" />
     <Compile Include="PawnConverter\CompProperties_Converter.cs" />
-    <Compile Include="HarmonyPatches.cs" />
+    <Compile Include="Harmony\HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
     <None Include="Spaceship\PlaceWorker_NotUnderBuilding.cs" />
@@ -191,6 +216,8 @@
     <Compile Include="PawnCrafter\WorkGiver_PawnCrafter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Toolbar\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

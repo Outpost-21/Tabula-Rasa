@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Network
+namespace O21Toolbox.Networks
 {
     /// <summary>
     /// Defines a new network.

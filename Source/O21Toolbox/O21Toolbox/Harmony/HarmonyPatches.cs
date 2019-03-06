@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+
+using UnityEngine;
+using RimWorld;
+using RimWorld.Planet;
+using Verse;
+using Verse.AI;
 
 using Harmony;
 using Harmony.ILCopying;
-using UnityEngine;
-using RimWorld;
-using Verse;
-using System.Reflection;
-using O21Toolbox.ResearchBenchSub;
-using O21Toolbox.Needs;
+
+using O21Toolbox;
+using O21Toolbox.Alliances;
 using O21Toolbox.ApparelRestrict;
-using Verse.AI;
-using RimWorld.Planet;
+using O21Toolbox.Bunker;
+using O21Toolbox.Laser;
+using O21Toolbox.Needs;
+using O21Toolbox.Networks;
+using O21Toolbox.PawnConverter;
+using O21Toolbox.PawnCrafter;
+using O21Toolbox.ResearchBenchSub;
+using O21Toolbox.WeaponRestrict;
+
 using AlienRace;
 
 namespace O21Toolbox
@@ -218,9 +229,9 @@ namespace O21Toolbox
             }
             #endregion EnergyNeed
 
-            #region ApparelRestrict
+            #region Restrict
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
-            #endregion ApparelRestrict
+            #endregion Restrict
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
@@ -693,28 +704,42 @@ namespace O21Toolbox
         }
         #endregion NeedEnergyPatches
 
-        #region ApparelRestrictPatches
-
-        /** public static void GenerateStartingApparelForPrefix(Pawn pawn)
-        {
-            Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
-            HarmonyPatches.apparelList = new HashSet<ThingStuffPair>();
-            foreach (ThingStuffPair thingStuffPair in traverse.GetValue<List<ThingStuffPair>>().ListFullCopy<ThingStuffPair>())
-            {
-                if (!RaceRestrictionSettings.CanWear(thingStuffPair.thing, pawn.def))
-                {
-                    HarmonyPatches.apparelList.Add(thingStuffPair);
-                }
-            }
-            traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
-        } **/
-
+        #region RestrictPatches
         public static void AddHumanlikeOrdersPostfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
         {
             IntVec3 c = IntVec3.FromVector3(clickPos);
-            if (pawn.apparel == null)
+            if (pawn.equipment != null)
             {
-                return;
+                ThingWithComps equipment = (ThingWithComps)c.GetThingList(pawn.Map).FirstOrDefault((Thing t) => t.TryGetComp<CompEquippable>() != null && t.def.IsWeapon);
+                if (equipment != null)
+                {
+                    List<FloatMenuOption> list = (from fmo in opts
+                                                  where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
+                                                  select fmo).ToList<FloatMenuOption>();
+                    if (!list.NullOrEmpty<FloatMenuOption>() && !RaceRestrictionSettings.CanEquip(equipment.def, pawn.def))
+                    {
+                        foreach (FloatMenuOption item2 in list)
+                        {
+                            int index2 = opts.IndexOf(item2);
+                            opts.Remove(item2);
+                            opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShort) + " (" + pawn.def.LabelCap + " can't equip this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                        }
+                        return;
+                    }
+                    if(!list.NullOrEmpty<FloatMenuOption>() && equipment.def.GetCompProperties<CompProperties_ApparelRestrict>() != null)
+                    {
+                        if(!WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
+                        {
+                            foreach (FloatMenuOption item2 in list)
+                            {
+                                int index2 = opts.IndexOf(item2);
+                                opts.Remove(item2);
+                                opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShort) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                            }
+                            return;
+                        }
+                    }
+                }
             }
             Apparel apparel = pawn.Map.thingGrid.ThingAt<Apparel>(c);
             if (apparel == null)
@@ -732,7 +757,7 @@ namespace O21Toolbox
                 }
                 if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
                 {
-                    if (RestrictionCheck.CanWear(apparel, pawn.story.bodyType))
+                    if (ApparelRestrict.RestrictionCheck.CanWear(apparel, pawn.story.bodyType))
                     {
                         return;
                     }
@@ -752,6 +777,6 @@ namespace O21Toolbox
                 opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort) + " (" + pawn.def.LabelCap + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
         }
-        #endregion ApparelRestrictPatches
+        #endregion RestrictPatches
     }
 }
