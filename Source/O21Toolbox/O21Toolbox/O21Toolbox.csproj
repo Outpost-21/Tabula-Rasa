@@ -36,7 +36,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\Mods_Old\AlienRace\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\..\Users\Dean\Google Drive\Rimworld Mods\Mod Sources\AlienRaces-master\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">

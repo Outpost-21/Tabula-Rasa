@@ -240,7 +240,6 @@ namespace O21Toolbox.Bunker
             {
                 yield return c;
             }
-            IEnumerator<Gizmo> enumerator = null;
             bool flag = base.Faction == Faction.OfPlayer && this.innerContainer.Count > 0;
             if (flag)
             {
