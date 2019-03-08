@@ -27,7 +27,7 @@ using O21Toolbox.WeaponRestrict;
 
 using AlienRace;
 
-namespace O21Toolbox
+namespace O21Toolbox.Harmony
 {
     [StaticConstructorOnStartup]
     public static class HarmonyPatches
@@ -54,6 +54,10 @@ namespace O21Toolbox
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
+
+            #region Alliances
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
+            #endregion Alliances
 
             #region EnergyNeed
 
@@ -237,6 +241,48 @@ namespace O21Toolbox
         }
 
         // Patches
+
+        #region Alliances
+        public static void TryMakeInitialRelationsWithPostfix(Faction __instance, Faction other)
+        {
+            IEnumerable<AllianceDef> enumerable = from def in DefDatabase<AllianceDef>.AllDefs
+                                                where def.memberFactions != null
+                                                select def;
+            foreach (AllianceDef current in enumerable)
+            {
+                if (current.memberFactions.Contains(__instance.def))
+                {
+                    foreach(FactionDef faction in current.memberFactions)
+                    {
+                        if(faction != __instance.def && faction == other.def)
+                        {
+                            FactionRelation factionRelation = other.RelationWith(__instance, false);
+                            factionRelation.goodwill = 100;
+                            factionRelation.kind = FactionRelationKind.Ally;
+                            FactionRelation factionRelation2 = __instance.RelationWith(other, false);
+                            factionRelation2.goodwill = 100;
+                            factionRelation2.kind = FactionRelationKind.Ally;
+                        }
+                    }
+
+                    current.factionRelations.ForEach(delegate (RelationFaction rf)
+                    {
+                        if(rf.faction == other.def)
+                        {
+                            int relation = rf.relation;
+                            FactionRelationKind kind = (relation > 75) ? FactionRelationKind.Ally : ((relation <= -10) ? FactionRelationKind.Hostile : FactionRelationKind.Neutral);
+                            FactionRelation factionRelation = other.RelationWith(__instance, false);
+                            factionRelation.goodwill = relation;
+                            factionRelation.kind = kind;
+                            FactionRelation factionRelation2 = __instance.RelationWith(other, false);
+                            factionRelation2.goodwill = relation;
+                            factionRelation2.kind = kind;
+                        }
+                    });
+                }
+            }
+        }
+        #endregion Alliances
 
         #region ResearchBenchSub
         /// <summary>

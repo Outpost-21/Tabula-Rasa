@@ -56,11 +56,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alliances\AllianceDef.cs" />
+    <Compile Include="Alliances\RelationAlliance.cs" />
+    <Compile Include="Alliances\RelationFaction.cs" />
     <Compile Include="ApparelRestrict\CompProperties_BodyRestrict.cs" />
     <Compile Include="ApparelRestrict\Comp_BodyRestrict.cs" />
     <Compile Include="ApparelRestrict\RestrictionCheck.cs" />
     <Compile Include="Bunker\CompProperties_Bunker.cs" />
     <Compile Include="Bunker\Comp_Bunker.cs" />
+    <Compile Include="Harmony\Patches\TryMakeInitialRelationsWithPostfix.cs" />
     <Compile Include="Laser\Building_LaserGun.cs" />
     <Compile Include="Laser\Building_LaserGunDef.cs" />
     <Compile Include="Laser\IBeamColorThing.cs" />

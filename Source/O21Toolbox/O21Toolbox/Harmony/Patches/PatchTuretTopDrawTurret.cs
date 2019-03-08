@@ -10,7 +10,9 @@ using Verse;
 
 using Harmony;
 
-namespace O21Toolbox.Laser
+using O21Toolbox.Laser;
+
+namespace O21Toolbox.Harmony
 {
     [HarmonyPatch(typeof(TurretTop), "DrawTurret", new Type[] { }), StaticConstructorOnStartup]
     class PatchTuretTopDrawTurret

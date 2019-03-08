@@ -24,23 +24,9 @@ namespace O21Toolbox.Alliances
         /// </summary>
         public List<RelationFaction> factionRelations = new List<RelationFaction>();
 
-        public class RelationFaction
-        {
-            public FactionDef faction;
-
-            public int relation;
-        }
-
         /// <summary>
         /// Defined relations to start against other alliances.
         /// </summary>
         public List<RelationAlliance> allianceRelations = new List<RelationAlliance>();
-
-        public class RelationAlliance
-        {
-            public AllianceDef alliance;
-
-            public int relation;
-        }
     }
 }
