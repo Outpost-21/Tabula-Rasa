@@ -7,15 +7,16 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.PawnConverter
+namespace O21Toolbox.AreaEffects
 {
-    public class Comp_Converter : ThingComp
+    public class Comp_AreaEffects : ThingComp
     {
-        public CompProperties_Converter Props
+
+        public CompProperties_AreaEffects Props
         {
             get
             {
-                return (CompProperties_Converter)this.props;
+                return (CompProperties_AreaEffects)this.props;
             }
         }
 

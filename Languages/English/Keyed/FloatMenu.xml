@@ -34,5 +34,13 @@
 		
 		<PawnCrafterRepeatLabel>repeat last pawn</PawnCrafterRepeatLabel>
 		<PawnCrafterRepeatDescription>if active, repeats the last pawn production task</PawnCrafterRepeatDescription>
+	
+	<!-- ========== O21Toolbox.PawnConverter ========== -->
+	
+		<PawnConverterConvert>Conversion: {0} </PawnConverterConvert>
+		<PawnConverterInvalidRace>Conversion: {0} (invalid race) </PawnConverterInvalidRace>
+		<PawnConverterInvalidGender>Conversion: {0} (invalid gender) </PawnConverterInvalidGender>
+		<PawnConverterInvalidHediffs>Conversion: {0} (invalid hediffs) </PawnConverterInvalidHediffs>
+		<PawnConverterNeedsResearch>Conversion: {0} (requires research: {1}) </PawnConverterNeedsResearch>
  
 </LanguageData>

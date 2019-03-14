@@ -7,35 +7,31 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
+using O21Toolbox.PawnCrafter;
+
 namespace O21Toolbox.PawnConverter
 {
-    public class CompProperties_Converter : CompProperties
+    public class PawnConvertingDef : Def
     {
-        public CompProperties_Converter()
-        {
-            this.compClass = typeof(Comp_Converter);
-        }
+        /// <summary>
+        /// Building DefNames for converters capable of performing this conversion.
+        /// </summary>
+        public List<string> recipeUsers = null;
 
         /// <summary>
-        /// Sets if the converter requires power to process a pawn.
+        /// In what order to display this in menus.
         /// </summary>
-        public bool requiresPower = false; // Done.
+        public int orderID = 0;
+
+        /// <summary>
+        /// Research required in order to perform conversion.
+        /// </summary>
+        public ResearchProjectDef requiredResearch;
 
         /// <summary>
         /// Viable inputs for conversion. Uses the defName of the race itself. Should be able to accept any pawn race if left 'null'.
         /// </summary>
         public List<string> inputDefs = null; // Done.
-
-        /// <summary>
-        /// Vanilla humans don't like the new story transfer, it's better to use the old method for them.
-        /// </summary>
-        public bool useOldStoryTransfer = false;
-
-        /// <summary>
-        /// Target output for converts. Uses pawnKinds to retrieve a target race as well as generating the random options for other variables.
-        /// Doesn't change race at all if left 'null'.
-        /// </summary>
-        public PawnKindDef outputDef = null; // Done.
 
         /// <summary>
         /// Sets if the input pawn needs to be a specific sex. Accepts Male or Female, leaving 'null' will ignore the requirement.
@@ -57,9 +53,15 @@ namespace O21Toolbox.PawnConverter
         public bool removeRequiredHediffs = false; // Needs More Testing.
 
         /// <summary>
-        /// Hediffs to force onto the output pawn, if they already have the hediff it will not be applied.
+        /// Converting from vanilla humans to an alien is fucky as hell, this is limited but removes errors.
         /// </summary>
-        public Hediff forcedHediff = null; // Needs More Testing.
+        public bool vanillaToAlien = false;
+
+        /// <summary>
+        /// Target output for converts. Uses pawnKinds to retrieve a target race as well as generating the random options for other variables.
+        /// Doesn't change race at all if left 'null'.
+        /// </summary>
+        public PawnKindDef outputDef = null; // Done.
 
         /// <summary>
         /// Changes sex/gender of the pawn during conversion. Accepts Male or Female.
@@ -75,6 +77,11 @@ namespace O21Toolbox.PawnConverter
         /// Forces the crownType of a pawn, must match the texture exactly. Writing "RANDOM" instead will use the new random pawns head type, useful for if there are no direct matches.
         /// </summary>
         public string forcedHead = null; // Needs More Testing.
+
+        /// <summary>
+        /// Hediffs to force onto the output pawn, if they already have the hediff it will not be applied.
+        /// </summary>
+        public Hediff forcedHediff = null; // Needs More Testing.
 
         /// <summary>
         /// Sets if to change skin colour during conversion. 
@@ -124,57 +131,10 @@ namespace O21Toolbox.PawnConverter
         public Color hairColorTwo = new Color(0, 0, 0); // Needs More Testing.
 
         /// <summary>
-        /// Not Implemented Yet. Setting for if the pawn can be forced into the building.
-        /// </summary>
-        public string forcedConversion = null; // Not Implemented.
-
-        /// <summary>
-        /// Not Implemented Yet. Setting for if the input pawn can be an animal.
-        /// Requested feature.
-        /// </summary>
-        public string animalConversion = null; // Not Implemented.
-
-        /// <summary>
-        /// Sets the soundDef that plays when the converter is done.
-        /// </summary>
-        public SoundDef finishingSound = null; // Needs More Testing.
-
-        /// <summary>
-        /// Sets the Glower colour for when the converter is ready to be used.
-        /// </summary>
-        public ColorInt greenLight = new ColorInt(100, 255, 100, 0); // Needs More Testing.
-
-        /// <summary>
-        /// Sets the Glower colour for when the converter is NOT ready to be used.
-        /// </summary>
-        public ColorInt redLight = new ColorInt(252, 187, 113, 0); // Needs More Testing.
-
-        /// <summary>
         /// Sets amount of time pawns will be in the chamber for during conversion. 
         /// Keep in mind if they leave the chamber during this time it will cancel the conversion.
         /// One Rimworld day is 60000 (60k).
         /// </summary>
-        public int cookingTime = 1000; // Needs More Testing.
-        
-        /// <summary>
-        /// Should the timer bar be visible? True or False.
-        /// </summary>
-        public bool timerBarEnabled = false; // Needs Testing.
-        /// <summary>
-        /// Size of the bar. (X, Y)
-        /// </summary>
-        public Vector2 timerBarSize = new Vector2(0.55f, 0.16f);
-        /// <summary>
-        /// Offset of the bar. (X, Y)
-        /// </summary>
-        public Vector2 timerBarOffset = new Vector2(0.0f, 0.0f);
-        /// <summary>
-        /// Colour for when the timer is filling in.
-        /// </summary>
-        public Color timerBarFill = new Color(0.9f, 0.9f, 0.10f);
-        /// <summary>
-        /// Colour for the empty bar.
-        /// </summary>
-        public Color timerBarUnfill = new Color(0.6f, 0.6f, 0.6f);
+        public int conversionTime = 0; // Needs More Testing.
     }
 }

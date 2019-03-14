@@ -8,52 +8,146 @@ using RimWorld;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
+
 using AlienRace;
+
+using O21Toolbox.PawnCrafter;
 
 namespace O21Toolbox.PawnConverter
 {
-    public class Building_Converter : Building_Casket
+    public class Building_Converter : Building_Casket, IThingHolder
     {
         [DefOf]
         public static class ConverterDefOf
         {
+            /// <summary>
+            /// Job def telling pawns to enter the converter.
+            /// </summary>
             public static JobDef EnterConverter;
         }
 
-        protected int ICookingTicking = 0;
+        /// <summary>
+        /// Converter Component.
+        /// </summary>
+        protected ConverterProperties converterProperties;
 
-        public int ICookingTime = 12000; //60k = 1 day.
+        /// <summary>
+        /// Power component.
+        /// </summary>
+        protected CompPowerTrader powerComp;
 
-        public CompPowerTrader powerComp;
+        /// <summary>
+        /// Flickable component.
+        /// </summary>
+        protected CompFlickable flickableComp;
 
-        public CompGlower glowerComp;
+        /// <summary>
+        /// Current tick progress
+        /// </summary>
+        protected int ICookingTicking;
 
-        public Comp_Converter converterComp;
+        /// <summary>
+        /// Time it takes to cook
+        /// </summary>
+        protected int ICookingTime;
 
-        public ColorInt red = new ColorInt(252, 187, 113, 0);
+        /// <summary>
+        /// Ticks left until pawn is finished converting.
+        /// </summary>
+        public int conversionTicksLeft = 0;
+        /// <summary>
+        /// Ticks left until next resource drain tick.
+        /// </summary>
+        public int nextResourceTick = 0;
+        /// <summary>
+        /// Set by recipe.
+        /// </summary>
+        public int conversionTime = 0;
 
-        public ColorInt green = new ColorInt(100, 255, 100, 0);
+        /// <summary>
+        /// Stored ingredients for using while converting.
+        /// </summary>
+        public ThingOwner<Thing> ingredients = new ThingOwner<Thing>();
 
-        public ColorInt currentColour;
-
-        public bool powerOn => powerComp.PowerOn;
+        /// <summary>
+        /// Recipe chosen for converting pawn.
+        /// </summary>
+        public PawnConvertingDef chosenRecipe = null;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
-            glowerComp = this.GetComp<CompGlower>();
-            powerComp = this.GetComp<CompPowerTrader>();
-            converterComp = this.GetComp<Comp_Converter>();
-            ICookingTime = converterComp.Props.cookingTime;
-            red = converterComp.Props.redLight;
-            green = converterComp.Props.greenLight;
-            ChangeColour(green);
-            currentColour = green;
+            powerComp = GetComp<CompPowerTrader>();
+            flickableComp = GetComp<CompFlickable>();
+            converterProperties = def.GetModExtension<ConverterProperties>();
         }
+
+        public override void PostMake()
+        {
+            base.PostMake();
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref conversionTicksLeft, "conversionTicksLeft");
+            Scribe_Values.Look(ref nextResourceTick, "nextResourceTick");
+            Scribe_Values.Look<int>(ref conversionTime, "conversionTime");
+        }
+
+        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+        {
+            //Drop ingredients.
+            if (mode != DestroyMode.Vanish)
+                ingredients.TryDropAll(PositionHeld, MapHeld, ThingPlaceMode.Near);
+
+            base.Destroy(mode);
+        }
+
+        /// <summary>
+        /// How finished the crafting is in percentage based time. 0.0f to 1.0f
+        /// </summary>
+        public float ConversionFinishedPercentage
+        {
+            get
+            {
+                if (converterProperties.customConversionTime)
+                {
+                    return ((float)((float)conversionTime - conversionTicksLeft) / (float)conversionTime);
+                }
+                else
+                {
+                    return ((float)((float)converterProperties.ticksToConvert - conversionTicksLeft) / (float)converterProperties.ticksToConvert);
+                }
+            }
+        }
+
+        /// <summary>
+        /// How many ticks it take to craft a pawn.
+        /// </summary>
+        public int ConvertingTicks
+        {
+            get
+            {
+                if (converterProperties.customConversionTime)
+                {
+                    return conversionTime;
+                }
+                else
+                {
+                    return converterProperties.ticksToConvert;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the Storage tab to be visible.
+        /// </summary>
+        public bool StorageTabVisible => true;
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
-            if (converterComp.Props.requiresPower)
+            if (converterProperties.requiresPower)
             {
                 if (!powerComp.PowerOn)
                 {
@@ -80,77 +174,124 @@ namespace O21Toolbox.PawnConverter
                     item3
                 };
             }
-            if (converterComp.Props.requiredSex != null)
-            {
-                if(converterComp.Props.requiredSex == Gender.Male.ToString() && Gender.Male != myPawn.gender)
-                {
-                    FloatMenuOption item4 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                    return new List<FloatMenuOption>
-                    {
-                        item4
-                    };
-                }
-                if(converterComp.Props.requiredSex == Gender.Female.ToString() && Gender.Female != myPawn.gender)
-                {
-                    FloatMenuOption item4 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                    return new List<FloatMenuOption>
-                    {
-                        item4
-                    };
-                }
-            }
-            if(converterComp.Props.inputDefs != null)
-            {
-                if (!converterComp.Props.inputDefs.Contains(myPawn.def.defName))
-                {
-                    FloatMenuOption item5 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                    return new List<FloatMenuOption>
-                    {
-                        item5
-                    };
-                }
-            }
-            if (converterComp.Props.requiredHediffs != null)
-            {
-                if (!this.HasRequiredHediffs(myPawn))
-                {
-                    FloatMenuOption item5 = new FloatMenuOption("CannotUseNotViable".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null);
-                    return new List<FloatMenuOption>
-                    {
-                        item5
-                    };
-                }
-            }
             if (!this.HasAnyContents)
             {
-                FloatMenuOption item6 = new FloatMenuOption(Translator.Translate("EnterConverter"), (Action)delegate
+                List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
+                foreach (PawnConvertingDef def in DefDatabase<PawnConvertingDef>.AllDefs.OrderBy(def => def.orderID))
+                {
+                    if (def.recipeUsers == null || (def.recipeUsers != null && def.recipeUsers.Any(x => x == this.def.defName)))
+                    {
+                        bool disabled = false;
+                        int reason = 0;
+                        string labelText = "";
+                        // Check research
+                        if (def.requiredResearch != null && !def.requiredResearch.IsFinished)
+                        {
+                            disabled = true;
+                            reason = 0;
+                        }
+                        // Check input Race
+                        if (!IsViableRace(myPawn, def))
+                        {
+                            disabled = true;
+                            reason = 1;
+                        }
+                        // Check input Sex
+                        if(!IsRequiredSex(myPawn, def))
+                        {
+                            disabled = true;
+                            reason = 2;
+                        }
+                        // Check input hediffs
+                        if(!HasRequiredHediffs(myPawn, def))
+                        {
+                            disabled = true;
+                            reason = 3;
+                        }
+
+                        // If disabled, say why.
+                        if (disabled)
+                        {
+                            switch (reason)
+                            {
+                                case 0:
+                                    labelText = "PawnConverterNeedsResearch".Translate(def.label, def.requiredResearch.LabelCap);
+                                    break;
+                                case 1:
+                                    labelText = "PawnConverterInvalidRace".Translate(def.label);
+                                    break;
+                                case 2:
+                                    labelText = "PawnConverterInvalidGender".Translate(def.label);
+                                    break;
+                                case 3:
+                                    labelText = "PawnConverterInvalidHediffs".Translate(def.label);
+                                    break;
+                                default:
+                                    labelText = "PawnConverterNeedsResearch".Translate(def.label, def.requiredResearch.LabelCap);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            labelText = "PawnConverterConvert".Translate(def.label);
+                        }
+
+                        FloatMenuOption option = new FloatMenuOption(labelText,
+                        (Action)delegate ()
+                        {
+                            if (!disabled)
+                            {
+                                Job val2 = new Job(ConverterDefOf.EnterConverter, this);
+                                ReservationUtility.Reserve(myPawn, this, val2);
+                                myPawn.jobs.TryTakeOrderedJob(val2);
+                                chosenRecipe = def;
+                                ICookingTime = chosenRecipe.conversionTime;
+                            }
+                        });
+
+                        option.Disabled = disabled;
+                        floatMenuOptions.Add(option);
+                    }
+                }
+
+                if (floatMenuOptions.Count > 0)
+                {
+                    return floatMenuOptions;
+                }
+
+                //Old Shit
+                /** FloatMenuOption item6 = new FloatMenuOption(Translator.Translate("EnterConverter"), (Action)delegate
                 {
                     Job val2 = new Job(ConverterDefOf.EnterConverter, this);
                     ReservationUtility.Reserve(myPawn, this, val2);
                     myPawn.jobs.TryTakeOrderedJob(val2);
                 }, MenuOptionPriority.Default, (Action)null, null, 0f, (Func<Rect, bool>)null, null);
                 return new List<FloatMenuOption>
-            {
-                item6
-            };
+                {
+                    item6
+                }; **/
             }
             return null;
         }
 
-        public bool HasRequiredHediffs(Pawn pawn)
+        public bool HasRequiredHediffs(Pawn pawn, PawnConvertingDef recipe)
         {
-            if(converterComp.Props.requiredHediffs.All(x => pawn.health.hediffSet.HasHediff(x, false)))
+            if(recipe.requiredHediffs == null)
             {
-                if (converterComp.Props.hediffSeverityMatters)
+                return true;
+            }
+            if(recipe.requiredHediffs.All(x => pawn.health.hediffSet.HasHediff(x, false)))
+            {
+                if (recipe.hediffSeverityMatters)
                 {
-                    IEnumerable<HediffDef> enumerable = from def in converterComp.Props.requiredHediffs
+                    IEnumerable<HediffDef> enumerable = from def in recipe.requiredHediffs
                                                         where pawn.health.hediffSet.HasHediff(def, false)
                                                         select def;
                     foreach (HediffDef current in enumerable)
                     {
                         if (pawn.health.hediffSet.GetFirstHediffOfDef(current, false) != null)
                         {
-                            if (pawn.health.hediffSet.GetFirstHediffOfDef(current, false).Severity < converterComp.Props.requiredHediffSeverity)
+                            if (pawn.health.hediffSet.GetFirstHediffOfDef(current, false).Severity < recipe.requiredHediffSeverity)
                             {
                                 return false;
                             }
@@ -162,26 +303,48 @@ namespace O21Toolbox.PawnConverter
             return false;
         }
 
+        public bool IsRequiredSex(Pawn pawn, PawnConvertingDef recipe)
+        {
+            if(recipe.requiredSex != null)
+            {
+                if(recipe.requiredSex != pawn.gender.ToString())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool IsViableRace(Pawn pawn, PawnConvertingDef recipe)
+        {
+            if(!recipe.inputDefs.Any(x => x == pawn.def.defName))
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void CookIt()
         {
             ThingOwner convertedContainer = new ThingOwner<Thing>();
             foreach (Thing item in this.innerContainer)
             {
-                if (item is Pawn val)
+                if (item is Pawn val && this.chosenRecipe != null)
                 {
-                    convertedContainer.TryAdd(ConversionProcess(val));
+                    convertedContainer.TryAdd(ConversionProcess(val, this.chosenRecipe));
                 }
             }
             this.innerContainer.ClearAndDestroyContents();
             this.innerContainer = convertedContainer;
+            this.chosenRecipe = null;
         }
 
-        protected Pawn ConversionProcess(Pawn pawnToConvert)
+        protected Pawn ConversionProcess(Pawn pawnToConvert, PawnConvertingDef recipe)
         {
-            Gender outputGender = GetOutputGender(pawnToConvert);
+            Gender outputGender = GetOutputGender(pawnToConvert, recipe);
 
             PawnGenerationRequest request = new PawnGenerationRequest(
-                converterComp.Props.outputDef,
+                recipe.outputDef,
                 faction: Faction.OfPlayer,
                 forceGenerateNewPawn: true,
                 canGeneratePawnRelations: false,
@@ -201,32 +364,32 @@ namespace O21Toolbox.PawnConverter
             // Transfer everything from old pawn to new pawn
             pawn.drugs = pawnToConvert.drugs;
             pawn.foodRestriction = pawnToConvert.foodRestriction;
-            // pawn.guilt = pawnToConvert.guilt;
-            // pawn.health = pawnToConvert.health;
+            // pawn.guilt = pawnToConvert.guilt; - Caused issues with thoughts. Didn't seem necessary.
+            // pawn.health = pawnToConvert.health; - Caused issues with taking damage, to the point of making pawns invulnerable. Didn't seem necessary.
             pawn.health.hediffSet = pawnToConvert.health.hediffSet;
-            // pawn.needs = pawnToConvert.needs;
+            // pawn.needs = pawnToConvert.needs; - Caused issues with needs. Didn't seem necessary.
             pawn.records = pawnToConvert.records;
             pawn.skills = pawnToConvert.skills;
 
-            TransferStory(pawn, pawnToConvert);
+            TransferStory(pawn, pawnToConvert, recipe);
 
             pawn.timetable = pawnToConvert.timetable;
             pawn.workSettings = pawnToConvert.workSettings;
             pawn.Name = pawnToConvert.Name;
 
-            ApplyHairChange(pawn, newPawn);
+            ApplyHairChange(pawn, newPawn, recipe);
 
-            ApplyHairColor(pawn, newPawn);
+            ApplyHairColor(pawn, newPawn, recipe);
 
-            ApplySkinChange(pawn, newPawn);
+            ApplySkinChange(pawn, newPawn, recipe);
 
-            ApplyHeadChange(pawn, newPawn);
+            ApplyHeadChange(pawn, newPawn, recipe);
 
-            ApplyBodyChange(pawn);
+            ApplyBodyChange(pawn, recipe);
 
-            RemoveRequiredHediffs(pawn);
+            RemoveRequiredHediffs(pawn, recipe);
 
-            ApplyForcedHediff(pawn);
+            ApplyForcedHediff(pawn, recipe);
 
             // FixPawnRelations(pawn, pawnToConvert);
 
@@ -235,34 +398,34 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn TransferStory(Pawn newPawn, Pawn oldPawn)
+        protected Pawn TransferStory(Pawn newPawn, Pawn oldPawn, PawnConvertingDef recipe)
         {
-            if (converterComp.Props.useOldStoryTransfer)
+            if (recipe.vanillaToAlien)
             {
                 newPawn.story = oldPawn.story;
 
                 newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
             }
-            else
+            if(!recipe.vanillaToAlien && newPawn.TryGetComp<AlienPartGenerator.AlienComp>() != null)
             {
                 newPawn.story.childhood = oldPawn.story.childhood;
                 newPawn.story.adulthood = oldPawn.story.adulthood;
                 newPawn.story.title = oldPawn.story.title;
                 newPawn.story.traits = oldPawn.story.traits;
-                if (converterComp.Props.forcedHead == null)
+                if (recipe.forcedHead == null)
                 {
                     newPawn.story.crownType = oldPawn.story.crownType;
                 }
-                if (!converterComp.Props.forcedSkinColor && !converterComp.Props.randomSkinColor)
+                if (!recipe.forcedSkinColor && !recipe.randomSkinColor)
                 {
                     newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
                     newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
                 }
-                if (!converterComp.Props.randomHair && converterComp.Props.forcedHair == null)
+                if (!recipe.randomHair && recipe.forcedHair == null)
                 {
                     newPawn.story.hairDef = oldPawn.story.hairDef;
                 }
-                if (!converterComp.Props.randomHairColor && !converterComp.Props.forcedHairColor)
+                if (!recipe.randomHairColor && !recipe.forcedHairColor)
                 {
                     newPawn.story.hairColor = oldPawn.story.hairColor;
                     if (oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond != null)
@@ -276,18 +439,18 @@ namespace O21Toolbox.PawnConverter
             return newPawn;
         }
 
-        protected Pawn ApplyHairChange(Pawn pawn, Pawn newPawn)
+        protected Pawn ApplyHairChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
         {
             // Change hair if needed.
-            if (!converterComp.Props.randomHair)
+            if (!recipe.randomHair)
             {
-                if (converterComp.Props.forcedHair != null)
+                if (recipe.forcedHair != null)
                 {
-                    pawn.story.hairDef = converterComp.Props.forcedHair;
+                    pawn.story.hairDef = recipe.forcedHair;
                 }
             }
 
-            if (converterComp.Props.randomHair)
+            if (recipe.randomHair)
             {
                 pawn.story.hairDef = newPawn.story.hairDef;
             }
@@ -295,21 +458,21 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn ApplyHairColor(Pawn pawn, Pawn newPawn)
+        protected Pawn ApplyHairColor(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
         {
             // Change hair colour if needed.
-            if (converterComp.Props.forcedHairColor)
+            if (recipe.forcedHairColor)
             {
-                if (converterComp.Props.forcedHairColorOne)
+                if (recipe.forcedHairColorOne)
                 {
-                    pawn.story.hairColor = converterComp.Props.hairColorOne;
+                    pawn.story.hairColor = recipe.hairColorOne;
                 }
-                if (converterComp.Props.forcedHairColorTwo)
+                if (recipe.forcedHairColorTwo)
                 {
-                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = converterComp.Props.hairColorTwo;
+                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = recipe.hairColorTwo;
                 }
             }
-            if (converterComp.Props.randomHairColor)
+            if (recipe.randomHairColor)
             {
                 pawn.story.hairColor = newPawn.story.hairColor;
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
@@ -319,15 +482,15 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn ApplySkinChange(Pawn pawn, Pawn newPawn)
+        protected Pawn ApplySkinChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
         {
             // Change skin colour if needed.
-            if (converterComp.Props.forcedSkinColor)
+            if (recipe.forcedSkinColor)
             {
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = converterComp.Props.forcedSkinColorOne;
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = converterComp.Props.forcedSkinColorTwo;
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = recipe.forcedSkinColorOne;
+                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = recipe.forcedSkinColorTwo;
             }
-            if (converterComp.Props.randomSkinColor)
+            if (recipe.randomSkinColor)
             {
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
                 pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
@@ -341,19 +504,19 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn ApplyHeadChange(Pawn pawn, Pawn newPawn)
+        protected Pawn ApplyHeadChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
         {
             // Change crown if needed.
-            if (converterComp.Props.forcedHead != null)
+            if (recipe.forcedHead != null)
             {
-                if (converterComp.Props.forcedHead == "RANDOM")
+                if (recipe.forcedHead == "RANDOM")
                 {
                     pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType;
                     pawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
                 else
                 {
-                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = converterComp.Props.forcedHead;
+                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = recipe.forcedHead;
                     pawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
             }
@@ -361,24 +524,24 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn ApplyBodyChange(Pawn pawn)
+        protected Pawn ApplyBodyChange(Pawn pawn, PawnConvertingDef recipe)
         {
             // Change body if needed.
-            if (converterComp.Props.forcedBody != null)
+            if (recipe.forcedBody != null)
             {
-                pawn.story.bodyType = converterComp.Props.forcedBody;
+                pawn.story.bodyType = recipe.forcedBody;
                 pawn.Drawer.renderer.graphics.ResolveAllGraphics();
             }
 
             return pawn;
         }
 
-        protected Pawn RemoveRequiredHediffs(Pawn pawn)
+        protected Pawn RemoveRequiredHediffs(Pawn pawn, PawnConvertingDef recipe)
         {
             // Remove required hediffs if needed.
-            if (converterComp.Props.removeRequiredHediffs)
+            if (recipe.removeRequiredHediffs)
             {
-                IEnumerable<HediffDef> enumerable = from def in converterComp.Props.requiredHediffs
+                IEnumerable<HediffDef> enumerable = from def in recipe.requiredHediffs
                                                     where pawn.health.hediffSet.HasHediff(def, false)
                                                     select def;
                 foreach (HediffDef current in enumerable)
@@ -390,14 +553,14 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        protected Pawn ApplyForcedHediff(Pawn pawn)
+        protected Pawn ApplyForcedHediff(Pawn pawn, PawnConvertingDef recipe)
         {
             // Apply Forced Hediff if needed.
-            if (converterComp.Props.forcedHediff != null)
+            if (recipe.forcedHediff != null)
             {
-                if (!pawn.health.hediffSet.hediffs.Contains(converterComp.Props.forcedHediff))
+                if (!pawn.health.hediffSet.hediffs.Contains(recipe.forcedHediff))
                 {
-                    pawn.health.hediffSet.AddDirect(converterComp.Props.forcedHediff);
+                    pawn.health.hediffSet.AddDirect(recipe.forcedHediff);
                 }
                 Log.Message("Pawn already has forced Hediff, new hediff was not applied.", false);
             }
@@ -405,12 +568,12 @@ namespace O21Toolbox.PawnConverter
             return pawn;
         }
 
-        private Gender GetOutputGender(Pawn inputPawn)
+        private Gender GetOutputGender(Pawn pawn, PawnConvertingDef recipe)
         {
             Gender outputGender;
-            if (converterComp.Props.outputSex != null)
+            if (recipe.outputSex != null)
             {
-                string outputSex = converterComp.Props.outputSex;
+                string outputSex = recipe.outputSex;
                 switch (outputSex)
                 {
                     case "Male":
@@ -421,20 +584,20 @@ namespace O21Toolbox.PawnConverter
                         break;
                     default:
                         Log.Message("Defined sex/gender does not exist in this context. Defaulting to original.", false);
-                        outputGender = inputPawn.gender;
+                        outputGender = pawn.gender;
                         break;
                 }
             }
             else
             {
-                outputGender = inputPawn.gender;
+                outputGender = pawn.gender;
             };
             return outputGender;
         }
 
         public override void Tick()
         {
-            if (converterComp.Props.requiresPower)
+            if (converterProperties.requiresPower)
             {
                 if (powerComp.PowerOn)
                 {
@@ -443,10 +606,6 @@ namespace O21Toolbox.PawnConverter
                         //Not the best way but this just ticks up until max is reached.
                         //It would be better to check the "endtime" with the Tickfinder
                         ICookingTicking++;
-                        if (currentColour != red)
-                        {
-                            ChangeColour(red);
-                        }
                         if (ICookingTicking >= ICookingTime)
                         {
                             CookIt();
@@ -454,17 +613,9 @@ namespace O21Toolbox.PawnConverter
                             ICookingTicking = 0;
                         }
                     }
-                    else if (currentColour != green)
-                    {
-                        ChangeColour(green);
-                    }
                 }
                 else
                 {
-                    if (currentColour != red)
-                    {
-                        ChangeColour(red);
-                    }
                     ICookingTicking = 0;
                     if (this.HasAnyContents)
                     {
@@ -472,7 +623,7 @@ namespace O21Toolbox.PawnConverter
                     }
                 }
             }
-            if (!converterComp.Props.requiresPower)
+            if (!converterProperties.requiresPower)
             {
                 if (this.HasAnyContents)
                 {
@@ -493,7 +644,7 @@ namespace O21Toolbox.PawnConverter
         {
             if (!this.Destroyed)
             {
-                SoundStarter.PlayOneShot(converterComp.Props.finishingSound, SoundInfo.OnCamera());
+                SoundStarter.PlayOneShot(converterProperties.finishingSound, SoundInfo.OnCamera());
             }
             ICookingTicking = 0;
             this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near);
@@ -503,7 +654,7 @@ namespace O21Toolbox.PawnConverter
         public override void Draw()
         {
             base.Draw();
-            if (converterComp.Props.timerBarEnabled)
+            if (converterProperties.timerBarEnabled)
             {
                 DrawTimerBar();
             }
@@ -513,11 +664,11 @@ namespace O21Toolbox.PawnConverter
         {
             //Replaced Drawhelper with vanilla drawer here
             GenDraw.FillableBarRequest fillableBarRequest = default(GenDraw.FillableBarRequest);
-            fillableBarRequest.preRotationOffset = converterComp.Props.timerBarOffset;
-            fillableBarRequest.size = converterComp.Props.timerBarSize;
+            fillableBarRequest.preRotationOffset = converterProperties.timerBarOffset;
+            fillableBarRequest.size = converterProperties.timerBarSize;
             fillableBarRequest.fillPercent = (float)ICookingTicking / (float)ICookingTime;
-            fillableBarRequest.filledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterComp.Props.timerBarFill);
-            fillableBarRequest.unfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterComp.Props.timerBarUnfill);
+            fillableBarRequest.filledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterProperties.timerBarFill);
+            fillableBarRequest.unfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(converterProperties.timerBarUnfill);
             Rot4 rotation = this.Rotation;
             rotation.Rotate(RotationDirection.Clockwise);
             fillableBarRequest.rotation = rotation;
@@ -544,26 +695,6 @@ namespace O21Toolbox.PawnConverter
             GenDraw.DrawFillableBar(fillableBarRequest);
         }
 
-        public void ChangeColour(ColorInt colour)
-        {
-
-            currentColour = colour;
-
-            if (glowerComp != null)
-            {
-                float newGlowRadius = glowerComp.Props.glowRadius;
-                this.Map.glowGrid.DeRegisterGlower(glowerComp);
-                glowerComp.Initialize(new CompProperties_Glower
-                {
-                    compClass = typeof(CompGlower),
-                    glowColor = colour,
-                    glowRadius = newGlowRadius
-                });
-                this.Map.mapDrawer.MapMeshDirty(this.Position, MapMeshFlag.Things);
-                this.Map.glowGrid.RegisterGlower(glowerComp);
-            }
-        }
-
         public override bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
         {
             if (base.TryAcceptThing(thing, allowSpecialEffects))
@@ -577,7 +708,7 @@ namespace O21Toolbox.PawnConverter
             return false;
         }
 
-        public static Building_Converter FindCryptosleepCasketFor(Pawn p, Pawn traveler, bool ignoreOtherReservations = false)
+        public static Building_Converter FindConverterFor(Pawn p, Pawn traveler, bool ignoreOtherReservations = false)
         {
             IEnumerable<ThingDef> enumerable = from def in DefDatabase<ThingDef>.AllDefs
                                                where typeof(Building_Converter).IsAssignableFrom(def.thingClass)
@@ -606,13 +737,6 @@ namespace O21Toolbox.PawnConverter
                 }
             }
             return null;
-        }
-
-        public override void ExposeData()
-        {
-            base.ExposeData();
-            Scribe_Values.Look<int>(ref this.ICookingTicking, "ICookingTicking", 0, false);
-            Scribe_Values.Look<int>(ref this.ICookingTime, "ICookingTime", 12000, false);
         }
     }
 
@@ -660,4 +784,5 @@ namespace O21Toolbox.PawnConverter
             yield return enter;
         }
     }
+
 }

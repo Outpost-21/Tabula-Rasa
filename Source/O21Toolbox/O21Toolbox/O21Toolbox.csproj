@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -61,31 +63,38 @@
     <Compile Include="ApparelRestrict\CompProperties_BodyRestrict.cs" />
     <Compile Include="ApparelRestrict\Comp_BodyRestrict.cs" />
     <Compile Include="ApparelRestrict\RestrictionCheck.cs" />
+    <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
+    <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
     <Compile Include="Bunker\CompProperties_Bunker.cs" />
     <Compile Include="Bunker\Comp_Bunker.cs" />
-    <Compile Include="Harmony\Patches\TryMakeInitialRelationsWithPostfix.cs" />
-    <Compile Include="Laser\Building_LaserGun.cs" />
-    <Compile Include="Laser\Building_LaserGunDef.cs" />
-    <Compile Include="Laser\IBeamColorThing.cs" />
-    <Compile Include="Laser\IDrawnWeaponWithRotation.cs" />
-    <Compile Include="Laser\JobDefOf.cs" />
-    <Compile Include="Laser\JobDriver_ChangeLaserColor.cs" />
-    <Compile Include="Laser\LaserBeam.cs" />
-    <Compile Include="Laser\LaserBeamColoring.cs" />
-    <Compile Include="Laser\LaserBeamDef.cs" />
-    <Compile Include="Laser\LaserBeamGraphic.cs" />
-    <Compile Include="Laser\LaserGun.cs" />
-    <Compile Include="Laser\LaserGunDef.cs" />
-    <Compile Include="Laser\MeshMakerLaser.cs" />
-    <Compile Include="Laser\MoteLaserDectoration.cs" />
-    <Compile Include="Harmony\Patches\PatchGunDrawing.cs" />
-    <Compile Include="Harmony\Patches\PatchTuretTopDrawTurret.cs" />
-    <Compile Include="Laser\SpinningLaserGun.cs" />
-    <Compile Include="Laser\SpinningLaserGunBase.cs" />
-    <Compile Include="Laser\SpinningLaserGunDef.cs" />
-    <Compile Include="Laser\SpinningLaserGunTurret.cs" />
-    <Compile Include="Laser\ThingDefOf.cs" />
-    <Compile Include="Laser\ThingExtensions.cs" />
+    <None Include="Laser\Building_LaserGun.cs" />
+    <None Include="Laser\Building_LaserGunDef.cs" />
+    <None Include="Laser\IBeamColorThing.cs" />
+    <None Include="Laser\IDrawnWeaponWithRotation.cs" />
+    <None Include="Laser\JobDefOf.cs" />
+    <None Include="Laser\JobDriver_ChangeLaserColor.cs" />
+    <None Include="Laser\LaserBeam.cs" />
+    <None Include="Laser\LaserBeamColoring.cs" />
+    <None Include="Laser\LaserBeamDef.cs" />
+    <None Include="Laser\LaserBeamGraphic.cs" />
+    <None Include="Laser\LaserGun.cs" />
+    <None Include="Laser\LaserGunDef.cs" />
+    <None Include="Laser\MeshMakerLaser.cs" />
+    <None Include="Laser\MoteLaserDectoration.cs" />
+    <None Include="Harmony\Patches\PatchGunDrawing.cs" />
+    <None Include="Harmony\Patches\PatchTuretTopDrawTurret.cs" />
+    <None Include="Laser\SpinningLaserGun.cs" />
+    <None Include="Laser\SpinningLaserGunBase.cs" />
+    <None Include="Laser\SpinningLaserGunDef.cs" />
+    <None Include="Laser\SpinningLaserGunTurret.cs" />
+    <None Include="Laser\ThingDefOf.cs" />
+    <None Include="Laser\ThingExtensions.cs" />
+    <Compile Include="CustomHive\CustomHive.cs" />
+    <Compile Include="CustomHive\HiveProperties.cs" />
+    <Compile Include="CustomHive\JobGiver_CustomHiveDefense.cs" />
+    <Compile Include="CustomHive\JobGiver_WanderCustomHive.cs" />
+    <Compile Include="CustomHive\LordJob_DefendHive.cs" />
+    <Compile Include="CustomHive\LordToil_DefendHive.cs" />
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />
     <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
@@ -94,8 +103,10 @@
     <Compile Include="Needs\Utility_MechanicalPawn.cs" />
     <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
     <Compile Include="Networks\NetworkDef.cs" />
+    <Compile Include="PawnConverter\PawnConvertingDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
     <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
+    <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="WeaponRestrict\CompProperties_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\Comp_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
@@ -195,8 +206,7 @@
     <Compile Include="Needs\ThingOrderRequest.cs" />
     <Compile Include="Needs\Utility_EnergyNeed.cs" />
     <Compile Include="PawnConverter\Building_Converter.cs" />
-    <Compile Include="PawnConverter\Comp_Converter.cs" />
-    <Compile Include="PawnConverter\CompProperties_Converter.cs" />
+    <Compile Include="PawnConverter\ConverterProperties.cs" />
     <Compile Include="Harmony\HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
