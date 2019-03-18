@@ -45,12 +45,15 @@ namespace O21Toolbox.PawnCrafter
         {
             GizmoResult result = base.GizmoOnGUI(topLeft, maxWidth);
 
-            //Custom render.
-            float width = GetWidth(maxWidth);
-            Rect pawnRect = new Rect(topLeft.x + 10f, topLeft.y, width - 40f, width - 20f);
-            Vector2 PawnPortraitSize = new Vector2(width - 20f, width);
+            if (printer.PawnBeingCrafted().IsColonistPlayerControlled)
+            {
+                //Custom render.
+                float width = GetWidth(maxWidth);
+                Rect pawnRect = new Rect(topLeft.x + 10f, topLeft.y, width - 40f, width - 20f);
+                Vector2 PawnPortraitSize = new Vector2(width - 20f, width);
 
-            GUI.DrawTexture(new Rect(pawnRect.x, pawnRect.y, PawnPortraitSize.x, PawnPortraitSize.y), PortraitsCache.Get(printer.PawnBeingCrafted(), PawnPortraitSize, default(Vector3), 1f));
+                GUI.DrawTexture(new Rect(pawnRect.x, pawnRect.y, PawnPortraitSize.x, PawnPortraitSize.y), PortraitsCache.Get(printer.PawnBeingCrafted(), PawnPortraitSize, default(Vector3), 1f));
+            }
             return result;
         }
 

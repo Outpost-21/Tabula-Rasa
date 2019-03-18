@@ -38,7 +38,7 @@ namespace O21Toolbox
             Rect leftSide = new Rect(0f, winRect.y, winRect.width / 2, winRect.height);
 
             //GUI.BeginGroup(leftSide);
-            MakeTitle(new Rect(5f, leftSide.y + 7f, leftSide.width, 17f), "SettingsGeneral".Translate());
+            MakeTitle(new Rect(5f, leftSide.y + 7f, leftSide.width, 17f), "ToolboxSettingsGeneralLabel".Translate());
             Rect rect1 = new Rect(0f, 20f, leftSide.width, 50).ContractedBy(5f);
             MakeNewCheckBox(rect1, "EnergyNeedCompatModeLabel".Translate(), ref settings.EnergyNeedCompatMode, out rect1, "EnergyNeedCompatModeDesc".Translate(), false, yOff);
             //GUI.EndGroup();

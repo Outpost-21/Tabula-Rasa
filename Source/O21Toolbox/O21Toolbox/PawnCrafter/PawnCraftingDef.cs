@@ -45,5 +45,10 @@ namespace O21Toolbox.PawnCrafter
         /// Research required in order for it to be craftable.
         /// </summary>
         public ResearchProjectDef requiredResearch;
+
+        /// <summary>
+        /// Whether or not to render the pawn as an animal.
+        /// </summary>
+        public bool isAnimalPawn = false;
     }
 }

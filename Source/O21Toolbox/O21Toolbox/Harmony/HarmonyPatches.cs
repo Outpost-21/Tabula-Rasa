@@ -231,6 +231,17 @@ namespace O21Toolbox.Harmony
 
                 //Log.Message("Patched Alert_Boredom.BoredPawns");
             }
+
+            {
+                //Toils_Tend
+                Type type = typeof(Toils_Tend);
+
+                //Patch: Toils_Tend.FinalizeTend as Prefix
+                O21ToolboxHarmony.Patch(
+                    type.GetMethod("FinalizeTend"),
+                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_Toils_Tend_FinalizeTend))),
+                    null);
+            }
             #endregion EnergyNeed
 
             #region Restrict
@@ -330,6 +341,43 @@ namespace O21Toolbox.Harmony
         #endregion ResearchBenchSub
 
         #region EnergyNeedPatches
+
+        public static bool Patch_Toils_Tend_FinalizeTend(ref Toil __result, Pawn patient)
+        {
+            if (patient.def.HasModExtension<MechanicalPawnProperties>())
+            {
+                Toil toil = new Toil();
+                toil.initAction = delegate
+                {
+                    Pawn actor = toil.actor;
+
+                    Thing repairParts = (Thing)actor.CurJob.targetB.Thing;
+
+                    //Experience
+                    float num = (!patient.RaceProps.Animal) ? 500f : 175f;
+                    float num2 = RimWorld.ThingDefOf.MedicineIndustrial.MedicineTendXpGainFactor;
+                    actor.skills.Learn(SkillDefOf.Crafting, num * num2, false);
+
+                    //Tending
+                    //TendUtility.DoTend(actor, patient, medicine);
+                    DroidUtility.DoTend(actor, patient, repairParts);
+
+                    if (repairParts != null && repairParts.Destroyed)
+                    {
+                        actor.CurJob.SetTarget(TargetIndex.B, LocalTargetInfo.Invalid);
+                    }
+                    if (toil.actor.CurJob.endAfterTendedOnce)
+                    {
+                        actor.jobs.EndCurrentJob(JobCondition.Succeeded, true);
+                    }
+                };
+                toil.defaultCompleteMode = ToilCompleteMode.Instant;
+                __result = toil;
+                return false;
+            }
+
+            return true;
+        }
         public static bool Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood(
             ref List<Pawn> pawns, List<ThingDefCount> extraFood, int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction,
             WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)

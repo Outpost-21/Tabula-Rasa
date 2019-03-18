@@ -2,8 +2,8 @@
 <LanguageData>
 	
 	<!-- Mod General Settings -->
-	<SettingsGeneral>General Settings</SettingsGeneral>
-	<UseCustomBackgroundLabel>Toggle Mode</UseCustomBackgroundLabel>
-	<UseCustomBackgroundDesc>When enabled, makes mechanical pawns more compatible.</UseCustomBackgroundDesc>
+	<ToolboxSettingsGeneralLabel>General Settings</ToolboxSettingsGeneralLabel>
+	<EnergyNeedCompatModeLabel>Toggle Mode</EnergyNeedCompatModeLabel>
+	<EnergyNeedCompatModeDesc>When enabled, makes mechanical pawns more compatible.</EnergyNeedCompatModeDesc>
  
 </LanguageData>

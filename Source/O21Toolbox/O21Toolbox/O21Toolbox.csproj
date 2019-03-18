@@ -95,6 +95,9 @@
     <Compile Include="CustomHive\JobGiver_WanderCustomHive.cs" />
     <Compile Include="CustomHive\LordJob_DefendHive.cs" />
     <Compile Include="CustomHive\LordToil_DefendHive.cs" />
+    <Compile Include="CustomHive\Toils_Extra.cs" />
+    <Compile Include="CustomThingMaker\CompProperties_PawnMaker.cs" />
+    <Compile Include="CustomThingMaker\Comp_PawnMaker.cs" />
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />
     <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
