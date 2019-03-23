@@ -58,7 +58,7 @@ namespace O21Toolbox.Harmony
             #region Alliances
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
             #endregion Alliances
-
+            
             #region EnergyNeed
 
             //Patch, Method: Pawn_NeedsTracker
@@ -246,6 +246,7 @@ namespace O21Toolbox.Harmony
 
             #region Restrict
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "ApparelScoreGainPostFix", null), null);
             #endregion Restrict
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -799,6 +800,22 @@ namespace O21Toolbox.Harmony
         #endregion NeedEnergyPatches
 
         #region RestrictPatches
+        public static void ApparelScoreGainPostFix(Pawn pawn, Apparel ap, ref float __result)
+        {
+            if (__result < 0f)
+            {
+                return;
+            }
+            if (ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
+            {
+                __result = -50f;
+            }
+            if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
+            {
+                __result = -50f;
+            }
+        }
+
         public static void AddHumanlikeOrdersPostfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
         {
             IntVec3 c = IntVec3.FromVector3(clickPos);
