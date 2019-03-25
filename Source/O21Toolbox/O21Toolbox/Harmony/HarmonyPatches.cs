@@ -806,7 +806,7 @@ namespace O21Toolbox.Harmony
             {
                 return;
             }
-            if (ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
+            if (!ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
             {
                 __result = -50f;
             }

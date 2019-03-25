@@ -13,9 +13,12 @@ namespace O21Toolbox.ApparelRestrict
     {
         public static bool CanWear(Apparel apparel, BodyTypeDef bodyType)
         {
-            if (!apparel.def.GetCompProperties<CompProperties_BodyRestrict>().BodyDefs.Contains(bodyType))
+            if(apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
             {
-                return false;
+                if (!apparel.def.GetCompProperties<CompProperties_BodyRestrict>().BodyDefs.Contains(bodyType))
+                {
+                    return false;
+                }
             }
             return true;
         }
