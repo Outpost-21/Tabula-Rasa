@@ -25,6 +25,6 @@ namespace O21Toolbox.AreaEffects
         /// <summary>
         /// Hediffs to apply while pawns are withing the same room or radius.
         /// </summary>
-        public List<HediffDef> applyHediffs = null;
+        public List<HediffDef> applyHediffs = new List<HediffDef>();
     }
 }

@@ -18,5 +18,16 @@ namespace O21Toolbox.Networks
         /// Whether or not a network requires connections.
         /// </summary>
         public bool wirelessNetwork = false;
+
+        /// <summary>
+        /// Type of material transferred.
+        /// </summary>
+        public enum networkType
+        {
+            energy,
+            gas,
+            liquid,
+            item
+        }
     }
 }

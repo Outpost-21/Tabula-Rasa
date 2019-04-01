@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+	<HediffGiverSetDef>
+		<defName>O21_AutoHeal</defName>
+		<hediffGivers>
+			<li Class="O21Toolbox.HediffGiver_Racial">
+				<hediff>O21_AutoHeal</hediff>
+			</li>
+		</hediffGivers>
+	</HediffGiverSetDef>
+	
+</Defs>

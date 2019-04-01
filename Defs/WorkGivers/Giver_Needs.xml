@@ -2,10 +2,10 @@
 <Defs>
 
 	<WorkGiverDef>
-		<defName>DoctorChargePatients</defName>
-		<label>recharge patients</label>
+		<defName>HaulerChargePatients</defName>
+		<label>recharging target pawn</label>
 		<giverClass>O21Toolbox.Needs.WorkGiver_GiveEnergySourceConsumableToPatient</giverClass>
-		<workType>Doctor</workType>
+		<workType>Hauling</workType>
 		<verb>recharge</verb>
 		<gerund>recharging</gerund>
 		<priorityInType>60</priorityInType>

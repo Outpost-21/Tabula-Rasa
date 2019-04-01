@@ -10,14 +10,14 @@ using Verse.Sound;
 
 namespace O21Toolbox.Needs
 {
-    public static class Utility_MechanicalPawn
+    public static class Utility_ArtificalPawn
     {
         private static List<Hediff> tmpHediffsToTend = new List<Hediff>();
         private static List<Hediff> tmpHediffs = new List<Hediff>();
 
-        public static bool IsMechanical(this Pawn pawn)
+        public static bool IsArtificial(this Pawn pawn)
         {
-            return pawn.def.HasModExtension<MechanicalPawnProperties>();
+            return pawn.def.HasModExtension<ArtificialPawnProperties>();
         }
 
         public static void DoTend(Pawn doctor, Pawn patient, Thing medicine)
@@ -76,7 +76,7 @@ namespace O21Toolbox.Needs
                 {
                     if (patient.Spawned || (doctor != null && doctor.Spawned))
                     {
-                        //if (medicine != null && medicine.GetStatValue(StatDefOf.MedicalPotency, true) > RimWorld.ThingDefOf.MedicineIndustrial.GetStatValueAbstract(StatDefOf.MedicalPotency, null))
+                        if (medicine != null && medicine.GetStatValue(StatDefOf.MedicalPotency, true) > RimWorld.ThingDefOf.MedicineIndustrial.GetStatValueAbstract(StatDefOf.MedicalPotency, null))
                         {
                             SoundDefOf.Building_Complete.PlayOneShot(new TargetInfo(patient.Position, patient.Map, false));
                         }

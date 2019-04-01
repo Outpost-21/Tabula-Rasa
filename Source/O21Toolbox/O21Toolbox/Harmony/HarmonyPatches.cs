@@ -55,6 +55,10 @@ namespace O21Toolbox.Harmony
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
 
+            #region ResearchBenchSub
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(ResearchProjectDef), "CanBeResearchedAt", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "CanBeResearchedAtPostFix", null), null);
+            #endregion ResearchBenchSub
+
             #region Alliances
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
             #endregion Alliances
@@ -300,52 +304,45 @@ namespace O21Toolbox.Harmony
         /// <summary>
         /// Patch for enabling comped research benches to act like they either are another bench, or act like they have a specific facility attached.
         /// </summary>
-        /**
-        [HarmonyPatch(typeof(ResearchProjectDef))]
-        [HarmonyPatch(nameof(ResearchProjectDef.CanBeResearchedAt))]
-        static class ResearchProjectDef_CanBeResearchedAt_Patch
+        static void CanBeResearchedAtPostFix(bool __result, Building_ResearchBench bench, ResearchProjectDef __instance)
         {
-            static bool Prefix(ref bool __result, ref Building_ResearchBench bench, ResearchProjectDef ___instance)
+            // Only do anything if the result is false and the bench has the new comp.
+            if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>() != null && !__result)
             {
-                // Only do anything if the result is false and the bench has the new comp.
-                if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>() != null && !__result)
+                // Does the research have a required building?
+                if(__instance.requiredResearchBuilding != null)
                 {
-                    // Does the research have a required building?
-                    if(___instance.requiredResearchBuilding != null)
+                    if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchBench.Contains(__instance.requiredResearchBuilding))
                     {
-                        if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchBench.Contains(___instance.requiredResearchBuilding))
-                        {
-                            return true;
-                        }
+                        __result = true;
                     }
-                    // Does the research have a required facility?
-                    if(___instance.requiredResearchFacilities != null)
+                }
+                // Does the research have a required facility?
+                if(__instance.requiredResearchFacilities != null)
+                {
+                    if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility != null)
                     {
-                        if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility != null)
+                        int i;
+                        for (i = 0; i < __instance.requiredResearchFacilities.Count; i++)
                         {
-                            int i;
-                            for (i = 0; i < ___instance.requiredResearchFacilities.Count; i++)
+                            if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility.Contains(__instance.requiredResearchFacilities[i]))
                             {
-                                if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility.Contains(___instance.requiredResearchFacilities[i]))
-                                {
-                                    return true;
-                                }
+                                __result = true;
                             }
                         }
                     }
                 }
-
-                return __result;
             }
+
+            return;
         }
-        **/
         #endregion ResearchBenchSub
 
         #region EnergyNeedPatches
 
         public static bool Patch_Toils_Tend_FinalizeTend(ref Toil __result, Pawn patient)
         {
-            if (patient.def.HasModExtension<MechanicalPawnProperties>())
+            if (patient.def.HasModExtension<ArtificialPawnProperties>())
             {
                 Toil toil = new Toil();
                 toil.initAction = delegate
@@ -384,7 +381,7 @@ namespace O21Toolbox.Harmony
             WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
         {
             List<Pawn> modifiedPawnsList = new List<Pawn>(pawns);
-            modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<MechanicalPawnProperties>());
+            modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<ArtificialPawnProperties>());
 
             pawns = modifiedPawnsList;
             return true;
@@ -437,7 +434,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = __instance.pawn;
 
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 JobDriver_Vomit instance = __instance;
 
@@ -472,7 +469,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_CanDoInteraction(ref bool __result, ref Pawn pawn)
         {
-            if (pawn.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize)
+            if (pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
                 __result = false;
                 return false;
@@ -483,7 +480,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_InspirationHandlerTick(ref InspirationHandler __instance)
         {
-            if (__instance.pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (__instance.pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 return false;
             }
@@ -493,7 +490,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_AppendThoughts_ForHumanlike(ref Pawn victim)
         {
-            if (victim.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.colonyCaresIfDead)
+            if (victim.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.colonyCaresIfDead)
             {
                 return false;
             }
@@ -505,7 +502,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = Pawn_InteractionsTracker_GetPawn(__instance);
 
-            if (pawn.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize)
+            if (pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
                 return false;
             }
@@ -517,7 +514,7 @@ namespace O21Toolbox.Harmony
         {
             //Pawn pawn = Pawn_InteractionsTracker_GetPawn(__instance);
 
-            if (recipient.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize)
+            if (recipient.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
                 __result = false;
                 return false;
@@ -530,7 +527,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = Pawn_InteractionsTracker_GetPawn(__instance);
 
-            if ((pawn.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize) || (initiator.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties propertiesTwo && !propertiesTwo.canSocialize))
+            if ((pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize) || (initiator.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties propertiesTwo && !propertiesTwo.canSocialize))
             {
                 __result = 0f;
                 return false;
@@ -542,18 +539,18 @@ namespace O21Toolbox.Harmony
         //erdelf: No special mechanoids in ancient dangers.
         public static void MechanoidsFixerAncient(ref bool __result, PawnKindDef kind)
         {
-            if (kind.race.HasModExtension<MechanicalPawnProperties>()) __result = false;
+            if (kind.race.HasModExtension<ArtificialPawnProperties>()) __result = false;
         }
 
         //erdelf:  No special mechanoids in crashed ships.
         public static void MechanoidsFixer(ref bool __result, PawnKindDef def)
         {
-            if (def.race.HasModExtension<MechanicalPawnProperties>()) __result = false;
+            if (def.race.HasModExtension<ArtificialPawnProperties>()) __result = false;
         }
 
         public static bool CompatPatch_GetJoyTryGiveJob(ref JobGiver_EatInPartyArea __instance, ref Job __result, ref Pawn pawn)
         {
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 __result = null;
                 return false;
@@ -564,7 +561,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_EatInPartyAreaTryGiveJob(ref JobGiver_EatInPartyArea __instance, ref Job __result, ref Pawn pawn)
         {
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 __result = null;
                 return false;
@@ -576,7 +573,7 @@ namespace O21Toolbox.Harmony
         public static bool CompatPatch_ShouldGuestKeepAttendingGathering(ref bool __result, ref Pawn p)
         {
             //Log.Message("Guest p=" + p?.ToString() ?? "null");
-            if (p.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize)
+            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
                 //Log.Message("Guest (Mechanical) p=" + p.ToString());
                 __result = !p.Downed &&
@@ -592,7 +589,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_TimetablePreventsLayDown(ref bool __result, ref Pawn pawn)
         {
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 __result = pawn.timetable != null && !pawn.timetable.CurrentAssignment.allowRest;
                 return false;
@@ -603,7 +600,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_CalculatePain(ref HediffSet __instance, ref float __result)
         {
-            if (__instance.pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (__instance.pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 __result = 0f;
                 return false;
@@ -616,7 +613,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = Pawn_HealthTracker_GetPawn(__instance);
 
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 List<PawnCapacityDef> allDefsListForReading = DefDatabase<PawnCapacityDef>.AllDefsListForReading;
                 for (int i = 0; i < allDefsListForReading.Count; i++)
@@ -670,7 +667,7 @@ namespace O21Toolbox.Harmony
 
         public static bool CompatPatch_CanInitiateInteraction(bool __result, ref Pawn pawn)
         {
-            if (pawn.def.GetModExtension<MechanicalPawnProperties>() is MechanicalPawnProperties properties && !properties.canSocialize)
+            if (pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
                 __result = false;
                 return false;
@@ -774,7 +771,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = Need_Food_Starving_GetPawn(__instance);
 
-            if (pawn != null && pawn.IsMechanical())
+            if (pawn != null && pawn.IsArtificial())
                 __result = false;
         }
 

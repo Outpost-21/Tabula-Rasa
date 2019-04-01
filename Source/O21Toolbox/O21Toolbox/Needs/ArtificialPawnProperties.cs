@@ -12,7 +12,7 @@ namespace O21Toolbox.Needs
     /// <summary>
     /// Basically tags a ThingDef as a mechanical pawn.
     /// </summary>
-    public class MechanicalPawnProperties : DefModExtension
+    public class ArtificialPawnProperties : DefModExtension
     {
         /// <summary>
         /// If true the pawn will not lose any skill due to decay.

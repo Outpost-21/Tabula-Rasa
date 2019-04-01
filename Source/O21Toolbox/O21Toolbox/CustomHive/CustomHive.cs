@@ -13,7 +13,6 @@ using O21Toolbox.Utility;
 
 namespace O21Toolbox.CustomHive
 {
-    // Token: 0x0200000A RID: 10
     public class CustomHive : Building
     {
         public int InitialPawnSpawnDelay = 960;
