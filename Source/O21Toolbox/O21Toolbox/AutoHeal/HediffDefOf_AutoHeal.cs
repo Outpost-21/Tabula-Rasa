@@ -16,5 +16,7 @@ namespace O21Toolbox.AutoHeal
         public static HediffDef AutoHeal_ProtoBodypart;
 
         public static HediffDef AutoHeal_CuredBodypart;
+
+        public static HediffDef O21_AutoHeal;
     }
 }

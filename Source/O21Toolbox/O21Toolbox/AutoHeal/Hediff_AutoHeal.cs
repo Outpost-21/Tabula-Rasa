@@ -14,10 +14,12 @@ namespace O21Toolbox.AutoHeal
 {
     public class Hediff_AutoHeal : HediffWithComps
     {
+
         public override void PostMake()
         {
             base.PostMake();
             this.SetNextHealTick();
+            this.SetNextGrowTick();
         }
 
         public override void ExposeData()
@@ -34,7 +36,7 @@ namespace O21Toolbox.AutoHeal
                 this.TrySealWounds();
                 this.SetNextHealTick();
             }
-            if (Current.Game.tickManager.TicksGame >= this.ticksUntilNextGrow)
+            if (Current.Game.tickManager.TicksGame >= this.ticksUntilNextGrow && this.def.TryGetModExtension<DefModExtension_AutoHealProps>().regrowParts)
             {
                 this.TryRegrowBodyparts();
                 this.SetNextGrowTick();
@@ -66,9 +68,9 @@ namespace O21Toolbox.AutoHeal
 
         public void TryRegrowBodyparts()
         {
-            if (this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart != null)
+            if (this.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart != null)
             {
-                using (IEnumerator<BodyPartRecord> enumerator = this.pawn.GetFirstMatchingBodyparts(this.pawn.RaceProps.body.corePart, HediffDefOf.MissingBodyPart, this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart, (Hediff hediff) => hediff is Hediff_AddedPart).GetEnumerator())
+                using (IEnumerator<BodyPartRecord> enumerator = this.pawn.GetFirstMatchingBodyparts(this.pawn.RaceProps.body.corePart, HediffDefOf.MissingBodyPart, this.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart, (Hediff hediff) => hediff is Hediff_AddedPart).GetEnumerator())
                 {
                     while (enumerator.MoveNext())
                     {
@@ -78,7 +80,7 @@ namespace O21Toolbox.AutoHeal
                         if (flag)
                         {
                             this.pawn.health.RemoveHediff(hediff2);
-                            this.pawn.health.AddHediff(this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart, part, null, null);
+                            this.pawn.health.AddHediff(this.def.TryGetModExtension<DefModExtension_AutoHealProps>().protoBodyPart, part, null, null);
                             this.pawn.health.hediffSet.DirtyCache();
                         }
                     }
@@ -107,13 +109,13 @@ namespace O21Toolbox.AutoHeal
         public int ticksUntilNextHeal;
         public void SetNextHealTick()
         {
-            this.ticksUntilNextHeal = Current.Game.tickManager.TicksGame + this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().healTicks;
+            this.ticksUntilNextHeal = Current.Game.tickManager.TicksGame + this.def.TryGetModExtension<DefModExtension_AutoHealProps>().healTicks;
         }
 
         public int ticksUntilNextGrow;
         public void SetNextGrowTick()
         {
-            this.ticksUntilNextGrow = Current.Game.tickManager.TicksGame + this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().growthTicks;
+            this.ticksUntilNextGrow = Current.Game.tickManager.TicksGame + this.def.TryGetModExtension<DefModExtension_AutoHealProps>().growthTicks;
         }
     }
 }

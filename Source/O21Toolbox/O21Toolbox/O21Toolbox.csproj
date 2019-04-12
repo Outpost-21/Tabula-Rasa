@@ -117,6 +117,7 @@
     <Compile Include="PawnConverter\PawnConvertingDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
     <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
+    <None Include="Spaceship\SpaceshipDef.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />

@@ -14,6 +14,7 @@ namespace O21Toolbox.AutoHeal
 {
     public class Hediff_GrowingPart : Hediff_AddedPart
     {
+
         public override bool ShouldRemove
         {
             get
@@ -35,7 +36,7 @@ namespace O21Toolbox.AutoHeal
                 stringBuilder.Append(base.TipStringExtra);
                 stringBuilder.AppendLine(Translator.Translate("Efficiency") + ": " + GenText.ToStringPercent
                     (this.def.addedPartProps.partEfficiency));
-                stringBuilder.AppendLine(this.pawn.def.GetModExtension<DefModExtension_AutoHealProps>().growthText + GenText.ToStringPercent(this.Severity));
+                stringBuilder.AppendLine(this.pawn.health.hediffSet.GetFirstHediffOfDef(this.def.GetModExtension<DefModExtension_AutoHealProps>().autoHealHediff, false).def.GetModExtension<DefModExtension_AutoHealProps>().growthText + GenText.ToStringPercent(this.Severity));
                 return stringBuilder.ToString();
             }
         }
@@ -44,11 +45,11 @@ namespace O21Toolbox.AutoHeal
         {
             base.PostRemoved();
             bool flag = this.Severity >= 1f;
-            if (flag && this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().curedBodyPart != null)
+            if (flag && this.pawn.health.hediffSet.GetFirstHediffOfDef(this.def.GetModExtension<DefModExtension_AutoHealProps>().autoHealHediff, false).def.TryGetModExtension<DefModExtension_AutoHealProps>().curedBodyPart != null)
             {
-                this.pawn.ReplaceHediffFromBodypart(base.Part, HediffDefOf.MissingBodyPart, this.pawn.def.TryGetModExtension<DefModExtension_AutoHealProps>().curedBodyPart);
+                this.pawn.ReplaceHediffFromBodypart(base.Part, HediffDefOf.MissingBodyPart, this.pawn.health.hediffSet.GetFirstHediffOfDef(this.def.GetModExtension<DefModExtension_AutoHealProps>().autoHealHediff, false).def.GetModExtension<DefModExtension_AutoHealProps>().curedBodyPart);
             }
-            if (flag)
+            else if (flag)
             {
                 this.pawn.ReplaceHediffFromBodypart(base.Part, HediffDefOf.MissingBodyPart, HediffDefOf_AutoHeal.AutoHeal_CuredBodypart);
             }

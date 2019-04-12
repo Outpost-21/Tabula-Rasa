@@ -13,14 +13,19 @@ namespace O21Toolbox.AutoHeal
     public class DefModExtension_AutoHealProps : DefModExtension
     {
         /// <summary>
-        /// Time between heal ticks, lower number means faster healing.
+        /// Time between heal ticks.
         /// </summary>
         public int healTicks = 1000;
 
         /// <summary>
-        /// Time between growth ticks, lower number means faster growth.
+        /// Whether or not parts can regrow.
         /// </summary>
-        public int growthTicks = 200;
+        public bool regrowParts = true;
+
+        /// <summary>
+        /// Time between growth ticks.
+        /// </summary>
+        public int growthTicks = 1000;
 
         /// <summary>
         /// Text displayed to describe the growth.
@@ -30,5 +35,7 @@ namespace O21Toolbox.AutoHeal
         public HediffDef protoBodyPart = null;
 
         public HediffDef curedBodyPart = null;
+
+        public HediffDef autoHealHediff = null;
     }
 }
