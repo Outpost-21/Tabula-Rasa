@@ -16,6 +16,7 @@ using Harmony.ILCopying;
 using O21Toolbox;
 using O21Toolbox.Alliances;
 using O21Toolbox.ApparelRestrict;
+using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Bunker;
 //using O21Toolbox.Laser;
 using O21Toolbox.Needs;
@@ -246,6 +247,17 @@ namespace O21Toolbox.Harmony
                     new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_Toils_Tend_FinalizeTend))),
                     null);
             }
+
+            {
+                //HealthAIUtility
+                Type type = typeof(HealthAIUtility);
+
+                //Patch: HealthAIUtility.FindBestMedicine as Prefix
+                O21ToolboxHarmony.Patch(
+                    type.GetMethod("FindBestMedicine"),
+                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_HealthAIUtility_FindBestMedicine))),
+                    null);
+            }
             #endregion EnergyNeed
 
             #region Restrict
@@ -340,6 +352,46 @@ namespace O21Toolbox.Harmony
 
         #region EnergyNeedPatches
 
+        public static bool Patch_HealthAIUtility_FindBestMedicine(ref Thing __result, Pawn healer, Pawn patient)
+        {
+            if (patient.def.HasModExtension<ArtificialPawnProperties>())
+            {
+                Thing result;
+                if (patient.playerSettings == null || patient.playerSettings.medCare <= MedicalCareCategory.NoMeds)
+                {
+                    result = null;
+                }
+                else if (Medicine.GetMedicineCountToFullyHeal(patient) <= 0)
+                {
+                    result = null;
+                }
+                else
+                {
+                    Predicate<Thing> predicate = (Thing m) => !m.IsForbidden(healer) && patient.playerSettings.medCare.AllowsMedicine(m.def) && healer.CanReserve(m, 10, 1, null, false) && m.def.GetModExtension<DefModExtension_RepairPartsProps>() != null;
+                    Func<Thing, float> priorityGetter = delegate (Thing t)
+                    {
+                        DefModExtension_RepairPartsProps repairParts = t.def.GetModExtension<DefModExtension_RepairPartsProps>();
+                        if (repairParts == null)
+                            return 0f;
+
+                        return repairParts.repairPotency;
+                    };
+                    IntVec3 position = patient.Position;
+                    Map map = patient.Map;
+                    List<Thing> searchSet = patient.Map.listerThings.ThingsInGroup(ThingRequestGroup.HaulableEver);
+                    PathEndMode peMode = PathEndMode.ClosestTouch;
+                    TraverseParms traverseParams = TraverseParms.For(healer, Danger.Deadly, TraverseMode.ByPawn, false);
+                    Predicate<Thing> validator = predicate;
+                    result = GenClosest.ClosestThing_Global_Reachable(position, map, searchSet, peMode, traverseParams, 9999f, validator, priorityGetter);
+                }
+
+                __result = result;
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool Patch_Toils_Tend_FinalizeTend(ref Toil __result, Pawn patient)
         {
             if (patient.def.HasModExtension<ArtificialPawnProperties>())
@@ -350,6 +402,11 @@ namespace O21Toolbox.Harmony
                     Pawn actor = toil.actor;
 
                     Thing repairParts = (Thing)actor.CurJob.targetB.Thing;
+
+                    if (patient.def.GetModExtension<ArtificialPawnProperties>().repairParts != null && !patient.def.GetModExtension<ArtificialPawnProperties>().repairParts.Contains(actor.CurJob.targetB.Thing.def))
+                    {
+                        repairParts = null;
+                    }
 
                     //Experience
                     float num = (!patient.RaceProps.Animal) ? 500f : 175f;

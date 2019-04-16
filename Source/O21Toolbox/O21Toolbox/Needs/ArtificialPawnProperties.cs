@@ -25,8 +25,13 @@ namespace O21Toolbox.Needs
         public bool canSocialize = false;
 
         /// <summary>
-        /// Do the colony care if they die?
+        /// Does the colony care if they die?
         /// </summary>
         public bool colonyCaresIfDead = false;
+
+        /// <summary>
+        /// Def for applicable repair parts (medicine)
+        /// </summary>
+        public List<ThingDef> repairParts = null;
     }
 }
