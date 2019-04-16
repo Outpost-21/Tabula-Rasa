@@ -65,7 +65,10 @@
     <Compile Include="ApparelRestrict\RestrictionCheck.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
+    <Compile Include="ArtificialPawn\Recipe_Disassemble.cs" />
+    <Compile Include="ArtificialPawn\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\DefModExtension_AutoHealProps.cs" />
+    <Compile Include="ArtificialPawn\DefModExtension_DroidPartsProps.cs" />
     <Compile Include="HediffGiver_Racial.cs" />
     <Compile Include="AutoHeal\Hediff_AutoHeal.cs" />
     <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
@@ -119,6 +122,7 @@
     <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
     <None Include="Spaceship\SpaceshipDef.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
+    <Compile Include="Utility\ButcherUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
     <Compile Include="WeaponRestrict\CompProperties_ApparelRestrict.cs" />

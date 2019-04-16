@@ -14,6 +14,11 @@ namespace O21Toolbox.Needs
         /// <summary>
         /// Hediff for low power.
         /// </summary>
+        public HediffDef coolantLoss = null;
+
+        /// <summary>
+        /// Hediff for low power.
+        /// </summary>
         public HediffDef powerShortage = null;
 
         /// <summary>
