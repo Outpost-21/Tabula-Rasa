@@ -58,7 +58,7 @@ namespace O21Toolbox.Needs
             }
             else
             {
-                FloatMenuOption option = new FloatMenuOption("AndroidMachinelikeHibernateFail".Translate(selPawn.Name.ToStringShort), null);
+                FloatMenuOption option = new FloatMenuOption("O21MachinelikeHibernateFail".Translate(selPawn.Name.ToStringShort), null);
                 option.Disabled = true;
                 yield return option;
             }

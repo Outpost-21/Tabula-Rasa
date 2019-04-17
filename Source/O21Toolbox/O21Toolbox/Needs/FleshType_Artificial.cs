@@ -19,12 +19,12 @@ namespace O21Toolbox.Needs
             artificialFlesh = DefDatabase<FleshTypeDef>.GetNamed("Artificial");
         }
 
-        static public bool IsArtificial(this Pawn pawn)
+        static public bool IsArtificialPawn(this Pawn pawn)
         {
             return pawn.RaceProps.FleshType == artificialFlesh;
         }
 
-        static public bool IsNotArtificial(this Pawn pawn)
+        static public bool IsNotArtificialPawn(this Pawn pawn)
         {
             return pawn.RaceProps.FleshType != artificialFlesh;
         }

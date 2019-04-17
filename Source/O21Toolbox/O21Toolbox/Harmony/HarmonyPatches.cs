@@ -828,7 +828,7 @@ namespace O21Toolbox.Harmony
         {
             Pawn pawn = Need_Food_Starving_GetPawn(__instance);
 
-            if (pawn != null && pawn.IsArtificial())
+            if (pawn != null && pawn.IsArtificialPawn())
                 __result = false;
         }
 

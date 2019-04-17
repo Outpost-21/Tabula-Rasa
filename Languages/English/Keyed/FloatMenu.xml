@@ -42,5 +42,12 @@
 		<PawnConverterInvalidGender>Conversion: {0} (invalid gender) </PawnConverterInvalidGender>
 		<PawnConverterInvalidHediffs>Conversion: {0} (invalid hediffs) </PawnConverterInvalidHediffs>
 		<PawnConverterNeedsResearch>Conversion: {0} (requires research: {1}) </PawnConverterNeedsResearch>
+	
+	<!-- ========== O21Toolbox.Needs (Energy) ========== -->
+	
+		<O21MachinelikeHibernate>Hibernate {0} Here</O21MachinelikeHibernate>
+		<O21MachinelikeHibernateFailNoPower>Cannot Hibernate (no power) </O21MachinelikeHibernateFailNoPower>
+		<O21MachinelikeHibernateFailReserveOrReach>Cannot Hibernate (can't reach) </O21MachinelikeHibernateFailReserveOrReach>
+		<O21MachinelikeHibernateFail>Cannot Hibernate (unknown reason)</O21MachinelikeHibernateFail>
  
 </LanguageData>
