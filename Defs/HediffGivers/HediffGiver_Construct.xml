@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<HediffGiverSetDef>
+    <defName>O21_Construct</defName>
+		<hediffGivers>
+			<li Class="HediffGiver_Bleeding">
+				<hediff>O21_CoolantLoss</hediff>
+			</li>
+		</hediffGivers>
+  	</HediffGiverSetDef>
+	
+</Defs>
