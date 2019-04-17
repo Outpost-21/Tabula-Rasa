@@ -33,5 +33,34 @@ namespace O21Toolbox.Needs
         /// Def for applicable repair parts (medicine)
         /// </summary>
         public List<ThingDef> repairParts = null;
+
+        /// <summary>
+        /// Prevents corpse rotting.
+        /// </summary>
+        public bool tweakCorpseRot = true;
+    }
+
+    [StaticConstructorOnStartup]
+    public static class PostInitializationTweaker
+    {
+        static PostInitializationTweaker()
+        {
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs)
+            {
+                ArtificialPawnProperties tweaker = thingDef.GetModExtension<ArtificialPawnProperties>();
+                if (tweaker != null)
+                {
+                    ThingDef corpseDef = thingDef?.race?.corpseDef;
+                    if (corpseDef != null)
+                    {
+                        if (tweaker.tweakCorpseRot)
+                        {
+                            corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_Rottable);
+                            corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_SpawnerFilth);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

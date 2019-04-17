@@ -9,7 +9,6 @@ using Verse;
 
 namespace O21Toolbox.Needs
 {
-
     [StaticConstructorOnStartup]
     static public class PawnExt
     {
@@ -20,12 +19,12 @@ namespace O21Toolbox.Needs
             artificialFlesh = DefDatabase<FleshTypeDef>.GetNamed("Artificial");
         }
 
-        static public bool IsNecron(this Pawn pawn)
+        static public bool IsArtificial(this Pawn pawn)
         {
             return pawn.RaceProps.FleshType == artificialFlesh;
         }
 
-        static public bool IsNotNecron(this Pawn pawn)
+        static public bool IsNotArtificial(this Pawn pawn)
         {
             return pawn.RaceProps.FleshType != artificialFlesh;
         }
