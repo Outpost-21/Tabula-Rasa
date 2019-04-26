@@ -46,6 +46,8 @@ namespace O21Toolbox.Harmony
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;
 
+        private static HashSet<ThingStuffPair> apparelList;
+
         private static readonly Type patchType = typeof(HarmonyPatches);
 
         static HarmonyPatches()
@@ -263,6 +265,7 @@ namespace O21Toolbox.Harmony
             #region Restrict
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "ApparelScoreGainPostFix", null), null);
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPostfix", null), null);
             #endregion Restrict
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -854,13 +857,36 @@ namespace O21Toolbox.Harmony
         #endregion NeedEnergyPatches
 
         #region RestrictPatches
+        public static void GenerateStartingApparelForPostfix()
+        {
+            Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
+        }
+        
+        public static void GenerateStartingApparelForPrefix(Pawn pawn)
+        {
+            Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
+            HarmonyPatches.apparelList = new HashSet<ThingStuffPair>();
+            foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
+            {
+                if (!RaceRestrictionSettings.CanWear(thingStuffPair.thing, pawn.def))
+                {
+                    HarmonyPatches.apparelList.Add(thingStuffPair);
+                }
+                if (!ApparelRestrict.RestrictionCheck.CanWear(thingStuffPair.thing, pawn.story.bodyType))
+                {
+
+                }
+            }
+            traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
+        }
+
         public static void ApparelScoreGainPostFix(Pawn pawn, Apparel ap, ref float __result)
         {
             if (__result < 0f)
             {
                 return;
             }
-            if (!ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
+            if (!ApparelRestrict.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
             {
                 __result = -50f;
             }
@@ -922,7 +948,7 @@ namespace O21Toolbox.Harmony
                 }
                 if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
                 {
-                    if (ApparelRestrict.RestrictionCheck.CanWear(apparel, pawn.story.bodyType))
+                    if (ApparelRestrict.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
                     {
                         return;
                     }
@@ -931,7 +957,7 @@ namespace O21Toolbox.Harmony
                 {
                     int index3 = opts.IndexOf(item3);
                     opts.Remove(item3);
-                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort) + " (" + pawn.story.bodyType.LabelCap + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.Label) + " (" + pawn.story.bodyType.label + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
                 }
                 return;
             }
@@ -939,7 +965,7 @@ namespace O21Toolbox.Harmony
             {
                 int index3 = opts.IndexOf(item3);
                 opts.Remove(item3);
-                opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort) + " (" + pawn.def.LabelCap + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.Label) + " (" + pawn.def.label + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
         }
         #endregion RestrictPatches

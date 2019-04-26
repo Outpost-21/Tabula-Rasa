@@ -3,54 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using UnityEngine;   // Always needed
-using RimWorld;      // RimWorld specific functions are found here
-using Verse;         // RimWorld universal objects are here
-using Verse.AI;      // Needed when you do something with the AI
-using Verse.Sound;   // Needed when you do something with the Sound
+using UnityEngine;
+using RimWorld;
+using Verse;
 
 namespace O21Toolbox.Spaceship
 {
     public class Building_LandingPad : Building
     {
+        /// <summary>
+        /// Is this pad the primary landing pad?
+        /// </summary>
         public bool isPrimary = true;
+
+        /// <summary>
+        /// Is this pad already reserved?
+        /// </summary>
         public bool isReserved = false;
 
-        // Get list of landingpad lights
-
-        // Blocked by things check (trees, building, ...).
-        public const int blockCheckPerioInTicks = GenTicks.TicksPerRealSecond;
+        /// <summary>
+        /// Next tick to check for a blockage.
+        /// </summary>
         public int nextBlockCheckTick = 0;
+
+        /// <summary>
+        /// Reasons the pad is blocked.
+        /// </summary>
         public string blockingReasons = "";
-        
-        public bool isFree
-        {
-            get
-            {
-                return ((this.isReserved == false)
-                    && (this.blockingReasons.Length == 0));
-            }
-        }
-        public bool isFreeAndPowered
-        {
-            get
-            {
-                return (this.isFree
-                    && this.powerComp.PowerOn);
-            }
-        }
 
-        // Power comp.
+        /// <summary>
+        /// If the pad is not reserved and not blocked, then it is free.
+        /// </summary>
+        public bool isFree => this.isReserved == false && this.blockingReasons.Length == 0;
+
+        /// <summary>
+        /// If the pad is free and also powered.
+        /// </summary>
+        public bool isFreeAndPowered => this.isFree && ((this.powerComp != null && this.powerComp.PowerOn) || this.powerComp == null);
+
+        /// <summary>
+        /// Power Component.
+        /// </summary>
         public CompPowerTrader powerComp = null;
-        
-        // Beacon lights parameters.
-        public const int lightPeriodInTicks = 16 * GenTicks.TicksPerRealSecond;
-        public const int lightInternalCrossDelayInTicks = GenTicks.TicksPerRealSecond / 2;
-        public const int lightInternalCrossDurationInTicks = lightInternalCrossDelayInTicks;
-        public const int lightExternalFrameDelayInTicks = GenTicks.TicksPerRealSecond / 4;
-        public const int lightExternalFrameDurationInTicks = 7 * lightExternalFrameDelayInTicks;
 
-        // ===================== Setup work =====================
+        public Comp_LandingPad landingPadComp = null;
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -58,14 +55,13 @@ namespace O21Toolbox.Spaceship
             this.powerComp.powerStartedAction = Notify_PowerStarted;
             this.powerComp.powerStoppedAction = Notify_PowerStopped;
 
-            // Check if there is already another primary landing pad.
-            if (this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>() != null)
+            // Check for pre-existing Primary landing pad.
+            if(this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>() != null)
             {
-                foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+                foreach(Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
                 {
                     Building_LandingPad landingPad = building as Building_LandingPad;
-                    if ((landingPad != this)
-                        && landingPad.isPrimary)
+                    if(landingPad != this && landingPad.isPrimary)
                     {
                         this.isPrimary = false;
                         break;
@@ -73,92 +69,74 @@ namespace O21Toolbox.Spaceship
                 }
             }
 
-            if (respawningAfterLoad == false)
+            //Only spawn addons once.
+            if (!respawningAfterLoad)
             {
-                // Only spawn beacons once.
-                SpawnBeacons();
+                SpawnAddons();
             }
-        }
-
-        public void SpawnBeacons()
-        {
-            /**
-            // Internal cross: external green beacons.
-            Building_LandingPadBeacon beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, 3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 0);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(3, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 0);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, -3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 0);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-3, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 0);
-            // Internal cross: middle white beacons.
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, 2).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(2, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, -2).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-2, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, 1).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 2 * lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(1, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 2 * lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(0, 0, -1).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 2 * lightInternalCrossDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-1, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.white, lightPeriodInTicks, lightInternalCrossDurationInTicks, 2 * lightInternalCrossDelayInTicks);
-            // Internal cross: central green beacon.
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position, this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.green, lightPeriodInTicks, 2 * lightInternalCrossDurationInTicks, 3 * lightInternalCrossDelayInTicks);
-
-            // Landing pad external frame: red beacons.
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-2, 0, -8).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(2, 0, -8).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-4, 0, -6).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(4, 0, -6).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-4, 0, -3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 2 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(4, 0, -3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 2 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-4, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 3 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(4, 0, 0).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 3 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-4, 0, 3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 4 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(4, 0, 3).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 4 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-4, 0, 6).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 5 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(4, 0, 6).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 5 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(-1, 0, 9).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 6 * lightExternalFrameDelayInTicks);
-            beacon = GenSpawn.Spawn(Util_ThingDefOf.LandingPadBeacon, this.Position + new IntVec3(1, 0, 9).RotatedBy(this.Rotation), this.Map) as Building_LandingPadBeacon;
-            beacon.InitializeParameters(this, Color.red, lightPeriodInTicks, lightExternalFrameDurationInTicks, lightPeriodInTicks / 2 + 6 * lightExternalFrameDelayInTicks); **/
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            Map map = this.Map;
+            // Destroy all addons.
+            DestroyAddons();
 
-            // Destroy all landing pad beacons.
-            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            base.Destroy(mode);
+            Util_OrbitalRelay.TryUpdateLandingPadAvailability(this.Map);
+        }
+
+        public void SpawnAddons()
+        {
+            // Spawn Beacons
+
+            // Spawn Lights
+
+            // Spawn Projectors
+        }
+
+        public void DestroyAddons()
+        {
+            // Despawn Beacons
+            foreach(IntVec3 cell in this.OccupiedRect().Cells)
             {
                 Thing thing = cell.GetFirstThing<Building_LandingPadBeacon>(this.Map);
+                if(thing != null)
+                {
+                    thing.Destroy();
+                }
+            }
+
+            // Despawn Lights
+            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            {
+                Thing thing = cell.GetFirstThing<Building_LandingPadLight>(this.Map);
                 if (thing != null)
                 {
                     thing.Destroy();
                 }
             }
-            base.Destroy(mode);
-            Util_OrbitalRelay.TryUpdateLandingPadAvailability(map);
+
+            // Despawn Projectors
+            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            {
+                Thing thing = cell.GetFirstThing<Building_LandingPadProjector>(this.Map);
+                if (thing != null)
+                {
+                    thing.Destroy();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set selected landing pad as primary.
+        /// </summary>
+        public void SetAsPrimary()
+        {
+            foreach (Building landingPad in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            {
+                (landingPad as Building_LandingPad).isPrimary = false;
+            }
+            this.isPrimary = true;
         }
 
         public override void ExposeData()
@@ -170,14 +148,14 @@ namespace O21Toolbox.Spaceship
             Scribe_Values.Look<string>(ref this.blockingReasons, "blockingReasons");
         }
 
-        // ===================== Main function =====================
         public override void Tick()
         {
             base.Tick();
-            // Update blocking things.
-            if (Find.TickManager.TicksGame >= this.nextBlockCheckTick)
+
+            // Update Blocking Reasons
+            if(Current.Game.tickManager.TicksGame >= this.nextBlockCheckTick)
             {
-                this.nextBlockCheckTick = Find.TickManager.TicksGame + blockCheckPerioInTicks;
+                this.nextBlockCheckTick = Current.Game.tickManager.TicksGame + GenTicks.TicksPerRealSecond;
                 CheckForBlockingThing();
             }
         }
@@ -188,41 +166,37 @@ namespace O21Toolbox.Spaceship
 
             this.blockingReasons = "";
             StringBuilder reasonsList = new StringBuilder();
-            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            foreach(IntVec3 cell in this.OccupiedRect().Cells)
             {
-                if (isUnroofed
-                    && cell.Roofed(this.Map))
+                if (isUnroofed && cell.Roofed(this.Map))
                 {
-                    isUnroofed = false; // To only append roof reason once.
+                    isUnroofed = false;
                     reasonsList.AppendWithComma("roof");
                 }
+
                 Building building = cell.GetEdifice(this.Map);
-                if ((building != null)
-                    && (building.def != Util_ThingDefOf.VulcanTurret))
+                if (building != null && building.def.thingClass != typeof(Building_SpaceshipTurret))
                 {
                     reasonsList.AppendWithComma(building.Label);
                 }
+
                 Plant plant = cell.GetPlant(this.Map);
-                if ((plant != null)
-                    && plant.def.plant.IsTree)
+                if (plant !=null && plant.def.plant.IsTree)
                 {
                     reasonsList.AppendWithComma(plant.Label);
                 }
             }
-            if (reasonsList.Length > 0)
+            if(reasonsList.Length > 0)
             {
                 this.blockingReasons = reasonsList.ToString();
             }
         }
 
-        // ===================== Other functions =====================
-        /// <summary>
-        /// Notify beacons that powered is started.
-        /// </summary>
         public void Notify_PowerStarted()
         {
             Util_OrbitalRelay.TryUpdateLandingPadAvailability(this.Map);
-            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            // Light the beacons
+            /** foreach(Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
             {
                 Building_LandingPadBeacon beacon = building as Building_LandingPadBeacon;
                 if (beacon.landingPad == this)
@@ -230,15 +204,31 @@ namespace O21Toolbox.Spaceship
                     beacon.Notify_PowerStarted();
                 }
             }
+            // Light the lights
+            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            {
+                Building_LandingPadLight beacon = building as Building_LandingPadLight;
+                if (beacon.landingPad == this)
+                {
+                    beacon.Notify_PowerStarted();
+                }
+            }
+            // Light the projectors
+            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            {
+                Building_LandingPadProjector beacon = building as Building_LandingPadProjector;
+                if (beacon.landingPad == this)
+                {
+                    beacon.Notify_PowerStarted();
+                }
+            } **/
         }
 
-        /// <summary>
-        /// Notify beacons that powered is stopped.
-        /// </summary>
         public void Notify_PowerStopped()
         {
             Util_OrbitalRelay.TryUpdateLandingPadAvailability(this.Map);
-            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            // Beacons
+            /** foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
             {
                 Building_LandingPadBeacon beacon = building as Building_LandingPadBeacon;
                 if (beacon.landingPad == this)
@@ -246,6 +236,24 @@ namespace O21Toolbox.Spaceship
                     beacon.Notify_PowerStopped();
                 }
             }
+            // Lights
+            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            {
+                Building_LandingPadLight beacon = building as Building_LandingPadLight;
+                if (beacon.landingPad == this)
+                {
+                    beacon.Notify_PowerStopped();
+                }
+            }
+            // Projectors
+            foreach (Building building in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
+            {
+                Building_LandingPadProjector beacon = building as Building_LandingPadProjector;
+                if (beacon.landingPad == this)
+                {
+                    beacon.Notify_PowerStopped();
+                }
+            } **/
         }
 
         public void Notify_ShipLanding()
@@ -259,8 +267,7 @@ namespace O21Toolbox.Spaceship
             this.isReserved = false;
             Util_OrbitalRelay.TryUpdateLandingPadAvailability(this.Map);
         }
-        
-        // ===================== Inspect panel =====================
+
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -279,7 +286,6 @@ namespace O21Toolbox.Spaceship
             return stringBuilder.ToString();
         }
 
-        // ===================== Gizmos =====================
         public override IEnumerable<Gizmo> GetGizmos()
         {
             IList<Gizmo> buttonList = new List<Gizmo>();
@@ -314,18 +320,6 @@ namespace O21Toolbox.Spaceship
                 resultButtonList = buttonList;
             }
             return resultButtonList;
-        }
-
-        /// <summary>
-        /// Set selected landing pad as primary.
-        /// </summary>
-        public void SetAsPrimary()
-        {
-            foreach (Building landingPad in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_LandingPad>())
-            {
-                (landingPad as Building_LandingPad).isPrimary = false;
-            }
-            this.isPrimary = true;
         }
     }
 }

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 using UnityEngine;
-using Verse;
-using Verse.Noise;
 using RimWorld;
 using RimWorld.Planet;
+using Verse;
 
 namespace O21Toolbox.Spaceship
 {
-    public static class Util_OrbitalRelay
+    public class Util_OrbitalRelay
     {
         public static Building_OrbitalRelay GetOrbitalRelay(Map map)
         {
@@ -31,6 +29,5 @@ namespace O21Toolbox.Spaceship
                 orbitalRelay.UpdateLandingPadAvailability();
             }
         }
-
     }
 }

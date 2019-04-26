@@ -3,53 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 using UnityEngine;
-using Verse;
-using Verse.Noise;
 using RimWorld;
-using RimWorld.Planet;
+using Verse;
 
 namespace O21Toolbox.Spaceship
 {
-    public static class Util_LandingPad
+    public class Util_LandingPad
     {
-        // Note: "available landing pad" means powered and not reserved.
-        // Note: "free landing pad" means only unreserved.
-
-        /// <summary>
-        /// Return the primary landing pad if available
-        ///     else a random one
-        ///     else null.
-        /// </summary>
         public static Building_LandingPad GetBestAvailableLandingPad(Map map)
         {
             List<Building_LandingPad> allAvailableLandingPads = GetAllFreeAndPoweredLandingPads(map);
-            if (allAvailableLandingPads == null)
+            if(allAvailableLandingPads == null)
             {
-                // No available landing pad on the map.
                 return null;
             }
             foreach (Building_LandingPad landingPad in allAvailableLandingPads)
             {
                 if (landingPad.isPrimary)
                 {
-                    // Primary landing pad is available.
                     return landingPad;
                 }
             }
             return allAvailableLandingPads.RandomElement();
         }
 
-        /// <summary>
-        /// Return the primary landing pad if available and reaching map edge
-        ///     else a random one
-        ///     else null.
-        /// </summary>
-        // Return the primary landing pad if available and reaching map edge
-        //     else a random one
-        //     else null.
-        public static Building_LandingPad GetBestAvailableLandingPadReachingMapEdge(Map map)
+        /** public static Building_LandingPad GetBestAvailableLandingPadReachingMapEdge(Map map)
         {
             IntVec3 exitSpot = IntVec3.Invalid;
             // Check pawns can reach map edge from best landing pad.
@@ -74,7 +53,7 @@ namespace O21Toolbox.Spaceship
                 }
             }
             return null;
-        }
+        } **/
 
         // Return a list of all free and powered landing pads.
         public static List<Building_LandingPad> GetAllFreeAndPoweredLandingPads(Map map)
