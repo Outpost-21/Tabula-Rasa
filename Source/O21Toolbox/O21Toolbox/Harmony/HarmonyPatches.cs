@@ -265,7 +265,7 @@ namespace O21Toolbox.Harmony
             #region Restrict
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "ApparelScoreGainPostFix", null), null);
-            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPostfix", null), null);
+            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPostfix", null), null);
             #endregion Restrict
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -857,7 +857,7 @@ namespace O21Toolbox.Harmony
         #endregion NeedEnergyPatches
 
         #region RestrictPatches
-        public static void GenerateStartingApparelForPostfix()
+        /**public static void GenerateStartingApparelForPostfix()
         {
             Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
         }
@@ -878,7 +878,7 @@ namespace O21Toolbox.Harmony
                 }
             }
             traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
-        }
+        }**/
 
         public static void ApparelScoreGainPostFix(Pawn pawn, Apparel ap, ref float __result)
         {
