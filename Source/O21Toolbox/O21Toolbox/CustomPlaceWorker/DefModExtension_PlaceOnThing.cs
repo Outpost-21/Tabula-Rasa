@@ -11,6 +11,7 @@ namespace O21Toolbox.CustomPlaceWorker
 {
     public class DefModExtension_PlaceOnThing : DefModExtension
     {
+
         /// <summary>
         /// List of ThingDefs which the building can be place on.
         /// </summary>

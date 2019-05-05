@@ -82,7 +82,9 @@
     <None Include="Spaceship\Util_LandingPad.cs" />
     <None Include="Spaceship\Util_OrbitalRelay.cs" />
     <None Include="Spaceship\Util_Spaceship.cs" />
+    <None Include="CustomPlaceWorker\DefModExtension_PlaceNearThing.cs" />
     <Compile Include="CustomPlaceWorker\DefModExtension_PlaceOnThing.cs" />
+    <None Include="CustomPlaceWorker\PlaceWorker_PlaceNearThing.cs" />
     <Compile Include="CustomPlaceWorker\PlaceWorker_PlaceOnThing.cs" />
     <Compile Include="HediffGiver_Racial.cs" />
     <Compile Include="AutoHeal\Hediff_AutoHeal.cs" />
