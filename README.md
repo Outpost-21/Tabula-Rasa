@@ -29,7 +29,7 @@ Allows dynamic creation of separated networks, similar to vanilla electricity. C
 - Needs (WIP but functional) - Original code by Chjees, 
 Universal needs for various purposes. Currently includes Energy. Plans: Integrate into Networks, Rage Need
 
-- PawnCrafter (Being Removed) - Replacement "AutomatedProducer" coming, allowing automated time based production of Things and/or Pawns with or without consumption of materials placed in inputs (direct or via hopper).
+- AutomatedProducer (WIP) - Allowing automated time based production of Things and/or Pawns with or without consumption of materials placed in inputs (direct or via hopper). Recipe based, works similar to crafting tables. Can also be told to stop producing when output pile is filled or if anything at all is in the output.
 
 - AutoHeal (Fully Functional)
 Allows the use of a hediff that will passively heal pawns, to the extend of regrowing limbs. Separate hediff can be designated for the regrowth of limbs so you can adjust the rate, if any.
