@@ -2,15 +2,16 @@
 Common Library for Outpost 21 mods.
 
 Current Uses for Modders:
-- PawnConverter (Needs More Testing) - Original code by Albion, 
+- PawnConverter (Minor bugs to be fixed) - Original code by Albion, 
 Allows pawns to be changed in many ways, primary use is for changing pawn race (uses Alien Races).
 
-- ApparelRestrict (Needs More Testing)
+- ApparelRestrict (Bugs to be fixed)
 Allows apparel to be restricted by body type using a Comp.
+
 - WeaponRestrict (Needs More Testing)
 Allows weapons to restricted based on worn apparel using a Comp, list based and can function as ANY or ALL depending on a bool in said Comp.
 
-- ResearchBenchSub (Complete, maybe)
+- ResearchBenchSub (Fully functional, at least in theory)
 Allows research benches and facilities to act like other benches and/or facilities. 
 
 - Bunker (WIP, partially functional)
@@ -28,8 +29,7 @@ Allows dynamic creation of separated networks, similar to vanilla electricity. C
 - Needs (WIP but functional) - Original code by Chjees, 
 Universal needs for various purposes. Currently includes Energy. Plans: Integrate into Networks, Rage Need
 
-- PawnCrafter (WIP but functional) - Original code by Chjees, 
-Allows pawns to be crafted from buildings at a cost of resources. Plans: Integrate into Networks
+- PawnCrafter (Being Removed) - Replacement "AutomatedProducer" coming, allowing automated time based production of Things and/or Pawns with or without consumption of materials placed in inputs (direct or via hopper).
 
 - AutoHeal (Fully Functional)
 Allows the use of a hediff that will passively heal pawns, to the extend of regrowing limbs. Separate hediff can be designated for the regrowth of limbs so you can adjust the rate, if any.
