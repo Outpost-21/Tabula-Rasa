@@ -35,7 +35,7 @@ Universal needs for various purposes. Currently includes Energy. Plans: Integrat
 Allows the use of a hediff that will passively heal pawns, to the extend of regrowing limbs. Separate hediff can be designated for the regrowth of limbs so you can adjust the rate, if any.
 
 - BiomeOverride (Fully Functional)
-Allows terrain, walls and items in a biome to be swapped for something else
+Allows terrain, walls and items in a biome to be swapped for something else, primarily useful for replacing the terrain around rocks which are otherwise untouchable in biome settings, but can be used for generating biome specific variants of exisiting ores or changing the rock in a biome to be something else.
 
 Credit:
 - Albion - Original Pawn Converter Code
