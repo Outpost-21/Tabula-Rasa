@@ -2,7 +2,7 @@
 Common Library for Outpost 21 mods.
 
 Current Uses for Modders:
-- PawnConverter (Needs More Testing) - Original code by Albion
+- PawnConverter (Needs More Testing) - Original code by Albion, 
 Allows pawns to be changed in many ways, primary use is for changing pawn race (uses Alien Races).
 
 - ApparelRestrict (Needs More Testing)
@@ -16,7 +16,7 @@ Allows research benches and facilities to act like other benches and/or faciliti
 - Bunker (WIP, partially functional)
 Allows creation of bunkers for pawns to fire out of with XML defined max pawns, as well as turrets which can hold the pawn inside for relative safety.
 
-- Spaceship (WIP, non-functional) - Original code by Rikiki
+- Spaceship (WIP, non-functional) - Original code by Rikiki, 
 Allows factions or alliances to be assigned spaceships or otherwise flight capable vehicles for various purposes.
 
 - Alliances (WIP, partially functional)
@@ -25,10 +25,10 @@ Allows two or more factions to be treated as a single faction and can define spe
 - Networks (WIP, non-functional)
 Allows dynamic creation of separated networks, similar to vanilla electricity. Can function with cables/pipes or completely connectionless (wireless).
 
-- Needs (WIP but functional) - Original code by Chjees
+- Needs (WIP but functional) - Original code by Chjees, 
 Universal needs for various purposes. Currently includes Energy. Plans: Integrate into Networks, Rage Need
 
-- PawnCrafter (WIP but functional) - Original code by Chjees
+- PawnCrafter (WIP but functional) - Original code by Chjees, 
 Allows pawns to be crafted from buildings at a cost of resources. Plans: Integrate into Networks
 
 - AutoHeal (Fully Functional)
