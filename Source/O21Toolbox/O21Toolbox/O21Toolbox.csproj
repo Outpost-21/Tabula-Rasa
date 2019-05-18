@@ -83,6 +83,14 @@
     <None Include="Spaceship\Util_OrbitalRelay.cs" />
     <None Include="Spaceship\Util_Spaceship.cs" />
     <None Include="CustomPlaceWorker\DefModExtension_PlaceNearThing.cs" />
+    <Compile Include="AutomatedProducer\Building_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\CompProperties_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\Comp_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\ITab_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\RecipeDef_Automated.cs" />
+    <Compile Include="AutomatedProducer\Utility_AutoProducerCard.cs" />
+    <Compile Include="Conveyors\CompProperties_ConveyorBelt.cs" />
+    <Compile Include="Conveyors\Comp_ConveyorBelt.cs" />
     <Compile Include="CustomPlaceWorker\DefModExtension_PlaceOnThing.cs" />
     <None Include="CustomPlaceWorker\PlaceWorker_PlaceNearThing.cs" />
     <Compile Include="CustomPlaceWorker\PlaceWorker_PlaceOnThing.cs" />
@@ -140,6 +148,9 @@
     <None Include="Spaceship\Building_LandingPad.cs" />
     <None Include="Spaceship\Comp_LandingPad.cs" />
     <Compile Include="Spaceship\SpaceshipDef.cs" />
+    <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
+    <Compile Include="Terraformer\Comp_Terraformer.cs" />
+    <Compile Include="Terraformer\TerraformerRulesDef.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />

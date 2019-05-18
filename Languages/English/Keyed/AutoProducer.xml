@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<SetAutoBill>Set Production</SetAutoBill>
+	<RepeatAutoBillTip>Repeats current production recipe.</RepeatAutoBillTip>
+	<DeleteAutoBillTip>Cancels current production recipe.</DeleteAutoBillTip>
+	<TabAutoProducer>Production</TabAutoProducer>
+ 
+</LanguageData>
