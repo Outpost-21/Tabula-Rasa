@@ -133,6 +133,10 @@
     <Compile Include="CustomHive\Toils_Extra.cs" />
     <Compile Include="CustomThingMaker\CompProperties_PawnMaker.cs" />
     <Compile Include="CustomThingMaker\Comp_PawnMaker.cs" />
+    <Compile Include="ModularWeapon\DefModExtension_ModularWeapon.cs" />
+    <Compile Include="ModularWeapon\ITab_ModularWeapon.cs" />
+    <Compile Include="ModularWeapon\WeaponModuleDef.cs" />
+    <Compile Include="ModularWeapon\WeaponSlot.cs" />
     <Compile Include="Needs\FleshType_Artificial.cs" />
     <Compile Include="Needs\JobDefOf.cs" />
     <Compile Include="Needs\JobGiver_GetEnergy.cs" />

@@ -19,6 +19,7 @@ using O21Toolbox.ApparelRestrict;
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Bunker;
 //using O21Toolbox.Laser;
+using O21Toolbox.ModularWeapon;
 using O21Toolbox.Needs;
 using O21Toolbox.Networks;
 using O21Toolbox.PawnConverter;
@@ -267,6 +268,10 @@ namespace O21Toolbox.Harmony
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "ApparelScoreGainPostFix", null), null);
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPostfix", null), null);
             #endregion Restrict
+
+            #region ModularWeapon
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
+            #endregion ModularWeapon
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
@@ -969,5 +974,46 @@ namespace O21Toolbox.Harmony
             }
         }
         #endregion RestrictPatches
+
+
+        #region ModularWeaponPatches
+        public static void DrawEquipmentAimingPostfix(Thing eq, Vector3 drawLoc, float aimAngle)
+        {
+            float num = aimAngle - 90f;
+            Mesh mesh;
+            if (aimAngle > 20f && aimAngle < 160f)
+            {
+                mesh = MeshPool.plane10;
+                num += eq.def.equippedAngleOffset;
+            }
+            else if (aimAngle > 200f && aimAngle < 340f)
+            {
+                mesh = MeshPool.plane10Flip;
+                num -= 180f;
+                num -= eq.def.equippedAngleOffset;
+            }
+            else
+            {
+                mesh = MeshPool.plane10;
+                num += eq.def.equippedAngleOffset;
+            }
+            num %= 360f;
+            Graphic_StackCount graphic_StackCount = eq.Graphic as Graphic_StackCount;
+            Material matSingle;
+            if (eq.def.HasModExtension<DefModExtension_ModularWeapon>())
+            {
+                matSingle = eq.def.GetModExtension<DefModExtension_ModularWeapon>().GetCurrentTexture.MatSingle;
+            }
+            else if (graphic_StackCount != null)
+            {
+                matSingle = graphic_StackCount.SubGraphicForStackCount(1, eq.def).MatSingle;
+            }
+            else
+            {
+                matSingle = eq.Graphic.MatSingle;
+            }
+            Graphics.DrawMesh(mesh, drawLoc, Quaternion.AngleAxis(num, Vector3.up), matSingle, 0);
+        }
+        #endregion ModularWeaponPatches
     }
 }
