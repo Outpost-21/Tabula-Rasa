@@ -19,12 +19,13 @@ using O21Toolbox.ApparelRestrict;
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Bunker;
 //using O21Toolbox.Laser;
-using O21Toolbox.ModularWeapon;
+//using O21Toolbox.ModularWeapon;
 using O21Toolbox.Needs;
 using O21Toolbox.Networks;
 using O21Toolbox.PawnConverter;
 using O21Toolbox.PawnCrafter;
 using O21Toolbox.ResearchBenchSub;
+using O21Toolbox.Spaceship;
 using O21Toolbox.WeaponRestrict;
 
 using AlienRace;
@@ -47,8 +48,6 @@ namespace O21Toolbox.Harmony
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;
 
-        private static HashSet<ThingStuffPair> apparelList;
-
         private static readonly Type patchType = typeof(HarmonyPatches);
 
         static HarmonyPatches()
@@ -58,7 +57,7 @@ namespace O21Toolbox.Harmony
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
-
+            
             #region ResearchBenchSub
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(ResearchProjectDef), "CanBeResearchedAt", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "CanBeResearchedAtPostFix", null), null);
             #endregion ResearchBenchSub
@@ -270,7 +269,7 @@ namespace O21Toolbox.Harmony
             #endregion Restrict
 
             #region ModularWeapon
-            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
+            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
             #endregion ModularWeapon
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -975,9 +974,8 @@ namespace O21Toolbox.Harmony
         }
         #endregion RestrictPatches
 
-
         #region ModularWeaponPatches
-        public static void DrawEquipmentAimingPostfix(Thing eq, Vector3 drawLoc, float aimAngle)
+        /** public static void DrawEquipmentAimingPostfix(Thing eq, Vector3 drawLoc, float aimAngle)
         {
             float num = aimAngle - 90f;
             Mesh mesh;
@@ -1013,7 +1011,7 @@ namespace O21Toolbox.Harmony
                 matSingle = eq.Graphic.MatSingle;
             }
             Graphics.DrawMesh(mesh, drawLoc, Quaternion.AngleAxis(num, Vector3.up), matSingle, 0);
-        }
+        }**/
         #endregion ModularWeaponPatches
     }
 }

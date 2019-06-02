@@ -95,6 +95,15 @@ namespace O21Toolbox.Spaceship
             this.landingPadIsAvailable = Util_LandingPad.GetAllFreeAndPoweredLandingPads(this.Map) != null;
         }
 
+        // ===================== Other functions =====================
+        /// <summary>
+        /// Notify that a periodic cargo supply spaceship is landing.
+        /// </summary>
+        public void Notify_SpaceshipLanding()
+        {
+            //this.lastPeriodicSupplyTick = Find.TickManager.TicksGame;
+        }
+
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();

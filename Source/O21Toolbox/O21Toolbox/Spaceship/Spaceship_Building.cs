@@ -6,6 +6,7 @@ using System.Text;
 using UnityEngine;
 using RimWorld;
 using Verse;
+using Verse.AI.Group;
 
 namespace O21Toolbox.Spaceship
 {
@@ -51,19 +52,25 @@ namespace O21Toolbox.Spaceship
             }
         }
 
-        public void InitializeData(Faction faction, int hitPoints, int landingDuration, SpaceshipDef spaceshipDef)
+        public void InitializeParameters(Faction faction, int hitPoints, int landingDuration, SpaceshipDef spaceshipDef, SpaceshipKind spaceshipKind)
         {
             this.SetFaction(faction);
             this.HitPoints = hitPoints;
             this.takeOffTick = Current.Game.tickManager.TicksGame + landingDuration;
             this.thisSpaceshipDef = spaceshipDef;
-            this.cargoKind = GetCargoKind(this.thisSpaceshipDef);
+            this.spaceshipKind = spaceshipKind;
+            this.cargoKind = GetSpaceshipCargo(this.Faction, spaceshipKind);
+        }
+
+        private TraderKindDef GetSpaceshipCargo(Faction faction, SpaceshipKind spaceshipKind)
+        {
+            return GetSpaceshipCargo(faction, spaceshipKind);
         }
 
         public PawnKindDef GetPilotPawnKind()
         {
             List<PawnKindDef> pilotList = new List<PawnKindDef>();
-            foreach (CrewGroupMaker groupMaker in thisSpaceshipDef.crewGroupMaker.Where(x => x.crewGroupType == spaceshipKind))
+            foreach (CrewGroupMaker groupMaker in thisSpaceshipDef.crewGroupMaker.Where(x => x.groupType == spaceshipKind))
             {
                 foreach(CrewKindOption crewKind in groupMaker.crewKindOptions)
                 {
@@ -108,9 +115,9 @@ namespace O21Toolbox.Spaceship
                 }
                 this.pawnsAboard.Clear();
                 // Spawn taking off spaceship.
-                FlyingSpaceshipTakingOff spaceship = ThingMaker.MakeThing(Util_Spaceship.SpaceshipTakingOff) as FlyingSpaceshipTakingOff;
+                Spaceship_TakingOff spaceship = ThingMaker.MakeThing(ThingDef.Named(thisSpaceshipDef.defName + "_TakingOff")) as Spaceship_TakingOff;
                 GenSpawn.Spawn(spaceship, this.Position, this.Map, this.Rotation);
-                spaceship.InitializeTakingOffParameters(this.Position, this.Rotation, this.thisSpaceshipDef);
+                spaceship.InitializeParameters(this.Position, this.Rotation, this.thisSpaceshipDef, this.spaceshipKind);
                 spaceship.HitPoints = this.HitPoints;
                 if(this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_OrbitalRelay>() != null)
                 {
@@ -167,35 +174,13 @@ namespace O21Toolbox.Spaceship
             this.takeOffTick = Find.TickManager.TicksGame;
         }
 
-        public TraderKindDef GetCargoKind(SpaceshipKind spaceshipKind)
-        {
-            TraderKindDef cargokind = Util_TraderKindDefOf.spaceshipCargoPeriodicSupply;
-            switch (spaceshipKind)
-            {
-                case SpaceshipKind.Cargo:
-                    cargokind = Util_TraderKindDefOf.spaceshipCargoPeriodicSupply;
-                    break;
-                case SpaceshipKind.Damaged:
-                    cargokind = Util_TraderKindDefOf.spaceshipCargoDamaged;
-                    break;
-                case SpaceshipKind.DispatcherDrop:
-                case SpaceshipKind.DispatcherPick:
-                    cargokind = Util_TraderKindDefOf.spaceshipCargoDispatcher;
-                    break;
-                default:
-                    Log.ErrorOnce("Toolbox.Spaceship: unhandled SpaceshipKind (" + this.spaceshipKind.ToString() + ") in Building_Spaceship.GetCargoKind.", 123456781);
-                    break;
-            }
-            return cargokind;
-        }
-
         public void SpawnSurvivingPawns()
         {
             List<Pawn> survivingPawns = new List<Pawn>();
             foreach (Pawn pawn in this.pawnsAboard)
             {
                 GenSpawn.Spawn(pawn, this.OccupiedRect().Cells.RandomElement(), this.Map);
-                Expedition.RandomlyDamagePawn(pawn, Rand.RangeInclusive(1, 4), Rand.RangeInclusive(4, 16));
+                Util_Spaceship.RandomlyDamagePawn(pawn, Rand.RangeInclusive(1, 4), Rand.RangeInclusive(4, 16));
                 if (pawn.Dead == false)
                 {
                     survivingPawns.Add(pawn);
@@ -208,7 +193,7 @@ namespace O21Toolbox.Spaceship
                 bool exitSpotIsValid = RCellFinder.TryFindBestExitSpot(survivingPawns.First(), out exitSpot, TraverseMode.PassAllDestroyableThings);
                 if (exitSpotIsValid)
                 {
-                    LordMaker.MakeNewLord(Util_Faction.MiningCoFaction, new LordJob_ExitMap(exitSpot), this.Map, survivingPawns);
+                    LordMaker.MakeNewLord(this.Faction, new LordJob_ExitMap(exitSpot), this.Map, survivingPawns);
                 }
             }
         }
@@ -340,6 +325,15 @@ namespace O21Toolbox.Spaceship
                 resultButtonList = buttonList;
             }
             return resultButtonList;
+        }
+
+        public bool CanTradeNow
+        {
+            get
+            {
+                return ((this.DestroyedOrNull() == false)
+                    && (this.IsBurning() == false) && this.spaceshipKind == SpaceshipKind.Cargo);
+            }
         }
     }
 }

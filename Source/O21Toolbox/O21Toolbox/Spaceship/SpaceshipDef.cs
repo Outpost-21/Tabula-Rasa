@@ -37,6 +37,25 @@ namespace O21Toolbox.Spaceship
 
         // Size of ship. Also used to determine the minimum size of landing pad.
         public Vector2 size;
+
+        // Speed of ship movement across the map.
+        public int flightSpeedH = 480;
+
+        // Speed of ship takeoff and landing.
+        public int flightSpeedV = 240;
+
+        // Sound effect played once on takeoff.
+        public SoundDef takeoffSound = null;
+
+        // Sound effect played once prior to map entry.
+        public SoundDef preLandingSound = null;
+
+        // Sound effect played once on landing.
+        public SoundDef landingSound = null;
+
+        // Time in ticks which a ship will stay on a landing pad before leaving. (Some exceptions may not leave until told to do so)
+        // Default is quarter of a day.
+        public int landingPeriod = 15000;
     }
 
     public class GraphicPaths
@@ -88,7 +107,7 @@ namespace O21Toolbox.Spaceship
     public class CrewGroupMaker
     {
         // Type of crew, matches to the spaceship type.
-        public SpaceshipKind crewGroupType;
+        public SpaceshipKind groupType;
 
         // List of pawnKinds who can fit in different roles.
         public List<CrewKindOption> crewKindOptions;

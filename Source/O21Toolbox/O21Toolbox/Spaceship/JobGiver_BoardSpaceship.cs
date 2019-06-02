@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using UnityEngine;
+using RimWorld;
+using Verse;
+using Verse.AI;
+using Verse.AI.Group;
+
+namespace O21Toolbox.Spaceship
+{
+    public class JobGiver_BoardSpaceship : ThinkNode_JobGiver
+    {
+        protected LocomotionUrgency defaultLocomotion;
+        protected int jobMaxDuration = 999999;
+
+        public override ThinkNode DeepCopy(bool resolve = true)
+        {
+            JobGiver_BoardSpaceship jobGiver_BoardSpaceship = (JobGiver_BoardSpaceship)base.DeepCopy(resolve);
+            jobGiver_BoardSpaceship.defaultLocomotion = this.defaultLocomotion;
+            jobGiver_BoardSpaceship.jobMaxDuration = this.jobMaxDuration;
+            return jobGiver_BoardSpaceship;
+        }
+
+        protected override Job TryGiveJob(Pawn pawn)
+        {
+            if (pawn.Position != pawn.DutyLocation())
+            {
+                return new Job(JobDefOf.Goto, pawn.DutyLocation())
+                {
+                    locomotionUrgency = pawn.mindState.duty.locomotion,
+                    expiryInterval = this.jobMaxDuration
+                };
+            }
+            else
+            {
+                Spaceship_Building spaceship = null;
+                foreach (Thing thing in pawn.Position.GetThingList(pawn.Map))
+                {
+                    if (thing is Spaceship_Building)
+                    {
+                        spaceship = thing as Spaceship_Building;
+                        break;
+                    }
+                }
+                if (spaceship != null)
+                {
+                    return new Job(Util_JobDefOf.BoardSpaceship, spaceship);
+                }
+            }
+            return null;
+        }
+    }
+}

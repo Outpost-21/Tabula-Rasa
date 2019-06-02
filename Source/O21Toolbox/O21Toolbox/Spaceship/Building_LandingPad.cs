@@ -294,15 +294,15 @@ namespace O21Toolbox.Spaceship
             Command_Action setTargetButton = new Command_Action();
             if (this.isPrimary)
             {
-                setTargetButton.icon = ContentFinder<Texture2D>.Get("Ui/Commands/Commands_Primary");
+                setTargetButton.icon = ContentFinder<Texture2D>.Get("UI/Toolbox/Commands_Primary");
                 setTargetButton.defaultLabel = "Primary";
-                setTargetButton.defaultDesc = "Ships will land there in priority if landing pad is clear. Otherwise, they will choose another.";
+                setTargetButton.defaultDesc = "Vehicles will land there in priority if landing pad is clear. Otherwise, they will choose another.";
             }
             else
             {
-                setTargetButton.icon = ContentFinder<Texture2D>.Get("Ui/Commands/Commands_Ancillary");
+                setTargetButton.icon = ContentFinder<Texture2D>.Get("UI/Toolbox/Commands_Ancillary");
                 setTargetButton.defaultLabel = "Ancillary";
-                setTargetButton.defaultDesc = "Ships may only land there if primary landing pad is busy. Click to set it as primary.";
+                setTargetButton.defaultDesc = "Vehicles may only land there if primary landing pad is busy. Click to set it as primary.";
             }
             setTargetButton.activateSound = SoundDef.Named("Click");
             setTargetButton.action = new Action(SetAsPrimary);

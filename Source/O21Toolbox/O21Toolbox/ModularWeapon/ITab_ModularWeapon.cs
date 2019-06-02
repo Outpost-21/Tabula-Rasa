@@ -57,7 +57,7 @@ namespace O21Toolbox.ModularWeapon
                 {
                     return corpse.InnerPawn;
                 }
-                throw new InvalidOperationException("Gear tab on non-pawn non-corpse " + base.SelThing);
+                throw new InvalidOperationException("Weapon tab on non-pawn non-corpse " + base.SelThing);
             }
         }
 
