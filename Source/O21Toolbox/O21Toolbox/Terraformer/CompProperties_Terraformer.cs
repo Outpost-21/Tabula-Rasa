@@ -13,15 +13,23 @@ namespace O21Toolbox.Terraformer
     {
         /// <summary>
         /// If null, no nodes will spawn from this. Otherwise a random node from the list is chosen.
+        /// 
         /// </summary>
-        public List<ThingDef> nodeList = null;
+        public List<ThingDefCount> nodeList = null;
 
         /// <summary>
-        /// Maximum nodes which can spawn from this terraformer.
-        /// 0 means no nodes can spawn.
-        /// The Terraformer will attempt to spawn nodes in the most efficient layout.
+        /// If not set, then terraformTicksExact is used instead.
+        /// Ticks between terraform attempts, randomly chosen between min and max.
+        /// Lower number = faster.
         /// </summary>
-        public int nodeMax = 0;
+        public int terraformTicksMin = -1;
+        public int terraformTicksMax = -1;
+
+        /// <summary>
+        /// Lower number = faster.
+        /// 60,000 ticks = 1 full day in-game.
+        /// </summary>
+        public int terraformTicksExact = 10000;
 
         /// <summary>
         /// Radius in which nodes can spawn.
@@ -36,9 +44,17 @@ namespace O21Toolbox.Terraformer
         public bool failsWithoutParent = false;
 
         /// <summary>
-        /// If true, a failing terraformer will restore the original terrain instead of spreading.
+        /// If true, failing will cause the terraformer to wither.
         /// </summary>
-        public bool failureReverses = false;
+        public bool failureWithers = false;
+        /// <summary>
+        /// Number of ticks that must fail to wither away.
+        /// </summary>
+        public int witherTicks = 10000;
+        /// <summary>
+        /// If true, successful ticks will slowly restore the withering which has occurred.
+        /// </summary>
+        public bool successRestores = true;
 
         /// <summary>
         /// If true, this node will be able to sustain others linked to it.
@@ -52,8 +68,9 @@ namespace O21Toolbox.Terraformer
 
         /// <summary>
         /// Radius which will be affected by the terraformer.
+        /// 0 means this node will not terraform.
         /// </summary>
-        public int terraformRange = 0;
+        public float terraformRange = 0;
 
         /// <summary>
         /// Whether or not the terraformer uses power.

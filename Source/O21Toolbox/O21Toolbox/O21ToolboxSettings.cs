@@ -29,7 +29,7 @@ namespace O21Toolbox
 
         public void ResetToDefault()
         {
-
+            EnergyNeedCompatMode = true;
         }
 
         public void SetBool(ref bool b, bool set)

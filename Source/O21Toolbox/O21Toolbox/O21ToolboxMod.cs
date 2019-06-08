@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 using UnityEngine;
@@ -25,7 +26,14 @@ namespace O21Toolbox
 
         public O21ToolboxMod(ModContentPack content) : base(content)
         {
+            Log.Message(":: Outpost 21 Toolbox Version 0.1.0 Loaded ::");
+
             settings = GetSettings<O21ToolboxSettings>();
+
+            if (settings.FirstStartUp)
+            {
+                settings.ResetToDefault();
+            }
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -45,7 +53,7 @@ namespace O21Toolbox
 
             if (Widgets.ButtonText(new Rect(0f, inRect.height + 35f, 125f, 45f), "Reset Default"))
             {
-                O21ToolboxMod.settings.ResetToDefault();
+                settings.ResetToDefault();
             }
         }
 
