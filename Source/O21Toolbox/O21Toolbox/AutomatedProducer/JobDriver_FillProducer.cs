@@ -7,22 +7,22 @@ using System.Text;
 using Verse;
 using Verse.AI;
 
-namespace O21Toolbox.PawnCrafter
+namespace O21Toolbox.AutomatedProducer
 {
     /// <summary>
     /// Grabs a thing and fills the AutomatedProducer with it.
     /// </summary>
-    public class JobDriver_FillPawnCrafter : JobDriver
+    public class JobDriver_FillProducer : JobDriver
     {
         private const TargetIndex CarryThingIndex = TargetIndex.A;
 
         private const TargetIndex DestIndex = TargetIndex.B;
 
-        private Building_PawnCrafter Printer
+        private Building_AutomatedProducer AutoProducer
         {
             get
             {
-                return (Building_PawnCrafter)job.GetTarget(TargetIndex.B);
+                return (Building_AutomatedProducer)job.GetTarget(TargetIndex.B);
             }
         }
 
@@ -59,7 +59,7 @@ namespace O21Toolbox.PawnCrafter
         {
             this.FailOnDestroyedOrNull(CarryThingIndex);
             this.FailOnDestroyedNullOrForbidden(DestIndex);
-            this.FailOn(() => Printer.crafterStatus != CrafterStatus.Filling);
+            this.FailOn(() => AutoProducer.TryGetComp<Comp_AutomatedProducer>().currentStatus != ProducerStatus.awaitingResources);
 
             //Reserve
             yield return Toils_Reserve.Reserve(CarryThingIndex, 1, -1, null);

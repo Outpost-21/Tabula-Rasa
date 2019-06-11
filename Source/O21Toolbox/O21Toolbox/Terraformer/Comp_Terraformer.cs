@@ -104,14 +104,6 @@ namespace O21Toolbox.Terraformer
             workTick = resultTicks;
         }
 
-        private void TryTerraform()
-        {
-            //Log.Message("Attempting Terraform");
-            TryTerraform_Terrain();
-            //TryTerraform_Plants();
-            //TryTerraform_CreateNodes();
-        }
-
         public override string CompInspectStringExtra()
         {
             string text = string.Concat(new string[]
@@ -131,17 +123,29 @@ namespace O21Toolbox.Terraformer
             return text;
         }
 
+        private void TryTerraform()
+        {
+            //Log.Message("Attempting Terraform");
+            TryTerraform_Terrain();
+            TryTerraform_Edifice();
+            //TryTerraform_Plants();
+            //TryTerraform_CreateNodes();
+        }
+
         private void TryTerraform_Terrain()
         {
-            List<IntVec3> tileList = ListTerraformableTiles();
-            if(tileList.Count() > 0)
+            if(Props.terraformerRules.terrainRules != null)
             {
-                foreach(TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
+                List<IntVec3> tileList = ListTerraformableTiles();
+                if(tileList.Count() > 0)
                 {
-                    if(rule.terrainDefsWhitelist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist != null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map))))
+                    foreach(TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
                     {
-                        this.parent.Map.terrainGrid.SetTerrain(tileList.First(), rule.terrainResult);
-                        break;
+                        if(rule.terrainDefsWhitelist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map))))
+                        {
+                            this.parent.Map.terrainGrid.SetTerrain(tileList.First(), rule.terrainResult.RandomElement());
+                            break;
+                        }
                     }
                 }
             }
@@ -155,9 +159,9 @@ namespace O21Toolbox.Terraformer
             for (int i = 0; i < num; i++)
             {
                 IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                foreach(TerraformerTerrainRule rule in this.Props.terraformerRules.terrainRules)
+                foreach (TerraformerTerrainRule rule in this.Props.terraformerRules.terrainRules)
                 {
-                    if((rule.terrainDefsWhitelist != null && rule.terrainDefsWhitelist.Contains(tile.GetTerrain(this.parent.Map))) || (rule.terrainDefsBlacklist != null && rule.terrainDefsBlacklist.Contains(tile.GetTerrain(this.parent.Map))))
+                    if ((rule.terrainDefsWhitelist != null && rule.terrainDefsWhitelist.Contains(tile.GetTerrain(this.parent.Map))) || (rule.terrainDefsBlacklist != null && rule.terrainDefsBlacklist.Contains(tile.GetTerrain(this.parent.Map))))
                     {
                         terraformTiles.Add(tile);
                     }
@@ -167,6 +171,52 @@ namespace O21Toolbox.Terraformer
             //Log.Message("TerraformListed: " + terraformTiles.Count());
 
             return terraformTiles;
+        }
+
+        private void TryTerraform_Edifice()
+        {
+            if(Props.terraformerRules.edificeRules != null)
+            {
+                List<IntVec3> tileList = ListTerraformableEdifices();
+                if (tileList.Count() > 0)
+                {
+                    foreach (TerraformerThingRule rule in Props.terraformerRules.edificeRules)
+                    {
+                        if (rule.thingWhitelist.Exists(x => x.IsEdifice()) || (rule.thingWhitelist == null && rule.thingBlacklist != null && !rule.thingBlacklist.Exists(x => x.IsEdifice())))
+                        {
+                            IntVec3 tile = tileList.First();
+                            tile.GetEdifice(this.parent.Map).Destroy();
+                            GenSpawn.Spawn(rule.thingResult.RandomElement(), tile, this.parent.Map);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private List<IntVec3> ListTerraformableEdifices()
+        {
+            List<IntVec3> terraformTiles = new List<IntVec3>();
+
+            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+            for (int i = 0; i < num; i++)
+            {
+                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+                foreach (TerraformerThingRule rule in this.Props.terraformerRules.edificeRules)
+                {
+                    if ((rule.thingWhitelist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingWhitelist.Contains(tile.GetEdifice(this.parent.Map).def)) || (rule.thingBlacklist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingBlacklist.Contains(tile.GetEdifice(this.parent.Map).def)))
+                    {
+                        terraformTiles.Add(tile);
+                    }
+                }
+            }
+
+            return terraformTiles;
+        }
+
+        public void TryTerraform_Things()
+        {
+            throw new NotImplementedException();
         }
 
         private void TryTerraform_Plants()

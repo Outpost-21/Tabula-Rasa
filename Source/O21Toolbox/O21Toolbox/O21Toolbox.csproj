@@ -69,6 +69,11 @@
     <Compile Include="ArtificialPawn\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\DefModExtension_AutoHealProps.cs" />
     <Compile Include="ArtificialPawn\DefModExtension_DroidPartsProps.cs" />
+    <Compile Include="AutomatedProducer\JobDriver_FillProducer.cs" />
+    <Compile Include="AutomatedProducer\ThingOrderProcessor.cs" />
+    <Compile Include="AutomatedProducer\ThingOrderRequest.cs" />
+    <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="DefGenerator.cs" />
     <Compile Include="Spaceship\AirStrikeDef.cs" />
     <Compile Include="Spaceship\Building_AirStrikeBeacon.cs" />

@@ -14,7 +14,7 @@ namespace O21Toolbox.AutomatedProducer
         /// <summary>
         /// Set amount of time between production cycles.
         /// </summary>
-        public int baseTickCost = 0;
+        public int baseTickCost = 6000;
 
         /// <summary>
         /// If true, will use the randomCostMin and randomCostMax to determin a random timer for the next cycle.

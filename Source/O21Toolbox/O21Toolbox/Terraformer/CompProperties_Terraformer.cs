@@ -76,5 +76,15 @@ namespace O21Toolbox.Terraformer
         /// Whether or not the terraformer uses power.
         /// </summary>
         public bool requiresPower = false;
+
+        /// <summary>
+        /// Whether or not spread can pass through walls, allowing containment/blocking of terraforming based on region.
+        /// </summary>
+        public bool wallsPreventSpread = false;
+
+        /// <summary>
+        /// Whether or not the range is configurable by the player.
+        /// </summary>
+        public bool configurableRange = false;
     }
 }

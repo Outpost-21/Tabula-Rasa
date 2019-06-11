@@ -51,6 +51,7 @@ namespace O21Toolbox.AutomatedProducer
                             if (this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe != recipe)
                             {
                                 this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = recipe;
+                                this.SelTable.GetComp<Comp_AutomatedProducer>().ResetWorkTick();
                             }
                         }, MenuOptionPriority.Default, null, null, 29f, (Rect rect3) => Widgets.InfoCardButton(rect.x + 5f, rect.y + (rect.height - 24f) / 2f, recipe), null));
                     }
@@ -86,25 +87,27 @@ namespace O21Toolbox.AutomatedProducer
             string inputListing = "Input: ";
             string itemInfo = "No Item Being Produced";
             Texture itemTexture = ContentFinder<Texture2D>.Get("UI/Toolbox/NoRecipe", true);
-            if (recipe != null)
+            // Button - Repeat Recipe
+            Rect rect6 = new Rect(2f, 28f, 24f, 24f);
+            Texture2D RepeatIcon = ContentFinder<Texture2D>.Get("UI/Toolbox/RepeatIcon", true);
+            if (Widgets.ButtonImage(rect6, RepeatIcon, Color.white, Color.white * GenUI.SubtleMouseoverColor))
             {
-                Rect rect6 = new Rect(2f, 28f, 24f, 24f);
-                Texture2D RepeatIcon = ContentFinder<Texture2D>.Get("UI/Toolbox/RepeatIcon", true);
-                if (Widgets.ButtonImage(rect6, RepeatIcon, Color.white, Color.white * GenUI.SubtleMouseoverColor))
-                {
-                    this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe = !this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe;
-                    SoundDefOf.Click.PlayOneShotOnCamera(null);
-                }
-                TooltipHandler.TipRegion(rect6, "RepeatAutoBillTip".Translate());
-                Rect rect5 = new Rect(rect.width - 26f, 28f, 24f, 24f);
-                Texture2D DeleteX = ContentFinder<Texture2D>.Get("UI/Buttons/Delete", true);
-                if (Widgets.ButtonImage(rect5, DeleteX, Color.white, Color.white * GenUI.SubtleMouseoverColor))
-                {
-                    this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = null;
-                    SoundDefOf.Click.PlayOneShotOnCamera(null);
-                }
-                TooltipHandler.TipRegion(rect5, "DeleteAutoBillTip".Translate());
+                this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe = !this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe;
+                SoundDefOf.Click.PlayOneShotOnCamera(null);
             }
+            TooltipHandler.TipRegion(rect6, "RepeatAutoBillTip".Translate());
+
+            // Button - Remove Recipe
+            Rect rect5 = new Rect(rect.width - 26f, 28f, 24f, 24f);
+            Texture2D DeleteX = ContentFinder<Texture2D>.Get("UI/Buttons/Delete", true);
+            if (Widgets.ButtonImage(rect5, DeleteX, Color.white, Color.white * GenUI.SubtleMouseoverColor))
+            {
+                this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = null;
+                SoundDefOf.Click.PlayOneShotOnCamera(null);
+            }
+            TooltipHandler.TipRegion(rect5, "DeleteAutoBillTip".Translate());
+
+            // Info - Recipe Info
             Rect rectRepeat = new Rect(28f, 28f, 160f, 24f);
             Widgets.Label(rectRepeat, this.SelTable.GetComp<Comp_AutomatedProducer>().RepeatString());
             if (recipe != null)
@@ -129,13 +132,13 @@ namespace O21Toolbox.AutomatedProducer
                 }
                 itemInfo = producingDescription + "\n\n" + producingItem + "\n\n" + this.SelTable.GetComp<Comp_AutomatedProducer>().CurrentStatusLabel();
             }
-            Rect rect3 = new Rect(0f, 45f, rect.width, 136f);
-            GUI.BeginGroup(rect3);
-            Rect rectInfo = new Rect(136f, 4f, rect3.width - 128f, 260f);
-            Widgets.Label(rectInfo, itemInfo);
-            Rect rect4 = new Rect(4f, 4f, 128f, 128f);
-            GUI.DrawTexture(rect4, itemTexture);
-            GUI.EndGroup();                
+                Rect rect3 = new Rect(0f, 45f, rect.width, 136f);
+                GUI.BeginGroup(rect3);
+                    Rect rectInfo = new Rect(136f, 4f, rect3.width - 128f, 260f);
+                    Widgets.Label(rectInfo, itemInfo);
+                    Rect rect4 = new Rect(4f, 4f, 128f, 128f);
+                    GUI.DrawTexture(rect4, itemTexture);
+                GUI.EndGroup();                
             GUI.EndGroup();
         }
 

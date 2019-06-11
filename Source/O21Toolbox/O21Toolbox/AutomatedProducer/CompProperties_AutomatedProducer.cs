@@ -17,15 +17,16 @@ namespace O21Toolbox.AutomatedProducer
         public float craftingTimeMultiplier = 1.0f;
 
         /// <summary>
-        /// If True, the producer will halt production if there is anything on the output tile.
+        /// If limitOutput is true, this can be set to allow the producer to fill a stack before stopping.
+        /// If something other than the current output is on the output tile it will still stop unless allowOverflow is true.
         /// </summary>
-        public bool limitOutput = false;
+        public bool allowFullStack = true;
 
         /// <summary>
-        /// If limitOutput is true, this can be set to allow the producer to fill a stack before stopping.
-        /// If something other than the current output is on the output tile it will still stop.
+        /// If false, will not spawn more than a full stack in output.
+        /// If true, will continue to spawn placing nearby.
         /// </summary>
-        public bool allowFullStack = false;
+        public bool allowOverflow = false;
 
         public List<RecipeDef_Automated> recipes = new List<RecipeDef_Automated>();
     }

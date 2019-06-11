@@ -9,7 +9,7 @@ using Verse;
 
 namespace O21Toolbox.AutomatedProducer
 {
-    public class Comp_AutomatedProducer : ThingComp
+    public class Comp_AutomatedProducer : ThingComp, IThingHolder
     {
         public CompProperties_AutomatedProducer Props
         {
@@ -24,17 +24,37 @@ namespace O21Toolbox.AutomatedProducer
             base.PostExposeData();
         }
 
+        /// <summary>
+        /// Stored ingredients for use in producing one pawn.
+        /// </summary>
+        public ThingOwner<Thing> ingredients = new ThingOwner<Thing>();
+
+        /// <summary>
+        /// Convenience class for setting what resources is needed to make one of the selected recipe.
+        /// </summary>
+        public ThingOrderProcessor orderProcessor;
+
+        public void GetChildHolders(List<IThingHolder> outChildren)
+        {
+            //None
+        }
+
+        public ThingOwner GetDirectlyHeldThings()
+        {
+            return ingredients;
+        }
+
         private CompPowerTrader powerComp;
 
         private CompProperties_AutomatedProducer producerCompProps;
 
-        private int nextProductionTick = -1;
+        private int workTick = -50;
 
         public ProducerStatus currentStatus = ProducerStatus.idle;
 
         public string CurrentStatusLabel()
         {
-            string result = "";
+            string result = " ";
             if (currentStatus == ProducerStatus.idle)
             {
                 result = "Idle";
@@ -42,14 +62,14 @@ namespace O21Toolbox.AutomatedProducer
             else if(currentStatus == ProducerStatus.awaitingResources)
             {
                 result = "Awaiting Resources: ";
-                foreach(ThingDefCount thing in currentRecipe.costs)
+                foreach(ThingOrderRequest thing in orderProcessor.requestedItems)
                 {
-                    result = result + "\n" + thing.Count.ToString() + " " + thing.ThingDef.LabelCap;
+                    result = result + "\n" + thing.amount.ToString() + " " + thing.thingDef.LabelCap;
                 }
             }
             else if(currentStatus == ProducerStatus.working)
             {
-                result = "Working";
+                result = "Working: " + workTick;
             }
             else if(currentStatus == ProducerStatus.producing)
             {
@@ -80,6 +100,31 @@ namespace O21Toolbox.AutomatedProducer
 
             this.powerComp = this.parent.TryGetComp<CompPowerTrader>();
             this.producerCompProps = this.Props;
+
+            if(workTick <= 0)
+            {
+                ResetWorkTick();
+            }
+
+            if (!respawningAfterLoad)
+            {
+                orderProcessor = new ThingOrderProcessor(ingredients);
+            }
+
+            if(orderProcessor.requestedItems == null && HasCosts())
+            {
+                //Update costs.
+                orderProcessor.requestedItems.Clear();
+
+                foreach (ThingDefCountClass cost in currentRecipe.costs)
+                {
+                    ThingOrderRequest costCopy = new ThingOrderRequest();
+                    costCopy.thingDef = cost.thingDef;
+                    costCopy.amount = cost.count;
+
+                    orderProcessor.requestedItems.Add(costCopy);
+                }
+            }
         }
 
         public override void CompTick()
@@ -87,25 +132,75 @@ namespace O21Toolbox.AutomatedProducer
             base.CompTick();
             GetProducerStatus();
 
-            if(currentRecipe != null && nextProductionTick < 0)
-            {
-                ResetProductionTick();
-            }
-
-            if (currentRecipe != null && ShouldProduceThisTick())
+            if(currentRecipe != null && workTick <= 0)
             {
                 ProduceFromRecipe();
+            }
+
+            if (IsWorking())
+            {
+
+                workTick--;
             }
         }
 
         public void ProduceFromRecipe()
         {
-            if (HasCosts())
+            if (currentRecipe != null && IsWorking())
             {
-                
+                foreach(ThingDefCount tdc in currentRecipe.products)
+                {
+                    Thing foundThing = null;
+                    Thing producedThing = ThingMaker.MakeThing(tdc.ThingDef, null);
+
+                    if(this.parent.InteractionCell != null)
+                    {
+                        if(this.parent.InteractionCell.GetFirstHaulable(this.parent.Map) != null)
+                        {
+                            foundThing = this.parent.InteractionCell.GetFirstHaulable(this.parent.Map);
+                        }
+
+                        if(foundThing != null && foundThing.def == producedThing.def && this.Props.allowFullStack)
+                        {
+                            if(foundThing.def.stackLimit >= (foundThing.stackCount + tdc.Count) && this.Props.allowOverflow)
+                            {
+                                foundThing.stackCount = foundThing.def.stackLimit;
+                                break;
+                            }
+                            else if(foundThing.def.stackLimit <= (foundThing.stackCount + tdc.Count) && !this.Props.allowOverflow)
+                            {
+                                producedThing.stackCount = tdc.Count;
+                            }
+                        }
+                        else if(foundThing != null && foundThing.def != producedThing.def)
+                        {
+                            if (this.Props.allowOverflow)
+                            {
+                                producedThing.stackCount = tdc.Count;
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                        else if (foundThing == null)
+                        {
+                            producedThing.stackCount = tdc.Count;
+                        }
+
+                        GenPlace.TryPlaceThing(producedThing, this.parent.InteractionCell, this.parent.Map, ThingPlaceMode.Near, null, null);
+                        break;
+                    }
+                    Log.Error("Interaction Cell not defined on " + this.parent.def.defName + ", output requires an interaction cell.");
+                    return;
+                }
+            }
+            else
+            {
+                return;
             }
             RepeatRecipe();
-            ResetProductionTick();
+            ResetWorkTick();
         }
 
         public void RepeatRecipe()
@@ -116,34 +211,39 @@ namespace O21Toolbox.AutomatedProducer
             }
         }
 
-        public void ResetProductionTick()
+        public void ResetWorkTick()
         {
-            int result = -1;
+            if(orderProcessor != null)
+            {
+                orderProcessor.requestedItems.Clear();
+            }
+            int result = -50;
             if (currentRecipe != null)
             {
                 if (currentRecipe.randomTickCost)
                 {
-                    result = Current.Game.tickManager.TicksGame + UnityEngine.Random.Range(currentRecipe.randomCostMin, currentRecipe.randomCostMax);
+                    result = UnityEngine.Random.Range(currentRecipe.randomCostMin, currentRecipe.randomCostMax);
 
                 }
                 else
                 {
-                    result = Current.Game.tickManager.TicksGame + (int)(currentRecipe.baseTickCost * producerCompProps.craftingTimeMultiplier);
+                    result = (int)(currentRecipe.baseTickCost * producerCompProps.craftingTimeMultiplier);
                 }
+                Log.Message("Recipe Work: " + result);
             }
-            nextProductionTick = result;
+            workTick = result;
         }
 
         public bool ShouldProduceThisTick()
         {
             if (powerComp != null)
             {
-                if (powerComp.PowerOn && Current.Game.tickManager.TicksGame >= nextProductionTick)
+                if (powerComp.PowerOn && Current.Game.tickManager.TicksGame >= workTick)
                 {
                     return true;
                 }
             }
-            else if (Current.Game.tickManager.TicksGame >= nextProductionTick)
+            else if (Current.Game.tickManager.TicksGame >= workTick)
             {
                 return true;
             }
@@ -156,15 +256,18 @@ namespace O21Toolbox.AutomatedProducer
             {
                 currentStatus = ProducerStatus.idle;
             }
-            if (!HasCosts())
+            else if (HasCosts())
             {
                 currentStatus = ProducerStatus.awaitingResources;
             }
-            if (IsWorking())
+            else if (IsWorking())
             {
                 currentStatus = ProducerStatus.working;
             }
-            currentStatus = ProducerStatus.producing;
+            else
+            {
+                currentStatus = ProducerStatus.producing;
+            }
         }
 
         public bool IsPowered()
@@ -189,6 +292,10 @@ namespace O21Toolbox.AutomatedProducer
         {
             if(HasRecipe() && currentRecipe.costs != null)
             {
+                if(orderProcessor.PendingRequests() != null && orderProcessor.PendingRequests().Count() == 0)
+                {
+                    return true;
+                }
                 return false;
             }
             return true;
@@ -196,7 +303,7 @@ namespace O21Toolbox.AutomatedProducer
 
         public bool IsWorking()
         {
-            if(Current.Game.tickManager.TicksGame >= nextProductionTick)
+            if(HasCosts() && IsPowered() && workTick > -2)
             {
                 return true;
             }

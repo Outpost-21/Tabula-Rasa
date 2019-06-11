@@ -11,6 +11,5 @@ namespace O21Toolbox.AutomatedProducer
 {
     public class Building_AutomatedProducer : Building
     {
-
     }
 }

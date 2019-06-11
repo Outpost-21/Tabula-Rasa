@@ -22,7 +22,6 @@ namespace O21Toolbox.BiomeOverride
         public override void Generate(Map map, GenStepParams parms)
         {
             bool overrideLogging = false;
-            if (overrideLogging) { Log.Message("Fuck Tynan for making custom biomes so nasty to create. Procedural Generation isn't the be all and end all of everything you Canuck fuck."); }
             IEnumerable<BiomeOverrideDef> enumerable = from def in DefDatabase<BiomeOverrideDef>.AllDefs
                                                        where def.biomeDefs != null
                                                        select def;
