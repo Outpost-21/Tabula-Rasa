@@ -2,10 +2,10 @@
 Common Library for Outpost 21 mods.
 
 Current Uses for Modders:
-- PawnConverter (Minor bugs to be fixed) - Original code by Albion, 
+- PawnConverter (Fully Functional) - Original code by Albion, 
 Allows pawns to be changed in many ways, primary use is for changing pawn race (uses Alien Races).
 
-- ApparelRestrict (Bugs to be fixed)
+- ApparelRestrict (Fully Functional, maybe?)
 Allows apparel to be restricted by body type using a Comp.
 
 - WeaponRestrict (Needs More Testing)
@@ -26,16 +26,19 @@ Allows two or more factions to be treated as a single faction and can define spe
 - Networks (WIP, non-functional)
 Allows dynamic creation of separated networks, similar to vanilla electricity. Can function with cables/pipes or completely connectionless (wireless).
 
-- Needs (WIP but functional) - Original code by Chjees, 
+- Needs (WIP but Fully Functional) - Original code by Chjees, 
 Universal needs for various purposes. Currently includes Energy. Plans: Integrate into Networks, Rage Need
 
-- AutomatedProducer (WIP) - Allowing automated time based production of Things and/or Pawns with or without consumption of materials placed in inputs (direct or via hopper). Recipe based, works similar to crafting tables. Can also be told to stop producing when output pile is filled or if anything at all is in the output.
+- AutomatedProducer (Mostly Funcitonal) - Allowing automated time based production of Things and/or Pawns with or without consumption of materials placed in inputs (direct or via hopper). Recipe based, works similar to crafting tables. Can also be told to stop producing when output pile is filled or if anything at all is in the output.
 
 - AutoHeal (Fully Functional)
 Allows the use of a hediff that will passively heal pawns, to the extend of regrowing limbs. Separate hediff can be designated for the regrowth of limbs so you can adjust the rate, if any.
 
 - BiomeOverride (Fully Functional)
 Allows terrain, walls and items in a biome to be swapped for something else, primarily useful for replacing the terrain around rocks which are otherwise untouchable in biome settings, but can be used for generating biome specific variants of exisiting ores or changing the rock in a biome to be something else.
+
+- Terraformer (Mostly Functional)
+Allows structures to produce microbiomes with a high level of customization. Can also be set to produce nodes at their furthest point to spread out across the map.
 
 Credit:
 - Albion - Original Pawn Converter Code
