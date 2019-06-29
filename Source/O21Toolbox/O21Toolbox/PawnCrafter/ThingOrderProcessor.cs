@@ -46,22 +46,6 @@ namespace O21Toolbox.PawnCrafter
         {
             foreach(ThingOrderRequest idealRequest in requestedItems)
             {
-                if(idealRequest.nutrition)
-                {
-                    //Food
-                    float totalNutrition = CountNutrition();
-                    if(totalNutrition < idealRequest.amount)
-                    {
-                        ThingOrderRequest request = new ThingOrderRequest();
-                        request.nutrition = true;
-                        request.amount = idealRequest.amount - totalNutrition;
-                        request.thingFilter = storageSettings.filter;
-
-                        yield return request;
-                    }
-                }
-                else
-                {
                     //Item
                     float totalItemCount = thingHolder.TotalStackCountOfDef(idealRequest.thingDef);
                     if(totalItemCount < idealRequest.amount)
@@ -72,7 +56,6 @@ namespace O21Toolbox.PawnCrafter
 
                         yield return request;
                     }
-                }
             }
         }
 

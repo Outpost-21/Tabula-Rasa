@@ -29,7 +29,7 @@ namespace O21Toolbox.Terraformer
         /// <summary>
         /// Rules for terraforming things.
         /// </summary>
-        public List<TerraformerThingRule> plantRules = null;
+        public List<TerraformerPlantRule> plantRules = null;
     }
 
     public class TerraformerTerrainRule
@@ -60,6 +60,8 @@ namespace O21Toolbox.Terraformer
         /// is listed, will choose at random.
         /// </summary>
         public List<TerrainDef> terrainResult = null;
+
+        public bool contiguous = true;
     }
 
     public class TerraformerThingRule
@@ -90,5 +92,38 @@ namespace O21Toolbox.Terraformer
         /// is listed, will choose at random.
         /// </summary>
         public List<ThingDef> thingResult = null;
+    }
+
+    public class TerraformerPlantRule
+    {
+        /// <summary>
+        /// If above 0, will be used to check if fertility is above or below threshold.
+        /// Both can be used. 
+        /// </summary>
+        public float fertilityAbove = -1f;
+        public float fertilityBelow = -1f;
+
+        /// <summary>
+        /// Whether or not the rule requires above 0.7 fertility.
+        /// </summary>
+        public bool ignoreFertility = false;
+
+        /// <summary>
+        /// If above 0, will use to determine a viable radius for the rule.
+        /// Both can be used to determine a donut ring shape.
+        /// </summary>
+        public int rangeMax = -1;
+        public int rangeMin = -1;
+
+        /// <summary>
+        /// Whitelist and blacklist plants which are allowed to exist in the terraformers range.
+        /// </summary>
+        public List<ThingDef> thingWhitelist = null;
+        public List<ThingDef> thingBlacklist = null;
+
+        /// <summary>
+        /// Plants list for ones which can be spawned. Uses count for a maximum.
+        /// </summary>
+        public List<ThingDefCountClass> thingResult = null;
     }
 }

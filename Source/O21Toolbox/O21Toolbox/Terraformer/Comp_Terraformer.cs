@@ -38,9 +38,13 @@ namespace O21Toolbox.Terraformer
 
         private void UpdateRadiusT()
         {
-            if(currentRadiusT != Props.terraformRange && ListTerraformableTiles().Count <= 0)
+            if((currentRadiusT - Props.terraformRangeGap) != Props.terraformRange && ListTerraformableTiles(Props.terraformRangeGap).Count <= 0)
             {
                 currentRadiusT++;
+                if(currentRadiusT > Props.terraformRange)
+                {
+                    currentRadiusT = Props.terraformRange;
+                }
             }
         }
 
@@ -78,6 +82,8 @@ namespace O21Toolbox.Terraformer
             {
                 workTick--;
             }
+
+            HarmRandomPlantInRadius();
         }
 
         private bool IsWithering()
@@ -128,22 +134,56 @@ namespace O21Toolbox.Terraformer
             //Log.Message("Attempting Terraform");
             TryTerraform_Terrain();
             TryTerraform_Edifice();
-            //TryTerraform_Plants();
+            if (currentRadiusT >= Props.terraformRange)
+            {
+                TryTerraform_Plants();
+            }
             //TryTerraform_CreateNodes();
+        }
+
+        private void HarmRandomPlantInRadius()
+        {
+            IntVec3 c = this.parent.Position + (Rand.InsideUnitCircleVec3 * currentRadiusT).ToIntVec3();
+            if (!c.InBounds(this.parent.Map))
+            {
+                return;
+            }
+            if (Props.killUnlistedPlants)
+            {
+                Plant plant = c.GetPlant(this.parent.Map);
+                if(plant != null)
+                {
+                    if(Props.terraformerRules.plantRules != null)
+                    {
+                        foreach(TerraformerPlantRule rule in Props.terraformerRules.plantRules)
+                        {
+                            if(!(rule.thingResult.Exists(x => x.thingDef == plant.def) || (rule.thingWhitelist != null && rule.thingWhitelist.Exists(x => x == plant.def))))
+                            {
+                                plant.Kill(null, null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        plant.Kill(null, null);
+                    }
+                }
+            }
         }
 
         private void TryTerraform_Terrain()
         {
             if(Props.terraformerRules.terrainRules != null)
             {
-                List<IntVec3> tileList = ListTerraformableTiles();
+                List<IntVec3> tileList = ListTerraformableTiles(0);
                 if(tileList.Count() > 0)
                 {
                     foreach(TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
                     {
-                        if(rule.terrainDefsWhitelist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == tileList.First().GetTerrain(this.parent.Map))))
+                        IntVec3 randomTile = tileList.RandomElement();
+                        if(rule.terrainDefsWhitelist.Exists(x => x == randomTile.GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == randomTile.GetTerrain(this.parent.Map))))
                         {
-                            this.parent.Map.terrainGrid.SetTerrain(tileList.First(), rule.terrainResult.RandomElement());
+                            this.parent.Map.terrainGrid.SetTerrain(randomTile, rule.terrainResult.RandomElement());
                             break;
                         }
                     }
@@ -151,11 +191,11 @@ namespace O21Toolbox.Terraformer
             }
         }
 
-        private List<IntVec3> ListTerraformableTiles()
+        private List<IntVec3> ListTerraformableTiles(float f)
         {
             List<IntVec3> terraformTiles = new List<IntVec3>();
 
-            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+            int num = GenRadial.NumCellsInRadius(this.currentRadiusT - f);
             for (int i = 0; i < num; i++)
             {
                 IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
@@ -221,7 +261,49 @@ namespace O21Toolbox.Terraformer
 
         private void TryTerraform_Plants()
         {
-            throw new NotImplementedException();
+            foreach (TerraformerPlantRule rule in Props.terraformerRules.plantRules)
+            {
+                List<IntVec3> tileList = ListPlantableTiles(rule.ignoreFertility, rule.fertilityAbove, rule.fertilityBelow);
+                foreach (ThingDefCount tdc in rule.thingResult)
+                {
+                    if(GetThingsInRadius(tdc.ThingDef).Count < tdc.Count)
+                    {
+                        GenSpawn.Spawn(tdc.ThingDef, tileList.RandomElement(), this.parent.Map);
+                    }
+                }
+            }
+        }
+
+        private List<IntVec3> GetThingsInRadius(ThingDef thingDef)
+        {
+            List<IntVec3> thingTiles = new List<IntVec3>();
+
+            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+            for (int i = 0; i < num; i++)
+            {
+                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+                if (tile.GetThingList(this.parent.Map).Any(x => x.def == thingDef))
+                {
+                    thingTiles.Add(tile);
+                }
+            }
+
+            return thingTiles;
+        }
+
+        private List<IntVec3> ListPlantableTiles(bool useFertility, float min, float max)
+        {
+            List<IntVec3> plantableTiles = new List<IntVec3>();
+
+            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+            for (int i = 0; i < num; i++)
+            {
+                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+                if(useFertility || (!useFertility && tile.GetTerrain(this.parent.Map).fertility >= min && tile.GetTerrain(this.parent.Map).fertility <= max))
+                plantableTiles.Add(tile);
+            }
+
+            return plantableTiles;
         }
 
         private void TryTerraform_CreateNodes()

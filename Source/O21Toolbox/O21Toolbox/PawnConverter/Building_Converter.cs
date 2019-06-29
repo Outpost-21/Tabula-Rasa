@@ -11,8 +11,6 @@ using Verse.Sound;
 
 using AlienRace;
 
-using O21Toolbox.PawnCrafter;
-
 namespace O21Toolbox.PawnConverter
 {
     public class Building_Converter : Building_Casket, IThingHolder
@@ -179,7 +177,7 @@ namespace O21Toolbox.PawnConverter
                 List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
                 foreach (PawnConvertingDef def in DefDatabase<PawnConvertingDef>.AllDefs.OrderBy(def => def.orderID))
                 {
-                    if (def.recipeUsers == null || (def.recipeUsers != null && def.recipeUsers.Any(x => x == this.def.defName)))
+                    if (def.recipeUsers != null && def.recipeUsers.Any(x => x == this.def.defName))
                     {
                         bool disabled = false;
                         int reason = 0;
@@ -191,13 +189,13 @@ namespace O21Toolbox.PawnConverter
                             reason = 0;
                         }
                         // Check input Race
-                        if (!IsViableRace(myPawn, def))
+                        if (!Util_PawnConvert.IsViableRace(myPawn, def))
                         {
                             disabled = true;
                             reason = 1;
                         }
                         // Check input Sex
-                        if(!IsRequiredSex(myPawn, def))
+                        if(!Util_PawnConvert.IsRequiredSex(myPawn, def))
                         {
                             disabled = true;
                             reason = 2;
@@ -303,27 +301,6 @@ namespace O21Toolbox.PawnConverter
             return false;
         }
 
-        public bool IsRequiredSex(Pawn pawn, PawnConvertingDef recipe)
-        {
-            if(recipe.requiredSex != null)
-            {
-                if(recipe.requiredSex != pawn.gender.ToString())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool IsViableRace(Pawn pawn, PawnConvertingDef recipe)
-        {
-            if(!recipe.inputDefs.Any(x => x == pawn.def.defName))
-            {
-                return false;
-            }
-            return true;
-        }
-
         public void CookIt()
         {
             ThingOwner convertedContainer = new ThingOwner<Thing>();
@@ -333,11 +310,11 @@ namespace O21Toolbox.PawnConverter
                 {
                     if (item.def.defName == "Human")
                     {
-                        convertedContainer.TryAdd(HumanPawnConversion(val, this.chosenRecipe));
+                        convertedContainer.TryAdd(Util_PawnConvert.PawnConversion(Util_PawnConvert.HumanPawnConversion(val, this.chosenRecipe), this.chosenRecipe));
                     }
                     else
                     {
-                        convertedContainer.TryAdd(PawnConversion(val, this.chosenRecipe));
+                        convertedContainer.TryAdd(Util_PawnConvert.PawnConversion(val, this.chosenRecipe));
                     }
                 }
             }
@@ -345,334 +322,6 @@ namespace O21Toolbox.PawnConverter
             this.innerContainer = convertedContainer;
             this.chosenRecipe = null;
         }
-
-        #region PawnConversion_AlienToAlien
-        protected Pawn PawnConversion(Pawn pawnToConvert, PawnConvertingDef recipe)
-        {
-            Gender outputGender = GetOutputGender(pawnToConvert, recipe);
-
-            PawnGenerationRequest request = new PawnGenerationRequest(
-                recipe.outputDef,
-                faction: Faction.OfPlayer,
-                forceGenerateNewPawn: true,
-                canGeneratePawnRelations: false,
-                colonistRelationChanceFactor: 0f,
-                fixedBiologicalAge: pawnToConvert.ageTracker.AgeBiologicalYearsFloat,
-                fixedChronologicalAge: pawnToConvert.ageTracker.AgeChronologicalYearsFloat,
-                fixedGender: outputGender,
-                allowFood: false);
-            Pawn newPawn = PawnGenerator.GeneratePawn(request);
-            Pawn pawn = PawnGenerator.GeneratePawn(request);
-
-            // No pregenerated equipment.
-            pawn?.equipment?.DestroyAllEquipment();
-            pawn?.apparel?.DestroyAll();
-            pawn?.inventory?.DestroyAll();
-
-            // Transfer everything from old pawn to new pawn
-            pawn.drugs = pawnToConvert.drugs;
-            pawn.foodRestriction = pawnToConvert.foodRestriction;
-            // pawn.guilt = pawnToConvert.guilt; - Caused issues with thoughts. Didn't seem necessary.
-            // pawn.health = pawnToConvert.health; - Caused issues with taking damage, to the point of making pawns invulnerable. Didn't seem necessary.
-            pawn.health.hediffSet = pawnToConvert.health.hediffSet;
-            // pawn.needs = pawnToConvert.needs; - Caused issues with needs. Didn't seem necessary.
-            pawn.records = pawnToConvert.records;
-            pawn.skills = pawnToConvert.skills;
-
-            TransferStory(pawn, pawnToConvert, recipe);
-
-            pawn.timetable = pawnToConvert.timetable;
-            pawn.workSettings = pawnToConvert.workSettings;
-            pawn.Name = pawnToConvert.Name;
-
-            ApplyHairChange(pawn, newPawn, recipe);
-
-            ApplyHairColor(pawn, newPawn, recipe);
-
-            ApplySkinChange(pawn, newPawn, recipe);
-
-            ApplyHeadChange(pawn, newPawn, recipe);
-
-            ApplyBodyChange(pawn, recipe);
-
-            RemoveRequiredHediffs(pawn, recipe);
-
-            ApplyForcedHediff(pawn, recipe);
-
-            // FixPawnRelations(pawn, pawnToConvert);
-
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
-            return pawn;
-        }
-
-        protected Pawn TransferStory(Pawn newPawn, Pawn oldPawn, PawnConvertingDef recipe)
-        {
-            if (recipe.vanillaToAlien)
-            {
-                newPawn.story = oldPawn.story;
-
-                newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
-            }
-            if (!recipe.vanillaToAlien && newPawn.TryGetComp<AlienPartGenerator.AlienComp>() != null)
-            {
-                newPawn.story.childhood = oldPawn.story.childhood;
-                newPawn.story.adulthood = oldPawn.story.adulthood;
-                newPawn.story.title = oldPawn.story.title;
-                newPawn.story.traits = oldPawn.story.traits;
-                if (recipe.forcedHead == null)
-                {
-                    newPawn.story.crownType = oldPawn.story.crownType;
-                }
-                if (!recipe.forcedSkinColor && !recipe.randomSkinColor)
-                {
-                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
-                    newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
-                }
-                if (!recipe.randomHair && recipe.forcedHair == null)
-                {
-                    newPawn.story.hairDef = oldPawn.story.hairDef;
-                }
-                if (!recipe.randomHairColor && !recipe.forcedHairColor)
-                {
-                    newPawn.story.hairColor = oldPawn.story.hairColor;
-                    if (oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond != null)
-                    {
-                        newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = oldPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
-                    }
-                }
-                newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
-            }
-
-            return newPawn;
-        }
-
-        protected Pawn ApplyHairChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
-        {
-            // Change hair if needed.
-            if (!recipe.randomHair)
-            {
-                if (recipe.forcedHair != null)
-                {
-                    pawn.story.hairDef = recipe.forcedHair;
-                }
-            }
-
-            if (recipe.randomHair)
-            {
-                pawn.story.hairDef = newPawn.story.hairDef;
-            }
-
-            return pawn;
-        }
-
-        protected Pawn ApplyHairColor(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
-        {
-            // Change hair colour if needed.
-            if (recipe.forcedHairColor)
-            {
-                if (recipe.forcedHairColorOne)
-                {
-                    pawn.story.hairColor = recipe.hairColorOne;
-                }
-                if (recipe.forcedHairColorTwo)
-                {
-                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = recipe.hairColorTwo;
-                }
-            }
-            if (recipe.randomHairColor)
-            {
-                pawn.story.hairColor = newPawn.story.hairColor;
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().hairColorSecond;
-            }
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
-            return pawn;
-        }
-
-        protected Pawn ApplySkinChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
-        {
-            // Change skin colour if needed.
-            if (recipe.forcedSkinColor)
-            {
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = recipe.forcedSkinColorOne;
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = recipe.forcedSkinColorTwo;
-            }
-            if (recipe.randomSkinColor)
-            {
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColor;
-                pawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().skinColorSecond;
-            }
-            else
-            {
-
-            }
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
-            return pawn;
-        }
-
-        protected Pawn ApplyHeadChange(Pawn pawn, Pawn newPawn, PawnConvertingDef recipe)
-        {
-            // Change crown if needed.
-            if (recipe.forcedHead != null)
-            {
-                if (recipe.forcedHead == "RANDOM")
-                {
-                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = newPawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType;
-                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-                }
-                else
-                {
-                    pawn.TryGetComp<AlienPartGenerator.AlienComp>().crownType = recipe.forcedHead;
-                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-                }
-            }
-
-            return pawn;
-        }
-
-        protected Pawn ApplyBodyChange(Pawn pawn, PawnConvertingDef recipe)
-        {
-            // Change body if needed.
-            if (recipe.forcedBody != null)
-            {
-                pawn.story.bodyType = recipe.forcedBody;
-                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-            }
-
-            return pawn;
-        }
-
-        protected Pawn RemoveRequiredHediffs(Pawn pawn, PawnConvertingDef recipe)
-        {
-            // Remove required hediffs if needed.
-            if (recipe.removeRequiredHediffs)
-            {
-                IEnumerable<HediffDef> enumerable = from def in recipe.requiredHediffs
-                                                    where pawn.health.hediffSet.HasHediff(def, false)
-                                                    select def;
-                foreach (HediffDef current in enumerable)
-                {
-                    pawn.health.hediffSet.hediffs.Remove(pawn.health.hediffSet.GetFirstHediffOfDef(current));
-                }
-            }
-
-            return pawn;
-        }
-
-        protected Pawn ApplyForcedHediff(Pawn pawn, PawnConvertingDef recipe)
-        {
-            // Apply Forced Hediff if needed.
-            if (recipe.forcedHediff != null)
-            {
-                if (!pawn.health.hediffSet.hediffs.Contains(recipe.forcedHediff))
-                {
-                    pawn.health.hediffSet.AddDirect(recipe.forcedHediff);
-                }
-                Log.Message("Pawn already has forced Hediff, new hediff was not applied.", false);
-            }
-
-            return pawn;
-        }
-
-        private Gender GetOutputGender(Pawn pawn, PawnConvertingDef recipe)
-        {
-            Gender outputGender;
-            if (recipe.outputSex != null)
-            {
-                string outputSex = recipe.outputSex;
-                switch (outputSex)
-                {
-                    case "Male":
-                        outputGender = Gender.Male;
-                        break;
-                    case "Female":
-                        outputGender = Gender.Male;
-                        break;
-                    default:
-                        Log.Message("Defined sex/gender does not exist in this context. Defaulting to original.", false);
-                        outputGender = pawn.gender;
-                        break;
-                }
-            }
-            else
-            {
-                outputGender = pawn.gender;
-            };
-            return outputGender;
-        }
-        #endregion
-
-        #region PawnConversion_HumanToAlien
-        protected Pawn HumanPawnConversion(Pawn pawnToConvert, PawnConvertingDef recipe)
-        {
-            Gender outputGender = GetOutputGender(pawnToConvert, recipe);
-
-            PawnGenerationRequest request = new PawnGenerationRequest(
-                recipe.outputDef,
-                faction: Faction.OfPlayer,
-                forceGenerateNewPawn: true,
-                canGeneratePawnRelations: false,
-                colonistRelationChanceFactor: 0f,
-                fixedBiologicalAge: pawnToConvert.ageTracker.AgeBiologicalYearsFloat,
-                fixedChronologicalAge: pawnToConvert.ageTracker.AgeChronologicalYearsFloat,
-                fixedGender: outputGender,
-                allowFood: false);
-            Pawn newPawn = PawnGenerator.GeneratePawn(request);
-            Pawn pawn = PawnGenerator.GeneratePawn(request);
-
-            // No pregenerated equipment.
-            pawn?.equipment?.DestroyAllEquipment();
-            pawn?.apparel?.DestroyAll();
-            pawn?.inventory?.DestroyAll();
-
-            // Transfer everything from old pawn to new pawn
-            pawn.drugs = pawnToConvert.drugs;
-            pawn.foodRestriction = pawnToConvert.foodRestriction;
-            // pawn.guilt = pawnToConvert.guilt; - Caused issues with thoughts. Didn't seem necessary.
-            // pawn.health = pawnToConvert.health; - Caused issues with taking damage, to the point of making pawns invulnerable. Didn't seem necessary.
-            pawn.health.hediffSet = pawnToConvert.health.hediffSet;
-            // pawn.needs = pawnToConvert.needs; - Caused issues with needs. Didn't seem necessary.
-            pawn.records = pawnToConvert.records;
-            pawn.skills = pawnToConvert.skills;
-
-            TransferStory_Human(pawn, pawnToConvert, recipe);
-
-            pawn.timetable = pawnToConvert.timetable;
-            pawn.workSettings = pawnToConvert.workSettings;
-            pawn.Name = pawnToConvert.Name;
-
-            ApplyHairChange(pawn, newPawn, recipe);
-
-            ApplyHairColor(pawn, newPawn, recipe);
-
-            ApplySkinChange(pawn, newPawn, recipe);
-
-            ApplyHeadChange(pawn, newPawn, recipe);
-
-            ApplyBodyChange(pawn, recipe);
-
-            RemoveRequiredHediffs(pawn, recipe);
-
-            ApplyForcedHediff(pawn, recipe);
-
-            // FixPawnRelations(pawn, pawnToConvert);
-
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
-            return pawn;
-        }
-
-        protected Pawn TransferStory_Human(Pawn newPawn, Pawn oldPawn, PawnConvertingDef recipe)
-        {
-            newPawn.story = oldPawn.story;
-
-            newPawn.Drawer.renderer.graphics.ResolveAllGraphics();
-
-            return newPawn;
-        }
-        #endregion
 
         public override void Tick()
         {

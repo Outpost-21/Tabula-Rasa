@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using O21Toolbox.PawnCrafter;
+//using O21Toolbox.PawnCrafter;
 
 namespace O21Toolbox.PawnConverter
 {
@@ -15,6 +15,7 @@ namespace O21Toolbox.PawnConverter
     {
         /// <summary>
         /// Building DefNames for converters capable of performing this conversion.
+        /// Leave null if the recipe is only to be used for hediff based conversions.
         /// </summary>
         public List<string> recipeUsers = null;
 
@@ -31,7 +32,7 @@ namespace O21Toolbox.PawnConverter
         /// <summary>
         /// Viable inputs for conversion. Uses the defName of the race itself. Should be able to accept any pawn race if left 'null'.
         /// </summary>
-        public List<string> inputDefs = null; // Done.
+        public List<ThingDef> inputDefs = null; // Done.
 
         /// <summary>
         /// Sets if the input pawn needs to be a specific sex. Accepts Male or Female, leaving 'null' will ignore the requirement.
@@ -51,11 +52,6 @@ namespace O21Toolbox.PawnConverter
         /// Removes the hediffs listed in requiredHediffs during conversion.
         /// </summary>
         public bool removeRequiredHediffs = false; // Needs More Testing.
-
-        /// <summary>
-        /// Converting from vanilla humans to an alien is fucky as hell, this is limited but removes errors.
-        /// </summary>
-        public bool vanillaToAlien = false;
 
         /// <summary>
         /// Target output for converts. Uses pawnKinds to retrieve a target race as well as generating the random options for other variables.
@@ -136,5 +132,12 @@ namespace O21Toolbox.PawnConverter
         /// One Rimworld day is 60000 (60k).
         /// </summary>
         public int conversionTime = 0; // Needs More Testing.
+
+        /// <summary>
+        /// Whether or not a pawn drops equipment, apparel and inventory on change, this
+        /// may be required for some conversions in cases where the projected race cannot
+        /// use items held by the previous race.
+        /// </summary>
+        public bool dropEverything = false;
     }
 }

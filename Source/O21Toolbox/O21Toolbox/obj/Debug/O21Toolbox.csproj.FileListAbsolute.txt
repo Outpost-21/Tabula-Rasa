@@ -6,3 +6,4 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\Source
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\Assemblies\O21Toolbox.dll
 D:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csprojAssemblyReference.cache
+D:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Illithids\Assemblies\O21Toolbox.dll

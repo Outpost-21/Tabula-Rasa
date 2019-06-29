@@ -73,6 +73,11 @@ namespace O21Toolbox.Terraformer
         public float terraformRange = 0;
 
         /// <summary>
+        /// Makes the terraformer have a larger area it can choose from for random tiles to change, makes spread more organic and less uniform.
+        /// </summary>
+        public float terraformRangeGap = 0;
+
+        /// <summary>
         /// Whether or not the terraformer uses power.
         /// </summary>
         public bool requiresPower = false;
@@ -86,5 +91,10 @@ namespace O21Toolbox.Terraformer
         /// Whether or not the range is configurable by the player.
         /// </summary>
         public bool configurableRange = false;
+
+        /// <summary>
+        /// If true, this will kill off any plants that are not listed in the plants the terraformer places.
+        /// </summary>
+        public bool killUnlistedPlants = false;
     }
 }

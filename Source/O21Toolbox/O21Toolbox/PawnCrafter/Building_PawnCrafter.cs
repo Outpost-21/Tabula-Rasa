@@ -442,24 +442,12 @@ namespace O21Toolbox.PawnCrafter
 
                 foreach (ThingOrderRequest thingOrderRequest in orderProcessor.requestedItems)
                 {
-                    if(thingOrderRequest.nutrition)
-                    {
-                        float totalNutrition = CountNutrition();
-                        if (totalNutrition > 0f)
-                        {
-                            builder.Append(printerProperties.crafterMaterialNeedText.Translate((thingOrderRequest.amount - totalNutrition), printerProperties.crafterNutritionText.Translate()) + " ");
-                            needsFulfilled = false;
-                        }
-                    }
-                    else
-                    {
                         int itemCount = ingredients.TotalStackCountOfDef(thingOrderRequest.thingDef);
                         if (itemCount < thingOrderRequest.amount)
                         {
                             builder.Append(printerProperties.crafterMaterialNeedText.Translate((thingOrderRequest.amount - itemCount), thingOrderRequest.thingDef.LabelCap) + " ");
                             needsFulfilled = false;
                         }
-                    }
                 }
 
                 if(!needsFulfilled)
@@ -521,49 +509,7 @@ namespace O21Toolbox.PawnCrafter
                                     //Deduct resources from each category.
                                     foreach(ThingOrderRequest thingOrderRequest in orderProcessor.requestedItems)
                                     {
-                                        if(thingOrderRequest.nutrition)
-                                        {
-                                            //Food
-                                            if (CountNutrition() > 0f)
-                                            {
-                                                //Grab first stack of Nutrition.
-                                                Thing item = ingredients.First(thing => thing.def.IsIngestible);
-
-                                                if (item != null)
-                                                {
-                                                    int resourceTickAmount = (int)Math.Ceiling((thingOrderRequest.amount / ((double)CraftingTicks / printerProperties.resourceTick)));
-
-                                                    int amount = Math.Min(resourceTickAmount, item.stackCount);
-                                                    Thing outThing = null;
-
-                                                    Corpse outCorpse = item as Corpse;
-                                                    if (outCorpse != null)
-                                                    {
-                                                        if(outCorpse.IsDessicated())
-                                                        {
-                                                            //If rotten, just drop it.
-                                                            ingredients.TryDrop(outCorpse, InteractionCell, Map, ThingPlaceMode.Near, 1, out outThing);
-                                                        }
-                                                        else
-                                                        {
-                                                            //Not rotten, dump all equipment.
-                                                            ingredients.TryDrop(outCorpse, InteractionCell, Map, ThingPlaceMode.Near, 1, out outThing);
-                                                            outCorpse.InnerPawn?.equipment?.DropAllEquipment(InteractionCell, false);
-                                                            outCorpse.InnerPawn?.apparel?.DropAll(InteractionCell, false);
-
-                                                            item.Destroy();
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        Thing takenItem = ingredients.Take(item, amount);
-                                                        takenItem.Destroy();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
+                                        
                                             //Item
                                             if (ingredients.Any(thing => thing.def == thingOrderRequest.thingDef))
                                             {
@@ -580,7 +526,6 @@ namespace O21Toolbox.PawnCrafter
                                                     takenItem.Destroy();
                                                 }
                                             }
-                                        }
                                     }
                                 }
 
@@ -714,7 +659,6 @@ namespace O21Toolbox.PawnCrafter
             foreach (ThingOrderRequest cost in def.costList)
             {
                 ThingOrderRequest costCopy = new ThingOrderRequest();
-                costCopy.nutrition = cost.nutrition;
                 costCopy.thingDef = cost.thingDef;
                 costCopy.amount = cost.amount;
 

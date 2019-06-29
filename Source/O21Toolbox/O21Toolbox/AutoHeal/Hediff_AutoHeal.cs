@@ -14,6 +14,8 @@ namespace O21Toolbox.AutoHeal
 {
     public class Hediff_AutoHeal : HediffWithComps
     {
+        public int ticksUntilNextHeal;
+        public int ticksUntilNextGrow;
 
         public override void PostMake()
         {
@@ -106,13 +108,11 @@ namespace O21Toolbox.AutoHeal
             }
         }
 
-        public int ticksUntilNextHeal;
         public void SetNextHealTick()
         {
             this.ticksUntilNextHeal = Current.Game.tickManager.TicksGame + this.def.TryGetModExtension<DefModExtension_AutoHealProps>().healTicks;
         }
 
-        public int ticksUntilNextGrow;
         public void SetNextGrowTick()
         {
             this.ticksUntilNextGrow = Current.Game.tickManager.TicksGame + this.def.TryGetModExtension<DefModExtension_AutoHealProps>().growthTicks;

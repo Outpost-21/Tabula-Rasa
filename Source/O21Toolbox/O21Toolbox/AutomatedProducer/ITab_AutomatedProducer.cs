@@ -132,7 +132,7 @@ namespace O21Toolbox.AutomatedProducer
                 }
                 itemInfo = producingDescription + "\n\n" + producingItem + "\n\n" + this.SelTable.GetComp<Comp_AutomatedProducer>().CurrentStatusLabel();
             }
-                Rect rect3 = new Rect(0f, 45f, rect.width, 136f);
+                Rect rect3 = new Rect(0f, 45f, rect.width, 260f);
                 GUI.BeginGroup(rect3);
                     Rect rectInfo = new Rect(136f, 4f, rect3.width - 128f, 260f);
                     Widgets.Label(rectInfo, itemInfo);

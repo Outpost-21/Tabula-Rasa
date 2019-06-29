@@ -82,17 +82,6 @@ namespace O21Toolbox.PawnCrafter
 
                     if (ingredientThing != null)
                     {
-                        if (request.nutrition)
-                        {
-                            int nutritionCount = (int)(Math.Ceiling(request.amount / (ingredientThing.def.ingestible.CachedNutrition)));
-
-                            if (nutritionCount > 0)
-                                return new Job(WorkGiverProperties.fillJob, ingredientThing, crafterThing)
-                                {
-                                    count = nutritionCount
-                                };
-                        }
-                        else
                             return new Job(WorkGiverProperties.fillJob, ingredientThing, crafterThing)
                             {
                                 count = (int)request.amount
@@ -115,8 +104,7 @@ namespace O21Toolbox.PawnCrafter
         {
             if (request != null)
             {
-                Predicate<Thing> extraPredicate = request.ExtraPredicate();
-                Predicate<Thing> predicate = (Thing x) => !x.IsForbidden(pawn) && pawn.CanReserve(x, 1, -1, null, false) && extraPredicate(x);
+                Predicate<Thing> predicate = (Thing x) => !x.IsForbidden(pawn) && pawn.CanReserve(x, 1, -1, null, false);
                 Predicate<Thing> validator = predicate;
 
                 return GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, request.Request(), PathEndMode.ClosestTouch, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), 9999f, validator, null, 0, -1, false, RegionType.Set_Passable, false);

@@ -19,7 +19,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
+    <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
@@ -74,7 +74,11 @@
     <Compile Include="AutomatedProducer\ThingOrderRequest.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
+    <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
     <Compile Include="DefGenerator.cs" />
+    <Compile Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
+    <Compile Include="PawnConverter\Hediff_Converter.cs" />
+    <Compile Include="PawnConverter\Util_PawnConvert.cs" />
     <Compile Include="Spaceship\AirStrikeDef.cs" />
     <Compile Include="Spaceship\Building_AirStrikeBeacon.cs" />
     <Compile Include="Spaceship\Building_LandingPadBeacon.cs" />
@@ -138,8 +142,9 @@
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
     <Compile Include="BiomeOverride\BiomeOverrideDef.cs" />
     <Compile Include="BiomeOverride\GenStep_BiomeOverride.cs" />
-    <Compile Include="Bunker\CompProperties_Bunker.cs" />
-    <Compile Include="Bunker\Comp_Bunker.cs" />
+    <Compile Include="Terraformer\TerrainCategoryDef.cs" />
+    <Compile Include="TurretsPlus\CompProperties_Bunker.cs" />
+    <Compile Include="TurretsPlus\Comp_Bunker.cs" />
     <None Include="Laser\Building_LaserGun.cs" />
     <None Include="Laser\Building_LaserGunDef.cs" />
     <None Include="Laser\IBeamColorThing.cs" />
@@ -196,17 +201,18 @@
     <Compile Include="Terraformer\TerraformerRulesDef.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />
+    <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
     <Compile Include="WeaponRestrict\CompProperties_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\Comp_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
-    <Compile Include="Bunker\Building_Emplacement.cs" />
-    <Compile Include="Bunker\Building_Bunker.cs" />
-    <Compile Include="Bunker\JobDriver_EnterEmplacement.cs" />
-    <Compile Include="Bunker\JobDriver_EnterBunker.cs" />
-    <None Include="Bunker\Verb_Emplacement.cs" />
-    <Compile Include="Bunker\Verb_Bunker.cs" />
+    <Compile Include="TurretsPlus\Building_Emplacement.cs" />
+    <Compile Include="TurretsPlus\Building_Bunker.cs" />
+    <Compile Include="TurretsPlus\JobDriver_EnterEmplacement.cs" />
+    <Compile Include="TurretsPlus\JobDriver_EnterBunker.cs" />
+    <None Include="TurretsPlus\Verb_Emplacement.cs" />
+    <Compile Include="TurretsPlus\Verb_Bunker.cs" />
     <Compile Include="Needs\CompProperties_EnergySource.cs" />
     <Compile Include="Needs\CompProperties_EnergyTracker.cs" />
     <Compile Include="Needs\Comp_EnergySource.cs" />

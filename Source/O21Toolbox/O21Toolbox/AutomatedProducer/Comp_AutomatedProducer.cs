@@ -59,10 +59,10 @@ namespace O21Toolbox.AutomatedProducer
             {
                 result = "Idle";
             }
-            else if(currentStatus == ProducerStatus.awaitingResources)
+            else if(currentStatus == ProducerStatus.awaitingResources && orderProcessor.PendingRequests() != null)
             {
                 result = "Awaiting Resources: ";
-                foreach(ThingOrderRequest thing in orderProcessor.requestedItems)
+                foreach(ThingOrderRequest thing in orderProcessor.PendingRequests())
                 {
                     result = result + "\n" + thing.amount.ToString() + " " + thing.thingDef.LabelCap;
                 }
@@ -94,6 +94,8 @@ namespace O21Toolbox.AutomatedProducer
 
         public bool repeatCurrentRecipe = false;
 
+        public bool hasOrder = false;
+
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
@@ -110,37 +112,39 @@ namespace O21Toolbox.AutomatedProducer
             {
                 orderProcessor = new ThingOrderProcessor(ingredients);
             }
-
-            if(orderProcessor.requestedItems == null && HasCosts())
-            {
-                //Update costs.
-                orderProcessor.requestedItems.Clear();
-
-                foreach (ThingDefCountClass cost in currentRecipe.costs)
-                {
-                    ThingOrderRequest costCopy = new ThingOrderRequest();
-                    costCopy.thingDef = cost.thingDef;
-                    costCopy.amount = cost.count;
-
-                    orderProcessor.requestedItems.Add(costCopy);
-                }
-            }
         }
 
         public override void CompTick()
         {
             base.CompTick();
-            GetProducerStatus();
+            this.GetProducerStatus();
 
-            if(currentRecipe != null && workTick <= 0)
+            if (this.HasRecipe() && !this.hasOrder)
             {
-                ProduceFromRecipe();
+                //Update costs.
+                this.orderProcessor.requestedItems.Clear();
+
+                foreach (ThingDefCountClass cost in this.currentRecipe.costs)
+                {
+                    ThingOrderRequest costCopy = new ThingOrderRequest();
+                    costCopy.thingDef = cost.thingDef;
+                    costCopy.amount = cost.count;
+
+                    this.orderProcessor.requestedItems.Add(costCopy);
+                }
+
+                this.hasOrder = true;
+            }
+
+            if (this.currentRecipe != null && this.IsWorking() && this.workTick <= 0)
+            {
+                this.ProduceFromRecipe();
             }
 
             if (IsWorking())
             {
 
-                workTick--;
+                this.workTick--;
             }
         }
 
@@ -199,6 +203,7 @@ namespace O21Toolbox.AutomatedProducer
             {
                 return;
             }
+            ingredients.ClearAndDestroyContents();
             RepeatRecipe();
             ResetWorkTick();
         }
@@ -216,6 +221,7 @@ namespace O21Toolbox.AutomatedProducer
             if(orderProcessor != null)
             {
                 orderProcessor.requestedItems.Clear();
+                hasOrder = false;
             }
             int result = -50;
             if (currentRecipe != null)
@@ -256,7 +262,7 @@ namespace O21Toolbox.AutomatedProducer
             {
                 currentStatus = ProducerStatus.idle;
             }
-            else if (HasCosts())
+            else if ((HasCosts() || AwaitingCosts()) && !HasIngredients())
             {
                 currentStatus = ProducerStatus.awaitingResources;
             }
@@ -292,18 +298,32 @@ namespace O21Toolbox.AutomatedProducer
         {
             if(HasRecipe() && currentRecipe.costs != null)
             {
-                if(orderProcessor.PendingRequests() != null && orderProcessor.PendingRequests().Count() == 0)
-                {
-                    return true;
-                }
-                return false;
+                return true;
             }
-            return true;
+            return false;
+        }
+
+        public bool AwaitingCosts()
+        {
+            if (HasCosts() && orderProcessor.PendingRequests().Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool HasIngredients()
+        {
+            if (!HasCosts() || (orderProcessor.PendingRequests() == null || (orderProcessor.PendingRequests() != null && orderProcessor.PendingRequests().Count() <= 0)))
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool IsWorking()
         {
-            if(HasCosts() && IsPowered() && workTick > -2)
+            if(HasIngredients() && IsPowered() && workTick > -2)
             {
                 return true;
             }

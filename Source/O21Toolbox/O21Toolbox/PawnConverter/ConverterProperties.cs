@@ -7,8 +7,6 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using O21Toolbox.PawnCrafter;
-
 namespace O21Toolbox.PawnConverter
 {
     public class ConverterProperties : DefModExtension

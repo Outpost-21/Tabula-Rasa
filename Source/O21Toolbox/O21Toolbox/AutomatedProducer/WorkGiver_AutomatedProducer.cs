@@ -8,9 +8,6 @@ using Verse.AI;
 
 namespace O21Toolbox.AutomatedProducer
 {
-    /// <summary>
-    /// Attempts to make pawns fill the AutomatedProducer
-    /// </summary>
     public class WorkGiver_AutomatedProducer : WorkGiver_Scanner
     {
         public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(WorkGiverProperties.defToScan);
@@ -49,7 +46,6 @@ namespace O21Toolbox.AutomatedProducer
                 return false;
             }
 
-            //Check if there is anything to fill.
             IEnumerable<ThingOrderRequest> potentionalRequests = autoProducer.TryGetComp<Comp_AutomatedProducer>().orderProcessor.PendingRequests();
             bool validRequest = false;
             if (potentionalRequests != null)
@@ -70,15 +66,15 @@ namespace O21Toolbox.AutomatedProducer
 
         public override Job JobOnThing(Pawn pawn, Thing crafterThing, bool forced = false)
         {
-            Building_AutomatedProducer pawnCrafter = crafterThing as Building_AutomatedProducer;
+            Building_AutomatedProducer automatedProducer = crafterThing as Building_AutomatedProducer;
 
-            IEnumerable<ThingOrderRequest> potentionalRequests = pawnCrafter.TryGetComp<Comp_AutomatedProducer>().orderProcessor.PendingRequests();
+            IEnumerable<ThingOrderRequest> potentionalRequests = automatedProducer.TryGetComp<Comp_AutomatedProducer>().orderProcessor.PendingRequests();
 
             if (potentionalRequests != null)
             {
                 foreach (ThingOrderRequest request in potentionalRequests)
                 {
-                    Thing ingredientThing = FindIngredient(pawn, pawnCrafter, request);
+                    Thing ingredientThing = FindIngredient(pawn, automatedProducer, request);
 
                     if (ingredientThing != null)
                     {
@@ -93,13 +89,6 @@ namespace O21Toolbox.AutomatedProducer
             return null;
         }
 
-        /// <summary>
-        /// Tries to find a appropiate ingredient.
-        /// </summary>
-        /// <param name="pawn">Pawn to search for.</param>
-        /// <param name="androidPrinter">Printer to fill.</param>
-        /// <param name="request">Thing order request to fulfill.</param>
-        /// <returns>Valid thing if found, otherwise null.</returns>
         private Thing FindIngredient(Pawn pawn, Building_AutomatedProducer automatedProducer, ThingOrderRequest request)
         {
             if (request != null)
