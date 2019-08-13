@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <DutyDef>
+  <!-- DutyDef>
     <defName>O21Toolbox_DutyDef_BoardSpaceship</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
@@ -47,6 +47,6 @@
         <li Class="O21Toolbox.Spaceship.JobGiver_RunToCarrier" />
       </subNodes>
     </thinkNode>
-  </DutyDef>
+  </DutyDef -->
   
 </Defs>

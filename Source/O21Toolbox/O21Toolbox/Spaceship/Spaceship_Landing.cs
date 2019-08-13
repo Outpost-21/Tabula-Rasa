@@ -66,9 +66,12 @@ namespace O21Toolbox.Spaceship
             if (this.ticksToLanding == 0)
             {
                 // Spawn cargo spaceship.
-                Spaceship_Building spaceship = ThingMaker.MakeThing(ThingDef.Named(this.thisSpaceshipDef.defName)) as Spaceship_Building;
-                spaceship.InitializeParameters(this.Faction, this.HitPoints, this.landingDuration, this.thisSpaceshipDef, this.spaceshipKind);
-                spaceship = GenSpawn.Spawn(spaceship, this.landingPadPosition, this.Map, this.landingPadRotation) as Spaceship_Building;
+                if(spaceshipKind == SpaceshipKind.Cargo)
+                {
+                    Spaceship_Building_Cargo spaceship = ThingMaker.MakeThing(ThingDef.Named(this.thisSpaceshipDef.defName)) as Spaceship_Building_Cargo;
+                    spaceship.InitializeParameters_Cargo(this.Faction, this.HitPoints, this.landingDuration, this.thisSpaceshipDef, this.spaceshipKind);
+                    spaceship = GenSpawn.Spawn(spaceship, this.landingPadPosition, this.Map, this.landingPadRotation) as Spaceship_Building_Cargo;
+                }
 
                 this.Destroy();
             }

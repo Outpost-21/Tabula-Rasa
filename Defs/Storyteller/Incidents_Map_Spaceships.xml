@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+	<!-- IncidentDef>
+		<defName>O21Toolbox_Spaceship_CargoSpaceship</defName>
+		<label>cargo spaceship</label>
+		<category>Misc</category>
+		<targetTags>
+			<li>Map_PlayerHome</li>
+		</targetTags>
+		<workerClass>O21Toolbox.Spaceship.IncidentWorker_CargoSpaceship</workerClass>
+		<baseChance>4</baseChance>
+	</IncidentDef>
+
 	<IncidentDef>
 		<defName>O21Toolbox_Spaceship_DamagedSpaceship</defName>
 		<label>damaged spaceship</label>
@@ -12,25 +23,25 @@
 		<baseChance>2</baseChance>
 	</IncidentDef>
 
-	<!-- <IncidentDef>
-		<defName>Spaceship_DispatcherDrop</defName>
+	< <IncidentDef>
+		<defName>O21Toolbox_Spaceship_DispatcherDrop</defName>
 		<label>dispatcher drop</label>
 		<category>Misc</category>
 		<targetTags>
 			<li>Map_PlayerHome</li>
 		</targetTags>
-		<workerClass>Spaceship.IncidentWorker_DispatcherDrop</workerClass>
+		<workerClass>O21Toolbox.Spaceship.IncidentWorker_DispatcherDrop</workerClass>
 		<baseChance>1.5</baseChance>
 	</IncidentDef>
 
 	<IncidentDef>
-		<defName>Spaceship_DispatcherPick</defName>
+		<defName>O21Toolbox_Spaceship_DispatcherPick</defName>
 		<label>dispatcher pick</label>
 		<category>Misc</category>
 		<targetTags>
 			<li>Map_PlayerHome</li>
 		</targetTags>
-		<workerClass>Spaceship.IncidentWorker_DispatcherPick</workerClass>
+		<workerClass>O21Toolbox.Spaceship.IncidentWorker_DispatcherPick</workerClass>
 		<baseChance>1.5</baseChance>
 	</IncidentDef> -->
 

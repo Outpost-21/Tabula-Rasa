@@ -6,7 +6,7 @@
 		<driverClass>O21Toolbox.Spaceship.JobDriver_UseOrbitalRelayConsole</driverClass>
 		<reportString>using TargetA</reportString>
 		<alwaysShowWeapon>false</alwaysShowWeapon>
-	</JobDef> -->
+	</JobDef>
 
 	<JobDef>
 		<defName>O21Toolbox_JobDef_TradeWithCargoSpaceship</defName>
@@ -26,6 +26,6 @@
 		<defName>O21Toolbox_JobDef_CarryDownedPawn</defName>
 		<driverClass>O21Toolbox.Spaceship.JobDriver_CarryDownedPawn</driverClass>
 		<reportString>rescuing TargetA</reportString>
-	</JobDef>
+	</JobDef> -->
 
 </Defs>

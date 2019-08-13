@@ -28,6 +28,6 @@
 		<defName>O21RefillPowerSource</defName>
 		<driverClass>O21Toolbox.Needs.JobDriver_RefillFuelEnergySource</driverClass>
 		<reportString>refueling TargetA with TargetB.</reportString>
-	</JobDef>
+	</JobDef> 
 	
 </Defs>

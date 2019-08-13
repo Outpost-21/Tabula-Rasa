@@ -15,7 +15,7 @@ using Harmony.ILCopying;
 
 using O21Toolbox;
 using O21Toolbox.Alliances;
-using O21Toolbox.ApparelRestrict;
+using O21Toolbox.ApparelExt;
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.TurretsPlus;
 //using O21Toolbox.Laser;
@@ -24,7 +24,7 @@ using O21Toolbox.Needs;
 using O21Toolbox.Networks;
 using O21Toolbox.PawnConverter;
 using O21Toolbox.ResearchBenchSub;
-using O21Toolbox.Spaceship;
+//using O21Toolbox.Spaceship;
 using O21Toolbox.WeaponRestrict;
 using O21Toolbox.Utility;
 
@@ -57,7 +57,7 @@ namespace O21Toolbox.Harmony
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
-            
+
             #region ResearchBenchSub
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(ResearchProjectDef), "CanBeResearchedAt", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "CanBeResearchedAtPostFix", null), null);
             #endregion ResearchBenchSub
@@ -65,7 +65,7 @@ namespace O21Toolbox.Harmony
             #region Alliances
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
             #endregion Alliances
-            
+
             #region EnergyNeed
 
             //Patch, Method: Pawn_NeedsTracker
@@ -262,11 +262,12 @@ namespace O21Toolbox.Harmony
             }
             #endregion EnergyNeed
 
-            #region Restrict
+            #region Apparel
+            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[]{typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool)}, null), null, new HarmonyMethod(HarmonyPatches.patchType, "RenderPawnInternalPostfix", null), null);
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "AddHumanlikeOrdersPostfix", null), null);
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "ApparelScoreGainPostFix", null), null);
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(HarmonyPatches.patchType, "GenerateStartingApparelForPostfix", null), null);
-            #endregion Restrict
+            #endregion Apparel
 
             #region ModularWeapon
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
@@ -860,7 +861,96 @@ namespace O21Toolbox.Harmony
         }
         #endregion NeedEnergyPatches
 
-        #region RestrictPatches
+        #region ApparelPatches
+
+        public static void RenderPawnInternalPostfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
+        {
+            if (!__instance.graphics.pawn.RaceProps.Animal)
+            {
+                List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
+                // Get all apparel with the defModExt.
+                foreach(Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
+                {
+                    ApparelGraphicRecord item;
+                    if (ap.def.HasModExtension<DefModExt_HeadwearOffset>())
+                    {
+                        DefModExt_HeadwearOffset modExt = ap.def.GetModExtension<DefModExt_HeadwearOffset>();
+                        if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
+                        {
+                            offsetApparelList.Add(item);
+                        }
+                    }
+                }
+
+                // Render if any Apparel in the list and NOT an animal.
+                if (offsetApparelList.Count >= 1)
+                {
+                    Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
+                    for (int i = 0; i < offsetApparelList.Count; i++)
+                    {
+                        DefModExt_HeadwearOffset modExt = offsetApparelList[i].sourceApparel.def.GetModExtension<DefModExt_HeadwearOffset>();
+                        Vector3 baseOffset = quaternion * modExt.offset;
+                        Mesh mesh = __instance.graphics.HairMeshSet.MeshAt(headFacing);
+                        Vector3 loc2 = rootLoc + baseOffset;
+                        loc2.y += 0.03125f;
+
+                        if (modExt.bodyDependant)
+                        {
+
+                        }
+                        else
+                        {
+                            if (!offsetApparelList[i].sourceApparel.def.apparel.hatRenderedFrontOfFace)
+                            {
+                                Material material2 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
+                                material2 = __instance.graphics.flasher.GetDamagedMat(material2);
+                                GenDraw.DrawMeshNowOrLater(mesh, loc2, quaternion, material2, portrait);
+                            }
+                            else
+                            {
+                                Material material3 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
+                                material3 = __instance.graphics.flasher.GetDamagedMat(material3);
+                                Vector3 loc3 = rootLoc + baseOffset;
+                                loc3.y += ((!(bodyFacing == Rot4.North)) ? 0.03515625f : 0.00390625f);
+                                GenDraw.DrawMeshNowOrLater(mesh, loc3, quaternion, material3, portrait);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_HeadwearOffset modExt, out ApparelGraphicRecord rec)
+        {
+            if (bodyType == null)
+            {
+                Log.Error("Getting apparel graphic with undefined body type.", false);
+                bodyType = BodyTypeDefOf.Male;
+            }
+            if (modExt.wornGraphicPath.NullOrEmpty())
+            {
+                rec = new ApparelGraphicRecord(null, null);
+                return false;
+            }
+            string path;
+            if (!modExt.bodyDependant)
+            {
+                path = modExt.wornGraphicPath;
+            }
+            else
+            {
+                path = modExt.wornGraphicPath + "_" + bodyType.defName;
+            }
+            Graphic graphic = GraphicDatabase.Get<Graphic_Multi>(path, ShaderDatabase.Cutout, apparel.def.graphicData.drawSize, apparel.DrawColor);
+            rec = new ApparelGraphicRecord(graphic, apparel);
+            return true;
+        }
+
+        public static Pawn PawnRenderer_GetPawn_GetPawn(PawnRenderer instance)
+        {
+            return (Pawn)int_PawnRenderer_GetPawn.GetValue(instance);
+        }
+
         /**public static void GenerateStartingApparelForPostfix()
         {
             Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
@@ -890,7 +980,7 @@ namespace O21Toolbox.Harmony
             {
                 return;
             }
-            if (!ApparelRestrict.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
+            if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
             {
                 __result = -50f;
             }
@@ -952,7 +1042,7 @@ namespace O21Toolbox.Harmony
                 }
                 if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
                 {
-                    if (ApparelRestrict.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
+                    if (ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
                     {
                         return;
                     }
@@ -972,7 +1062,7 @@ namespace O21Toolbox.Harmony
                 opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.Label) + " (" + pawn.def.label + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
         }
-        #endregion RestrictPatches
+        #endregion ApparelPatches
 
         #region ModularWeaponPatches
         /** public static void DrawEquipmentAimingPostfix(Thing eq, Vector3 drawLoc, float aimAngle)

@@ -15,6 +15,11 @@ namespace O21Toolbox.Networks
     public class NetworkDef : Def
     {
         /// <summary>
+        /// Measurement used to describe the network units.
+        /// </summary>
+        public string networkMeasurement = "";
+
+        /// <summary>
         /// Whether or not a network requires connections.
         /// </summary>
         public bool wirelessNetwork = false;
