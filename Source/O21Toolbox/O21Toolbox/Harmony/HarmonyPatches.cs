@@ -860,13 +860,16 @@ namespace O21Toolbox.Harmony
             {
                 return;
             }
-            if (!ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
+            if (!pawn.AnimalOrWildMan())
             {
-                __result = -50f;
-            }
-            if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
-            {
-                __result = -50f;
+                if (!ApparelRestrict.RestrictionCheck.CanWear(ap, pawn.story.bodyType))
+                {
+                    __result = -50f;
+                }
+                if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
+                {
+                    __result = -50f;
+                }
             }
         }
 
