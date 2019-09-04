@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using UnityEngine;
 using RimWorld;
 using RimWorld.Planet;
+using RimWorld.BaseGen;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 
 using Harmony;
 using Harmony.ILCopying;
@@ -22,6 +26,7 @@ using O21Toolbox.TurretsPlus;
 //using O21Toolbox.ModularWeapon;
 using O21Toolbox.Needs;
 using O21Toolbox.Networks;
+using O21Toolbox.NotQuiteHumanoid;
 using O21Toolbox.PawnConverter;
 using O21Toolbox.ResearchBenchSub;
 //using O21Toolbox.Spaceship;
@@ -272,6 +277,22 @@ namespace O21Toolbox.Harmony
             #region ModularWeapon
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
             #endregion ModularWeapon
+
+
+            O21ToolboxHarmony.Patch(
+                typeof(SymbolResolver_RandomMechanoidGroup).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+                    .First(mi =>
+                        mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) &&
+                        mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)),
+                null, new HarmonyMethod(typeof(HarmonyPatches),
+                    nameof(NQHFixerAncient)));
+            O21ToolboxHarmony.Patch(
+                typeof(CompSpawnerMechanoidsOnDamaged).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(
+                    mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) &&
+                          mi.GetParameters().Count() == 1 &&
+                          mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(
+                    typeof(HarmonyPatches),
+                    nameof(NQHFixer)));
 
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
@@ -980,13 +1001,16 @@ namespace O21Toolbox.Harmony
             {
                 return;
             }
-            if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
+            if (!pawn.AnimalOrWildMan())
             {
-                __result = -50f;
-            }
-            if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
-            {
-                __result = -50f;
+                if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
+                {
+                    __result = -50f;
+                }
+                if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
+                {
+                    __result = -50f;
+                }
             }
         }
 
@@ -1103,5 +1127,63 @@ namespace O21Toolbox.Harmony
             Graphics.DrawMesh(mesh, drawLoc, Quaternion.AngleAxis(num, Vector3.up), matSingle, 0);
         }**/
         #endregion ModularWeaponPatches
+
+        #region NotQuiteHumanoid
+
+
+        public static void NQHFixerAncient(ref bool __result, PawnKindDef kind)
+        {
+            if (typeof(NQH_Pawn).IsAssignableFrom(kind.race.thingClass)) __result = false;
+        }
+
+        public static void NQHFixer(ref bool __result, PawnKindDef def)
+        {
+            if (typeof(NQH_Pawn).IsAssignableFrom(def.race.thingClass)) __result = false;
+        }
+
+        [HarmonyPatch(typeof(PawnUtility))]
+        [HarmonyPatch("ShouldSendNotificationAbout")]
+        public static class ShouldSendNotificationPatch
+        {
+            public static bool Prefix(Pawn p)
+            {
+                return !(p is NQH_Pawn);
+            }
+        }
+
+        [HarmonyPatch(typeof(Pawn))]
+        [HarmonyPatch("IsColonistPlayerControlled", MethodType.Getter)]
+        public static class IsColonistPatch
+        {
+            public static void Postfix(Pawn __instance, ref bool __result)
+            {
+                if (__instance is NQH_Pawn)
+                {
+                    __result = __instance.Spawned && (__instance.Faction != null && __instance.Faction.IsPlayer) && __instance.MentalStateDef == null && __instance.HostFaction == null;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Selector))]
+        [HarmonyPatch("HandleMapClicks")]
+        public static class HandleMapClicksPatch
+        {
+            public static void Postfix(Selector __instance)
+            {
+                if (__instance.SingleSelectedThing.IsPlayerControlledNQH())
+                {
+                    if (Event.current.type == EventType.MouseDown)
+                    {
+                        List<object> selected = Traverse.Create(__instance).Field("selected").GetValue<List<object>>();
+                        if (Event.current.button == 1)
+                        {
+                            //TODO: needs to select what to do
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion NotQuiteHumanoid
     }
 }

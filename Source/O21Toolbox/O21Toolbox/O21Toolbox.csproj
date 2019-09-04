@@ -33,7 +33,8 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -89,6 +90,8 @@
     <Compile Include="Networks\Comp_NetworkStorage.cs" />
     <Compile Include="Networks\Comp_NetworkTrader.cs" />
     <Compile Include="Networks\NetworkManager.cs" />
+    <Compile Include="NotQuiteHumanoid\NQH_Pawn.cs" />
+    <Compile Include="NotQuiteHumanoid\NQH_Utility.cs" />
     <Compile Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
     <Compile Include="PawnConverter\Hediff_Converter.cs" />
     <Compile Include="PawnConverter\Util_PawnConvert.cs" />
