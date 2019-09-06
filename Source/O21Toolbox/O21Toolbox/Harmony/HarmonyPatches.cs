@@ -1164,26 +1164,6 @@ namespace O21Toolbox.Harmony
             }
         }
 
-        [HarmonyPatch(typeof(Selector))]
-        [HarmonyPatch("HandleMapClicks")]
-        public static class HandleMapClicksPatch
-        {
-            public static void Postfix(Selector __instance)
-            {
-                if (__instance.SingleSelectedThing.IsPlayerControlledNQH())
-                {
-                    if (Event.current.type == EventType.MouseDown)
-                    {
-                        List<object> selected = Traverse.Create(__instance).Field("selected").GetValue<List<object>>();
-                        if (Event.current.button == 1)
-                        {
-                            //TODO: needs to select what to do
-                        }
-                    }
-                }
-            }
-        }
-
         #endregion NotQuiteHumanoid
     }
 }

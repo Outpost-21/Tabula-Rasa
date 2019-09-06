@@ -11,6 +11,8 @@ namespace O21Toolbox.AutomatedProducer
 {
     public class CompProperties_AutomatedProducer : CompProperties
     {
+        public CompProperties_AutomatedProducer() => this.compClass = typeof(Comp_AutomatedProducer);
+
         /// <summary>
         /// Multiplies tick costs. Can be used to extend or shorten the time between production cycles, decreasing or increasing the speed of production.
         /// </summary>

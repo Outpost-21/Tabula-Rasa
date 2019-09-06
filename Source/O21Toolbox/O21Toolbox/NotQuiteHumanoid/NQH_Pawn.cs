@@ -6,6 +6,8 @@ using System.Text;
 using UnityEngine;
 using RimWorld;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 namespace O21Toolbox.NotQuiteHumanoid
 {
@@ -29,6 +31,16 @@ namespace O21Toolbox.NotQuiteHumanoid
                 {
                     this.drafter = new Pawn_DraftController(this);
                 }
+                if(this.jobs == null)
+                {
+                    this.jobs = new Pawn_JobTracker(this);
+                }
+            }
+            Lord lord = this.Map.lordManager.lords.ToList().Find(x => x.ownedPawns.Any(y => y.Faction.IsPlayer));
+            if (lord != null)
+            {
+                Log.Message("Assigned Lord to " + this.kindDef.label);
+                lord.AddPawn(this);
             }
         }
     }

@@ -16,7 +16,6 @@ namespace O21Toolbox
         {
             if (base.TryApply(pawn, null))
             {
-
                 return;
             }
         }

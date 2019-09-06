@@ -78,6 +78,8 @@
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
     <None Include="DefGenerator.cs" />
+    <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
+    <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
     <Compile Include="Networks\Building_NetworkSwitch.cs" />
     <Compile Include="Networks\CompProperties_NetworkTrader.cs" />
     <Compile Include="Networks\CompProperties_Network.cs" />
