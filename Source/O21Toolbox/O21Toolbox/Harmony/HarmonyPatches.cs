@@ -1141,6 +1141,24 @@ namespace O21Toolbox.Harmony
             if (typeof(NQH_Pawn).IsAssignableFrom(def.race.thingClass)) __result = false;
         }
 
+        [HarmonyPatch(typeof(TransferableUtility), "CanStack")]
+        public static class TransferableUtility_CanStack_Patch
+        {
+            static bool Prefix(Thing thing, ref bool __result)
+            {
+                if (thing.def.category == ThingCategory.Pawn)
+                {
+                    Pawn pawn = (Pawn)thing;
+                    if (pawn is NQH_Pawn)
+                    {
+                        __result = false;
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
         [HarmonyPatch(typeof(PawnUtility))]
         [HarmonyPatch("ShouldSendNotificationAbout")]
         public static class ShouldSendNotificationPatch
@@ -1157,7 +1175,7 @@ namespace O21Toolbox.Harmony
         {
             public static void Postfix(Pawn __instance, ref bool __result)
             {
-                if (__instance is NQH_Pawn)
+                if(__instance is NQH_Pawn)
                 {
                     __result = __instance.Spawned && (__instance.Faction != null && __instance.Faction.IsPlayer) && __instance.MentalStateDef == null && __instance.HostFaction == null;
                 }

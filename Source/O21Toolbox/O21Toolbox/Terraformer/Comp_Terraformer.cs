@@ -34,6 +34,10 @@ namespace O21Toolbox.Terraformer
                 UpdateRadiusT();
                 ResetWorkTick();
             }
+            if (this.Props.canNatureRestore)
+            {
+                this.parent.Map.GetComponent<MapComponent_Terraforming>().RegisterTerraformer((Building)this.parent);
+            }
         }
 
         private void UpdateRadiusT()
@@ -70,12 +74,18 @@ namespace O21Toolbox.Terraformer
 
             if (IsWithering())
             {
-                //Log.Message("Is Withering");
                 if(witherTickCurrent >= Props.witherTicks)
                 {
                     this.parent.Destroy();
                 }
                 witherTickCurrent++;                
+            }
+            else
+            {
+                if(witherTickCurrent > 0)
+                {
+                    witherTickCurrent--;
+                }
             }
 
             if (workTick > 0)
@@ -83,7 +93,7 @@ namespace O21Toolbox.Terraformer
                 workTick--;
             }
 
-            HarmRandomPlantInRadius();
+            //HarmRandomPlantInRadius();
         }
 
         private bool IsWithering()
@@ -114,7 +124,7 @@ namespace O21Toolbox.Terraformer
         {
             string text = string.Concat(new string[]
             {
-                "Work For Current Tile",
+                "Work For Current Tile".Translate().CapitalizeFirst(),
                 ": ",
                 this.workTick.ToString(),
                 "\n",
@@ -122,9 +132,9 @@ namespace O21Toolbox.Terraformer
                 ": ",
                 this.currentRadiusT.ToString(),
                 "\n",
-                "Max Radius",
+                "Max Radius".Translate().CapitalizeFirst(),
                 ": ",
-                this.Props.terraformRange.ToString()
+                this.Props.terraformRange.ToString(),
             });
             return text;
         }
@@ -181,9 +191,12 @@ namespace O21Toolbox.Terraformer
                     foreach(TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
                     {
                         IntVec3 randomTile = tileList.RandomElement();
-                        if(rule.terrainDefsWhitelist.Exists(x => x == randomTile.GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == randomTile.GetTerrain(this.parent.Map))))
+                        TerrainDef newTerrain = rule.terrainResult.RandomElement();
+                        TerrainDef oldTerrain = randomTile.GetTerrain(this.parent.Map);
+                        if (rule.terrainDefsWhitelist.Exists(x => x == randomTile.GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == randomTile.GetTerrain(this.parent.Map))))
                         {
-                            this.parent.Map.terrainGrid.SetTerrain(randomTile, rule.terrainResult.RandomElement());
+                            this.parent.Map.terrainGrid.SetTerrain(randomTile, newTerrain);
+                            this.parent.Map.GetComponent<MapComponent_Terraforming>().RegisterTerraformedTile(randomTile, (Building)this.parent, oldTerrain, newTerrain);
                             break;
                         }
                     }

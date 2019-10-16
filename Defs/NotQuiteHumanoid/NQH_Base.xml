@@ -25,6 +25,10 @@
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
+			<li>ITab_Pawn_Training</li>
+			<li>ITab_Pawn_Social</li>
+			<li>ITab_Pawn_Guest</li>
+			<li>ITab_Pawn_Prisoner</li>
 			<li>ITab_Pawn_FormingCaravan</li>
 			<li>ITab_Pawn_Gear</li>
 			<li>ITab_Pawn_Log</li>
@@ -35,8 +39,8 @@
 			</li>
 		</comps>
 		<race>
-			<thinkTreeMain>Humanlike</thinkTreeMain>
-			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+			<thinkTreeMain>NQHMain</thinkTreeMain>
+			<thinkTreeConstant>NQHConstant</thinkTreeConstant>
 			<needsRest>false</needsRest>
 			<hasGenders>false</hasGenders>
 			<fleshType>Mechanoid</fleshType>

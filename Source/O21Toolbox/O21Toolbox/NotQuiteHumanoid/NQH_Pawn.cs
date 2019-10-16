@@ -36,11 +36,41 @@ namespace O21Toolbox.NotQuiteHumanoid
                     this.jobs = new Pawn_JobTracker(this);
                 }
             }
-            Lord lord = this.Map.lordManager.lords.ToList().Find(x => x.ownedPawns.Any(y => y.Faction.IsPlayer));
-            if (lord != null)
+        }
+
+        public override void PostMake()
+        {
+            base.PostMake();
+
+            if (ownership == null)
             {
-                Log.Message("Assigned Lord to " + this.kindDef.label);
-                lord.AddPawn(this);
+                ownership = new Pawn_Ownership(this);
+            }
+            if (skills == null)
+            {
+                skills = new Pawn_SkillTracker(this);
+                skills.skills.Find(sr => sr.def == SkillDefOf.Construction).Level = 15;
+            }
+            if (story == null)
+            {
+                story = new Pawn_StoryTracker(this);
+            }
+            if (guest == null)
+            {
+                guest = new Pawn_GuestTracker(this);
+            }
+            if (guilt == null)
+            {
+                guilt = new Pawn_GuiltTracker();
+            }
+            if (workSettings == null)
+            {
+                workSettings = new Pawn_WorkSettings(this);
+                workSettings.EnableAndInitializeIfNotAlreadyInitialized();
+                foreach (var workTypeDef in DefDatabase<WorkTypeDef>.AllDefs)
+                {
+                    workSettings.SetPriority(workTypeDef, 1);
+                }
             }
         }
     }

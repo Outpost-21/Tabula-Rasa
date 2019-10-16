@@ -96,5 +96,10 @@ namespace O21Toolbox.Terraformer
         /// If true, this will kill off any plants that are not listed in the plants the terraformer places.
         /// </summary>
         public bool killUnlistedPlants = false;
+
+        /// <summary>
+        /// If True, edited tiles will slowly restore if the terraformer has been destroyed.
+        /// </summary>
+        public bool canNatureRestore = false;
     }
 }

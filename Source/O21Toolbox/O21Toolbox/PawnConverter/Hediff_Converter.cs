@@ -32,7 +32,7 @@ namespace O21Toolbox.PawnConverter
         {
             base.Tick();
 
-            if(this.Severity >= 0.99)
+            if(Severity >= 0.99)
             {
                 AttemptConversion();
             }
@@ -40,25 +40,16 @@ namespace O21Toolbox.PawnConverter
 
         private void AttemptConversion()
         {
-            if(Util_PawnConvert.IsViableRace(this.pawn, this.def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe) && Util_PawnConvert.IsRequiredSex(this.pawn, this.def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe))
+            if(Util_PawnConvert.IsViableRace(pawn, def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe) && Util_PawnConvert.IsRequiredSex(pawn, def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe))
             {
-                if(this.pawn.def.defName == "Human")
-                {
-                    Pawn producedPawn = Util_PawnConvert.HumanPawnConversion(this.pawn, this.def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe);
-                    Pawn truePawn = Util_PawnConvert.PawnConversion(producedPawn, this.def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe);
-                    GenPlace.TryPlaceThing(truePawn, this.pawn.Position, this.pawn.Map, ThingPlaceMode.Direct, null, null);
-                }
-                else
-                {
-                    Pawn producedPawn = Util_PawnConvert.PawnConversion(this.pawn, this.def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe);
-                    GenPlace.TryPlaceThing(producedPawn, this.pawn.Position, this.pawn.Map, ThingPlaceMode.Direct, null, null);
-                }
-                this.pawn.Destroy();
+                Pawn producedPawn = Util_PawnConvert.PawnConversion(pawn, def.GetModExtension<DefModExt_Hediff_Converter>().conversionRecipe);
+                GenPlace.TryPlaceThing(producedPawn, pawn.Position, pawn.Map, ThingPlaceMode.Direct, null, null);
+                pawn.Destroy();
             }
             else
             {
                 // Log.Message("Conversion not viable, killing pawn...");
-                this.pawn.Kill(null, this);
+                pawn.Kill(null, this);
             }
         }
     }

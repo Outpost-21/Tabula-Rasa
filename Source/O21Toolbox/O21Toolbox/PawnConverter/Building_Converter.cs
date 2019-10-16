@@ -308,14 +308,7 @@ namespace O21Toolbox.PawnConverter
             {
                 if (item is Pawn val && this.chosenRecipe != null)
                 {
-                    if (item.def.defName == "Human")
-                    {
-                        convertedContainer.TryAdd(Util_PawnConvert.PawnConversion(Util_PawnConvert.HumanPawnConversion(val, this.chosenRecipe), this.chosenRecipe));
-                    }
-                    else
-                    {
-                        convertedContainer.TryAdd(Util_PawnConvert.PawnConversion(val, this.chosenRecipe));
-                    }
+                    convertedContainer.TryAdd(Util_PawnConvert.PawnConversion(val, this.chosenRecipe));
                 }
             }
             this.innerContainer.ClearAndDestroyContents();
