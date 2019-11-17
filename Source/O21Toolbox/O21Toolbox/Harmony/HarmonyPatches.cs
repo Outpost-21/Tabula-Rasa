@@ -33,8 +33,6 @@ using O21Toolbox.ResearchBenchSub;
 using O21Toolbox.WeaponRestrict;
 using O21Toolbox.Utility;
 
-using AlienRace;
-
 namespace O21Toolbox.Harmony
 {
     [StaticConstructorOnStartup]
@@ -278,7 +276,7 @@ namespace O21Toolbox.Harmony
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
             #endregion ModularWeapon
 
-
+            #region NotQuiteHumanoid
             O21ToolboxHarmony.Patch(
                 typeof(SymbolResolver_RandomMechanoidGroup).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
                     .First(mi =>
@@ -293,7 +291,8 @@ namespace O21Toolbox.Harmony
                           mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(
                     typeof(HarmonyPatches),
                     nameof(NQHFixer)));
-
+            #endregion
+            
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
@@ -1005,11 +1004,7 @@ namespace O21Toolbox.Harmony
             {
                 if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
                 {
-                    __result = -50f;
-                }
-                if (!RaceRestrictionSettings.CanWear(ap.def, pawn.def))
-                {
-                    __result = -50f;
+                    __result -= 50f;
                 }
             }
         }
@@ -1025,16 +1020,6 @@ namespace O21Toolbox.Harmony
                     List<FloatMenuOption> list = (from fmo in opts
                                                   where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
                                                   select fmo).ToList<FloatMenuOption>();
-                    if (!list.NullOrEmpty<FloatMenuOption>() && !RaceRestrictionSettings.CanEquip(equipment.def, pawn.def))
-                    {
-                        foreach (FloatMenuOption item2 in list)
-                        {
-                            int index2 = opts.IndexOf(item2);
-                            opts.Remove(item2);
-                            opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShort) + " (" + pawn.def.LabelCap + " can't equip this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
-                        }
-                        return;
-                    }
                     if(!list.NullOrEmpty<FloatMenuOption>() && equipment.def.GetCompProperties<CompProperties_ApparelRestrict>() != null)
                     {
                         if(!WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
@@ -1043,7 +1028,7 @@ namespace O21Toolbox.Harmony
                             {
                                 int index2 = opts.IndexOf(item2);
                                 opts.Remove(item2);
-                                opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShort) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                                opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShortCap) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
                             }
                             return;
                         }
@@ -1056,34 +1041,20 @@ namespace O21Toolbox.Harmony
                 return;
             }
             List<FloatMenuOption> list2 = (from fmo in opts
-                                           where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort))
+                                           where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
                                            select fmo).ToList<FloatMenuOption>();
-            if(list2.NullOrEmpty<FloatMenuOption>() || RaceRestrictionSettings.CanWear(apparel.def, pawn.def))
+            if(list2.NullOrEmpty<FloatMenuOption>() || ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
             {
-                if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() == null)
-                {
-                    return;
-                }
-                if (apparel.def.GetCompProperties<CompProperties_BodyRestrict>() != null)
-                {
-                    if (ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
-                    {
-                        return;
-                    }
-                }
+                return;
+            }
+            else
+            {
                 foreach (FloatMenuOption item3 in list2)
                 {
                     int index3 = opts.IndexOf(item3);
                     opts.Remove(item3);
-                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.Label) + " (" + pawn.story.bodyType.label + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.label + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
                 }
-                return;
-            }
-            foreach (FloatMenuOption item3 in list2)
-            {
-                int index3 = opts.IndexOf(item3);
-                opts.Remove(item3);
-                opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.Label) + " (" + pawn.def.label + " can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
         }
         #endregion ApparelPatches
