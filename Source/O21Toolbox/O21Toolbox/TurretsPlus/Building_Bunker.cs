@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using UnityEngine;
 using RimWorld;
 using Verse;
-using UnityEngine;
 using Verse.AI;
+
+using O21Toolbox.Needs;
 
 namespace O21Toolbox.TurretsPlus
 {
@@ -73,6 +76,7 @@ namespace O21Toolbox.TurretsPlus
         {
             base.TickRare();
             this.innerContainer.ThingOwnerTickRare(true);
+            this.CheckImportantNeeds();
         }
 
         public override void Tick()
@@ -97,6 +101,38 @@ namespace O21Toolbox.TurretsPlus
             {
                 this
             });
+        }
+
+        public void CheckImportantNeeds()
+        {
+            if (innerContainer.Any && (this.LastAttackTargetTick - Current.Game.tickManager.TicksGame) > 1000)
+            {
+                List<Pawn> theEjectables = new List<Pawn>();
+                foreach(Pawn pawn in innerContainer.InnerListForReading)
+                {
+                    // Check food.
+                    if(pawn?.needs?.food != null && pawn.needs.food.Starving)
+                    {
+                        theEjectables.Add(pawn);
+                    }
+                    // Check sleep.
+                    if (pawn?.needs?.rest != null && pawn.needs.rest.CurLevelPercentage < 0.1)
+                    {
+                        theEjectables.Add(pawn);
+                    }
+                    // Check Energy.
+                    if(pawn?.TryGetComp<Comp_EnergyTracker>() != null && pawn.TryGetComp<Comp_EnergyTracker>().energy < 0.1)
+                    {
+                        theEjectables.Add(pawn);
+                    }
+                }
+
+                for (int i = 0; i < theEjectables.Count; i++)
+                {
+                    Pawn lastPawn;
+                    this.innerContainer.TryDrop(theEjectables[i], ThingPlaceMode.Near, out lastPawn);
+                }
+            }
         }
 
         public override bool ClaimableBy(Faction fac)
