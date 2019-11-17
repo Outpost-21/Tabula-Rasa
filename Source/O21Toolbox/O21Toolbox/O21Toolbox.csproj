@@ -61,8 +61,7 @@
     <Compile Include="Alliances\AllianceDef.cs" />
     <Compile Include="Alliances\RelationAlliance.cs" />
     <Compile Include="Alliances\RelationFaction.cs" />
-    <Compile Include="ApparelExt\CompProperties_BodyRestrict.cs" />
-    <Compile Include="ApparelExt\Comp_BodyRestrict.cs" />
+    <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_HeadwearOffset.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />

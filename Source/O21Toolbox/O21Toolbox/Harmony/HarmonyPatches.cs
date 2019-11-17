@@ -1053,7 +1053,7 @@ namespace O21Toolbox.Harmony
                 {
                     int index3 = opts.IndexOf(item3);
                     opts.Remove(item3);
-                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.label + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.defName.ToString() + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
                 }
             }
         }
