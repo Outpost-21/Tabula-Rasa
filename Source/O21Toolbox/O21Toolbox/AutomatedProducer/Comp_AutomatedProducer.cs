@@ -242,6 +242,12 @@ namespace O21Toolbox.AutomatedProducer
             workTickMax = result;
         }
 
+        public void CancelRecipe()
+        {
+            ingredients.TryDropAll(this.parent.InteractionCell, this.parent.Map, ThingPlaceMode.Near);
+            this.currentRecipe = null;
+        }
+
         public bool ShouldProduceThisTick()
         {
             if (powerComp != null)

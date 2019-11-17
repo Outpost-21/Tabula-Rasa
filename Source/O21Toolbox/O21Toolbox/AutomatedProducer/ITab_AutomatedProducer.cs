@@ -102,7 +102,7 @@ namespace O21Toolbox.AutomatedProducer
             Texture2D DeleteX = ContentFinder<Texture2D>.Get("UI/Buttons/Delete", true);
             if (Widgets.ButtonImage(rect5, DeleteX, Color.white, Color.white * GenUI.SubtleMouseoverColor))
             {
-                this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = null;
+                this.SelTable.GetComp<Comp_AutomatedProducer>().CancelRecipe();
                 SoundDefOf.Click.PlayOneShotOnCamera(null);
             }
             TooltipHandler.TipRegion(rect5, "DeleteAutoBillTip".Translate());
