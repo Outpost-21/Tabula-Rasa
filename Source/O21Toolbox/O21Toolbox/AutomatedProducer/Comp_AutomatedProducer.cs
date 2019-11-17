@@ -49,6 +49,7 @@ namespace O21Toolbox.AutomatedProducer
         private CompProperties_AutomatedProducer producerCompProps;
 
         private int workTick = -50;
+        private int workTickMax = 0;
 
         public ProducerStatus currentStatus = ProducerStatus.idle;
 
@@ -69,7 +70,7 @@ namespace O21Toolbox.AutomatedProducer
             }
             else if(currentStatus == ProducerStatus.working)
             {
-                result = "Working: " + workTick;
+                result = "Working: " + (100 - (100 * workTick / workTickMax)) + "%";
             }
             else if(currentStatus == ProducerStatus.producing)
             {
@@ -238,6 +239,7 @@ namespace O21Toolbox.AutomatedProducer
                 Log.Message("Recipe Work: " + result);
             }
             workTick = result;
+            workTickMax = result;
         }
 
         public bool ShouldProduceThisTick()
