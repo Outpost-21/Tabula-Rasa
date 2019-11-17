@@ -13,9 +13,9 @@ namespace O21Toolbox.ApparelExt
     {
         public static bool CanWear(ThingDef apparel, BodyTypeDef bodyType)
         {
-            if(apparel.GetCompProperties<CompProperties_BodyRestrict>() != null)
+            if(apparel.HasModExtension<DefModExt_BodyRestrict>())
             {
-                if (!apparel.GetCompProperties<CompProperties_BodyRestrict>().BodyDefs.Contains(bodyType))
+                if (!apparel.GetModExtension<DefModExt_BodyRestrict>().BodyDefs.Contains(bodyType))
                 {
                     return false;
                 }

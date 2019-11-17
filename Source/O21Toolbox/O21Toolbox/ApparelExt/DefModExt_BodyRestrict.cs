@@ -9,10 +9,8 @@ using Verse;
 
 namespace O21Toolbox.ApparelExt
 {
-    public class CompProperties_BodyRestrict : CompProperties
+    public class DefModExt_BodyRestrict : DefModExtension
     {
-        public CompProperties_BodyRestrict() => this.compClass = typeof(Comp_BodyRestrict);
-
         public List<BodyTypeDef> BodyDefs = null;
     }
 }
