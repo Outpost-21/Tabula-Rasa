@@ -150,8 +150,8 @@
     <Compile Include="CustomHive\LordJob_DefendHive.cs" />
     <Compile Include="CustomHive\LordToil_DefendHive.cs" />
     <Compile Include="CustomHive\Toils_Extra.cs" />
-    <Compile Include="CustomThingMaker\CompProperties_PawnMaker.cs" />
-    <Compile Include="CustomThingMaker\Comp_PawnMaker.cs" />
+    <Compile Include="PawnSpawner\CompProperties_PawnSpawner.cs" />
+    <Compile Include="PawnSpawner\Comp_PawnSpawner.cs" />
     <None Include="ModularWeapon\DefModExtension_ModularWeapon.cs" />
     <None Include="ModularWeapon\ITab_ModularWeapon.cs" />
     <Compile Include="ModularWeapon\WeaponModuleDef.cs" />
@@ -176,7 +176,6 @@
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
-    <Compile Include="WeaponRestrict\DefModExt_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
     <Compile Include="TurretsPlus\Building_Emplacement.cs" />
     <Compile Include="TurretsPlus\Building_Bunker.cs" />
