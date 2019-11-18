@@ -13,14 +13,17 @@ namespace O21Toolbox.WeaponRestrict
     {
         public static bool CanEquip(ThingDef equipment, Pawn pawn)
         {
-            CompProperties_ApparelRestrict comp = equipment.GetCompProperties<CompProperties_ApparelRestrict>();
-            if (comp.AllRequired && comp.RequiredApparel.All(x => IsWearing(x, pawn)))
+            if (equipment.HasModExtension<DefModExt_ApparelRestrict>())
             {
-                return true;
-            }
-            if(comp.RequiredApparel.Any(x => IsWearing(x, pawn)))
-            {
-                return true;
+                DefModExt_ApparelRestrict modExt = equipment.GetModExtension<DefModExt_ApparelRestrict>();
+                if (modExt.allRequired && modExt.requiredApparel.All(x => IsWearing(x, pawn)))
+                {
+                    return true;
+                }
+                if (modExt.requiredApparel.Any(x => IsWearing(x, pawn)))
+                {
+                    return true;
+                }
             }
             return false;
         }

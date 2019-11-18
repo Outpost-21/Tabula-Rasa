@@ -61,6 +61,7 @@
     <Compile Include="Alliances\AllianceDef.cs" />
     <Compile Include="Alliances\RelationAlliance.cs" />
     <Compile Include="Alliances\RelationFaction.cs" />
+    <Compile Include="ApparelExt\DefModExt_ApparelRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_HeadwearOffset.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
@@ -175,8 +176,7 @@
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
-    <Compile Include="WeaponRestrict\CompProperties_ApparelRestrict.cs" />
-    <Compile Include="WeaponRestrict\Comp_ApparelRestrict.cs" />
+    <Compile Include="WeaponRestrict\DefModExt_ApparelRestrict.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
     <Compile Include="TurretsPlus\Building_Emplacement.cs" />
     <Compile Include="TurretsPlus\Building_Bunker.cs" />

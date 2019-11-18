@@ -1002,7 +1002,7 @@ namespace O21Toolbox.Harmony
             }
             if (!pawn.AnimalOrWildMan())
             {
-                if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn.story.bodyType))
+                if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn))
                 {
                     __result -= 50f;
                 }
@@ -1020,40 +1020,31 @@ namespace O21Toolbox.Harmony
                     List<FloatMenuOption> list = (from fmo in opts
                                                   where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
                                                   select fmo).ToList<FloatMenuOption>();
-                    if(!list.NullOrEmpty<FloatMenuOption>() && equipment.def.GetCompProperties<CompProperties_ApparelRestrict>() != null)
+                    if(!list.NullOrEmpty<FloatMenuOption>() || !WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
                     {
-                        if(!WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
+                        foreach (FloatMenuOption item2 in list)
                         {
-                            foreach (FloatMenuOption item2 in list)
-                            {
-                                int index2 = opts.IndexOf(item2);
-                                opts.Remove(item2);
-                                opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShortCap) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
-                            }
-                            return;
+                            int index2 = opts.IndexOf(item2);
+                            opts.Remove(item2);
+                            opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShortCap) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
                         }
                     }
                 }
             }
             Apparel apparel = pawn.Map.thingGrid.ThingAt<Apparel>(c);
-            if (apparel == null)
+            if (apparel != null)
             {
-                return;
-            }
-            List<FloatMenuOption> list2 = (from fmo in opts
-                                           where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
-                                           select fmo).ToList<FloatMenuOption>();
-            if(list2.NullOrEmpty<FloatMenuOption>() || ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn.story.bodyType))
-            {
-                return;
-            }
-            else
-            {
-                foreach (FloatMenuOption item3 in list2)
+                List<FloatMenuOption> list2 = (from fmo in opts
+                                               where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
+                                               select fmo).ToList<FloatMenuOption>();
+                if (!list2.NullOrEmpty<FloatMenuOption>() || !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
                 {
-                    int index3 = opts.IndexOf(item3);
-                    opts.Remove(item3);
-                    opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.defName.ToString() + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    foreach (FloatMenuOption item3 in list2)
+                    {
+                        int index3 = opts.IndexOf(item3);
+                        opts.Remove(item3);
+                        opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.defName.ToString() + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    }
                 }
             }
         }
