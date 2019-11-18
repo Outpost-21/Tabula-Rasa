@@ -11,17 +11,19 @@ namespace O21Toolbox.AutomatedProducer
 {
     public class Comp_AutomatedProducer : ThingComp, IThingHolder
     {
-        public CompProperties_AutomatedProducer Props
-        {
-            get
-            {
-                return (CompProperties_AutomatedProducer)this.props;
-            }
-        }
+        public CompProperties_AutomatedProducer Props => (CompProperties_AutomatedProducer)this.props;
 
         public override void PostExposeData()
         {
             base.PostExposeData();
+            Scribe_Values.Look(ref workTick, "workTick", -50);
+            Scribe_Values.Look(ref workTickMax, "workTickMax", 0);
+            Scribe_Values.Look(ref currentRecipe, "currentRecipe", null);
+            Scribe_Values.Look(ref repeatCurrentRecipe, "repeatCurrentRecipe", false);
+            Scribe_Values.Look(ref hasOrder, "hasOrder", false);
+
+            Scribe_Deep.Look(ref ingredients, "ingredients", new ThingOwner<Thing>());
+            Scribe_Deep.Look(ref orderProcessor, "orderProcessor", null);
         }
 
         /// <summary>
@@ -123,18 +125,21 @@ namespace O21Toolbox.AutomatedProducer
             if (this.HasRecipe() && !this.hasOrder)
             {
                 //Update costs.
-                this.orderProcessor.requestedItems.Clear();
-
-                foreach (ThingDefCountClass cost in this.currentRecipe.costs)
+                if (!currentRecipe.costs.NullOrEmpty())
                 {
-                    ThingOrderRequest costCopy = new ThingOrderRequest();
-                    costCopy.thingDef = cost.thingDef;
-                    costCopy.amount = cost.count;
+                    this.orderProcessor.requestedItems.Clear();
 
-                    this.orderProcessor.requestedItems.Add(costCopy);
+                    foreach (ThingDefCountClass cost in this.currentRecipe.costs)
+                    {
+                        ThingOrderRequest costCopy = new ThingOrderRequest();
+                        costCopy.thingDef = cost.thingDef;
+                        costCopy.amount = cost.count;
+
+                        this.orderProcessor.requestedItems.Add(costCopy);
+                    }
+
+                    this.hasOrder = true;
                 }
-
-                this.hasOrder = true;
             }
 
             if (this.currentRecipe != null && this.IsWorking() && this.workTick <= 0)
