@@ -16,14 +16,16 @@ namespace O21Toolbox.AutomatedProducer
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref workTick, "workTick", -50);
-            Scribe_Values.Look(ref workTickMax, "workTickMax", 0);
-            Scribe_Values.Look(ref currentRecipe, "currentRecipe", null);
-            Scribe_Values.Look(ref repeatCurrentRecipe, "repeatCurrentRecipe", false);
-            Scribe_Values.Look(ref hasOrder, "hasOrder", false);
+            Scribe_Values.Look(ref workTick, "workTick");
+            Scribe_Values.Look(ref workTickMax, "workTickMax");
+            Scribe_Values.Look(ref repeatCurrentRecipe, "repeatCurrentRecipe");
+            Scribe_Values.Look(ref hasOrder, "hasOrder");
+            Scribe_Values.Look(ref currentStatus, "currentStatus");
 
-            Scribe_Deep.Look(ref ingredients, "ingredients", new ThingOwner<Thing>());
-            Scribe_Deep.Look(ref orderProcessor, "orderProcessor", null);
+            Scribe_Defs.Look(ref currentRecipe, "currentRecipe");
+
+            Scribe_Deep.Look(ref ingredients, "ingredients");
+            Scribe_Deep.Look(ref orderProcessor, "orderProcessor", ingredients);
         }
 
         /// <summary>
