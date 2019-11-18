@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.ApparelExt
+namespace O21Toolbox
 {
     public class DefModExt_ApparelRestrict : DefModExtension
     {
