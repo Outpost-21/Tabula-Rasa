@@ -19,9 +19,9 @@ namespace O21Toolbox.Terraformer
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref terraformers, "terraformers");
-            Scribe_Values.Look(ref removedTerraformers, "removedTerraformers");
-            Scribe_Collections.Look(ref terraformedTiles, "terraformedTiles");
+            Scribe_Collections.Look(ref terraformers, "terraformers", LookMode.Reference);
+            Scribe_Collections.Look(ref removedTerraformers, "removedTerraformers", LookMode.Reference);
+            Scribe_Collections.Look<IntVec3, TerraformedInfo>(ref terraformedTiles, "terraformedTiles", LookMode.Value, LookMode.Deep);
         }
 
         public MapComponent_Terraforming(Map map) : base(map)
@@ -126,16 +126,16 @@ namespace O21Toolbox.Terraformer
 
             public TerrainDef currentTerrain;
 
-            public TerraformedInfo(Building building, TerrainDef original, TerrainDef current)
+            public TerraformedInfo(Building terraformer, TerrainDef originalTerrain, TerrainDef currentTerrain)
             {
-                this.terraformer = building;
-                this.originalTerrain = original;
-                this.currentTerrain = current;
+                this.terraformer = terraformer;
+                this.originalTerrain = originalTerrain;
+                this.currentTerrain = currentTerrain;
             }
 
             public void ExposeData()
             {
-                Scribe_Values.Look(ref terraformer, "terraformer");
+                Scribe_References.Look(ref terraformer, "terraformer");
                 Scribe_Defs.Look(ref originalTerrain, "originalTerrain");
                 Scribe_Defs.Look(ref currentTerrain, "currentTerrain");
             }

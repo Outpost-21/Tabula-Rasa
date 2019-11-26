@@ -40,15 +40,22 @@ namespace O21Toolbox.Terraformer
             }
         }
 
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+
+        }
+
         private void UpdateRadiusT()
         {
             if((currentRadiusT - Props.terraformRangeGap) != Props.terraformRange && ListTerraformableTiles(Props.terraformRangeGap).Count <= 0)
             {
-                currentRadiusT++;
-                if(currentRadiusT > Props.terraformRange)
-                {
-                    currentRadiusT = Props.terraformRange;
-                }
+                //currentRadiusT++;
+                //if(currentRadiusT > Props.terraformRange)
+                //{
+                //    currentRadiusT = Props.terraformRange;
+                //}
+                currentRadiusT = Props.terraformRange;
             }
         }
 
@@ -216,7 +223,10 @@ namespace O21Toolbox.Terraformer
                 {
                     if ((rule.terrainDefsWhitelist != null && rule.terrainDefsWhitelist.Contains(tile.GetTerrain(this.parent.Map))) || (rule.terrainDefsBlacklist != null && rule.terrainDefsBlacklist.Contains(tile.GetTerrain(this.parent.Map))))
                     {
-                        terraformTiles.Add(tile);
+                        if ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => GetSpreaderTerrains(this).Contains(loc.GetTerrain(this.parent.Map))) || ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => GetSpreaderEdifices(this).Contains(loc.GetEdifice(this.parent.Map)?.def))) || this.currentRadiusT == 0f)) && GenAdjFast.AdjacentCells8Way(tile).Any(loc => !loc.Filled(this.parent.Map)))
+                        {
+                            terraformTiles.Add(tile);
+                        }
                     }
                 }
             }
@@ -237,7 +247,7 @@ namespace O21Toolbox.Terraformer
                     {
                         if (rule.thingWhitelist.Exists(x => x.IsEdifice()) || (rule.thingWhitelist == null && rule.thingBlacklist != null && !rule.thingBlacklist.Exists(x => x.IsEdifice())))
                         {
-                            IntVec3 tile = tileList.First();
+                            IntVec3 tile = tileList.RandomElement();
                             tile.GetEdifice(this.parent.Map).Destroy();
                             GenSpawn.Spawn(rule.thingResult.RandomElement(), tile, this.parent.Map);
                             break;
@@ -257,7 +267,7 @@ namespace O21Toolbox.Terraformer
                 IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
                 foreach (TerraformerThingRule rule in this.Props.terraformerRules.edificeRules)
                 {
-                    if ((rule.thingWhitelist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingWhitelist.Contains(tile.GetEdifice(this.parent.Map).def)) || (rule.thingBlacklist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingBlacklist.Contains(tile.GetEdifice(this.parent.Map).def)))
+                    if (((rule.thingWhitelist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingWhitelist.Contains(tile.GetEdifice(this.parent.Map).def)) || (rule.thingBlacklist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingBlacklist.Contains(tile.GetEdifice(this.parent.Map).def))) && GetSpreaderTerrains(this).Contains(tile.GetTerrain(this.parent.Map)))
                     {
                         terraformTiles.Add(tile);
                     }
@@ -274,6 +284,10 @@ namespace O21Toolbox.Terraformer
 
         private void TryTerraform_Plants()
         {
+            if (Props.terraformerRules.plantRules.NullOrEmpty())
+            {
+                return;
+            }
             foreach (TerraformerPlantRule rule in Props.terraformerRules.plantRules)
             {
                 List<IntVec3> tileList = ListPlantableTiles(rule.ignoreFertility, rule.fertilityAbove, rule.fertilityBelow);
@@ -308,12 +322,14 @@ namespace O21Toolbox.Terraformer
         {
             List<IntVec3> plantableTiles = new List<IntVec3>();
 
-            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+            int num = GenRadial.NumCellsInRadius(this.Props.terraformRange);
             for (int i = 0; i < num; i++)
             {
                 IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                if(useFertility || (!useFertility && tile.GetTerrain(this.parent.Map).fertility >= min && tile.GetTerrain(this.parent.Map).fertility <= max))
-                plantableTiles.Add(tile);
+                if((useFertility || (!useFertility && tile.GetTerrain(this.parent.Map).fertility >= min && tile.GetTerrain(this.parent.Map).fertility <= max)) && GetSpreaderTerrains(this).Contains(tile.GetTerrain(this.parent.Map)))
+                {
+                    plantableTiles.Add(tile);
+                }
             }
 
             return plantableTiles;
@@ -330,6 +346,42 @@ namespace O21Toolbox.Terraformer
             {
                 GenDraw.DrawRadiusRing(this.parent.Position, this.currentRadiusT);
             }
+        }
+
+        public static List<TerrainDef> GetSpreaderTerrains(Comp_Terraformer comp)
+        {
+            List<TerrainDef> result = new List<TerrainDef>();
+
+            foreach(TerraformerTerrainRule rule in comp.Props.terraformerRules.terrainRules)
+            {
+                foreach(TerrainDef terrain in rule.terrainResult)
+                {
+                    if (!result.Contains(terrain))
+                    {
+                        result.Add(terrain);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static List<ThingDef> GetSpreaderEdifices(Comp_Terraformer comp)
+        {
+            List<ThingDef> result = new List<ThingDef>();
+
+            foreach (TerraformerThingRule rule in comp.Props.terraformerRules.edificeRules)
+            {
+                foreach (ThingDef edifice in rule.thingResult)
+                {
+                    if (!result.Contains(edifice))
+                    {
+                        result.Add(edifice);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

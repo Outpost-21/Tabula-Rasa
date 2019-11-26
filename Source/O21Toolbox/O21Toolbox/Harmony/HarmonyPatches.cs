@@ -1020,7 +1020,7 @@ namespace O21Toolbox.Harmony
                     List<FloatMenuOption> list = (from fmo in opts
                                                   where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
                                                   select fmo).ToList<FloatMenuOption>();
-                    if(!list.NullOrEmpty<FloatMenuOption>() || !WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
+                    if(!list.NullOrEmpty<FloatMenuOption>() && !WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
                     {
                         foreach (FloatMenuOption item2 in list)
                         {
@@ -1037,7 +1037,7 @@ namespace O21Toolbox.Harmony
                 List<FloatMenuOption> list2 = (from fmo in opts
                                                where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
                                                select fmo).ToList<FloatMenuOption>();
-                if (!list2.NullOrEmpty<FloatMenuOption>() || !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
+                if (!list2.NullOrEmpty<FloatMenuOption>() && !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
                 {
                     foreach (FloatMenuOption item3 in list2)
                     {

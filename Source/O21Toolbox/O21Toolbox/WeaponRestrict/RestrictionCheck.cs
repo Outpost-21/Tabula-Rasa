@@ -24,8 +24,9 @@ namespace O21Toolbox.WeaponRestrict
                 {
                     return true;
                 }
+                return false;
             }
-            return false;
+            return true;
         }
 
         public static bool IsWearing(ThingDef apparel, Pawn pawn)
