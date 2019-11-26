@@ -883,62 +883,62 @@ namespace O21Toolbox.Harmony
 
         #region ApparelPatches
 
-        public static void RenderPawnInternalPostfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
-        {
-            if (!__instance.graphics.pawn.RaceProps.Animal)
-            {
-                List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
-                // Get all apparel with the defModExt.
-                foreach(Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
-                {
-                    ApparelGraphicRecord item;
-                    if (ap.def.HasModExtension<DefModExt_HeadwearOffset>())
-                    {
-                        DefModExt_HeadwearOffset modExt = ap.def.GetModExtension<DefModExt_HeadwearOffset>();
-                        if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
-                        {
-                            offsetApparelList.Add(item);
-                        }
-                    }
-                }
+        //public static void RenderPawnInternalPostfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
+        //{
+        //    if (!__instance.graphics.pawn.RaceProps.Animal)
+        //    {
+        //        List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
+        //        // Get all apparel with the defModExt.
+        //        foreach(Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
+        //        {
+        //            ApparelGraphicRecord item;
+        //            if (ap.def.HasModExtension<DefModExt_HeadwearOffset>())
+        //            {
+        //                DefModExt_HeadwearOffset modExt = ap.def.GetModExtension<DefModExt_HeadwearOffset>();
+        //                if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
+        //                {
+        //                    offsetApparelList.Add(item);
+        //                }
+        //            }
+        //        }
 
-                // Render if any Apparel in the list and NOT an animal.
-                if (offsetApparelList.Count >= 1)
-                {
-                    Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
-                    for (int i = 0; i < offsetApparelList.Count; i++)
-                    {
-                        DefModExt_HeadwearOffset modExt = offsetApparelList[i].sourceApparel.def.GetModExtension<DefModExt_HeadwearOffset>();
-                        Vector3 baseOffset = quaternion * modExt.offset;
-                        Mesh mesh = __instance.graphics.HairMeshSet.MeshAt(headFacing);
-                        Vector3 loc2 = rootLoc + baseOffset;
-                        loc2.y += 0.03125f;
+        //        // Render if any Apparel in the list and NOT an animal.
+        //        if (offsetApparelList.Count >= 1)
+        //        {
+        //            Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
+        //            for (int i = 0; i < offsetApparelList.Count; i++)
+        //            {
+        //                DefModExt_HeadwearOffset modExt = offsetApparelList[i].sourceApparel.def.GetModExtension<DefModExt_HeadwearOffset>();
+        //                Vector3 baseOffset = quaternion * modExt.offset;
+        //                Mesh mesh = __instance.graphics.HairMeshSet.MeshAt(headFacing);
+        //                Vector3 loc2 = rootLoc + baseOffset;
+        //                loc2.y += 0.03125f;
 
-                        if (modExt.bodyDependant)
-                        {
+        //                if (modExt.bodyDependant)
+        //                {
 
-                        }
-                        else
-                        {
-                            if (!offsetApparelList[i].sourceApparel.def.apparel.hatRenderedFrontOfFace)
-                            {
-                                Material material2 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
-                                material2 = __instance.graphics.flasher.GetDamagedMat(material2);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc2, quaternion, material2, portrait);
-                            }
-                            else
-                            {
-                                Material material3 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
-                                material3 = __instance.graphics.flasher.GetDamagedMat(material3);
-                                Vector3 loc3 = rootLoc + baseOffset;
-                                loc3.y += ((!(bodyFacing == Rot4.North)) ? 0.03515625f : 0.00390625f);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc3, quaternion, material3, portrait);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //                }
+        //                else
+        //                {
+        //                    if (!offsetApparelList[i].sourceApparel.def.apparel.hatRenderedFrontOfFace)
+        //                    {
+        //                        Material material2 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
+        //                        material2 = __instance.graphics.flasher.GetDamagedMat(material2);
+        //                        GenDraw.DrawMeshNowOrLater(mesh, loc2, quaternion, material2, portrait);
+        //                    }
+        //                    else
+        //                    {
+        //                        Material material3 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
+        //                        material3 = __instance.graphics.flasher.GetDamagedMat(material3);
+        //                        Vector3 loc3 = rootLoc + baseOffset;
+        //                        loc3.y += ((!(bodyFacing == Rot4.North)) ? 0.03515625f : 0.00390625f);
+        //                        GenDraw.DrawMeshNowOrLater(mesh, loc3, quaternion, material3, portrait);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_HeadwearOffset modExt, out ApparelGraphicRecord rec)
         {
