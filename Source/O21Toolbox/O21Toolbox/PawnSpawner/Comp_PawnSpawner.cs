@@ -11,24 +11,20 @@ namespace O21Toolbox
 {
     public class Comp_PawnSpawner : ThingComp
     {
-        public CompProperties_PawnSpawner Spawnprops => this.props as CompProperties_PawnSpawner;
+        public CompProperties_PawnSpawner Props => props as CompProperties_PawnSpawner;
         
         public override void CompTick()
         {
-            this.CheckShouldSpawn();
-        }
-        
-        private void CheckShouldSpawn()
-        {
-            this.SpawnPawn();
-            this.parent.Destroy(DestroyMode.Vanish);
+            SpawnPawn();
+            parent.Destroy(DestroyMode.Vanish);
         }
         
         public void SpawnPawn()
         {
-            PawnGenerationRequest request = new PawnGenerationRequest(this.Spawnprops.pawnKind, Faction.OfPlayer, PawnGenerationContext.NonPlayer, -1, false, false, false, false, true, false, 1f, false, true, true, false, false, false, false, null, null, null, null, null, null, null, null);
+            bool newbornFlag = Props.newborn;
+            PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:newbornFlag, forceGenerateNewPawn:true);
             Pawn newThing = PawnGenerator.GeneratePawn(request);
-            GenSpawn.Spawn(newThing, this.parent.Position, this.parent.Map, WipeMode.Vanish);
+            GenSpawn.Spawn(newThing, parent.Position, parent.Map, WipeMode.Vanish);
         }
     }
 }

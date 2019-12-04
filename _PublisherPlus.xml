@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Excluded>
+    <exclude>D:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\.git</exclude>
+    <exclude>D:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\README.md</exclude>
+    <exclude>D:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\Source</exclude>
+  </Excluded>
+</Configuration>

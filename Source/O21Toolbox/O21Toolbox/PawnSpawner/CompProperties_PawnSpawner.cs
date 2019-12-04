@@ -17,5 +17,7 @@ namespace O21Toolbox
         }
         
         public PawnKindDef pawnKind;
+
+        public bool newborn = false;
     }
 }
