@@ -17,12 +17,17 @@ namespace O21Toolbox.Alliances
         /// <summary>
         /// Members of the defined alliance.
         /// </summary>
-        public List<FactionDef> memberFactions = new List<FactionDef>();
+        public List<string> memberFactions = new List<string>();
         
         /// <summary>
         /// Defined relations to start against factions.
         /// </summary>
         public List<RelationFaction> factionRelations = new List<RelationFaction>();
+
+        /// <summary>
+        /// Defined relations to start against the player based on baseMember pawnkind.
+        /// </summary>
+        public List<RelationPlayer> playerRelations = new List<RelationPlayer>();
 
         /// <summary>
         /// Defined relations to start against other alliances.

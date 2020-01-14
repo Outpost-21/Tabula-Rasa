@@ -292,7 +292,14 @@ namespace O21Toolbox.Harmony
                     typeof(HarmonyPatches),
                     nameof(NQHFixer)));
             #endregion
-            
+
+            #region ThirdPartyImrpovements
+            if (LoadedModManager.RunningModsListForReading.Any(x => x.Name == "Save Our Ship 2"))
+            {
+                SaveOurShip2_CompatibilityHook(O21ToolboxHarmony);
+            }
+            #endregion
+
             O21ToolboxHarmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
@@ -306,11 +313,11 @@ namespace O21Toolbox.Harmony
                                                 select def;
             foreach (AllianceDef current in enumerable)
             {
-                if (current.memberFactions.Contains(__instance.def))
+                if (current.memberFactions.Contains(__instance.def.defName))
                 {
-                    foreach(FactionDef faction in current.memberFactions)
+                    foreach(string faction in current.memberFactions)
                     {
-                        if(faction != __instance.def && faction == other.def)
+                        if(faction != __instance.def.defName && other.def.defName.Contains(faction))
                         {
                             FactionRelation factionRelation = other.RelationWith(__instance, false);
                             factionRelation.goodwill = 100;
@@ -323,7 +330,7 @@ namespace O21Toolbox.Harmony
 
                     current.factionRelations.ForEach(delegate (RelationFaction rf)
                     {
-                        if(rf.faction == other.def)
+                        if (other.def.defName.Contains(rf.faction))
                         {
                             int relation = rf.relation;
                             FactionRelationKind kind = (relation > 75) ? FactionRelationKind.Ally : ((relation <= -10) ? FactionRelationKind.Hostile : FactionRelationKind.Neutral);
@@ -335,7 +342,38 @@ namespace O21Toolbox.Harmony
                             factionRelation2.kind = kind;
                         }
                     });
+
+                    current.allianceRelations.ForEach(delegate (RelationAlliance ra)
+                    {
+                        if (ra.alliance.memberFactions.Contains(other.def.defName))
+                        {
+                            int relation = ra.relation;
+                            FactionRelationKind kind = (relation > 75) ? FactionRelationKind.Ally : ((relation <= -10) ? FactionRelationKind.Hostile : FactionRelationKind.Neutral);
+                            FactionRelation factionRelation = other.RelationWith(__instance, false);
+                            factionRelation.goodwill = relation;
+                            factionRelation.kind = kind;
+                            FactionRelation factionRelation2 = __instance.RelationWith(other, false);
+                            factionRelation2.goodwill = relation;
+                            factionRelation2.kind = kind;
+                        }
+                    });
                 }
+
+                current.playerRelations.ForEach(delegate (RelationPlayer rp)
+                {
+                    PawnKindDef basicMemberKind = __instance.def.basicMemberKind;
+                    if (basicMemberKind != null && rp.factionBasicMemberKind.Contains(basicMemberKind.defName) && current.memberFactions.Contains(other.def.defName))
+                    {
+                        int relation = rp.relation;
+                        FactionRelationKind kind = (relation > 75) ? FactionRelationKind.Ally : ((relation <= -10) ? FactionRelationKind.Hostile : FactionRelationKind.Neutral);
+                        FactionRelation factionRelation = other.RelationWith(__instance, false);
+                        factionRelation.goodwill = relation;
+                        factionRelation.kind = kind;
+                        FactionRelation factionRelation2 = __instance.RelationWith(other, false);
+                        factionRelation2.goodwill = relation;
+                        factionRelation2.kind = kind;
+                    }
+                });
             }
         }
         #endregion Alliances
@@ -1145,5 +1183,49 @@ namespace O21Toolbox.Harmony
         }
 
         #endregion NotQuiteHumanoid
+
+        #region ThirdPartyImprovements
+        public static void SaveOurShip2_CompatibilityHook(HarmonyInstance harmony)
+        {
+            harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
+        }
+        public static void SOS2CompatibilityHook_hasSpaceSuit_Postfix(Pawn thePawn, ref bool __result)
+        {
+            if (thePawn != null && __result == false)
+            {
+                if (thePawn.def.HasModExtension<DefModExt_SpaceCapable>())
+                {
+                    __result = true;
+                }
+                else if(thePawn.apparel != null)
+                {
+                    bool hasHelmet = false;
+                    bool hasSuit = false;
+                    foreach (Apparel ap in thePawn.apparel.WornApparel)
+                    {
+                        if (ap.def.HasModExtension<DefModExt_SpaceApparel>())
+                        {
+                            DefModExt_SpaceApparel ext = ap.def.GetModExtension<DefModExt_SpaceApparel>();
+                            if (ext.equipmentType == spaceEquipmentType.full)
+                            {
+                                hasHelmet = true;
+                                hasSuit = true;
+                            }
+                            else if (ext.equipmentType == spaceEquipmentType.helmet)
+                            {
+                                hasHelmet = true;
+                            }
+                            else if (ext.equipmentType == spaceEquipmentType.suit)
+                            {
+                                hasSuit = true;
+                            }
+                        }
+                    }
+
+                    __result = hasHelmet && hasSuit;
+                }
+            }
+        }
+        #endregion
     }
 }

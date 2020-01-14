@@ -11,7 +11,7 @@ namespace O21Toolbox.Alliances
 {
     public class RelationFaction
     {
-        public FactionDef faction;
+        public string faction;
 
         public int relation;
     }

@@ -46,6 +46,10 @@
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ShipsHaveInsides">
+      <HintPath>..\..\..\..\SaveOurShip2\Assemblies\ShipsHaveInsides.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +65,7 @@
     <Compile Include="Alliances\AllianceDef.cs" />
     <Compile Include="Alliances\RelationAlliance.cs" />
     <Compile Include="Alliances\RelationFaction.cs" />
+    <Compile Include="Alliances\RelationPlayer.cs" />
     <Compile Include="ApparelExt\DefModExt_ApparelRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_HeadwearOffset.cs" />
@@ -80,6 +85,8 @@
     <None Include="DefGenerator.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
+    <Compile Include="Harmony\DefModExt_SpaceApparel.cs" />
+    <Compile Include="Harmony\DefModExt_SpaceCapable.cs" />
     <Compile Include="Networks\Building_NetworkSwitch.cs" />
     <Compile Include="Networks\CompProperties_CustomNetwork_Trader.cs" />
     <Compile Include="Networks\CompProperties_CustomNetwork.cs" />
