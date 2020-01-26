@@ -39,7 +39,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\Mods_Old\AlienRace\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\Humanoid Alien Races 2.0\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -47,7 +47,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ShipsHaveInsides">
-      <HintPath>..\..\..\..\SaveOurShip2\Assemblies\ShipsHaveInsides.dll</HintPath>
+      <HintPath>..\..\..\..\Save Our Ship 2\Assemblies\ShipsHaveInsides.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -124,8 +124,15 @@
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
     <Compile Include="BiomeOverride\BiomeOverrideDef.cs" />
     <Compile Include="BiomeOverride\GenStep_BiomeOverride.cs" />
+    <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
+    <Compile Include="Needs\Solar\Need_Solar.cs" />
+    <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
+    <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
+    <Compile Include="ThingProducer\Building_ThingProducer.cs" />
+    <Compile Include="ThingProducer\DefModExt_ThingProducer.cs" />
+    <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
     <Compile Include="TurretsPlus\CompProperties_Bunker.cs" />
     <Compile Include="TurretsPlus\Comp_Bunker.cs" />
     <None Include="Laser\Building_LaserGun.cs" />
@@ -164,13 +171,13 @@
     <Compile Include="ModularWeapon\WeaponModuleDef.cs" />
     <Compile Include="ModularWeapon\WeaponSlot.cs" />
     <Compile Include="Needs\FleshType_Artificial.cs" />
-    <Compile Include="Needs\JobDefOf.cs" />
-    <Compile Include="Needs\JobGiver_GetEnergy.cs" />
-    <Compile Include="Needs\JobGiver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\Energy\JobDefOf.cs" />
+    <Compile Include="Needs\Energy\JobGiver_GetEnergy.cs" />
+    <Compile Include="Needs\Energy\JobGiver_RefillFuelEnergySource.cs" />
     <Compile Include="Needs\ArtificialPawnProperties.cs" />
     <Compile Include="Needs\NeedsDefOf.cs" />
     <Compile Include="Needs\Utility_ArtificialPawn.cs" />
-    <Compile Include="Needs\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
+    <Compile Include="Needs\Energy\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
     <Compile Include="Networks\NetworkDef.cs" />
     <Compile Include="PawnConverter\PawnConvertingDef.cs" />
     <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
@@ -190,24 +197,24 @@
     <Compile Include="TurretsPlus\JobDriver_EnterBunker.cs" />
     <None Include="TurretsPlus\Verb_Emplacement.cs" />
     <Compile Include="TurretsPlus\Verb_Bunker.cs" />
-    <Compile Include="Needs\CompProperties_EnergySource.cs" />
-    <Compile Include="Needs\CompProperties_EnergyTracker.cs" />
-    <Compile Include="Needs\Comp_EnergySource.cs" />
-    <Compile Include="Needs\Comp_EnergyTracker.cs" />
-    <Compile Include="Needs\EnergyHediffs.cs" />
-    <Compile Include="Needs\EnergyNeed.cs" />
-    <Compile Include="Needs\Comp_Hibernation.cs" />
-    <Compile Include="Needs\EnergySource_Fueled.cs" />
-    <Compile Include="Needs\ExtraReportStringProperties.cs" />
-    <Compile Include="Needs\FuelUtility.cs" />
-    <Compile Include="Needs\Gizmo_EnergySourceFueled.cs" />
+    <Compile Include="Needs\Energy\CompProperties_EnergySource.cs" />
+    <Compile Include="Needs\Energy\CompProperties_EnergyTracker.cs" />
+    <Compile Include="Needs\Energy\Comp_EnergySource.cs" />
+    <Compile Include="Needs\Energy\Comp_EnergyTracker.cs" />
+    <Compile Include="Needs\Energy\EnergyHediffs.cs" />
+    <Compile Include="Needs\Energy\EnergyNeed.cs" />
+    <Compile Include="Needs\Energy\Comp_Hibernation.cs" />
+    <Compile Include="Needs\Energy\EnergySource_Fueled.cs" />
+    <Compile Include="Needs\Energy\ExtraReportStringProperties.cs" />
+    <Compile Include="Needs\Energy\FuelUtility.cs" />
+    <Compile Include="Needs\Energy\Gizmo_EnergySourceFueled.cs" />
     <Compile Include="Needs\IExtraDisplayStats.cs" />
-    <Compile Include="Needs\JobDriver_Hibernate.cs" />
-    <Compile Include="Needs\JobDriver_RechargeEnergy.cs" />
-    <Compile Include="Needs\JobDriver_RechargeEnergyFromConsumable.cs" />
-    <Compile Include="Needs\JobDriver_RefillFuelEnergySource.cs" />
-    <Compile Include="Needs\ThingOrderRequest.cs" />
-    <Compile Include="Needs\Utility_EnergyNeed.cs" />
+    <Compile Include="Needs\Energy\JobDriver_Hibernate.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RechargeEnergy.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RechargeEnergyFromConsumable.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\Energy\ThingOrderRequest.cs" />
+    <Compile Include="Needs\Energy\Utility_EnergyNeed.cs" />
     <Compile Include="PawnConverter\Building_Converter.cs" />
     <Compile Include="PawnConverter\ConverterProperties.cs" />
     <Compile Include="Harmony\HarmonyPatches.cs" />

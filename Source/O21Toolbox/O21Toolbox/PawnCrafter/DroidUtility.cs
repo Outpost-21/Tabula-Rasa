@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Verse;
 using Verse.Sound;
-using static AlienRace.AlienPartGenerator;
 
 namespace O21Toolbox.PawnCrafter
 {

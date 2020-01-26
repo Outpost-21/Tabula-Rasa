@@ -2,6 +2,16 @@
 <Defs>
 
 	<NeedDef>
+		<defName>O21Solar</defName>
+		<needClass>O21Toolbox.Needs.Need_Solar</needClass>
+		<label>Solar</label>
+		<description>This pawn feeds on solar energy, without it, they'll starve.</description>
+		<listPriority>699</listPriority>
+		<major>true</major>
+		<showForCaravanMembers>true</showForCaravanMembers>
+	</NeedDef>
+
+	<NeedDef>
 		<defName>O21Energy</defName>
 		<needClass>O21Toolbox.Needs.Need_Energy</needClass>
 		<label>Energy</label>

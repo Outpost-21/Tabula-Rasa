@@ -69,7 +69,7 @@ namespace O21Toolbox.Harmony
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
             #endregion Alliances
 
-            #region EnergyNeed
+            #region Needs
 
             //Patch, Method: Pawn_NeedsTracker
             {
@@ -416,7 +416,7 @@ namespace O21Toolbox.Harmony
         }
         #endregion ResearchBenchSub
 
-        #region EnergyNeedPatches
+        #region NeedsPatches
 
         public static bool Patch_HealthAIUtility_FindBestMedicine(ref Thing __result, Pawn healer, Pawn patient)
         {
@@ -505,6 +505,7 @@ namespace O21Toolbox.Harmony
         {
             List<Pawn> modifiedPawnsList = new List<Pawn>(pawns);
             modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<ArtificialPawnProperties>());
+            modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<DefModExt_SolarNeed>());
 
             pawns = modifiedPawnsList;
             return true;
@@ -869,6 +870,20 @@ namespace O21Toolbox.Harmony
                     }
                 }
             }
+            if(NeedsDefOf.O21Solar != null)
+            {
+                if(nd == NeedsDefOf.O21Solar)
+                {
+                    if (pawn.def.HasModExtension<DefModExt_SolarNeed>())
+                    {
+                        __result = true;
+                    }
+                    else
+                    {
+                        __result = false;
+                    }
+                }
+            }
 
             if (!O21ToolboxSettings.Instance.EnergyNeedCompatMode)
             {
@@ -884,6 +899,13 @@ namespace O21Toolbox.Harmony
             if (!pawn.def.HasModExtension<EnergyHediffs>())
             {
                 if(nd == NeedsDefOf.O21Energy)
+                {
+                    __result = false;
+                }
+            }
+            if (!pawn.def.HasModExtension<DefModExt_SolarNeed>())
+            {
+                if(nd == NeedsDefOf.O21Solar)
                 {
                     __result = false;
                 }

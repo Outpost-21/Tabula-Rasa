@@ -53,7 +53,6 @@ namespace O21Toolbox.Needs
 
             if (pawn.TryGetComp<Comp_EnergyTracker>() != null)
             {
-                //Top up all needs except Mood and Energy.
                 foreach (Need need in pawn.needs.AllNeeds)
                 {
                     if (need.def != NeedsDefOf.O21Energy)
