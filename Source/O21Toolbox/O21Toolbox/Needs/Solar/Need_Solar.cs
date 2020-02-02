@@ -121,7 +121,7 @@ namespace O21Toolbox.Needs
             {
                 InSunlight = false;
             }
-            Log.Message("Solar Need Change for " + pawn.Name + ": " + result);
+            //Log.Message("Solar Need Change for " + pawn.Name + ": " + result);
             return result;
         }
         public float NeedRateFactorInLight

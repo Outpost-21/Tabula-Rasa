@@ -7,6 +7,8 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
+using O21Toolbox.Utility;
+
 using AlienRace;
 
 namespace O21Toolbox.PawnConverter
@@ -101,6 +103,29 @@ namespace O21Toolbox.PawnConverter
 
             pawn.health.summaryHealth.Notify_HealthChanged();
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+
+            if (recipe.makeFriendly)
+            {
+                if (pawn.guest != null)
+                {
+                    pawn.guest.SetGuestStatus(null, false);
+                }
+                if (pawn.Faction != Faction.OfPlayer)
+                {
+                    pawn.SetFaction(pawn.Faction);
+                }
+            }
+            if(recipe.chanceOfBecomingHostile > 0.0f)
+            {
+                if (Rand.Chance(recipe.chanceOfBecomingHostile))
+                {
+                    MentalBreakDefOf.Berserk.Worker.TryStart(pawn, recipe.label, false);
+                }
+            }
+
+            Util_FactionConvert.FactionConvert(pawn, recipe.makeFriendly, recipe.chanceOfBecomingHostile, recipe.berserkReason);
+
+            pawn.health.summaryHealth.Notify_HealthChanged();
 
             return pawn;
         }

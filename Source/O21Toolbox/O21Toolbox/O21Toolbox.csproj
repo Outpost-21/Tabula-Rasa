@@ -82,7 +82,6 @@
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
-    <None Include="DefGenerator.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
     <Compile Include="Harmony\DefModExt_SpaceApparel.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="NotQuiteHumanoid\ThinkNode_ConditionalColonistOrNQH.cs" />
     <Compile Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
     <Compile Include="PawnConverter\Hediff_Converter.cs" />
+    <Compile Include="PawnConverter\Util_FactionConvert.cs" />
     <Compile Include="PawnConverter\Util_PawnConvert.cs" />
     <None Include="CustomPlaceWorker\DefModExtension_PlaceNearThing.cs" />
     <Compile Include="AutomatedProducer\Building_AutomatedProducer.cs" />
@@ -128,6 +128,8 @@
     <Compile Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
+    <Compile Include="Research\CompProperties_AutoResearch.cs" />
+    <Compile Include="Research\Comp_AutoResearch.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
@@ -180,8 +182,7 @@
     <Compile Include="Needs\Energy\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
     <Compile Include="Networks\NetworkDef.cs" />
     <Compile Include="PawnConverter\PawnConvertingDef.cs" />
-    <Compile Include="ResearchBenchSub\CompProperties_ResearchBenchSubstitutes.cs" />
-    <Compile Include="ResearchBenchSub\Comp_ResearchBenchSubstitutes.cs" />
+    <Compile Include="Research\DefModExt_ResearchBenchSubstitutes.cs" />
     <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
     <Compile Include="Terraformer\Comp_Terraformer.cs" />
     <Compile Include="Terraformer\TerraformerRulesDef.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Utility\ButcherUtility.cs" />
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
+    <Compile Include="Utility\MentalBreakDefOf.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
     <Compile Include="TurretsPlus\Building_Emplacement.cs" />

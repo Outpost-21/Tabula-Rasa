@@ -139,5 +139,20 @@ namespace O21Toolbox.PawnConverter
         /// use items held by the previous race.
         /// </summary>
         public bool dropEverything = false;
+
+        /// <summary>
+        /// Forces the pawns faction to the player if it isn't already.
+        /// </summary>
+        public bool makeFriendly = true;
+
+        /// <summary>
+        /// Adds a chance that the pawn will become berserk.
+        /// </summary>
+        public float chanceOfBecomingHostile = 0.0f;
+
+        /// <summary>
+        /// The string used to provide the reason for the pawn going berserk.
+        /// </summary>
+        public string berserkReason = "Botched Conversion";
     }
 }

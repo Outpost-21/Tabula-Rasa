@@ -28,7 +28,7 @@ using O21Toolbox.Needs;
 using O21Toolbox.Networks;
 using O21Toolbox.NotQuiteHumanoid;
 using O21Toolbox.PawnConverter;
-using O21Toolbox.ResearchBenchSub;
+using O21Toolbox.Research;
 //using O21Toolbox.Spaceship;
 using O21Toolbox.WeaponRestrict;
 using O21Toolbox.Utility;
@@ -60,10 +60,6 @@ namespace O21Toolbox.Harmony
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
-
-            #region ResearchBenchSub
-            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(ResearchProjectDef), "CanBeResearchedAt", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "CanBeResearchedAtPostFix", null), null);
-            #endregion ResearchBenchSub
 
             #region Alliances
             O21ToolboxHarmony.Patch(AccessTools.Method(typeof(Faction), "TryMakeInitialRelationsWith", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "TryMakeInitialRelationsWithPostfix", null), null);
@@ -381,38 +377,45 @@ namespace O21Toolbox.Harmony
         #region ResearchBenchSub
         /// <summary>
         /// Patch for enabling comped research benches to act like they either are another bench, or act like they have a specific facility attached.
-        /// </summary>
-        static void CanBeResearchedAtPostFix(bool __result, Building_ResearchBench bench, ResearchProjectDef __instance)
+        /// </summary>[HarmonyPriority(Priority.High)]
+        [HarmonyPatch(typeof(ResearchProjectDef), "PlayerHasAnyAppropriateResearchBench", MethodType.Getter)]
+        public static class PlayerHasAnyAppropriateResearchBench_Postfix
         {
-            // Only do anything if the result is false and the bench has the new comp.
-            if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>() != null && !__result)
+            public static void PostFix(ResearchProjectDef __instance, ref bool __result)
             {
-                // Does the research have a required building?
-                if(__instance.requiredResearchBuilding != null)
+                if (!__result)
                 {
-                    if (bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchBench.Contains(__instance.requiredResearchBuilding))
+                    List<Map> maps = Find.Maps;
+                    for (int i = 0; i < maps.Count; i++)
                     {
-                        __result = true;
-                    }
-                }
-                // Does the research have a required facility?
-                if(__instance.requiredResearchFacilities != null)
-                {
-                    if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility != null)
-                    {
-                        int i;
-                        for (i = 0; i < __instance.requiredResearchFacilities.Count; i++)
+                        List<Building> allBuildingsColonist = maps[i].listerBuildings.allBuildingsColonist;
+                        for (int j = 0; j < allBuildingsColonist.Count; j++)
                         {
-                            if(bench.TryGetComp<Comp_ResearchBenchSubstitutes>().Props.ActLikeResearchFacility.Contains(__instance.requiredResearchFacilities[i]))
+                            DefModExt_ResearchBenchSubstitutes comp = allBuildingsColonist[j].def.TryGetModExtension<DefModExt_ResearchBenchSubstitutes>();
+                            if (comp != null)
                             {
-                                __result = true;
+                                if (comp.actLikeResearchBench.Contains(__instance.requiredResearchBuilding))
+                                {
+                                    __result = true;
+                                }
+
+                                if (!__instance.requiredResearchFacilities.NullOrEmpty<ThingDef>())
+                                {
+                                    bool hasFacilities = true;
+                                    foreach(ThingDef facility in __instance.requiredResearchFacilities)
+                                    {
+                                        if (!comp.actLikeResearchFacility.Contains(facility))
+                                        {
+                                            hasFacilities = false;
+                                        }
+                                    }
+                                    __result = hasFacilities;
+                                }
                             }
                         }
                     }
                 }
             }
-
-            return;
         }
         #endregion ResearchBenchSub
 
