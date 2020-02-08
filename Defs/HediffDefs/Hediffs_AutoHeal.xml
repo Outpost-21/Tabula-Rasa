@@ -24,6 +24,30 @@
 			</li>
 		</modExtensions>
 	</HediffDef>
+
+	<HediffDef>
+		<defName>O21_AutoHealAdvanced</defName>
+		<hediffClass>HediffWithComps</hediffClass>
+		<label>auto heal</label>
+		<defaultLabelColor>(0.6,0.85,0.91)</defaultLabelColor>
+		<isBad>false</isBad>
+		<scenarioCanAdd>false</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<stages>
+			<li>
+				<capMods />
+			</li>
+		</stages>
+		<comps>
+			<li Class="O21Toolbox.AutoHeal.CompProperties_AutoHeal">
+				<healTicks>3000</healTicks>
+				<regrowParts>true</regrowParts>
+				<growthText>Growth: </growthText>
+				<protoBodyPart>AutoHeal_ProtoBodypart</protoBodyPart>
+				<curedBodyPart>AutoHeal_CuredBodypart</curedBodyPart>
+			</li>
+		</comps>
+	</HediffDef>
 	
 	<HediffDef>
 		<defName>AutoHeal_ProtoBodypart</defName>

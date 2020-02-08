@@ -48,10 +48,19 @@ namespace O21Toolbox.AutomatedProducer
                     {
                         list.Add(new FloatMenuOption(recipe.LabelCap, delegate ()
                         {
-                            if (this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe != recipe)
+                            if (SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe != recipe)
                             {
-                                this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = recipe;
-                                this.SelTable.GetComp<Comp_AutomatedProducer>().ResetWorkTick();
+                                SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe = recipe;
+                                if (SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe.canCountProducts)
+                                {
+                                    SelTable.GetComp<Comp_AutomatedProducer>().repeatTarget = 0;
+                                }
+                                else
+                                {
+                                    SelTable.GetComp<Comp_AutomatedProducer>().repeatTarget = 0;
+                                    SelTable.GetComp<Comp_AutomatedProducer>().repeatMode = RepeatMode.times;
+                                }
+                                SelTable.GetComp<Comp_AutomatedProducer>().ResetWorkTick();
                             }
                         }, MenuOptionPriority.Default, null, null, 29f, (Rect rect3) => Widgets.InfoCardButton(rect.x + 5f, rect.y + (rect.height - 24f) / 2f, recipe), null));
                     }
@@ -69,15 +78,13 @@ namespace O21Toolbox.AutomatedProducer
         {
             GUI.BeginGroup(rect);
             Text.Font = GameFont.Small;
-            if (GetRecipeCount() < 15)
+            Rect rect2 = new Rect(0f, 0f, 150f, 29f);
+            if (Widgets.ButtonText(rect2, "SetAutoBill".Translate(), true, false, true))
             {
-                Rect rect2 = new Rect(0f, 0f, 150f, 29f);
-                if (Widgets.ButtonText(rect2, "SetAutoBill".Translate(), true, false, true))
-                {
-                    Find.WindowStack.Add(new FloatMenu(recipeOptionsMaker()));
-                }
-                UIHighlighter.HighlightOpportunity(rect2, "SetAutoBill");
+                Find.WindowStack.Add(new FloatMenu(recipeOptionsMaker()));
             }
+            UIHighlighter.HighlightOpportunity(rect2, "SetAutoBill");
+
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
             RecipeDef_Automated recipe = this.SelTable.GetComp<Comp_AutomatedProducer>().currentRecipe;
@@ -88,14 +95,17 @@ namespace O21Toolbox.AutomatedProducer
             string itemInfo = "No Item Being Produced";
             Texture itemTexture = ContentFinder<Texture2D>.Get("UI/Toolbox/NoRecipe", true);
             // Button - Repeat Recipe
-            Rect rect6 = new Rect(2f, 28f, 24f, 24f);
-            Texture2D RepeatIcon = ContentFinder<Texture2D>.Get("UI/Toolbox/RepeatIcon", true);
-            if (Widgets.ButtonImage(rect6, RepeatIcon, Color.white, Color.white * GenUI.SubtleMouseoverColor))
-            {
-                this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe = !this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe;
-                SoundDefOf.Click.PlayOneShotOnCamera(null);
-            }
-            TooltipHandler.TipRegion(rect6, "RepeatAutoBillTip".Translate());
+            Rect rect6 = new Rect(2f, 30f, 250f, 30f);
+            //Texture2D RepeatIcon = ContentFinder<Texture2D>.Get("UI/Toolbox/RepeatIcon", true);
+            //if (Widgets.ButtonImage(rect6, RepeatIcon, Color.white, Color.white * GenUI.SubtleMouseoverColor))
+            //{
+            //    this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe = !this.SelTable.GetComp<Comp_AutomatedProducer>().repeatCurrentRecipe;
+            //    SoundDefOf.Click.PlayOneShotOnCamera(null);
+            //}
+            //TooltipHandler.TipRegion(rect6, "RepeatAutoBillTip".Translate());
+
+            // Repeat Quantity Input
+            Utility_AutoProducerCard.DoConfigInterface(rect6.AtZero(), Color.white, SelTable.GetComp<Comp_AutomatedProducer>());
 
             // Button - Remove Recipe
             Rect rect5 = new Rect(rect.width - 26f, 28f, 24f, 24f);
@@ -108,8 +118,9 @@ namespace O21Toolbox.AutomatedProducer
             TooltipHandler.TipRegion(rect5, "DeleteAutoBillTip".Translate());
 
             // Info - Recipe Info
-            Rect rectRepeat = new Rect(28f, 28f, 160f, 24f);
-            Widgets.Label(rectRepeat, this.SelTable.GetComp<Comp_AutomatedProducer>().RepeatString());
+            Rect rectRepeat = new Rect(4, 28f, 160f, 24f);
+            //Widgets.Label(rectRepeat, this.SelTable.GetComp<Comp_AutomatedProducer>().RepeatString());
+            Widgets.Label(rectRepeat, Utility_AutoProducerCard.RepeatInfoString(SelTable.GetComp<Comp_AutomatedProducer>()));
             if (recipe != null)
             {
                 foreach(ThingDefCount thing in recipe.products)
@@ -140,19 +151,6 @@ namespace O21Toolbox.AutomatedProducer
                     GUI.DrawTexture(rect4, itemTexture);
                 GUI.EndGroup();                
             GUI.EndGroup();
-        }
-
-        public int GetRecipeCount()
-        {
-            int result = 0;
-            foreach (RecipeDef_Automated recipe in this.SelTable.def.GetCompProperties<CompProperties_AutomatedProducer>().recipes)
-            {
-                if (recipe.requiredResearch == null || recipe.requiredResearch.IsFinished)
-                {
-                    result++;
-                }
-            }
-            return result;
         }
     }
 }

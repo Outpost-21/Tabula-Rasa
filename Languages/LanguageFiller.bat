@@ -1,6 +1,6 @@
 @echo off
 :: Variables
-set directory="D:\SteamLibrary\steamapps\common\RimWorld\Mods\[N17] Rimhammer 40K\Languages\
+set directory="D:\SteamLibrary\steamapps\common\RimWorld\Mods\[N17] Star Gothic\Languages\
 set source=English"
 set catalan=Catalan"
 set chineseSimplified=ChineseSimplified"

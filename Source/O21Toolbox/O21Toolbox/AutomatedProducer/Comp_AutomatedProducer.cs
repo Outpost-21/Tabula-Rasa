@@ -18,9 +18,12 @@ namespace O21Toolbox.AutomatedProducer
             base.PostExposeData();
             Scribe_Values.Look(ref workTick, "workTick");
             Scribe_Values.Look(ref workTickMax, "workTickMax");
-            Scribe_Values.Look(ref repeatCurrentRecipe, "repeatCurrentRecipe");
+            Scribe_Values.Look(ref repeatMode, "repeatMode", RepeatMode.none);
             Scribe_Values.Look(ref hasOrder, "hasOrder");
             Scribe_Values.Look(ref currentStatus, "currentStatus");
+            Scribe_Values.Look(ref repeatCount, "repeatCount");
+            Scribe_Values.Look(ref repeatTarget, "repeatTarget");
+            Scribe_Values.Look(ref suspended, "suspended");
 
             Scribe_Defs.Look(ref currentRecipe, "currentRecipe");
 
@@ -60,7 +63,11 @@ namespace O21Toolbox.AutomatedProducer
         public string CurrentStatusLabel()
         {
             string result = " ";
-            if (currentStatus == ProducerStatus.idle)
+            if (suspended)
+            {
+                result = "Suspended: Request Met";
+            }
+            else if (currentStatus == ProducerStatus.idle)
             {
                 result = "Idle";
             }
@@ -85,19 +92,30 @@ namespace O21Toolbox.AutomatedProducer
 
         public string RepeatString()
         {
-            if (repeatCurrentRecipe)
+            if (repeatMode == RepeatMode.none)
             {
-                return "Repeat: True";
+                return "Repeat Never";
+            }
+            else if(repeatMode == RepeatMode.until)
+            {
+                return "Repeat Until X";
+            }
+            else if(repeatMode == RepeatMode.times)
+            {
+                return "Repeat X Times";
             }
             else
             {
-                return "Repeat: False";
+                return "Repeat Forever";
             }
         }
 
         public RecipeDef_Automated currentRecipe = null;
 
-        public bool repeatCurrentRecipe = false;
+        public RepeatMode repeatMode = RepeatMode.none;
+        public int repeatCount = 0;
+        public int repeatTarget = 0;
+        public bool suspended = false;
 
         public bool hasOrder = false;
 
@@ -124,6 +142,7 @@ namespace O21Toolbox.AutomatedProducer
             base.CompTick();
             this.GetProducerStatus();
 
+            this.ShouldBeSuspended();
             if (this.HasRecipe() && !this.hasOrder)
             {
                 //Update costs.
@@ -149,7 +168,7 @@ namespace O21Toolbox.AutomatedProducer
                 this.ProduceFromRecipe();
             }
 
-            if (IsWorking())
+            if (IsWorking() && !suspended)
             {
 
                 this.workTick--;
@@ -218,10 +237,42 @@ namespace O21Toolbox.AutomatedProducer
 
         public void RepeatRecipe()
         {
-            if(currentRecipe != null && !repeatCurrentRecipe)
+            if(currentRecipe != null)
             {
-                currentRecipe = null;
+                if (repeatMode == RepeatMode.none)
+                {
+                    currentRecipe = null;
+                }
+                else if (repeatMode == RepeatMode.times)
+                {
+                    repeatCount--;
+                }
             }
+        }
+
+        public void ShouldBeSuspended()
+        {
+            if((repeatMode == RepeatMode.until && CheckRepeatCountProducts(currentRecipe.products.FirstOrDefault().thingDef) >= repeatTarget) || (repeatMode == RepeatMode.times && repeatCount <= 0))
+            {
+                suspended = true;
+            }
+            else
+            {
+                suspended = false;
+            }
+        }
+
+        public int CheckRepeatCountProducts(ThingDef thingDef)
+        {
+            if (thingDef.HasComp(typeof(Comp_PawnSpawner)))
+            {
+                return parent.Map.mapPawns.AllPawns.Count((Pawn x) => (x.IsColonist && x.def.defName == thingDef.GetCompProperties<CompProperties_PawnSpawner>().pawnKind.race.defName));
+            }
+            if (thingDef.CountAsResource)
+            {
+                return parent.Map.resourceCounter.GetCount(thingDef);
+            }
+            return 0;
         }
 
         public void ResetWorkTick()
@@ -253,6 +304,8 @@ namespace O21Toolbox.AutomatedProducer
         {
             ingredients.TryDropAll(this.parent.InteractionCell, this.parent.Map, ThingPlaceMode.Near);
             this.currentRecipe = null;
+            repeatMode = RepeatMode.none;
+            repeatTarget = 0;
         }
 
         public bool ShouldProduceThisTick()
@@ -263,6 +316,10 @@ namespace O21Toolbox.AutomatedProducer
                 {
                     return true;
                 }
+            }
+            else if (suspended)
+            {
+                return false;
             }
             else if (Current.Game.tickManager.TicksGame >= workTick)
             {

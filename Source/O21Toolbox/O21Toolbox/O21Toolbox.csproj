@@ -74,9 +74,14 @@
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
     <Compile Include="ArtificialPawn\Recipe_Disassemble.cs" />
     <Compile Include="ArtificialPawn\Recipe_RepairKit.cs" />
+    <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
+    <Compile Include="AutoHeal\Comp_AutoHeal.cs" />
     <Compile Include="AutoHeal\DefModExtension_AutoHealProps.cs" />
     <Compile Include="ArtificialPawn\DefModExtension_DroidPartsProps.cs" />
+    <Compile Include="AutoHeal\HealUtility.cs" />
     <Compile Include="AutomatedProducer\JobDriver_FillProducer.cs" />
+    <Compile Include="AutomatedProducer\RepeatMode.cs" />
+    <Compile Include="AutomatedProducer\TexButtons.cs" />
     <Compile Include="AutomatedProducer\ThingOrderProcessor.cs" />
     <Compile Include="AutomatedProducer\ThingOrderRequest.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
@@ -86,6 +91,12 @@
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
     <Compile Include="Harmony\DefModExt_SpaceApparel.cs" />
     <Compile Include="Harmony\DefModExt_SpaceCapable.cs" />
+    <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
+    <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
+    <Compile Include="Hivemind\Comp_HivemindCore.cs" />
+    <Compile Include="Hivemind\Comp_HivemindPawn.cs" />
+    <Compile Include="Hivemind\HivemindConnection.cs" />
+    <Compile Include="Hivemind\HivemindType.cs" />
     <Compile Include="Networks\Building_NetworkSwitch.cs" />
     <Compile Include="Networks\CompProperties_CustomNetwork_Trader.cs" />
     <Compile Include="Networks\CompProperties_CustomNetwork.cs" />

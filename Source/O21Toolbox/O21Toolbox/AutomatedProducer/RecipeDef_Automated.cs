@@ -54,6 +54,8 @@ namespace O21Toolbox.AutomatedProducer
         public ResearchProjectDef requiredResearch = null;
 
         public RecipeInfo recipeInfo = new RecipeInfo();
+
+        public bool canCountProducts = true;
     }
 
     public class RecipeInfo
