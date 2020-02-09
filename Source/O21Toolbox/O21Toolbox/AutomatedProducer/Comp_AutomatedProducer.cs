@@ -18,6 +18,7 @@ namespace O21Toolbox.AutomatedProducer
             base.PostExposeData();
             Scribe_Values.Look(ref workTick, "workTick");
             Scribe_Values.Look(ref workTickMax, "workTickMax");
+            Scribe_Values.Look(ref repeatCurrentRecipe, "repeatCurrentRecipe");
             Scribe_Values.Look(ref repeatMode, "repeatMode", RepeatMode.none);
             Scribe_Values.Look(ref hasOrder, "hasOrder");
             Scribe_Values.Look(ref currentStatus, "currentStatus");
@@ -30,6 +31,8 @@ namespace O21Toolbox.AutomatedProducer
             Scribe_Deep.Look(ref ingredients, "ingredients");
             Scribe_Deep.Look(ref orderProcessor, "orderProcessor", ingredients);
         }
+        // Left in to prevent errors for old users.
+        public bool repeatCurrentRecipe = false;
 
         /// <summary>
         /// Stored ingredients for use in producing one pawn.
