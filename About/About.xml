@@ -2,9 +2,16 @@
 <ModMetaData>
 	<name>[O21] Toolbox</name>
 	<author>Neronix17</author>
+	<packageId>neronix17.toolbox</packageId>
 	<url></url>
-	<supportedVersions>
-		<li>1.0</li>
-	</supportedVersions>
 	<description>Utility mod, provides a lot of useful, reusable code primarily for Outpost 21 mods.</description>
+	<supportedGameVersions>
+		<li>1.0</li>
+		<li>1.1</li>
+	</supportedGameVersions>
+	<loadBefore />
+	<loadAfter>
+		<li>erdelf.HumanoidAlienRaces20</li>
+	</loadAfter>
+	<incompatibleWith />
 </ModMetaData>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<WorkGiverDef>
+		<defName>HaulerChargePatients</defName>
+		<label>recharging target pawn</label>
+		<giverClass>O21Toolbox.Needs.WorkGiver_GiveEnergySourceConsumableToPatient</giverClass>
+		<workType>Hauling</workType>
+		<verb>recharge</verb>
+		<gerund>recharging</gerund>
+		<priorityInType>60</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+		<feedHumanlikesOnly>true</feedHumanlikesOnly>
+	</WorkGiverDef>
+	
+</Defs>

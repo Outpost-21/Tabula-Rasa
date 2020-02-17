@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A72D1CCB-F480-40EA-AD21-F166FE7553FD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O21Toolbox</RootNamespace>
+    <AssemblyName>O21Toolbox</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>none</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Assemblies\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AlienRace">
+      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0\Assemblies\AlienRace.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ShipsHaveInsides">
+      <HintPath>..\..\..\..\..\Save Our Ship 2\Assemblies\ShipsHaveInsides.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alliances\AllianceDef.cs" />
+    <Compile Include="Alliances\RelationAlliance.cs" />
+    <Compile Include="Alliances\RelationFaction.cs" />
+    <Compile Include="Alliances\RelationPlayer.cs" />
+    <Compile Include="ApparelExt\DefModExt_ApparelRestrict.cs" />
+    <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
+    <Compile Include="ApparelExt\DefModExt_HeadwearOffset.cs" />
+    <Compile Include="ApparelExt\RestrictionCheck.cs" />
+    <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
+    <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
+    <Compile Include="ArtificialPawn\Recipe_Disassemble.cs" />
+    <Compile Include="ArtificialPawn\Recipe_RepairKit.cs" />
+    <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
+    <Compile Include="AutoHeal\Comp_AutoHeal.cs" />
+    <Compile Include="AutoHeal\DefModExtension_AutoHealProps.cs" />
+    <Compile Include="ArtificialPawn\DefModExtension_DroidPartsProps.cs" />
+    <Compile Include="AutoHeal\HealUtility.cs" />
+    <Compile Include="AutomatedProducer\JobDriver_FillProducer.cs" />
+    <Compile Include="AutomatedProducer\RepeatMode.cs" />
+    <Compile Include="AutomatedProducer\TexButtons.cs" />
+    <Compile Include="AutomatedProducer\ThingOrderProcessor.cs" />
+    <Compile Include="AutomatedProducer\ThingOrderRequest.cs" />
+    <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
+    <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
+    <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
+    <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
+    <Compile Include="Harmony\Patches\Harmony_Alliances.cs" />
+    <Compile Include="Harmony\DefModExt_SpaceApparel.cs" />
+    <Compile Include="Harmony\DefModExt_SpaceCapable.cs" />
+    <Compile Include="Harmony\Patches\Harmony_Apparel.cs" />
+    <Compile Include="Harmony\Patches\Harmony_Needs.cs" />
+    <Compile Include="Harmony\Patches\Harmony_NQH.cs" />
+    <Compile Include="Harmony\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
+    <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
+    <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
+    <Compile Include="Hivemind\Comp_HivemindCore.cs" />
+    <Compile Include="Hivemind\Comp_HivemindPawn.cs" />
+    <Compile Include="Hivemind\HivemindConnection.cs" />
+    <Compile Include="Hivemind\HivemindType.cs" />
+    <Compile Include="Networks\Building_NetworkSwitch.cs" />
+    <Compile Include="Networks\CompProperties_CustomNetwork_Trader.cs" />
+    <Compile Include="Networks\CompProperties_CustomNetwork.cs" />
+    <Compile Include="Networks\CompProperties_CustomNetwork_Connection.cs" />
+    <Compile Include="Networks\CompProperties_CustomNetwork_PassiveGen.cs" />
+    <Compile Include="Networks\CompProperties_CustomNetwork_Storage.cs" />
+    <Compile Include="Networks\Comp_CustomNetwork.cs" />
+    <Compile Include="Networks\Comp_CustomNetwork_Connection.cs" />
+    <Compile Include="Networks\Comp_CustomNetwork_PassiveGen.cs" />
+    <Compile Include="Networks\Comp_CustomNetwork_Storage.cs" />
+    <Compile Include="Networks\Comp_CustomNetwork_Trader.cs" />
+    <Compile Include="Networks\CustomNetwork.cs" />
+    <Compile Include="Networks\MapComponent_CustomNetworks.cs" />
+    <Compile Include="NotQuiteHumanoid\NQH_Pawn.cs" />
+    <Compile Include="NotQuiteHumanoid\NQH_Utility.cs" />
+    <Compile Include="NotQuiteHumanoid\ThinkNode_ConditionalColonistOrNQH.cs" />
+    <Compile Include="PawnAbilities\Building_Pawn.cs" />
+    <Compile Include="PawnAbilities\CompProperties_PawnStructure.cs" />
+    <Compile Include="PawnAbilities\Comp_PawnStructure.cs" />
+    <Compile Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
+    <Compile Include="PawnConverter\Hediff_Converter.cs" />
+    <Compile Include="PawnConverter\Util_FactionConvert.cs" />
+    <Compile Include="PawnConverter\Util_PawnConvert.cs" />
+    <None Include="CustomPlaceWorker\DefModExtension_PlaceNearThing.cs" />
+    <Compile Include="AutomatedProducer\Building_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\CompProperties_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\Comp_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\ITab_AutomatedProducer.cs" />
+    <Compile Include="AutomatedProducer\RecipeDef_Automated.cs" />
+    <Compile Include="AutomatedProducer\Utility_AutoProducerCard.cs" />
+    <Compile Include="Conveyors\CompProperties_ConveyorBelt.cs" />
+    <Compile Include="Conveyors\Comp_ConveyorBelt.cs" />
+    <Compile Include="CustomPlaceWorker\DefModExtension_PlaceOnThing.cs" />
+    <None Include="CustomPlaceWorker\PlaceWorker_PlaceNearThing.cs" />
+    <Compile Include="CustomPlaceWorker\PlaceWorker_PlaceOnThing.cs" />
+    <Compile Include="HediffGiver_Racial.cs" />
+    <Compile Include="AutoHeal\Hediff_AutoHeal.cs" />
+    <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
+    <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
+    <Compile Include="BiomeOverride\BiomeOverrideDef.cs" />
+    <Compile Include="BiomeOverride\GenStep_BiomeOverride.cs" />
+    <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
+    <Compile Include="Needs\Solar\Need_Solar.cs" />
+    <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
+    <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
+    <Compile Include="Research\CompProperties_AutoResearch.cs" />
+    <Compile Include="Research\Comp_AutoResearch.cs" />
+    <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
+    <Compile Include="Terraformer\TerrainCategoryDef.cs" />
+    <Compile Include="ThingProducer\Building_ThingProducer.cs" />
+    <Compile Include="ThingProducer\DefModExt_ThingProducer.cs" />
+    <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
+    <Compile Include="TurretsPlus\CompProperties_Bunker.cs" />
+    <Compile Include="TurretsPlus\Comp_Bunker.cs" />
+    <None Include="Laser\Building_LaserGun.cs" />
+    <None Include="Laser\Building_LaserGunDef.cs" />
+    <None Include="Laser\IBeamColorThing.cs" />
+    <None Include="Laser\IDrawnWeaponWithRotation.cs" />
+    <None Include="Laser\JobDefOf.cs" />
+    <None Include="Laser\JobDriver_ChangeLaserColor.cs" />
+    <None Include="Laser\LaserBeam.cs" />
+    <None Include="Laser\LaserBeamColoring.cs" />
+    <None Include="Laser\LaserBeamDef.cs" />
+    <None Include="Laser\LaserBeamGraphic.cs" />
+    <None Include="Laser\LaserGun.cs" />
+    <None Include="Laser\LaserGunDef.cs" />
+    <None Include="Laser\MeshMakerLaser.cs" />
+    <None Include="Laser\MoteLaserDectoration.cs" />
+    <None Include="Harmony\Patches\PatchGunDrawing.cs" />
+    <None Include="Harmony\Patches\PatchTuretTopDrawTurret.cs" />
+    <None Include="Laser\SpinningLaserGun.cs" />
+    <None Include="Laser\SpinningLaserGunBase.cs" />
+    <None Include="Laser\SpinningLaserGunDef.cs" />
+    <None Include="Laser\SpinningLaserGunTurret.cs" />
+    <None Include="Laser\ThingDefOf.cs" />
+    <None Include="Laser\ThingExtensions.cs" />
+    <Compile Include="CustomHive\CustomHive.cs" />
+    <Compile Include="CustomHive\HiveProperties.cs" />
+    <Compile Include="CustomHive\JobGiver_CustomHiveDefense.cs" />
+    <Compile Include="CustomHive\JobGiver_WanderCustomHive.cs" />
+    <Compile Include="CustomHive\LordJob_DefendHive.cs" />
+    <Compile Include="CustomHive\LordToil_DefendHive.cs" />
+    <Compile Include="CustomHive\Toils_Extra.cs" />
+    <Compile Include="PawnSpawner\CompProperties_PawnSpawner.cs" />
+    <Compile Include="PawnSpawner\Comp_PawnSpawner.cs" />
+    <None Include="ModularWeapon\DefModExtension_ModularWeapon.cs" />
+    <None Include="ModularWeapon\ITab_ModularWeapon.cs" />
+    <Compile Include="ModularWeapon\WeaponModuleDef.cs" />
+    <Compile Include="ModularWeapon\WeaponSlot.cs" />
+    <Compile Include="Needs\FleshType_Artificial.cs" />
+    <Compile Include="Needs\Energy\JobDefOf.cs" />
+    <Compile Include="Needs\Energy\JobGiver_GetEnergy.cs" />
+    <Compile Include="Needs\Energy\JobGiver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\ArtificialPawnProperties.cs" />
+    <Compile Include="Needs\NeedsDefOf.cs" />
+    <Compile Include="Needs\Utility_ArtificialPawn.cs" />
+    <Compile Include="Needs\Energy\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
+    <Compile Include="Networks\NetworkDef.cs" />
+    <Compile Include="PawnConverter\PawnConvertingDef.cs" />
+    <Compile Include="Research\DefModExt_ResearchBenchSubstitutes.cs" />
+    <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
+    <Compile Include="Terraformer\Comp_Terraformer.cs" />
+    <Compile Include="Terraformer\TerraformerRulesDef.cs" />
+    <Compile Include="Utility\BodyPartUtility.cs" />
+    <Compile Include="Utility\ButcherUtility.cs" />
+    <Compile Include="Utility\DroidUtility.cs" />
+    <Compile Include="Utility\ExtensionUtility.cs" />
+    <Compile Include="Utility\MentalBreakDefOf.cs" />
+    <Compile Include="Utility\RemovableHediff.cs" />
+    <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
+    <Compile Include="TurretsPlus\Building_Emplacement.cs" />
+    <Compile Include="TurretsPlus\Building_Bunker.cs" />
+    <Compile Include="TurretsPlus\JobDriver_EnterEmplacement.cs" />
+    <Compile Include="TurretsPlus\JobDriver_EnterBunker.cs" />
+    <None Include="TurretsPlus\Verb_Emplacement.cs" />
+    <Compile Include="TurretsPlus\Verb_Bunker.cs" />
+    <Compile Include="Needs\Energy\CompProperties_EnergySource.cs" />
+    <Compile Include="Needs\Energy\CompProperties_EnergyTracker.cs" />
+    <Compile Include="Needs\Energy\Comp_EnergySource.cs" />
+    <Compile Include="Needs\Energy\Comp_EnergyTracker.cs" />
+    <Compile Include="Needs\Energy\EnergyHediffs.cs" />
+    <Compile Include="Needs\Energy\EnergyNeed.cs" />
+    <Compile Include="Needs\Energy\Comp_Hibernation.cs" />
+    <Compile Include="Needs\Energy\EnergySource_Fueled.cs" />
+    <Compile Include="Needs\Energy\ExtraReportStringProperties.cs" />
+    <Compile Include="Needs\Energy\FuelUtility.cs" />
+    <Compile Include="Needs\Energy\Gizmo_EnergySourceFueled.cs" />
+    <Compile Include="Needs\IExtraDisplayStats.cs" />
+    <Compile Include="Needs\Energy\JobDriver_Hibernate.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RechargeEnergy.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RechargeEnergyFromConsumable.cs" />
+    <Compile Include="Needs\Energy\JobDriver_RefillFuelEnergySource.cs" />
+    <Compile Include="Needs\Energy\ThingOrderRequest.cs" />
+    <Compile Include="Needs\Energy\Utility_EnergyNeed.cs" />
+    <Compile Include="PawnConverter\Building_Converter.cs" />
+    <Compile Include="PawnConverter\ConverterProperties.cs" />
+    <Compile Include="Harmony\HarmonyPatches.cs" />
+    <Compile Include="O21ToolboxMod.cs" />
+    <Compile Include="O21ToolboxSettings.cs" />
+    <Compile Include="PawnCrafter\PawnCraftingDef.cs" />
+    <Compile Include="PawnCrafter\JobDriver_FillAndroidPrinter.cs" />
+    <Compile Include="PawnCrafter\DroidSkill.cs" />
+    <Compile Include="PawnCrafter\DroidSpawnProperties.cs" />
+    <Compile Include="PawnCrafter\PawnCrafterWorkgiverProperties.cs" />
+    <Compile Include="PawnCrafter\Building_PawnCrafter.cs" />
+    <Compile Include="PawnCrafter\IPawnCrafter.cs" />
+    <Compile Include="PawnCrafter\ThingOrderProcessor.cs" />
+    <Compile Include="PawnCrafter\ThingOrderRequest.cs" />
+    <Compile Include="PawnCrafter\PawnCrafterProperties.cs" />
+    <Compile Include="PawnCrafter\Gizmo_PrinterPawnInfo.cs" />
+    <Compile Include="PawnCrafter\Gizmo_TogglePrinting.cs" />
+    <Compile Include="PawnCrafter\DroidUtility.cs" />
+    <Compile Include="PawnCrafter\WorkGiver_PawnCrafter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ScenarioParts\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

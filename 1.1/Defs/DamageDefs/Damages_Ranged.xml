@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<DamageDef>
+		<defName>O21_Damage_Plasma</defName>
+		<label>plasma</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>true</isExplosive>
+		<deathMessage>{0} has given in to plasma burns.</deathMessage>
+		<hediff>Burn</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Heat</armorCategory>
+		
+		<defaultDamage>25</defaultDamage>
+		<buildingDamageFactor>1</buildingDamageFactor>
+		<explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
+		<explosionHeatEnergyPerCell>5</explosionHeatEnergyPerCell>
+		<explosionCellMote>Mote_BlastDry</explosionCellMote>
+		<explosionColorCenter>(0.55, 0.95, 1)</explosionColorCenter>
+		<explosionColorEdge>(0.6, 0.55, 0.9)</explosionColorEdge>
+    	<soundExplosion>Explosion_Bomb</soundExplosion>
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+
+	<DamageDef>
+		<defName>O21_Damage_Ion</defName>
+		<label>ion</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>false</isExplosive>
+		<deathMessage>{0} has given in to ion burns.</deathMessage>
+		<hediff>Burn</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Heat</armorCategory>
+		
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+
+	<DamageDef>
+		<defName>O21_Damage_Laser</defName>
+		<label>laser</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>false</isExplosive>
+		<deathMessage>{0} has given in to laser burns.</deathMessage>
+		<hediff>Burn</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Bullet</impactSoundType>
+		<armorCategory>Heat</armorCategory>
+	</DamageDef>
+
+	<DamageDef>
+		<defName>O21_Damage_Sonic</defName>
+		<label>sonic</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>false</isExplosive>
+		<deathMessage>{0} died to fatal vibrotronic resonation.</deathMessage>
+		<hediff>Shredded</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Blunt</armorCategory>
+		
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+
+</Defs>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<GenStepDef>
+		<defName>O21_GenStep_BiomeOverrides</defName>
+		<order>280</order>
+		<genStep Class="O21Toolbox.BiomeOverride.GenStep_BiomeOverride"/>
+	</GenStepDef>
+
+</Defs>
