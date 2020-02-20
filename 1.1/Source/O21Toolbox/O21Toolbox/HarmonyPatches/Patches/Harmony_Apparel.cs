@@ -7,22 +7,18 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using Harmony;
+using HarmonyLib;
 
 using O21Toolbox.ApparelExt;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     public class Harmony_Apparel
     {
         public static FieldInfo int_PawnRenderer_GetPawn;
-        public static void Harmony_Patch(HarmonyInstance O21ToolboxHarmony, Type patchType)
-        {
-            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[] { typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool) }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null);
-            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders", null, null), null, new HarmonyMethod(patchType, "AddHumanlikeOrdersPostfix", null), null);
-            O21ToolboxHarmony.Patch(AccessTools.Method(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain", null, null), null, new HarmonyMethod(patchType, "ApparelScoreGainPostFix", null), null);
-            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
-        }
+
+        //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[] { typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool) }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null);
+        //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
 
         #region ApparelPatches
 
@@ -83,37 +79,6 @@ namespace O21Toolbox.Harmony
         //    }
         //}
 
-        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_HeadwearOffset modExt, out ApparelGraphicRecord rec)
-        {
-            if (bodyType == null)
-            {
-                Log.Error("Getting apparel graphic with undefined body type.", false);
-                bodyType = BodyTypeDefOf.Male;
-            }
-            if (modExt.wornGraphicPath.NullOrEmpty())
-            {
-                rec = new ApparelGraphicRecord(null, null);
-                return false;
-            }
-            string path;
-            if (!modExt.bodyDependant)
-            {
-                path = modExt.wornGraphicPath;
-            }
-            else
-            {
-                path = modExt.wornGraphicPath + "_" + bodyType.defName;
-            }
-            Graphic graphic = GraphicDatabase.Get<Graphic_Multi>(path, ShaderDatabase.Cutout, apparel.def.graphicData.drawSize, apparel.DrawColor);
-            rec = new ApparelGraphicRecord(graphic, apparel);
-            return true;
-        }
-
-        public static Pawn PawnRenderer_GetPawn_GetPawn(PawnRenderer instance)
-        {
-            return (Pawn)int_PawnRenderer_GetPawn.GetValue(instance);
-        }
-
         /**public static void GenerateStartingApparelForPostfix()
         {
             Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
@@ -137,6 +102,8 @@ namespace O21Toolbox.Harmony
             traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
         }**/
 
+        [HarmonyPatch(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain")]
+        [HarmonyPostfix]
         public static void ApparelScoreGainPostFix(Pawn pawn, Apparel ap, ref float __result)
         {
             if (__result < 0f)
@@ -152,6 +119,8 @@ namespace O21Toolbox.Harmony
             }
         }
 
+        [HarmonyPatch(typeof(FloatMenuMakerMap), "AddHumanlikeOrders")]
+        [HarmonyPostfix]
         public static void AddHumanlikeOrdersPostfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
         {
             IntVec3 c = IntVec3.FromVector3(clickPos);
@@ -190,6 +159,37 @@ namespace O21Toolbox.Harmony
                     }
                 }
             }
+        }
+
+        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_HeadwearOffset modExt, out ApparelGraphicRecord rec)
+        {
+            if (bodyType == null)
+            {
+                Log.Error("Getting apparel graphic with undefined body type.", false);
+                bodyType = BodyTypeDefOf.Male;
+            }
+            if (modExt.wornGraphicPath.NullOrEmpty())
+            {
+                rec = new ApparelGraphicRecord(null, null);
+                return false;
+            }
+            string path;
+            if (!modExt.bodyDependant)
+            {
+                path = modExt.wornGraphicPath;
+            }
+            else
+            {
+                path = modExt.wornGraphicPath + "_" + bodyType.defName;
+            }
+            Graphic graphic = GraphicDatabase.Get<Graphic_Multi>(path, ShaderDatabase.Cutout, apparel.def.graphicData.drawSize, apparel.DrawColor);
+            rec = new ApparelGraphicRecord(graphic, apparel);
+            return true;
+        }
+
+        public static Pawn PawnRenderer_GetPawn_GetPawn(PawnRenderer instance)
+        {
+            return (Pawn)int_PawnRenderer_GetPawn.GetValue(instance);
         }
         #endregion ApparelPatches
     }

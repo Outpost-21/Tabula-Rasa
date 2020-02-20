@@ -8,32 +8,20 @@ using RimWorld;
 using RimWorld.BaseGen;
 using Verse;
 
-using Harmony;
+using HarmonyLib;
 
 using O21Toolbox.NotQuiteHumanoid;
 
-namespace O21Toolbox.Harmony.Patches
+namespace O21Toolbox.HarmonyPatches
 {
+    [StaticConstructorOnStartup]
     public class Harmony_NQH
     {
-        public static void Harmony_Patch(HarmonyInstance O21ToolboxHarmony, Type patchType)
+        public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
-            O21ToolboxHarmony.Patch(
-                typeof(SymbolResolver_RandomMechanoidGroup).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
-                    .First(mi =>
-                        mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) &&
-                        mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)),
-                null, new HarmonyMethod(typeof(HarmonyPatches),
-                    nameof(NQHFixerAncient)));
-            O21ToolboxHarmony.Patch(
-                typeof(CompWakeUpDormant).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(
-                    mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) &&
-                          mi.GetParameters().Count() == 1 &&
-                          mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(
-                    typeof(HarmonyPatches),
-                    nameof(NQHFixer)));
+            //O21ToolboxHarmony.Patch(typeof(SymbolResolver_RandomMechanoidGroup).GetMethods(BindingFlags.NonPublic | BindingFlags.Static).First(mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(NQHFixerAncient)));
+            //O21ToolboxHarmony.Patch( typeof(CompWakeUpDormant).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First( mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(NQHFixer)));
         }
-
         public static void NQHFixerAncient(ref bool __result, PawnKindDef kind)
         {
             if (typeof(NQH_Pawn).IsAssignableFrom(kind.race.thingClass)) __result = false;

@@ -12,7 +12,7 @@ using Harmony;
 
 using O21Toolbox.Laser;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     [HarmonyPatch(typeof(TurretTop), "DrawTurret", new Type[] { }), StaticConstructorOnStartup]
     class PatchTuretTopDrawTurret

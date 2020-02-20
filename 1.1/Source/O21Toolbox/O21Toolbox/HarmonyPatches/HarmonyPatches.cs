@@ -8,14 +8,14 @@ using UnityEngine;
 using RimWorld;
 using RimWorld.BaseGen;
 using Verse;
-using Harmony;
+using HarmonyLib;
 
 using O21Toolbox.ApparelExt;
 using O21Toolbox.NotQuiteHumanoid;
 using O21Toolbox.Research;
 using O21Toolbox.Utility;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     [StaticConstructorOnStartup]
     public static class HarmonyPatches
@@ -41,13 +41,11 @@ namespace O21Toolbox.Harmony
             Need_Bladder = DefDatabase<NeedDef>.GetNamedSilentFail("Bladder");
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
-            HarmonyInstance O21ToolboxHarmony = HarmonyInstance.Create("com.o21toolbox.rimworld.mod");
+            Harmony O21ToolboxHarmony = new Harmony("com.o21toolbox.rimworld.mod");
 
-            Harmony_Alliances.Harmony_Patch(O21ToolboxHarmony, patchType);
+            Harmony_NQH.Harmony_Patch(O21ToolboxHarmony, patchType);
 
-            Harmony_Apparel.Harmony_Patch(O21ToolboxHarmony, patchType);
-
-            Harmony_Needs.Harmony_Patch(O21ToolboxHarmony, patchType, Need_Bladder, Need_Hygiene);
+            Harmony_Needs.Harmony_Patch(O21ToolboxHarmony, patchType);
 
             #region ModularWeapon
             //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipmentAiming", null, null), null, new HarmonyMethod(HarmonyPatches.patchType, "DrawEquipmentAimingPostfix", null), null);
@@ -107,7 +105,7 @@ namespace O21Toolbox.Harmony
 
 
         #region ThirdPartyImprovements
-        public static void SaveOurShip2_CompatibilityHook(HarmonyInstance harmony)
+        public static void SaveOurShip2_CompatibilityHook(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
         }

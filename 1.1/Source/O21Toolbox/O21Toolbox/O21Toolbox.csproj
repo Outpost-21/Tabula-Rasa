@@ -42,7 +42,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0 1.1\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -105,13 +105,14 @@
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
-    <Compile Include="Harmony\Patches\Harmony_Alliances.cs" />
-    <Compile Include="Harmony\DefModExt_SpaceApparel.cs" />
-    <Compile Include="Harmony\DefModExt_SpaceCapable.cs" />
-    <Compile Include="Harmony\Patches\Harmony_Apparel.cs" />
-    <Compile Include="Harmony\Patches\Harmony_Needs.cs" />
-    <Compile Include="Harmony\Patches\Harmony_NQH.cs" />
-    <Compile Include="Harmony\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
+    <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
+    <Compile Include="HarmonyPatches\DefModExt_SpaceCapable.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Needs.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_NQH.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
     <Compile Include="Hivemind\Comp_HivemindCore.cs" />
@@ -186,8 +187,8 @@
     <None Include="Laser\LaserGunDef.cs" />
     <None Include="Laser\MeshMakerLaser.cs" />
     <None Include="Laser\MoteLaserDectoration.cs" />
-    <None Include="Harmony\Patches\PatchGunDrawing.cs" />
-    <None Include="Harmony\Patches\PatchTuretTopDrawTurret.cs" />
+    <None Include="HarmonyPatches\Patches\PatchGunDrawing.cs" />
+    <None Include="HarmonyPatches\Patches\PatchTuretTopDrawTurret.cs" />
     <None Include="Laser\SpinningLaserGun.cs" />
     <None Include="Laser\SpinningLaserGunBase.cs" />
     <None Include="Laser\SpinningLaserGunDef.cs" />
@@ -254,7 +255,7 @@
     <Compile Include="Needs\Energy\Utility_EnergyNeed.cs" />
     <Compile Include="PawnConverter\Building_Converter.cs" />
     <Compile Include="PawnConverter\ConverterProperties.cs" />
-    <Compile Include="Harmony\HarmonyPatches.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
     <Compile Include="PawnCrafter\PawnCraftingDef.cs" />

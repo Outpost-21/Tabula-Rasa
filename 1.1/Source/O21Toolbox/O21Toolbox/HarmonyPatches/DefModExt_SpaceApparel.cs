@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     public class DefModExt_SpaceApparel : DefModExtension
     {

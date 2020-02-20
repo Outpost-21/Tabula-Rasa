@@ -10,13 +10,13 @@ using RimWorld.Planet;
 using Verse;
 using Verse.AI;
 
-using Harmony;
+using HarmonyLib;
 
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Needs;
 using O21Toolbox.PawnCrafter;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     public class Harmony_Needs
     {
@@ -33,25 +33,25 @@ namespace O21Toolbox.Harmony
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;
 
-        public static void Harmony_Patch(HarmonyInstance O21ToolboxHarmony, Type patchType, NeedDef Need_Bladder, NeedDef Need_Hygiene)
+        public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
             //Try get needs.
             Need_Bladder = DefDatabase<NeedDef>.GetNamedSilentFail("Bladder");
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
 
             //Patch, Method: Pawn_NeedsTracker
-            {
-                Type type = typeof(Pawn_NeedsTracker);
+            //{
+            //    Type type = typeof(Pawn_NeedsTracker);
 
-                //Get private variable 'pawn' from 'Pawn_NeedsTracker'.
-                int_Pawn_NeedsTracker_GetPawn = type.GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
+            //    //Get private variable 'pawn' from 'Pawn_NeedsTracker'.
+            //    int_Pawn_NeedsTracker_GetPawn = type.GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
 
-                //Patch: Pawn_NeedsTracker.ShouldHaveNeed as Postfix
-                O21ToolboxHarmony.Patch(
-                    type.GetMethod("ShouldHaveNeed", BindingFlags.NonPublic | BindingFlags.Instance),
-                    null,
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_Pawn_NeedsTracker_ShouldHaveNeed))));
-            }
+            //    //Patch: Pawn_NeedsTracker.ShouldHaveNeed as Postfix
+            //    O21ToolboxHarmony.Patch(
+            //        type.GetMethod("ShouldHaveNeed", BindingFlags.NonPublic | BindingFlags.Instance),
+            //        null,
+            //        new HarmonyMethod(typeof(HarmonyPatches), "Patch_Pawn_NeedsTracker_ShouldHaveNeed"));
+            //}
 
             //Patch, Property: Need_Food.Starving
             {
@@ -64,7 +64,7 @@ namespace O21Toolbox.Harmony
                 MethodInfo getMethod = AccessTools.Property(type, "Starving")?.GetGetMethod();
 
                 //Patch: Pawn_NeedsTracker.ShouldHaveNeed as Postfix
-                O21ToolboxHarmony.Patch(getMethod, null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_Need_Food_Starving_Get))));
+                O21ToolboxHarmony.Patch(getMethod, null, new HarmonyMethod(typeof(HarmonyPatches), "Patch_Need_Food_Starving_Get"));
             }
 
             //Patch, Method: ThinkNode_ConditionalNeedPercentageAbove
@@ -76,7 +76,7 @@ namespace O21Toolbox.Harmony
                 //Patch: ThinkNode_ConditionalNeedPercentageAbove.Satisfied as Prefix
                 O21ToolboxHarmony.Patch(
                     type.GetMethod("Satisfied", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied"),
                     null);
             }
 
@@ -90,7 +90,7 @@ namespace O21Toolbox.Harmony
                         typeof(Faction), typeof(WorldPath), typeof(float), typeof(int), typeof(bool)};
                 O21ToolboxHarmony.Patch(
                     type.GetMethod("ApproxDaysWorthOfFood", BindingFlags.NonPublic | BindingFlags.InvokeMethod | BindingFlags.Static, Type.DefaultBinder, types, null),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood"),
                     null);
             }
 
@@ -99,19 +99,19 @@ namespace O21Toolbox.Harmony
             {
                 Type type = typeof(FoodUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("WillIngestStackCountOf"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_WillIngestStackCountOf))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("WillIngestStackCountOf"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_WillIngestStackCountOf"), null);
             }
 
             {
                 Type type = typeof(RecordWorker_TimeInBedForMedicalReasons);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("ShouldMeasureTimeNow"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_ShouldMeasureTimeNow))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("ShouldMeasureTimeNow"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_ShouldMeasureTimeNow"), null);
             }
 
             {
                 Type type = typeof(InteractionUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("CanInitiateInteraction"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_CanInitiateInteraction))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("CanInitiateInteraction"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_CanInitiateInteraction"), null);
             }
 
             {
@@ -119,37 +119,37 @@ namespace O21Toolbox.Harmony
 
                 int_Pawn_HealthTracker_GetPawn = type.GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("ShouldBeDeadFromRequiredCapacity"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_ShouldBeDeadFromRequiredCapacity))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("ShouldBeDeadFromRequiredCapacity"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_ShouldBeDeadFromRequiredCapacity"), null);
             }
 
             {
                 Type type = typeof(HediffSet);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("CalculatePain", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_CalculatePain))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("CalculatePain", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_CalculatePain"), null);
             }
 
             {
                 Type type = typeof(RestUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("TimetablePreventsLayDown"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_TimetablePreventsLayDown))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("TimetablePreventsLayDown"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_TimetablePreventsLayDown"), null);
             }
 
             {
                 Type type = typeof(GatheringsUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("ShouldGuestKeepAttendingGathering"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_ShouldGuestKeepAttendingGathering))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("ShouldGuestKeepAttendingGathering"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_ShouldGuestKeepAttendingGathering"), null);
             }
 
             {
                 Type type = typeof(JobGiver_EatInGatheringArea);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("TryGiveJob", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_EatInPartyAreaTryGiveJob))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("TryGiveJob", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_EatInPartyAreaTryGiveJob"), null);
             }
 
             {
                 Type type = typeof(JobGiver_GetJoy);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("TryGiveJob", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_GetJoyTryGiveJob))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("TryGiveJob", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_GetJoyTryGiveJob"), null);
             }
 
             {
@@ -157,28 +157,28 @@ namespace O21Toolbox.Harmony
 
                 int_Pawn_InteractionsTracker_GetPawn = type.GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("SocialFightChance"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_SocialFightChance))), null);
-                O21ToolboxHarmony.Patch(type.GetMethod("InteractionsTrackerTick"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_InteractionsTrackerTick))), null);
-                O21ToolboxHarmony.Patch(type.GetMethod("CanInteractNowWith"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_CanInteractNowWith))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("SocialFightChance"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_SocialFightChance"), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("InteractionsTrackerTick"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_InteractionsTrackerTick"), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("CanInteractNowWith"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_CanInteractNowWith"), null);
             }
 
             {
                 Type type = typeof(InteractionUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("CanInitiateInteraction"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_CanDoInteraction))), null);
-                O21ToolboxHarmony.Patch(type.GetMethod("CanReceiveInteraction"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_CanDoInteraction))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("CanInitiateInteraction"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_CanDoInteraction"), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("CanReceiveInteraction"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_CanDoInteraction"), null);
             }
 
             {
                 Type type = typeof(PawnDiedOrDownedThoughtsUtility);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("AppendThoughts_ForHumanlike", BindingFlags.NonPublic | BindingFlags.Static), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_AppendThoughts_ForHumanlike))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("AppendThoughts_ForHumanlike", BindingFlags.NonPublic | BindingFlags.Static), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_AppendThoughts_ForHumanlike"), null);
             }
 
             {
                 Type type = typeof(InspirationHandler);
 
-                O21ToolboxHarmony.Patch(type.GetMethod("InspirationHandlerTick"), new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_InspirationHandlerTick))), null);
+                O21ToolboxHarmony.Patch(type.GetMethod("InspirationHandlerTick"), new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_InspirationHandlerTick"), null);
             }
 
             {
@@ -186,7 +186,7 @@ namespace O21Toolbox.Harmony
 
                 O21ToolboxHarmony.Patch(
                     type.GetMethod("MakeNewToils", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_VomitJob))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_VomitJob"),
                     null);
             }
 
@@ -204,7 +204,7 @@ namespace O21Toolbox.Harmony
                 //But this did.
                 O21ToolboxHarmony.Patch(
                     AccessTools.Method(type, "GetReport"),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(CompatPatch_Boredom_GetReport))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "CompatPatch_Boredom_GetReport"),
                     null);
 
                 //Log.Message("Patched Alert_Boredom.BoredPawns");
@@ -217,7 +217,7 @@ namespace O21Toolbox.Harmony
                 //Patch: Toils_Tend.FinalizeTend as Prefix
                 O21ToolboxHarmony.Patch(
                     type.GetMethod("FinalizeTend"),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_Toils_Tend_FinalizeTend))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "Patch_Toils_Tend_FinalizeTend"),
                     null);
             }
 
@@ -228,7 +228,7 @@ namespace O21Toolbox.Harmony
                 //Patch: HealthAIUtility.FindBestMedicine as Prefix
                 O21ToolboxHarmony.Patch(
                     type.GetMethod("FindBestMedicine"),
-                    new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Patch_HealthAIUtility_FindBestMedicine))),
+                    new HarmonyMethod(typeof(HarmonyPatches), "Patch_HealthAIUtility_FindBestMedicine"),
                     null);
             }
         }
@@ -665,73 +665,71 @@ namespace O21Toolbox.Harmony
         /// <summary>
         /// Adds an additional check for our custom needs.
         /// </summary>
-        public static void Patch_Pawn_NeedsTracker_ShouldHaveNeed(ref Pawn_NeedsTracker __instance, ref bool __result, ref NeedDef nd)
+        //public static void Patch_Pawn_NeedsTracker_ShouldHaveNeed(Pawn_NeedsTracker __instance, ref bool __result, ref NeedDef nd)
+        //{
+        //    //Do not bother checking if our need do not exist.
+        //    Pawn pawn = Pawn_NeedsTracker_GetPawn(__instance);
+
+        //    if (NeedsDefOf.O21Energy != null)
+        //    {
+        //        //Is the need our Energy need?
+        //        if (nd == NeedsDefOf.O21Energy)
+        //        {
+        //            if (pawn.def.HasModExtension<EnergyHediffs>())
+        //            {
+        //                __result = true;
+        //            }
+        //            else
+        //            {
+        //                __result = false;
+        //            }
+        //        }
+        //    }
+        //    if (NeedsDefOf.O21Solar != null)
+        //    {
+        //        if (nd == NeedsDefOf.O21Solar)
+        //        {
+        //            if (pawn.def.HasModExtension<DefModExt_SolarNeed>())
+        //            {
+        //                __result = true;
+        //            }
+        //            else
+        //            {
+        //                __result = false;
+        //            }
+        //        }
+        //    }
+
+        //    if (!O21ToolboxSettings.Instance.EnergyNeedCompatMode)
+        //    {
+        //        if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors || (Need_Bladder != null && nd == Need_Bladder) || (Need_Hygiene != null && nd == Need_Hygiene))
+        //        {
+        //            if (pawn.def.HasModExtension<EnergyHediffs>())
+        //            {
+        //                __result = false;
+        //            }
+        //        }
+        //    }
+
+        //    if (!pawn.def.HasModExtension<EnergyHediffs>())
+        //    {
+        //        if (nd == NeedsDefOf.O21Energy)
+        //        {
+        //            __result = false;
+        //        }
+        //    }
+        //    if (!pawn.def.HasModExtension<DefModExt_SolarNeed>())
+        //    {
+        //        if (nd == NeedsDefOf.O21Solar)
+        //        {
+        //            __result = false;
+        //        }
+        //    }
+        //}
+
+        public static void Patch_Need_Food_Starving_Get(ref bool __result, Pawn ___pawn)
         {
-            //Do not bother checking if our need do not exist.
-            Pawn pawn = Pawn_NeedsTracker_GetPawn(__instance);
-
-            if (NeedsDefOf.O21Energy != null)
-            {
-                //Is the need our Energy need?
-                if (nd == NeedsDefOf.O21Energy)
-                {
-                    if (pawn.def.HasModExtension<EnergyHediffs>())
-                    {
-                        __result = true;
-                    }
-                    else
-                    {
-                        __result = false;
-                    }
-                }
-            }
-            if (NeedsDefOf.O21Solar != null)
-            {
-                if (nd == NeedsDefOf.O21Solar)
-                {
-                    if (pawn.def.HasModExtension<DefModExt_SolarNeed>())
-                    {
-                        __result = true;
-                    }
-                    else
-                    {
-                        __result = false;
-                    }
-                }
-            }
-
-            if (!O21ToolboxSettings.Instance.EnergyNeedCompatMode)
-            {
-                if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors || (Need_Bladder != null && nd == Need_Bladder) || (Need_Hygiene != null && nd == Need_Hygiene))
-                {
-                    if (pawn.def.HasModExtension<EnergyHediffs>())
-                    {
-                        __result = false;
-                    }
-                }
-            }
-
-            if (!pawn.def.HasModExtension<EnergyHediffs>())
-            {
-                if (nd == NeedsDefOf.O21Energy)
-                {
-                    __result = false;
-                }
-            }
-            if (!pawn.def.HasModExtension<DefModExt_SolarNeed>())
-            {
-                if (nd == NeedsDefOf.O21Solar)
-                {
-                    __result = false;
-                }
-            }
-        }
-
-        public static void Patch_Need_Food_Starving_Get(ref Need_Food __instance, ref bool __result)
-        {
-            Pawn pawn = Need_Food_Starving_GetPawn(__instance);
-
-            if (pawn != null && pawn.IsArtificialPawn())
+            if (___pawn != null && ___pawn.IsArtificialPawn())
                 __result = false;
         }
 

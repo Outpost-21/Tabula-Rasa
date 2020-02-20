@@ -7,12 +7,12 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using Harmony;
+using HarmonyLib;
 
 using O21Toolbox.Research;
 using O21Toolbox.Utility;
 
-namespace O21Toolbox.Harmony
+namespace O21Toolbox.HarmonyPatches
 {
     [HarmonyPatch(typeof(ResearchProjectDef), "PlayerHasAnyAppropriateResearchBench", MethodType.Getter)]
     public static class Patch_PlayerHasAnyAppropriateResearchBench_Postfix
