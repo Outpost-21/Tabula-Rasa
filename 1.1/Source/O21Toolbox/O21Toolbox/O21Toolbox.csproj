@@ -42,7 +42,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0 1.1\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -117,6 +117,7 @@
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
+    <Compile Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
     <Compile Include="Hivemind\Comp_HivemindCore.cs" />
@@ -166,6 +167,8 @@
     <Compile Include="BiomeOverride\GenStep_BiomeOverride.cs" />
     <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
     <Compile Include="Needs\Solar\Need_Solar.cs" />
+    <Compile Include="PawnExt\DefModExt_BigBox.cs" />
+    <Compile Include="PawnExt\HitBoxHolder.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
@@ -232,6 +235,8 @@
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\MentalBreakDefOf.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
+    <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
+    <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
     <Compile Include="WeaponRestrict\RestrictionCheck.cs" />
     <Compile Include="TurretsPlus\Building_Emplacement.cs" />
     <Compile Include="TurretsPlus\Building_Bunker.cs" />
