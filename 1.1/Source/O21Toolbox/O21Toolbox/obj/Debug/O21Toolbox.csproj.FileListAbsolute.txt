@@ -13,4 +13,3 @@ E:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\Assemblies\O21Toolb
 E:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.1\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.dll
 E:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.1\Assemblies\O21Toolbox.dll
 E:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.1\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csprojAssemblyReference.cache
-E:\SteamLibrary\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.1\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csproj.CopyComplete
