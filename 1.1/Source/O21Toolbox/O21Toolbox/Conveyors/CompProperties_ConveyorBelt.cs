@@ -14,7 +14,7 @@ namespace O21Toolbox.Conveyors
         /// <summary>
         /// Time between movement ticks. Higher number means slower belts.
         /// </summary>
-        public int movementDelay = 200;
+        public int movementDelay = 60;
 
         /// <summary>
         /// Whether or not belts which are backstuffed stack matching items together.

@@ -36,9 +36,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Assemblies\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.0.7\lib\net472\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
@@ -50,12 +49,9 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
-    <Reference Include="ShipsHaveInsides">
-      <HintPath>..\..\..\..\..\Save Our Ship 2\Assemblies\ShipsHaveInsides.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -85,6 +81,7 @@
     <Compile Include="ApparelExt\DefModExt_ApparelRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_HeadwearOffset.cs" />
+    <Compile Include="ApparelExt\DefModExt_HediffApparel.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
@@ -103,6 +100,25 @@
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
+    <Compile Include="BiomeExt\Types\BeachOverwriteType.cs" />
+    <Compile Include="BiomeExt\Types\BiomeFeatureType.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_GenStep_BetterCaves.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_GenStep_Ravine.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_GenStep_Spikes.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_GenStep_Islands.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_MixedBiome.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_Replacement.cs" />
+    <Compile Include="BiomeExt\GenFeatureTristate.cs" />
+    <Compile Include="BiomeExt\GenStep_BetterCaves.cs" />
+    <Compile Include="BiomeExt\GenStep_CaveRockChunks.cs" />
+    <Compile Include="BiomeExt\ModExtensions\DefModExt_Biome_FeatureControl.cs" />
+    <Compile Include="BiomeExt\Types\GenStepCalculationType.cs" />
+    <Compile Include="BiomeExt\Types\HiveOverwriteType.cs" />
+    <Compile Include="BiomeExt\Types\RockChunksOverwriteType.cs" />
+    <Compile Include="BiomeExt\Types\RoofOverwriteType.cs" />
+    <Compile Include="BiomeExt\Types\RoomCalculationType.cs" />
+    <Compile Include="BiomeExt\WildPlantWorker.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
     <Compile Include="HarmonyPatches\Patches\CompatPatches.cs" />
@@ -114,6 +130,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_NQH.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_RoyaltyTracker_AssignHeirIfNone.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
@@ -163,16 +180,20 @@
     <Compile Include="AutoHeal\Hediff_AutoHeal.cs" />
     <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
-    <Compile Include="BiomeOverride\BiomeOverrideDef.cs" />
-    <Compile Include="BiomeOverride\GenStep_BiomeOverride.cs" />
+    <Compile Include="BiomeExt\BiomeOverrideDef.cs" />
+    <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
     <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
     <Compile Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="PawnExt\DefModExt_BigBox.cs" />
     <Compile Include="PawnExt\HitBoxHolder.cs" />
+    <None Include="packages.config" />
+    <None Include="PawnLamp\ApparelPawnLamp.cs" />
+    <None Include="PawnLamp\Util_PawnLamp.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
+    <Compile Include="RoyaltyExt\DefModExt_NoInherit.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
@@ -180,28 +201,8 @@
     <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
     <Compile Include="TurretsPlus\CompProperties_Bunker.cs" />
     <Compile Include="TurretsPlus\Comp_Bunker.cs" />
-    <None Include="Laser\Building_LaserGun.cs" />
-    <None Include="Laser\Building_LaserGunDef.cs" />
-    <None Include="Laser\IBeamColorThing.cs" />
-    <None Include="Laser\IDrawnWeaponWithRotation.cs" />
-    <None Include="Laser\JobDefOf.cs" />
-    <None Include="Laser\JobDriver_ChangeLaserColor.cs" />
-    <None Include="Laser\LaserBeam.cs" />
-    <None Include="Laser\LaserBeamColoring.cs" />
-    <None Include="Laser\LaserBeamDef.cs" />
-    <None Include="Laser\LaserBeamGraphic.cs" />
-    <None Include="Laser\LaserGun.cs" />
-    <None Include="Laser\LaserGunDef.cs" />
-    <None Include="Laser\MeshMakerLaser.cs" />
-    <None Include="Laser\MoteLaserDectoration.cs" />
     <None Include="HarmonyPatches\Patches\PatchGunDrawing.cs" />
     <None Include="HarmonyPatches\Patches\PatchTuretTopDrawTurret.cs" />
-    <None Include="Laser\SpinningLaserGun.cs" />
-    <None Include="Laser\SpinningLaserGunBase.cs" />
-    <None Include="Laser\SpinningLaserGunDef.cs" />
-    <None Include="Laser\SpinningLaserGunTurret.cs" />
-    <None Include="Laser\ThingDefOf.cs" />
-    <None Include="Laser\ThingExtensions.cs" />
     <Compile Include="CustomHive\CustomHive.cs" />
     <Compile Include="CustomHive\HiveProperties.cs" />
     <Compile Include="CustomHive\JobGiver_CustomHiveDefense.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Laser\" />
     <Folder Include="ScenarioParts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

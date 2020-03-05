@@ -149,19 +149,28 @@ namespace O21Toolbox.PawnConverter
                 List<Thing> equipment = pawnToConvert.equipment.GetDirectlyHeldThings().ToList();
                 foreach(Thing eq in equipment)
                 {
-                    pawnToConvert.equipment.GetDirectlyHeldThings().TryTransferToContainer(eq, pawn.equipment.GetDirectlyHeldThings());
+                    if(eq != null)
+                    {
+                        pawnToConvert.equipment.GetDirectlyHeldThings().TryTransferToContainer(eq, pawn.equipment.GetDirectlyHeldThings());
+                    }
                 }
 
                 List<Thing> apparels = pawnToConvert.apparel.GetDirectlyHeldThings().ToList();
                 foreach (Thing ap in apparels)
                 {
-                    pawnToConvert.apparel.GetDirectlyHeldThings().TryTransferToContainer(ap, pawn.apparel.GetDirectlyHeldThings());
+                    if(ap != null)
+                    {
+                        pawnToConvert.apparel.GetDirectlyHeldThings().TryTransferToContainer(ap, pawn.apparel.GetDirectlyHeldThings());
+                    }
                 }
 
                 List<Thing> items = pawnToConvert.inventory.GetDirectlyHeldThings().ToList();
                 foreach (Thing item in items)
                 {
-                    pawnToConvert.inventory.GetDirectlyHeldThings().TryTransferToContainer(item, pawn.equipment.GetDirectlyHeldThings());
+                    if(item != null)
+                    {
+                        pawnToConvert.inventory.GetDirectlyHeldThings().TryTransferToContainer(item, pawn.equipment.GetDirectlyHeldThings());
+                    }
                 }
             }
 

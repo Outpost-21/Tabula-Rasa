@@ -101,6 +101,61 @@ namespace O21Toolbox.HarmonyPatches
             }
             traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
         }**/
+        [HarmonyPatch(typeof(Pawn_ApparelTracker))]
+        [HarmonyPatch("Notify_ApparelAdded")]
+        public class Harmony_Pawn_ApparelTracker_Notify_ApparelAdded
+        {
+            // Token: 0x06000044 RID: 68 RVA: 0x0000317C File Offset: 0x0000137C
+            public static void Postfix(Pawn_ApparelTracker __instance, Apparel apparel)
+            {
+                DefModExt_HediffApparel modExtension = apparel.def.GetModExtension<DefModExt_HediffApparel>();
+                bool flag = modExtension != null && modExtension.wearingHediff != null;
+                if (flag)
+                {
+                    Pawn pawn = __instance.pawn;
+                    bool flag2 = modExtension.wearingOn == null;
+                    if (flag2)
+                    {
+                        pawn.health.AddHediff(modExtension.wearingHediff, null, null, null);
+                    }
+                    else
+                    {
+                        foreach (BodyPartRecord part in pawn.def.race.body.GetPartsWithDef(modExtension.wearingOn))
+                        {
+                            pawn.health.AddHediff(modExtension.wearingHediff, part, null, null);
+                        }
+                    }
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Pawn_ApparelTracker))]
+        [HarmonyPatch("Notify_ApparelRemoved")]
+        public class Harmony_Pawn_ApparelTracker_Notify_ApparelRemoved
+        {
+            public static void Postfix(Pawn_ApparelTracker __instance, Apparel apparel)
+            {
+                DefModExt_HediffApparel modExtension = apparel.def.GetModExtension<DefModExt_HediffApparel>();
+                bool flag = modExtension != null && modExtension.wearingHediff != null;
+                if (flag)
+                {
+                    HashSet<Hediff> hashSet = new HashSet<Hediff>();
+                    Pawn_HealthTracker health = __instance.pawn.health;
+                    foreach (Hediff hediff in health.hediffSet.hediffs)
+                    {
+                        bool flag2 = hediff.def == modExtension.wearingHediff;
+                        if (flag2)
+                        {
+                            hashSet.Add(hediff);
+                        }
+                    }
+                    foreach (Hediff hediff2 in hashSet)
+                    {
+                        health.RemoveHediff(hediff2);
+                    }
+                }
+            }
+        }
 
         [HarmonyPatch(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain")]
         [HarmonyPostfix]
@@ -132,7 +187,7 @@ namespace O21Toolbox.HarmonyPatches
                     List<FloatMenuOption> list = (from fmo in opts
                                                   where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
                                                   select fmo).ToList<FloatMenuOption>();
-                    if (!list.NullOrEmpty<FloatMenuOption>() && !WeaponRestrict.RestrictionCheck.CanEquip(equipment.def, pawn))
+                    if (!list.NullOrEmpty<FloatMenuOption>() && !WeaponExt.RestrictionCheck.CanEquip(equipment.def, pawn))
                     {
                         foreach (FloatMenuOption item2 in list)
                         {

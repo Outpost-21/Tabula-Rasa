@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.WeaponRestrict
+namespace O21Toolbox.WeaponExt
 {
     public class RestrictionCheck
     {
