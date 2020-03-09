@@ -20,7 +20,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref Pawn_RoyaltyTracker __instance, RoyalTitleDef t, Faction faction)
         {
-            if (faction.def.HasModExtension<DefModExt_NoInherit>())
+            if (faction != null && faction.def.HasModExtension<DefModExt_NoInherit>())
             {
                 return false;
             }

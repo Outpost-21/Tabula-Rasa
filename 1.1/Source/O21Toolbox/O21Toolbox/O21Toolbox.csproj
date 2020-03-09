@@ -41,7 +41,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\Humanoid Alien Races 2.0\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\..\..\Users\Dean\Rimworld Mod Sources\AlienRaces-master\1.1\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -137,6 +137,7 @@
     <None Include="BiomeExt\TerrainDefOf.cs" />
     <None Include="BiomeExt\TerrainThresholdWEO.cs" />
     <None Include="BiomeExt\WLTileGraphicData.cs" />
+    <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
     <Compile Include="HarmonyPatches\Patches\CompatPatches.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_NQH.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_Projectile_CheckForFreeInterceptBetween.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_RoyaltyTracker_AssignHeirIfNone.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
@@ -198,7 +200,7 @@
     <Compile Include="AutoHeal\Hediff_AutoHeal.cs" />
     <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
-    <None Include="BiomeExt\BiomeOverrideDef.cs" />
+    <Compile Include="BiomeExt\BiomeOverrideDef.cs" />
     <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
     <Compile Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="PawnExt\DefModExt_BigBox.cs" />
@@ -211,6 +213,19 @@
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
     <Compile Include="RoyaltyExt\DefModExt_NoInherit.cs" />
+    <None Include="Shield\Old\Building_Shield.cs" />
+    <None Include="Shield\Old\DefModExt_ShieldProperties.cs" />
+    <None Include="Shield\Old\Gizmo_ShieldStressStatus.cs" />
+    <None Include="Shield\Old\MapComp_ShieldList.cs" />
+    <None Include="Shield\Old\NonPublicFields.cs" />
+    <None Include="Shield\Old\NonPublicMethods.cs" />
+    <None Include="Shield\Old\NonPublicProperties.cs" />
+    <None Include="Shield\Old\ShieldGenUtility.cs" />
+    <Compile Include="Shield\Building_ShieldVent.cs" />
+    <Compile Include="Shield\CompProperties_ShieldBuilding.cs" />
+    <Compile Include="Shield\Comp_ShieldBuilding.cs" />
+    <Compile Include="Shield\Gizmo_ShieldStatus.cs" />
+    <Compile Include="Shield\PlaceWorker_ShowShieldRadius.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />

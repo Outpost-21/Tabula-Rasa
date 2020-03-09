@@ -7,7 +7,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.BiomeOverride
+namespace O21Toolbox.BiomeExt
 {
     public class BiomeOverrideDef : Def
     {
