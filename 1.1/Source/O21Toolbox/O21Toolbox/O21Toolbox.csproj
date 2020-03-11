@@ -221,10 +221,14 @@
     <None Include="Shield\Old\NonPublicMethods.cs" />
     <None Include="Shield\Old\NonPublicProperties.cs" />
     <None Include="Shield\Old\ShieldGenUtility.cs" />
-    <Compile Include="Shield\Building_ShieldVent.cs" />
+    <Compile Include="Shield\CompProperties_HeatRelease.cs" />
     <Compile Include="Shield\CompProperties_ShieldBuilding.cs" />
+    <Compile Include="Shield\Comp_HeatRelease.cs" />
     <Compile Include="Shield\Comp_ShieldBuilding.cs" />
     <Compile Include="Shield\Gizmo_ShieldStatus.cs" />
+    <Compile Include="Shield\HeatNet.cs" />
+    <Compile Include="Shield\HeatNetManager.cs" />
+    <Compile Include="Shield\MapComp_ShieldList.cs" />
     <Compile Include="Shield\PlaceWorker_ShowShieldRadius.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
@@ -267,6 +271,7 @@
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\MentalBreakDefOf.cs" />
+    <Compile Include="Utility\Popup_IntSlider.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
     <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />

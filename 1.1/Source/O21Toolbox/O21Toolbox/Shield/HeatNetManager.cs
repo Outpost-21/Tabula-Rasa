@@ -10,7 +10,7 @@ using Verse;
 
 namespace O21Toolbox.Shield
 {
-    public class Building_ShieldVent
+    public class HeatNetManager
     {
     }
 }

@@ -30,7 +30,6 @@ namespace O21Toolbox.Shield
         public float powerUsageBase = 300f;
         public float powerUsageFactorPassive = 0.1f;
         public float powerUsageFactorActive = 2.0f;
-        public FloatRange powerUsageFactorScale = new FloatRange(1f, 10f);
 
         public float maximumHeatLevel = 0f;
         public float heatGenBase = 0f;
@@ -40,8 +39,15 @@ namespace O21Toolbox.Shield
         public float stressPerDamage = 0.003f;
         public float shieldOverloadThreshold = 0.9f;
         public float shieldOverloadChance = 0.3f;
+        public int extraOverloadRange = 3;
+        public DamageDef overloadDamageType = DamageDefOf.Flame;
 
-        public IntRange shieldScaleRange = new IntRange(3, 7);
+        public bool explodeOnCollapse = false;
+
+        public bool shieldCanBeOffset = false;
+        public bool shieldCanBeScaled = false;
+        public IntRange shieldScaleLimits = new IntRange(0, 10);
+        public int shieldScaleDefault = 5;
 
         public Color shieldColour = Color.white;
 

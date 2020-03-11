@@ -17,7 +17,8 @@ namespace O21Toolbox.Shield
 			CompProperties_ShieldBuilding compProperties = def.GetCompProperties<CompProperties_ShieldBuilding>();
 			if (compProperties != null)
 			{
-				GenDraw.DrawCircleOutline(center.ToVector3Shifted(), compProperties.radius);
+				GenDraw.DrawCircleOutline(center.ToVector3Shifted(), compProperties.shieldScaleLimits.max);
+				GenDraw.DrawCircleOutline(center.ToVector3Shifted(), compProperties.shieldScaleLimits.min);
 			}
 		}
 	}

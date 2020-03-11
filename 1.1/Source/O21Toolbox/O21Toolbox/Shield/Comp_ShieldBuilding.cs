@@ -9,6 +9,8 @@ using RimWorld;
 using Verse;
 using Verse.Sound;
 
+using O21Toolbox.Utility;
+
 namespace O21Toolbox.Shield
 {
     [StaticConstructorOnStartup]
@@ -34,6 +36,11 @@ namespace O21Toolbox.Shield
 		public bool overloaded;
 		public bool activeLastTick;
 
+		public int shieldOffsetX = 0;
+		public int shieldOffsetY = 0;
+
+		public int curShieldRadius = -1;
+
 		private bool checkedPowerComp = false;
 		private CompPowerTrader cachedPowerComp;
 
@@ -50,6 +57,9 @@ namespace O21Toolbox.Shield
 			Scribe_Values.Look<int>(ref ticksToReset, "ticksToReset", -1);
 			Scribe_Values.Look<bool>(ref overloaded, "overloaded", false);
 			Scribe_Values.Look<bool>(ref activeLastTick, "activeLastTick", false);
+			Scribe_Values.Look<int>(ref shieldOffsetX, "shieldOffsetX", 0);
+			Scribe_Values.Look<int>(ref shieldOffsetY, "shieldOffsetX", 0);
+			Scribe_Values.Look<int>(ref curShieldRadius, "curShieldRadius", Props.shieldScaleDefault);
 		}
 
 		public bool Active => !overloaded && (powerTrader == null || powerTrader.PowerOn);
@@ -57,6 +67,73 @@ namespace O21Toolbox.Shield
 		public bool OnCooldown => Find.TickManager.TicksGame < this.lastInterceptTicks + this.Props.cooldownTicks;
 
 		public bool Disarmed => Find.TickManager.TicksGame < this.lastHitByEmpTicks + this.Props.disarmedByEmpForTicks;
+
+		public Vector3 CurShieldPosition => new IntVec3(parent.Position.x + shieldOffsetX, parent.Position.y, parent.Position.z + shieldOffsetY).ToVector3Shifted(); 
+		
+		public int SetShieldRadius
+		{
+			get => CurShieldRadius;
+			set
+			{
+				if (value < Props.shieldScaleLimits.min)
+				{
+					curShieldRadius = Props.shieldScaleLimits.min;
+					return;
+				}
+				if (value > Props.shieldScaleLimits.max)
+				{
+					curShieldRadius = Props.shieldScaleLimits.max;
+					return;
+				}
+				curShieldRadius = (int)value;
+			}
+		}
+
+		public int CurShieldRadius
+		{
+			get
+			{
+				return curShieldRadius;
+			}
+		}
+
+		public int SetShieldOffsetX
+		{
+			get => shieldOffsetX;
+			set
+			{
+				if (value < -CurShieldRadius)
+				{
+					shieldOffsetX = -CurShieldRadius;
+					return;
+				}
+				if (value > CurShieldRadius)
+				{
+					shieldOffsetX = CurShieldRadius;
+					return;
+				}
+				shieldOffsetX = (int)value;
+			}
+		}
+
+		public int SetShieldOffsetY
+		{
+			get => shieldOffsetY;
+			set
+			{
+				if (value < -CurShieldRadius)
+				{
+					shieldOffsetY = -CurShieldRadius;
+					return;
+				}
+				if (value > CurShieldRadius)
+				{
+					shieldOffsetY = CurShieldRadius;
+					return;
+				}
+				shieldOffsetY = (int)value;
+			}
+		}
 
 		public int CooldownTicksLeft
 		{
@@ -81,12 +158,16 @@ namespace O21Toolbox.Shield
 				return this.Props.disarmedByEmpForTicks - (Find.TickManager.TicksGame - this.lastHitByEmpTicks);
 			}
 		}
+
+		public bool HasPowerTrader => this.powerTrader != null;
+
 		public bool ReactivatedThisTick => Find.TickManager.TicksGame - this.lastInterceptTicks == this.Props.cooldownTicks;
 
 		public bool CheckIntercept(Projectile projectile, Vector3 lastExactPos, Vector3 newExactPos)
 		{
-			Vector3 vector = this.parent.Position.ToVector3Shifted();
-			float num = this.Props.radius + projectile.def.projectile.SpeedTilesPerTick + 0.1f;
+			//Vector3 vector = this.parent.Position.ToVector3Shifted();
+			Vector3 vector = CurShieldPosition;
+			float num = CurShieldRadius + projectile.def.projectile.SpeedTilesPerTick + 0.1f;
 			if ((newExactPos.x - vector.x) * (newExactPos.x - vector.x) + (newExactPos.z - vector.z) * (newExactPos.z - vector.z) > num * num)
 			{
 				return false;
@@ -95,14 +176,18 @@ namespace O21Toolbox.Shield
 			{
 				return false;
 			}
-			bool flag;
+			bool flag = false;
 			if (this.Props.interceptGroundProjectiles)
 			{
 				flag = !projectile.def.projectile.flyOverhead;
 			}
-			else
+			if(this.Props.interceptAirProjectiles)
 			{
-				flag = (this.Props.interceptAirProjectiles && projectile.def.projectile.flyOverhead);
+				flag = projectile.def.projectile.flyOverhead;
+			}
+			if(Props.interceptAirProjectiles && Props.interceptGroundProjectiles)
+			{
+				flag = true;
 			}
 			if (!flag)
 			{
@@ -112,11 +197,11 @@ namespace O21Toolbox.Shield
 			{
 				return false;
 			}
-			if ((new Vector2(vector.x, vector.z) - new Vector2(lastExactPos.x, lastExactPos.z)).sqrMagnitude <= this.Props.radius * this.Props.radius)
+			if ((new Vector2(vector.x, vector.z) - new Vector2(lastExactPos.x, lastExactPos.z)).sqrMagnitude <= CurShieldRadius * CurShieldRadius)
 			{
 				return false;
 			}
-			if (!GenGeo.IntersectLineCircleOutline(new Vector2(vector.x, vector.z), this.Props.radius, new Vector2(lastExactPos.x, lastExactPos.z), new Vector2(newExactPos.x, newExactPos.z)))
+			if (!GenGeo.IntersectLineCircleOutline(new Vector2(vector.x, vector.z), CurShieldRadius, new Vector2(lastExactPos.x, lastExactPos.z), new Vector2(newExactPos.x, newExactPos.z)))
 			{
 				return false;
 			}
@@ -133,7 +218,7 @@ namespace O21Toolbox.Shield
 			return true;
 		}
 
-		private CompPowerTrader powerTrader
+		public CompPowerTrader powerTrader
 		{
 			get
 			{
@@ -146,31 +231,47 @@ namespace O21Toolbox.Shield
 			}
 		}
 
-		public void UpdateStress()
+		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
-			float tempChange = 0f;
+			base.PostSpawnSetup(respawningAfterLoad);
 
-			if (CurStressLevel <= 0)
+			if (CurShieldRadius < Props.shieldScaleLimits.min)
 			{
-				tempChange += Props.heatGenFactorPassive * Props.heatGenBase;
+				SetShieldRadius = Props.shieldScaleDefault;
 			}
-			else
+
+			parent.Map.GetComponent<MapComp_ShieldList>().shieldGenList.Add(parent);
+		}
+
+		public void UpdateStress(bool tickUpdate = false)
+		{
+			if (tickUpdate)
 			{
-				tempChange += Props.heatGenFactorActive * Props.heatGenBase;
-			}
-			if (parent.AmbientTemperature > Props.maximumHeatLevel)
-			{
-				tempChange += parent.AmbientTemperature - Props.maximumHeatLevel;
-			}
-			if (!connectedVents.NullOrEmpty())
-			{
-				foreach(Building vent in connectedVents)
+				float tempChange = 0f;
+
+				if (CurStressLevel <= 0)
 				{
-					tempChange += vent.AmbientTemperature;
+					tempChange += Props.heatGenFactorPassive * Props.heatGenBase;
 				}
+				else
+				{
+					tempChange += Props.heatGenFactorActive * Props.heatGenBase;
+				}
+				if (parent.AmbientTemperature > Props.maximumHeatLevel)
+				{
+					tempChange += parent.AmbientTemperature - Props.maximumHeatLevel;
+				}
+				if (!connectedVents.NullOrEmpty())
+				{
+					foreach (Building vent in connectedVents)
+					{
+						tempChange += vent.AmbientTemperature;
+					}
+				}
+
+				CurStressLevel = Mathf.Clamp(CurStressLevel + (tempChange * 0.01f / 60), 0f, MaxStressLevel);
 			}
 
-			CurStressLevel = Mathf.Clamp(CurStressLevel + (tempChange * 0.01f / 60) , 0f, MaxStressLevel);
 			if(CurStressLevel >= MaxStressLevel)
 			{
 				OverloadShield();
@@ -179,7 +280,7 @@ namespace O21Toolbox.Shield
 
 		public void UpdateStress(Projectile projectile)
 		{
-			CurStressLevel += projectile.DamageAmount * Props.stressPerDamage;
+			CurStressLevel = Mathf.Clamp(CurStressLevel + ((projectile.DamageAmount * Props.stressPerDamage) / 100f), 0f, MaxStressLevel);
 			UpdateStress();
 		}
 
@@ -195,39 +296,51 @@ namespace O21Toolbox.Shield
 			ticksToReset = Props.resetTime;
 			overloaded = true;
 			CurStressLevel = 0f;
+
+			if (Props.explodeOnCollapse && parent.TryGetComp<CompExplosive>() != null)
+			{
+				parent.TryGetComp<CompExplosive>().StartWick();
+			}
 		}
 
 		public void UpdatePowerUsage()
 		{
 			if(CurStressLevel <= 0)
 			{
-				powerTrader.Props.basePowerConsumption = Props.powerUsageBase * (Props.powerUsageFactorPassive * Props.powerUsageFactorScale.max);
+				powerTrader.PowerOutput = Props.powerUsageBase * (Props.powerUsageFactorPassive * Props.powerUsageFactorPassive);
 			}
 			else
 			{
-				powerTrader.Props.basePowerConsumption = Props.powerUsageBase * ((CurStressLevel * Props.powerUsageFactorActive) * Props.powerUsageFactorScale.max);
+				powerTrader.PowerOutput = Props.powerUsageBase * (CurStressLevel * Props.powerUsageFactorActive);
 			}
 		}
 
 		public override void CompTick()
 		{
-			if (this.ReactivatedThisTick && this.Props.reactivateEffect != null)
+			if(powerTrader == null || powerTrader.PowerOn)
 			{
-				Effecter effecter = new Effecter(this.Props.reactivateEffect);
-				effecter.Trigger(this.parent, TargetInfo.Invalid);
-				effecter.Cleanup();
-			}
-			if (overloaded)
-			{
-				ticksToReset--;
-				if(ticksToReset <= 0)
+				if (this.ReactivatedThisTick && this.Props.reactivateEffect != null)
 				{
-					overloaded = false;
+					Effecter effecter = new Effecter(this.Props.reactivateEffect);
+					effecter.Trigger(this.parent, TargetInfo.Invalid);
+					effecter.Cleanup();
 				}
-			}
-			else
-			{
-				UpdateStress();
+				if (overloaded)
+				{
+					ticksToReset--;
+					if (ticksToReset <= 0)
+					{
+						overloaded = false;
+					}
+				}
+				else
+				{
+					UpdateStress(true);
+					if (CurStressLevel >= Props.shieldOverloadThreshold && Rand.Chance(Props.shieldOverloadChance * (1f - ((1f - CurStressLevel) * 10f))))
+					{
+						GenExplosion.DoExplosion(parent.OccupiedRect().ExpandedBy(Props.extraOverloadRange).RandomCell, parent.Map, 1.9f, DamageDefOf.Flame, null, -1, -1f, null, null, null, null, null, 0f, 1, false, null, 0f, 1, 0f, false, null, null);
+					}
+				}
 			}
 			
 			if(powerTrader != null)
@@ -239,7 +352,8 @@ namespace O21Toolbox.Shield
 		public override void PostDraw()
 		{
 			base.PostDraw();
-			Vector3 pos = this.parent.Position.ToVector3Shifted();
+			//Vector3 pos = this.parent.Position.ToVector3Shifted();
+			Vector3 pos = CurShieldPosition;
 			pos.y = AltitudeLayer.MoteOverhead.AltitudeFor();
 			float currentAlpha = this.GetCurrentAlpha();
 			if (currentAlpha > 0f)
@@ -256,7 +370,7 @@ namespace O21Toolbox.Shield
 				value.a *= currentAlpha;
 				MatPropertyBlock.SetColor(ShaderPropertyIDs.Color, value);
 				Matrix4x4 matrix = default(Matrix4x4);
-				matrix.SetTRS(pos, Quaternion.identity, new Vector3(this.Props.radius * 2f * 1.1601562f, 1f, this.Props.radius * 2f * 1.1601562f));
+				matrix.SetTRS(pos, Quaternion.identity, new Vector3((float)CurShieldRadius * 2f * 1.1601562f, 1f, (float)CurShieldRadius * 2f * 1.1601562f));
 				Graphics.DrawMesh(MeshPool.plane10, matrix, ForceFieldMat, 0, null, 0, MatPropertyBlock);
 			}
 			float currentConeAlpha_RecentlyIntercepted = this.GetCurrentConeAlpha_RecentlyIntercepted();
@@ -266,7 +380,7 @@ namespace O21Toolbox.Shield
 				color.a *= currentConeAlpha_RecentlyIntercepted;
 				MatPropertyBlock.SetColor(ShaderPropertyIDs.Color, color);
 				Matrix4x4 matrix2 = default(Matrix4x4);
-				matrix2.SetTRS(pos, Quaternion.Euler(0f, this.lastInterceptAngle - 90f, 0f), new Vector3(this.Props.radius * 2f * 1.1601562f, 1f, this.Props.radius * 2f * 1.1601562f));
+				matrix2.SetTRS(pos, Quaternion.Euler(0f, this.lastInterceptAngle - 90f, 0f), new Vector3((float)CurShieldRadius * 2f * 1.1601562f, 1f, (float)CurShieldRadius * 2f * 1.1601562f));
 				Graphics.DrawMesh(MeshPool.plane10, matrix2, ForceFieldConeMat, 0, null, 0, MatPropertyBlock);
 			}
 		}
@@ -290,12 +404,16 @@ namespace O21Toolbox.Shield
 			{
 				return 0f;
 			}
+			if (showShieldToggle)
+			{
+				return Mathf.Lerp(0.2f, 0.62f, (Mathf.Sin((float)(Gen.HashCombineInt(this.parent.thingIDNumber, 35990913) % 100) + Time.realtimeSinceStartup * 2f) + 1f) / 2f);
+			}
 			return Mathf.Lerp(-1.7f, 0.11f, (Mathf.Sin((float)(Gen.HashCombineInt(this.parent.thingIDNumber, 96804938) % 100) + Time.realtimeSinceStartup * 0.7f) + 1f) / 2f);
 		}
 
 		private float GetCurrentAlpha_Selected()
 		{
-			if (!Find.Selector.IsSelected(this.parent) || !showShieldToggle)
+			if (!Find.Selector.IsSelected(this.parent))
 			{
 				return 0f;
 			}
@@ -329,19 +447,46 @@ namespace O21Toolbox.Shield
 
 		public override IEnumerable<Gizmo> CompGetGizmosExtra()
 		{
-			yield return new Gizmo_ShieldStatus
+			if(parent.Faction == Faction.OfPlayer)
 			{
-				shield = this
-			};
-			yield return new Command_Toggle
-			{
-				defaultLabel = "Toggle Visibility",
-				isActive = (() => this.showShieldToggle),
-				toggleAction = delegate ()
+				yield return new Gizmo_ShieldStatus
 				{
-					this.showShieldToggle = !this.showShieldToggle;
+					shield = this
+				};
+				if (Props.shieldCanBeScaled)
+				{
+					yield return new Command_Action
+					{
+						defaultLabel = "Set Radius",
+						defaultDesc = "Set the shields current radius.",
+						action = () => Find.WindowStack.Add(new Popup_IntSlider("Radius", Props.shieldScaleLimits.min, Props.shieldScaleLimits.max, () => (int)SetShieldRadius, size => SetShieldRadius = size))
+					};
 				}
-			};
+				if (Props.shieldCanBeOffset)
+				{
+					yield return new Command_Action
+					{
+						defaultLabel = "Set Offset X",
+						defaultDesc = "Set the shields east/west offset.",
+						action = () => Find.WindowStack.Add(new Popup_IntSlider("X Offset", -CurShieldRadius + 1, CurShieldRadius - 1, () => (int)SetShieldOffsetX, size => SetShieldOffsetX = size))
+					};
+					yield return new Command_Action
+					{
+						defaultLabel = "Set Offset Y",
+						defaultDesc = "Set the shields north/south offset.",
+						action = () => Find.WindowStack.Add(new Popup_IntSlider("Y Offset", -CurShieldRadius + 1, CurShieldRadius - 1, () => (int)SetShieldOffsetY, size => SetShieldOffsetY = size))
+					};
+				}
+				yield return new Command_Toggle
+				{
+					defaultLabel = "Toggle Visibility",
+					isActive = (() => this.showShieldToggle),
+					toggleAction = delegate ()
+					{
+						this.showShieldToggle = !this.showShieldToggle;
+					}
+				};
+			}
 			if (Prefs.DevMode)
 			{
 				if (this.OnCooldown)
@@ -379,7 +524,7 @@ namespace O21Toolbox.Shield
 					value = "InterceptsProjectiles_GroundProjectiles".Translate();
 					if (this.Props.interceptAirProjectiles)
 					{
-						value += "\n\n" + "InterceptsProjectiles_AerialProjectiles".Translate();
+						value += ("\n" + "InterceptsProjectiles_AerialProjectiles".Translate());
 					}
 				}
 				else
@@ -401,7 +546,7 @@ namespace O21Toolbox.Shield
 				{
 					stringBuilder.AppendLine();
 				}
-				stringBuilder.Append("CooldownTime".Translate() + ": " + this.CooldownTicksLeft.ToStringTicksToPeriod(true, false, true, true));
+				stringBuilder.Append("CooldownTime".Translate() + ": " + this.ticksToReset.ToStringTicksToPeriod(true, false, true, true));
 			}
 			if (this.Disarmed)
 			{
@@ -421,6 +566,12 @@ namespace O21Toolbox.Shield
 			{
 				this.lastHitByEmpTicks = Find.TickManager.TicksGame;
 			}
+		}
+
+		public override void PostDestroy(DestroyMode mode, Map previousMap)
+		{
+			parent.Map.GetComponent<MapComp_ShieldList>().shieldGenList.Remove(parent);
+			base.PostDestroy(mode, previousMap);
 		}
 	}
 }
