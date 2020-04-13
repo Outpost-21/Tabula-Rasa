@@ -39,20 +39,20 @@ namespace O21Toolbox.HarmonyPatches.Patches
                     }
                 }
             }
-            if (NeedsDefOf.O21Solar != null)
-            {
-                if (nd == NeedsDefOf.O21Solar)
-                {
-                    if (___pawn.def.HasModExtension<DefModExt_SolarNeed>())
-                    {
-                        __result = true;
-                    }
-                    else
-                    {
-                        __result = false;
-                    }
-                }
-            }
+            //if (NeedsDefOf.O21Solar != null)
+            //{
+            //    if (nd == NeedsDefOf.O21Solar)
+            //    {
+            //        if (___pawn.def.HasModExtension<DefModExt_SolarNeed>())
+            //        {
+            //            __result = true;
+            //        }
+            //        else
+            //        {
+            //            __result = false;
+            //        }
+            //    }
+            //}
 
             if (!O21ToolboxSettings.Instance.EnergyNeedCompatMode)
             {
@@ -72,13 +72,13 @@ namespace O21Toolbox.HarmonyPatches.Patches
                     __result = false;
                 }
             }
-            if (!___pawn.def.HasModExtension<DefModExt_SolarNeed>())
-            {
-                if (nd == NeedsDefOf.O21Solar)
-                {
-                    __result = false;
-                }
-            }
+            //if (!___pawn.def.HasModExtension<DefModExt_SolarNeed>())
+            //{
+            //    if (nd == NeedsDefOf.O21Solar)
+            //    {
+            //        __result = false;
+            //    }
+            //}
         }
 	}
 }

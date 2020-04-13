@@ -27,7 +27,7 @@ namespace O21Toolbox
 
         public O21ToolboxMod(ModContentPack content) : base(content)
         {
-            Log.Message(":: Outpost 21 Toolbox Version 0.1.0 Loaded ::");
+            Log.Message(":: Outpost 21 Toolbox Version 1.0.1 Loaded ::");
 
             settings = GetSettings<O21ToolboxSettings>();
 

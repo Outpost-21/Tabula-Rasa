@@ -1,5 +1,4 @@
-﻿using AlienRace;
-using RimWorld;
+﻿using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace O21Toolbox.PawnCrafter
         /// <summary>
         /// Backstory to use.
         /// </summary>
-        public BackstoryDef backstory;
+        public BackstoryCategoryFilter backstoryFilter;
 
         /// <summary>
         /// Body to use.

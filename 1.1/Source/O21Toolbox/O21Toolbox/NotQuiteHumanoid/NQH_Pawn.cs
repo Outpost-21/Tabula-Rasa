@@ -13,6 +13,8 @@ namespace O21Toolbox.NotQuiteHumanoid
 {
     public class NQH_Pawn : Pawn
     {
+        public List<WorkTypePriorityPair> capableWorktypes = new List<WorkTypePriorityPair>();
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -67,11 +69,28 @@ namespace O21Toolbox.NotQuiteHumanoid
             {
                 workSettings = new Pawn_WorkSettings(this);
                 workSettings.EnableAndInitializeIfNotAlreadyInitialized();
-                foreach (var workTypeDef in DefDatabase<WorkTypeDef>.AllDefs)
+                if(!capableWorktypes.NullOrEmpty())
                 {
-                    workSettings.SetPriority(workTypeDef, 1);
+                    foreach(WorkTypePriorityPair pair in capableWorktypes)
+                    {
+                        workSettings.SetPriority(pair.workType, pair.priority);
+                    }
+                }
+                else
+                {
+                    foreach (WorkTypeDef def in DefDatabase<WorkTypeDef>.AllDefs)
+                    {
+                        workSettings.SetPriority(def, 1);
+                    }
                 }
             }
         }
+    }
+
+    public class WorkTypePriorityPair
+    {
+        public WorkTypeDef workType;
+
+        public int priority = 1;
     }
 }

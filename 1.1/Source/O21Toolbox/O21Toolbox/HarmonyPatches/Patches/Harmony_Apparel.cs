@@ -16,6 +16,7 @@ namespace O21Toolbox.HarmonyPatches
     public class Harmony_Apparel
     {
         public static FieldInfo int_PawnRenderer_GetPawn;
+        private static HashSet<ThingStuffPair> apparelList;
 
         //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[] { typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool) }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null);
         //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
@@ -82,30 +83,38 @@ namespace O21Toolbox.HarmonyPatches
         /**public static void GenerateStartingApparelForPostfix()
         {
             Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
-        }
-        
-        public static void GenerateStartingApparelForPrefix(Pawn pawn)
-        {
-            Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
-            HarmonyPatches.apparelList = new HashSet<ThingStuffPair>();
-            foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
-            {
-                if (!RaceRestrictionSettings.CanWear(thingStuffPair.thing, pawn.def))
-                {
-                    HarmonyPatches.apparelList.Add(thingStuffPair);
-                }
-                if (!ApparelRestrict.RestrictionCheck.CanWear(thingStuffPair.thing, pawn.story.bodyType))
-                {
-
-                }
-            }
-            traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => HarmonyPatches.apparelList.Contains(tsp));
         }**/
+
+        [HarmonyPatch(typeof(PawnApparelGenerator), "GenerateStartingApparelFor")]
+        public static class GenerateStartingApparelFor
+        {
+            [HarmonyPrefix]
+            public static void Prefix(Pawn pawn)
+            {
+                Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
+                apparelList = new HashSet<ThingStuffPair>();
+                foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
+                {
+                    if (!RestrictionCheck.CanWear(thingStuffPair.thing, pawn))
+                    {
+                        apparelList.Add(thingStuffPair);
+                    }
+                }
+                traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => apparelList.Contains(tsp));
+            }
+
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(apparelList);
+            }
+        }
+
         [HarmonyPatch(typeof(Pawn_ApparelTracker))]
         [HarmonyPatch("Notify_ApparelAdded")]
         public class Harmony_Pawn_ApparelTracker_Notify_ApparelAdded
         {
-            // Token: 0x06000044 RID: 68 RVA: 0x0000317C File Offset: 0x0000137C
+            [HarmonyPostfix]
             public static void Postfix(Pawn_ApparelTracker __instance, Apparel apparel)
             {
                 DefModExt_HediffApparel modExtension = apparel.def.GetModExtension<DefModExt_HediffApparel>();
@@ -133,6 +142,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPatch("Notify_ApparelRemoved")]
         public class Harmony_Pawn_ApparelTracker_Notify_ApparelRemoved
         {
+            [HarmonyPostfix]
             public static void Postfix(Pawn_ApparelTracker __instance, Apparel apparel)
             {
                 DefModExt_HediffApparel modExtension = apparel.def.GetModExtension<DefModExt_HediffApparel>();
@@ -158,59 +168,62 @@ namespace O21Toolbox.HarmonyPatches
         }
 
         [HarmonyPatch(typeof(JobGiver_OptimizeApparel), "ApparelScoreGain")]
-        [HarmonyPostfix]
-        public static void ApparelScoreGainPostFix(Pawn pawn, Apparel ap, ref float __result)
+        public static class ApparelScoreGainPostFix
         {
-            if (__result < 0f)
+            [HarmonyPostfix]
+            public static void Postfix(Pawn pawn, Apparel ap, ref float __result)
             {
-                return;
-            }
-            if (!pawn.AnimalOrWildMan())
-            {
+                if (__result < 0f)
+                {
+                    return;
+                }
                 if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn))
                 {
-                    __result -= 50f;
+                    __result = -50f;
                 }
             }
         }
 
         [HarmonyPatch(typeof(FloatMenuMakerMap), "AddHumanlikeOrders")]
-        [HarmonyPostfix]
-        public static void AddHumanlikeOrdersPostfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
+        public static class AddHumanlikeOrdersPostfix
         {
-            IntVec3 c = IntVec3.FromVector3(clickPos);
-            if (pawn.equipment != null)
+            [HarmonyPostfix]
+            public static void Postfix(ref List<FloatMenuOption> opts, Pawn pawn, Vector3 clickPos)
             {
-                ThingWithComps equipment = (ThingWithComps)c.GetThingList(pawn.Map).FirstOrDefault((Thing t) => t.TryGetComp<CompEquippable>() != null && t.def.IsWeapon);
-                if (equipment != null)
+                IntVec3 c = IntVec3.FromVector3(clickPos);
+                if (pawn.equipment != null)
                 {
-                    List<FloatMenuOption> list = (from fmo in opts
-                                                  where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
-                                                  select fmo).ToList<FloatMenuOption>();
-                    if (!list.NullOrEmpty<FloatMenuOption>() && !WeaponExt.RestrictionCheck.CanEquip(equipment.def, pawn))
+                    ThingWithComps equipment = (ThingWithComps)c.GetThingList(pawn.Map).FirstOrDefault((Thing t) => t.TryGetComp<CompEquippable>() != null && t.def.IsWeapon);
+                    if (equipment != null)
                     {
-                        foreach (FloatMenuOption item2 in list)
+                        List<FloatMenuOption> list = (from fmo in opts
+                                                      where !fmo.Disabled && fmo.Label.Contains("Equip".Translate(equipment.LabelShort))
+                                                      select fmo).ToList<FloatMenuOption>();
+                        if (!list.NullOrEmpty<FloatMenuOption>() && !WeaponExt.RestrictionCheck.CanEquip(equipment.def, pawn))
                         {
-                            int index2 = opts.IndexOf(item2);
-                            opts.Remove(item2);
-                            opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShortCap) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                            foreach (FloatMenuOption item2 in list)
+                            {
+                                int index2 = opts.IndexOf(item2);
+                                opts.Remove(item2);
+                                opts.Insert(index2, new FloatMenuOption("CannotEquip".Translate(equipment.LabelShortCap) + " (missing required apparel)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                            }
                         }
                     }
                 }
-            }
-            Apparel apparel = pawn.Map.thingGrid.ThingAt<Apparel>(c);
-            if (apparel != null)
-            {
-                List<FloatMenuOption> list2 = (from fmo in opts
-                                               where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
-                                               select fmo).ToList<FloatMenuOption>();
-                if (!list2.NullOrEmpty<FloatMenuOption>() && !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
+                Apparel apparel = pawn.Map.thingGrid.ThingAt<Apparel>(c);
+                if (apparel != null)
                 {
-                    foreach (FloatMenuOption item3 in list2)
+                    List<FloatMenuOption> list2 = (from fmo in opts
+                                                   where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
+                                                   select fmo).ToList<FloatMenuOption>();
+                    if (!list2.NullOrEmpty<FloatMenuOption>() && !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
                     {
-                        int index3 = opts.IndexOf(item3);
-                        opts.Remove(item3);
-                        opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.defName.ToString() + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                        foreach (FloatMenuOption item3 in list2)
+                        {
+                            int index3 = opts.IndexOf(item3);
+                            opts.Remove(item3);
+                            opts.Insert(index3, new FloatMenuOption("CannotWear".Translate(apparel.LabelShort, apparel) + " (" + pawn.story.bodyType.defName.ToString() + " body can't wear this)", null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                        }
                     }
                 }
             }

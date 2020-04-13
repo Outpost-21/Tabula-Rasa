@@ -40,10 +40,6 @@
       <HintPath>..\packages\Lib.Harmony.2.0.0.7\lib\net472\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\..\..\..\..\..\..\Users\Dean\Rimworld Mod Sources\AlienRaces-master\1.1\Assemblies\AlienRace.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -139,7 +135,9 @@
     <None Include="BiomeExt\WLTileGraphicData.cs" />
     <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
+    <Compile Include="BuildingExt\CompProperties_PawnDeterrant.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
+    <Compile Include="BuildingExt\Comp_PawnDeterrant.cs" />
     <Compile Include="HarmonyPatches\Patches\CompatPatches.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
@@ -149,7 +147,6 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_NQH.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_Projectile_CheckForFreeInterceptBetween.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_RoyaltyTracker_AssignHeirIfNone.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
@@ -180,10 +177,10 @@
     <Compile Include="PawnAbilities\Building_Pawn.cs" />
     <Compile Include="PawnAbilities\CompProperties_PawnStructure.cs" />
     <Compile Include="PawnAbilities\Comp_PawnStructure.cs" />
-    <Compile Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
-    <Compile Include="PawnConverter\Hediff_Converter.cs" />
-    <Compile Include="PawnConverter\Util_FactionConvert.cs" />
-    <Compile Include="PawnConverter\Util_PawnConvert.cs" />
+    <None Include="PawnConverter\DefModExt_Hediff_Converter.cs" />
+    <None Include="PawnConverter\Hediff_Converter.cs" />
+    <None Include="PawnConverter\Util_FactionConvert.cs" />
+    <None Include="PawnConverter\Util_PawnConvert.cs" />
     <None Include="CustomPlaceWorker\DefModExtension_PlaceNearThing.cs" />
     <Compile Include="AutomatedProducer\Building_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\CompProperties_AutomatedProducer.cs" />
@@ -201,8 +198,8 @@
     <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
     <Compile Include="BiomeExt\BiomeOverrideDef.cs" />
-    <Compile Include="Needs\Solar\DefModExt_SolarNeed.cs" />
-    <Compile Include="Needs\Solar\Need_Solar.cs" />
+    <None Include="Needs\Solar\DefModExt_SolarNeed.cs" />
+    <None Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="PawnExt\DefModExt_BigBox.cs" />
     <Compile Include="PawnExt\HitBoxHolder.cs" />
     <None Include="packages.config" />
@@ -213,23 +210,7 @@
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
     <Compile Include="RoyaltyExt\DefModExt_NoInherit.cs" />
-    <None Include="Shield\Old\Building_Shield.cs" />
-    <None Include="Shield\Old\DefModExt_ShieldProperties.cs" />
-    <None Include="Shield\Old\Gizmo_ShieldStressStatus.cs" />
-    <None Include="Shield\Old\MapComp_ShieldList.cs" />
-    <None Include="Shield\Old\NonPublicFields.cs" />
-    <None Include="Shield\Old\NonPublicMethods.cs" />
-    <None Include="Shield\Old\NonPublicProperties.cs" />
-    <None Include="Shield\Old\ShieldGenUtility.cs" />
-    <Compile Include="Shield\CompProperties_HeatRelease.cs" />
-    <Compile Include="Shield\CompProperties_ShieldBuilding.cs" />
-    <Compile Include="Shield\Comp_HeatRelease.cs" />
-    <Compile Include="Shield\Comp_ShieldBuilding.cs" />
-    <Compile Include="Shield\Gizmo_ShieldStatus.cs" />
-    <Compile Include="Shield\HeatNet.cs" />
-    <Compile Include="Shield\HeatNetManager.cs" />
-    <Compile Include="Shield\MapComp_ShieldList.cs" />
-    <Compile Include="Shield\PlaceWorker_ShowShieldRadius.cs" />
+    <Compile Include="RoyaltyExt\RoyalTitleInheritanceWorker_None.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
@@ -261,7 +242,7 @@
     <Compile Include="Needs\Utility_ArtificialPawn.cs" />
     <Compile Include="Needs\Energy\WorkGiver_GiveEnergySourceConsumableToPatient.cs" />
     <Compile Include="Networks\NetworkDef.cs" />
-    <Compile Include="PawnConverter\PawnConvertingDef.cs" />
+    <None Include="PawnConverter\PawnConvertingDef.cs" />
     <Compile Include="Research\DefModExt_ResearchBenchSubstitutes.cs" />
     <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
     <Compile Include="Terraformer\Comp_Terraformer.cs" />
@@ -270,6 +251,7 @@
     <Compile Include="Utility\ButcherUtility.cs" />
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
+    <Compile Include="Utility\PositionalUtility.cs" />
     <Compile Include="Utility\MentalBreakDefOf.cs" />
     <Compile Include="Utility\Popup_IntSlider.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
@@ -300,25 +282,25 @@
     <Compile Include="Needs\Energy\JobDriver_RefillFuelEnergySource.cs" />
     <Compile Include="Needs\Energy\ThingOrderRequest.cs" />
     <Compile Include="Needs\Energy\Utility_EnergyNeed.cs" />
-    <Compile Include="PawnConverter\Building_Converter.cs" />
-    <Compile Include="PawnConverter\ConverterProperties.cs" />
+    <None Include="PawnConverter\Building_Converter.cs" />
+    <None Include="PawnConverter\ConverterProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
-    <Compile Include="PawnCrafter\PawnCraftingDef.cs" />
-    <Compile Include="PawnCrafter\JobDriver_FillAndroidPrinter.cs" />
-    <Compile Include="PawnCrafter\DroidSkill.cs" />
-    <Compile Include="PawnCrafter\DroidSpawnProperties.cs" />
-    <Compile Include="PawnCrafter\PawnCrafterWorkgiverProperties.cs" />
-    <Compile Include="PawnCrafter\Building_PawnCrafter.cs" />
-    <Compile Include="PawnCrafter\IPawnCrafter.cs" />
-    <Compile Include="PawnCrafter\ThingOrderProcessor.cs" />
-    <Compile Include="PawnCrafter\ThingOrderRequest.cs" />
-    <Compile Include="PawnCrafter\PawnCrafterProperties.cs" />
-    <Compile Include="PawnCrafter\Gizmo_PrinterPawnInfo.cs" />
-    <Compile Include="PawnCrafter\Gizmo_TogglePrinting.cs" />
-    <Compile Include="PawnCrafter\DroidUtility.cs" />
-    <Compile Include="PawnCrafter\WorkGiver_PawnCrafter.cs" />
+    <None Include="PawnCrafter\PawnCraftingDef.cs" />
+    <None Include="PawnCrafter\JobDriver_FillAndroidPrinter.cs" />
+    <None Include="PawnCrafter\DroidSkill.cs" />
+    <None Include="PawnCrafter\DroidSpawnProperties.cs" />
+    <None Include="PawnCrafter\PawnCrafterWorkgiverProperties.cs" />
+    <None Include="PawnCrafter\Building_PawnCrafter.cs" />
+    <None Include="PawnCrafter\IPawnCrafter.cs" />
+    <None Include="PawnCrafter\ThingOrderProcessor.cs" />
+    <None Include="PawnCrafter\ThingOrderRequest.cs" />
+    <None Include="PawnCrafter\PawnCrafterProperties.cs" />
+    <None Include="PawnCrafter\Gizmo_PrinterPawnInfo.cs" />
+    <None Include="PawnCrafter\Gizmo_TogglePrinting.cs" />
+    <None Include="PawnCrafter\DroidUtility.cs" />
+    <None Include="PawnCrafter\WorkGiver_PawnCrafter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

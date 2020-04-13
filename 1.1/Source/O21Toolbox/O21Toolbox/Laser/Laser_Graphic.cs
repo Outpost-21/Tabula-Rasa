@@ -8,9 +8,9 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Shield
+namespace O21Toolbox.Laser
 {
-    public class HeatNetManager
+    public class Laser_Graphic : Thing
     {
     }
 }

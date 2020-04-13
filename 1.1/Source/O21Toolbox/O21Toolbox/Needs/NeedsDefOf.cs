@@ -17,6 +17,6 @@ namespace O21Toolbox.Needs
 
         //Modded Needs
         public static NeedDef O21Energy;
-        public static NeedDef O21Solar;
+        //public static NeedDef O21Solar;
     }
 }

@@ -9,8 +9,6 @@ using Verse;
 using Verse.AI;
 using Verse.Sound;
 
-using AlienRace;
-
 namespace O21Toolbox.PawnConverter
 {
     public class Building_Converter : Building_Casket, IThingHolder

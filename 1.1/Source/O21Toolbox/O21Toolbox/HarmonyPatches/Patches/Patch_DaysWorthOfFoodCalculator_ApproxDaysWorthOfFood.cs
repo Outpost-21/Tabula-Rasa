@@ -21,7 +21,7 @@ namespace O21Toolbox.HarmonyPatches
         {
             List<Pawn> modifiedPawnsList = new List<Pawn>(pawns);
             modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<ArtificialPawnProperties>());
-            modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<DefModExt_SolarNeed>());
+            //modifiedPawnsList.RemoveAll(pawn => pawn.def.HasModExtension<DefModExt_SolarNeed>());
 
             pawns = modifiedPawnsList;
             return true;

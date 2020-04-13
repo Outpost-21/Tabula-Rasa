@@ -14,7 +14,6 @@ using HarmonyLib;
 
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Needs;
-using O21Toolbox.PawnCrafter;
 
 namespace O21Toolbox.HarmonyPatches
 {
