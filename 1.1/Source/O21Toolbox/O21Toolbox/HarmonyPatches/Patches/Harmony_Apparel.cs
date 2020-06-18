@@ -85,30 +85,30 @@ namespace O21Toolbox.HarmonyPatches
             Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
         }**/
 
-        [HarmonyPatch(typeof(PawnApparelGenerator), "GenerateStartingApparelFor")]
-        public static class GenerateStartingApparelFor
-        {
-            [HarmonyPrefix]
-            public static void Prefix(Pawn pawn)
-            {
-                Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
-                apparelList = new HashSet<ThingStuffPair>();
-                foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
-                {
-                    if (!RestrictionCheck.CanWear(thingStuffPair.thing, pawn))
-                    {
-                        apparelList.Add(thingStuffPair);
-                    }
-                }
-                traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => apparelList.Contains(tsp));
-            }
+        //[HarmonyPatch(typeof(PawnApparelGenerator), "GenerateStartingApparelFor")]
+        //public static class GenerateStartingApparelFor
+        //{
+        //    [HarmonyPrefix]
+        //    public static void Prefix(Pawn pawn)
+        //    {
+        //        Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
+        //        apparelList = new HashSet<ThingStuffPair>();
+        //        foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
+        //        {
+        //            if (thingStuffPair.thing != null && !ApparelExt.RestrictionCheck.CanWear(thingStuffPair.thing, pawn))
+        //            {
+        //                apparelList.Add(thingStuffPair);
+        //            }
+        //        }
+        //        traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => apparelList.Contains(tsp));
+        //    }
 
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(apparelList);
-            }
-        }
+        //    [HarmonyPostfix]
+        //    public static void Postfix()
+        //    {
+        //        Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(apparelList);
+        //    }
+        //}
 
         [HarmonyPatch(typeof(Pawn_ApparelTracker))]
         [HarmonyPatch("Notify_ApparelAdded")]
@@ -177,7 +177,7 @@ namespace O21Toolbox.HarmonyPatches
                 {
                     return;
                 }
-                if (!ApparelExt.RestrictionCheck.CanWear(ap.def, pawn))
+                if (!pawn.AnimalOrWildMan() && !ApparelExt.RestrictionCheck.CanWear(ap, pawn))
                 {
                     __result = -50f;
                 }
@@ -216,7 +216,7 @@ namespace O21Toolbox.HarmonyPatches
                     List<FloatMenuOption> list2 = (from fmo in opts
                                                    where !fmo.Disabled && fmo.Label.Contains("ForceWear".Translate(apparel.LabelShort, apparel)) && !fmo.Label.Contains("CannotWear".Translate(apparel.LabelShort, apparel))
                                                    select fmo).ToList<FloatMenuOption>();
-                    if (!list2.NullOrEmpty<FloatMenuOption>() && !ApparelExt.RestrictionCheck.CanWear(apparel.def, pawn))
+                    if (!list2.NullOrEmpty<FloatMenuOption>() && !ApparelExt.RestrictionCheck.CanWear(apparel, pawn))
                     {
                         foreach (FloatMenuOption item3 in list2)
                         {

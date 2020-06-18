@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+    <O21_AU_NoLineOfSight>No line of sight</O21_AU_NoLineOfSight>
+
+    <O21_AU_NoTargets>No targets available</O21_AU_NoTargets>
+
+    <O21_AU_DISABLED>DISABLED</O21_AU_DISABLED>
+
+    <O21_AU_Type>Type: </O21_AU_Type>
+    <O21_AU_TargetAoE>Area of Effect</O21_AU_TargetAoE>
+    <O21_AU_TargetSelf>Targets Self</O21_AU_TargetSelf>
+    <O21_AU_TargetThing>Targets Other</O21_AU_TargetThing>
+    <O21_AU_TargetLocation>Targets Location</O21_AU_TargetLocation>
+    <O21_AU_Cooldown>Cooldown: </O21_AU_Cooldown>
+    <O21_AU_Extra>Extra</O21_AU_Extra>
+    <O21_AU_MentalStateChance>Mental State Chance</O21_AU_MentalStateChance>
+    <O21_AU_EffectChance>Effect Chance</O21_AU_EffectChance>
+    <O21_AU_PawnAbilityRecharging>{0} needs time to recharge</O21_AU_PawnAbilityRecharging>
+
+
+    <O21_AU_AoEProperties>Area of Effect Properties</O21_AU_AoEProperties>
+    <O21_AU_TargetClass>Targets: </O21_AU_TargetClass>
+    <O21_AU_AoECharacters>Characters</O21_AU_AoECharacters>
+    <O21_AU_AoEFriendlyFire>Friendly Fire: </O21_AU_AoEFriendlyFire>
+    <O21_AU_AoEMaxTargets>Max Targets: </O21_AU_AoEMaxTargets>
+    <O21_AU_AoEStartsFromCaster>Starts from caster: </O21_AU_AoEStartsFromCaster>
+	
+</LanguageData>

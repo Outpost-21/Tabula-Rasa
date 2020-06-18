@@ -8,15 +8,13 @@ using O21Toolbox.Needs;
 
 namespace O21Toolbox.TurretsPlus
 {
-    public class Building_Emplacement : Building_TurretGun, IThingHolder
+    public class Building_Emplacement : Building_Bunker, IThingHolder
     {
         [DefOf]
-        public static class BunkerDefOf
+        public static class EmplacementDefOf
         {
             public static JobDef EnterEmplacement;
         }
-
-        protected ThingOwner<Pawn> innerContainer;
 
         public int maxCount = 1;
 
@@ -28,82 +26,11 @@ namespace O21Toolbox.TurretsPlus
             this.top = new TurretTop(this);
         }
 
-        public bool HasAnyContents
-        {
-            get
-            {
-                return this.innerContainer.Count > 0;
-            }
-        }
-
-        public Thing ContainedThing
-        {
-            get
-            {
-                return (this.innerContainer.Count != 0) ? this.innerContainer[0] : null;
-            }
-        }
-
-        public bool CanOpen
-        {
-            get
-            {
-                return this.HasAnyContents;
-            }
-        }
-
-        public ThingOwner GetDirectlyHeldThings()
-        {
-            return this.innerContainer;
-        }
-
-        public ThingOwner<Pawn> GetInner()
-        {
-            return this.innerContainer;
-        }
-
-        public void GetChildHolders(List<IThingHolder> outChildren)
-        {
-            ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, this.GetDirectlyHeldThings());
-        }
-
         public override void TickRare()
         {
             base.TickRare();
             this.innerContainer.ThingOwnerTickRare(true);
             this.CheckImportantNeeds();
-        }
-
-        public void CheckImportantNeeds()
-        {
-            if (innerContainer.Any && (this.LastAttackTargetTick - Current.Game.tickManager.TicksGame) > 1000)
-            {
-                List<Pawn> theEjectables = new List<Pawn>();
-                foreach (Pawn pawn in innerContainer.InnerListForReading)
-                {
-                    // Check food.
-                    if (pawn?.needs?.food != null && pawn.needs.food.Starving)
-                    {
-                        theEjectables.Add(pawn);
-                    }
-                    // Check sleep.
-                    if (pawn?.needs?.rest != null && pawn.needs.rest.CurLevelPercentage < 0.1)
-                    {
-                        theEjectables.Add(pawn);
-                    }
-                    // Check Energy.
-                    if (pawn?.TryGetComp<Comp_EnergyTracker>() != null && pawn.TryGetComp<Comp_EnergyTracker>().energy < 0.1)
-                    {
-                        theEjectables.Add(pawn);
-                    }
-                }
-
-                for (int i = 0; i < theEjectables.Count; i++)
-                {
-                    Pawn lastPawn;
-                    this.innerContainer.TryDrop(theEjectables[i], ThingPlaceMode.Near, out lastPawn);
-                }
-            }
         }
 
         public override void Tick()
@@ -232,15 +159,6 @@ namespace O21Toolbox.TurretsPlus
             GenPlace.TryPlaceThing(this.gun.TryGetComp<CompChangeableProjectile>().RemoveShell(), base.Position, base.Map, ThingPlaceMode.Near, null, null);
         }
 
-        public virtual void Open()
-        {
-            bool flag = !this.HasAnyContents;
-            if (!flag)
-            {
-                this.EjectContents();
-            }
-        }
-
         public override void ExposeData()
         {
             base.ExposeData();
@@ -266,12 +184,12 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        public virtual bool Accepts(Thing thing)
+        public override bool Accepts(Thing thing)
         {
             return this.innerContainer.CanAcceptAnyOf(thing, true);
         }
 
-        public virtual bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
+        public override bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
         {
             bool flag = !this.Accepts(thing);
             bool result;
@@ -309,7 +227,7 @@ namespace O21Toolbox.TurretsPlus
             base.Destroy(mode);
         }
 
-        public virtual void EjectContents()
+        public override void EjectContents()
         {
             this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near, null, null);
         }
@@ -355,7 +273,7 @@ namespace O21Toolbox.TurretsPlus
             {
                 FloatMenuOption item3 = new FloatMenuOption(Translator.Translate("EnterEmplacement"), (Action)delegate
                 {
-                    Job val2 = new Job(BunkerDefOf.EnterEmplacement, this);
+                    Job val2 = new Job(EmplacementDefOf.EnterEmplacement, this);
                     ReservationUtility.Reserve(myPawn, this, val2);
                     myPawn.jobs.TryTakeOrderedJob(val2);
                 }, MenuOptionPriority.Default, (Action)null, null, 0f, (Func<Rect, bool>)null, null);

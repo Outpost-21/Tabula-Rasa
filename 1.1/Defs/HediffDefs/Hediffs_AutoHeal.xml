@@ -19,6 +19,15 @@
 			<li Class="O21Toolbox.AutoHeal.DefModExtension_AutoHealProps">
 				<healTicks>3000</healTicks>
 				<regrowParts>true</regrowParts>
+                <cureTicks>500</cureTicks>
+                <!-- ignoreWhenHealing><li>GutWorms</li></ignoreWhenHealing -->
+                <removeInfections>true</removeInfections>
+                <!-- infectionsAllowed><li>GutWorms</li></infectionsAllowed -->
+                <explicitRemovals>
+                    <li>FibrousMechanites</li>
+                    <li>SensoryMechanites</li>
+                </explicitRemovals>
+                <growthTicks>1000</growthTicks>
 				<growthText>Growth: </growthText>
 				<protoBodyPart>AutoHeal_ProtoBodypart</protoBodyPart>
 				<curedBodyPart>AutoHeal_CuredBodypart</curedBodyPart>
@@ -44,6 +53,14 @@
 			<li Class="O21Toolbox.AutoHeal.CompProperties_AutoHeal">
 				<healTicks>3000</healTicks>
 				<regrowParts>true</regrowParts>
+                <cureTicks>500</cureTicks>
+                <removeInfections>true</removeInfections>
+                <infectionsAllowed />
+                <explicitRemovals>
+                    <li>FibrousMechanites</li>
+                    <li>SensoryMechanites</li>
+                </explicitRemovals>
+                <growthTicks>1000</growthTicks>
 				<growthText>Growth: </growthText>
 				<protoBodyPart>AutoHeal_ProtoBodypart</protoBodyPart>
 				<curedBodyPart>AutoHeal_CuredBodypart</curedBodyPart>

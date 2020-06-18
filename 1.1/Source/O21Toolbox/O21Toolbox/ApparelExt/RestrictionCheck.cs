@@ -11,20 +11,25 @@ namespace O21Toolbox.ApparelExt
 {
     public class RestrictionCheck
     {
-        public static bool CanWear(ThingDef apparel, Pawn pawn)
+        public static bool CanWear(Apparel apparel, Pawn pawn)
         {
-            if(apparel.HasModExtension<DefModExt_BodyRestrict>())
+            ThingDef apparelDef = apparel.def;
+            if(apparelDef == null || pawn == null)
             {
-                if (!apparel.GetModExtension<DefModExt_BodyRestrict>().BodyDefs.Contains(pawn.story.bodyType))
+                return false;
+            }
+            if(apparelDef.HasModExtension<DefModExt_BodyRestrict>())
+            {
+                if (!apparelDef.GetModExtension<DefModExt_BodyRestrict>().BodyDefs.Contains(pawn.story.bodyType))
                 {
                     return false;
                 }
             }
 
 
-            if (apparel.HasModExtension<DefModExt_ApparelRestrict>())
+            if (apparelDef.HasModExtension<DefModExt_ApparelRestrict>())
             {
-                DefModExt_ApparelRestrict modExt = apparel.GetModExtension<DefModExt_ApparelRestrict>();
+                DefModExt_ApparelRestrict modExt = apparelDef.GetModExtension<DefModExt_ApparelRestrict>();
                 if (modExt.allRequired && modExt.requiredApparel.All(x => IsWearing(x, pawn)))
                 {
                 }
@@ -32,6 +37,15 @@ namespace O21Toolbox.ApparelExt
                 {
                 }
                 else
+                {
+                    return false;
+                }
+            }
+
+            Comp_Bondable bondableComp = apparel.TryGetComp<Comp_Bondable>();
+            if (bondableComp != null && bondableComp.IsBonded)
+            {
+                if(bondableComp.BondedPawn == pawn)
                 {
                     return false;
                 }

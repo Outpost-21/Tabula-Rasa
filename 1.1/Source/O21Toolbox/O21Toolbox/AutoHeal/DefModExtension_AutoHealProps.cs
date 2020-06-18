@@ -18,9 +18,35 @@ namespace O21Toolbox.AutoHeal
         public int healTicks = 1000;
 
         /// <summary>
+        /// List of Hediffs ignored when healing.
+        /// </summary>
+        public List<HediffDef> ignoreWhenHealing = new List<HediffDef>();
+
+        /// <summary>
         /// Whether or not parts can regrow.
         /// </summary>
         public bool regrowParts = true;
+
+        /// <summary>
+        /// Time between cure ticks.
+        /// </summary>
+        public int cureTicks = 1000;
+
+        /// <summary>
+        /// Whether or not diseases are cured.
+        /// </summary>
+        public bool removeInfections = true;
+
+        /// <summary>
+        /// List of infections which are not cured if removeInfections is true.
+        /// </summary>
+        public List<HediffDef> infectionsAllowed = new List<HediffDef>();
+
+        /// <summary>
+        /// Sometimes the automatic detection doesn't work as intended, such as mechanites in vanilla.
+        /// You can use this list to tell the code to remove specific hediffs as part of the "curing" process.
+        /// </summary>
+        public List<HediffDef> explicitRemovals = new List<HediffDef>();
 
         /// <summary>
         /// Time between growth ticks.

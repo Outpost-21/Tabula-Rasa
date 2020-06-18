@@ -16,36 +16,44 @@ namespace O21Toolbox.AutoHeal
     {
         public int ticksUntilNextHeal;
         public int ticksUntilNextGrow;
+        public int ticksUntilNextCure;
 
-        public override void PostMake()
-        {
-            base.PostMake();
-            DefModExtension_AutoHealProps defExt = def.TryGetModExtension<DefModExtension_AutoHealProps>();
-            HealUtility.SetNextHealTick(ticksUntilNextHeal, defExt.healTicks);
-            HealUtility.SetNextGrowTick(ticksUntilNextGrow, defExt.growthTicks);
-        }
+
+        DefModExtension_AutoHealProps DefExt => def.TryGetModExtension<DefModExtension_AutoHealProps>();
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref ticksUntilNextHeal, "ticksUntilNextHeal");
             Scribe_Values.Look(ref ticksUntilNextGrow, "ticksUntilNextGrow");
+            Scribe_Values.Look(ref ticksUntilNextCure, "ticksUntilNextCure");
+        }
+
+        public override void PostMake()
+        {
+            base.PostMake();
+            HealUtility.SetNextTick(ticksUntilNextHeal, DefExt.healTicks);
+            HealUtility.SetNextTick(ticksUntilNextGrow, DefExt.growthTicks);
+            HealUtility.SetNextTick(ticksUntilNextCure, DefExt.cureTicks);
         }
 
         public override void Tick()
         {
             base.Tick();
-
-            DefModExtension_AutoHealProps defExt = def.TryGetModExtension<DefModExtension_AutoHealProps>();
-            if (Current.Game.tickManager.TicksGame >= this.ticksUntilNextHeal)
+            if (Current.Game.tickManager.TicksGame >= ticksUntilNextHeal)
             {
-                HealUtility.TrySealWounds(pawn);
-                HealUtility.SetNextHealTick(ticksUntilNextHeal, defExt.healTicks);
+                HealUtility.TrySealWounds(pawn, DefExt.ignoreWhenHealing);
+                HealUtility.SetNextTick(ticksUntilNextHeal, DefExt.healTicks);
             }
-            if (Current.Game.tickManager.TicksGame >= this.ticksUntilNextGrow && defExt.regrowParts)
+            if (Current.Game.tickManager.TicksGame >= ticksUntilNextGrow && DefExt.regrowParts)
             {
-                HealUtility.TryRegrowBodyparts(pawn, defExt.protoBodyPart);
-                HealUtility.SetNextGrowTick(ticksUntilNextGrow, defExt.growthTicks);
+                HealUtility.TryRegrowBodyparts(pawn, DefExt.protoBodyPart);
+                HealUtility.SetNextTick(ticksUntilNextGrow, DefExt.growthTicks);
+            }
+            if (Current.Game.tickManager.TicksGame >= ticksUntilNextCure && DefExt.removeInfections)
+            {
+                HealUtility.TryCureInfections(pawn, DefExt.infectionsAllowed, DefExt.explicitRemovals);
+                HealUtility.SetNextTick(ticksUntilNextCure, DefExt.cureTicks);
             }
         }
     }

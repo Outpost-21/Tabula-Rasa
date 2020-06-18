@@ -22,7 +22,7 @@ namespace O21Toolbox.WeaponExt
         //public SoundDef soundExtra;
         //public SoundDef soundExtraTwo;
 
-        public Vector3 offset = new Vector3(0, 0, 0); //No longer in-use.
+        public Vector3 offset = new Vector3(0, 0, 0);
         public Vector3 northOffset = new Vector3(0, 0, 0);
         public Vector3 eastOffset = new Vector3(0, 0, 0);
         public Vector3 southOffset = new Vector3(0, 0, 0);

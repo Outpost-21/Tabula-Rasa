@@ -20,6 +20,6 @@ namespace O21Toolbox.Research
 
         public float researchSpeedFactor = 1.0f;
 
-        public PawnKindDef pawnKind = null;
+        public PawnKindDef pawnKind = PawnKindDefOf.Colonist;
     }
 }

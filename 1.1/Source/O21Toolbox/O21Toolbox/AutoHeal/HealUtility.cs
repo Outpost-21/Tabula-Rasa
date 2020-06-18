@@ -15,34 +15,58 @@ namespace O21Toolbox.AutoHeal
 {
     public static class HealUtility
     {
-        public static void SetNextHealTick(int ticks, int healTicks)
+        public static void SetNextTick(int ticks, int setTicks)
         {
-            ticks = Current.Game.tickManager.TicksGame + healTicks;
+            ticks = Current.Game.tickManager.TicksGame + setTicks;
         }
 
-        public static void SetNextGrowTick(int ticks, int growthTicks)
-        {
-            ticks = Current.Game.tickManager.TicksGame + growthTicks;
-        }
-
-        public static void TrySealWounds(Pawn pawn)
+        public static void TrySealWounds(Pawn pawn, List<HediffDef> ignoredHediffs)
         {
             IEnumerable<Hediff> enumerable = from hd in pawn.health.hediffSet.hediffs
-                                             where hd.TendableNow()
+                                             where hd.TendableNow() && !ignoredHediffs.Contains(hd.def)
                                              select hd;
             bool flag = enumerable != null;
             if (flag)
             {
                 foreach (Hediff hediff in enumerable)
                 {
-                    HediffWithComps hediffWithComps = hediff as HediffWithComps;
-                    bool flag2 = hediffWithComps != null;
-                    if (flag2)
+                    if (hediff != null)
                     {
-                        HediffComp_TendDuration hediffComp_TendDuration = HediffUtility.TryGetComp<HediffComp_TendDuration>(hediffWithComps);
-                        hediffComp_TendDuration.tendQuality = 2f;
-                        hediffComp_TendDuration.tendTicksLeft = Find.TickManager.TicksGame;
-                        pawn.health.Notify_HediffChanged(hediff);
+                        HediffWithComps hediffWithComps = hediff as HediffWithComps;
+                        bool flag2 = hediffWithComps != null;
+                        if (flag2)
+                        {
+                            HediffComp_TendDuration hediffComp_TendDuration = HediffUtility.TryGetComp<HediffComp_TendDuration>(hediffWithComps);
+                            if(hediffComp_TendDuration != null)
+                            {
+                                hediffComp_TendDuration.tendQuality = 2f;
+                                hediffComp_TendDuration.tendTicksLeft = Find.TickManager.TicksGame;
+                            }
+                            pawn.health.Notify_HediffChanged(hediff);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void TryCureInfections(Pawn pawn, List<HediffDef> hediffList, List<HediffDef> explicitRemovals)
+        {
+            IEnumerable<Hediff> enumerable = from hd in pawn.health.hediffSet.hediffs
+                                             where hd.def.makesSickThought || explicitRemovals.Contains(hd.def)
+                                             select hd;
+            if (enumerable != null)
+            {
+                List<Hediff> enumerableListed = enumerable.ToList();
+                foreach (Hediff hediff in enumerableListed)
+                {
+                    if(hediff != null)
+                    {
+                        HediffWithComps hediffWithComps = hediff as HediffWithComps;
+                        if (hediffWithComps != null && !hediffList.Any(h => hediffWithComps.def == h))
+                        {
+                            pawn.health.RemoveHediff(hediff);
+                            pawn.health.hediffSet.DirtyCache();
+                        }
                     }
                 }
             }

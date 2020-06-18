@@ -16,7 +16,9 @@ namespace O21Toolbox.WeaponExt
         public Comp_OversizedWeapon()
         {
             if (!(props is CompProperties_OversizedWeapon))
+            {
                 props = new CompProperties_OversizedWeapon();
+            }
         }
 
 

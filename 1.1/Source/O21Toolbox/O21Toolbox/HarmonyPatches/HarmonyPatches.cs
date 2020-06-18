@@ -107,7 +107,7 @@ namespace O21Toolbox.HarmonyPatches
         #region ThirdPartyImprovements
         public static void SaveOurShip2_CompatibilityHook(Harmony harmony)
         {
-            //harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
+            harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
         }
         public static void SOS2CompatibilityHook_hasSpaceSuit_Postfix(Pawn thePawn, ref bool __result)
         {
@@ -121,28 +121,36 @@ namespace O21Toolbox.HarmonyPatches
                 {
                     bool hasHelmet = false;
                     bool hasSuit = false;
-                    foreach (Apparel ap in thePawn.apparel.WornApparel)
+                    bool raceSpaceCapable = false;
+                    if (thePawn.def.HasModExtension<DefModExt_SpaceCapable>())
                     {
-                        if (ap.def.HasModExtension<DefModExt_SpaceApparel>())
+                        raceSpaceCapable = true;
+                    }
+                    if(!raceSpaceCapable)
+                    {
+                        foreach (Apparel ap in thePawn.apparel.WornApparel)
                         {
-                            DefModExt_SpaceApparel ext = ap.def.GetModExtension<DefModExt_SpaceApparel>();
-                            if (ext.equipmentType == spaceEquipmentType.full)
+                            if (ap.def.HasModExtension<DefModExt_SpaceApparel>())
                             {
-                                hasHelmet = true;
-                                hasSuit = true;
-                            }
-                            else if (ext.equipmentType == spaceEquipmentType.helmet)
-                            {
-                                hasHelmet = true;
-                            }
-                            else if (ext.equipmentType == spaceEquipmentType.suit)
-                            {
-                                hasSuit = true;
+                                DefModExt_SpaceApparel ext = ap.def.GetModExtension<DefModExt_SpaceApparel>();
+                                if (ext.equipmentType == spaceEquipmentType.full)
+                                {
+                                    hasHelmet = true;
+                                    hasSuit = true;
+                                }
+                                else if (ext.equipmentType == spaceEquipmentType.helmet)
+                                {
+                                    hasHelmet = true;
+                                }
+                                else if (ext.equipmentType == spaceEquipmentType.suit)
+                                {
+                                    hasSuit = true;
+                                }
                             }
                         }
                     }
 
-                    __result = hasHelmet && hasSuit;
+                    __result = (hasHelmet && hasSuit) || raceSpaceCapable;
                 }
             }
         }

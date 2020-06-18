@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<O21Toolbox.Abilities.AbilityDef Name="BaseAbility" Abstract="True">
+		<uiIconPath>UI/Glow_Corrupt</uiIconPath>
+	</O21Toolbox.Abilities.AbilityDef>
+
+</Defs>
