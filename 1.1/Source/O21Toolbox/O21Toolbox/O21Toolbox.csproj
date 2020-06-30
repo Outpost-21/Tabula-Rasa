@@ -201,6 +201,9 @@
     <None Include="BiomeExt\TerrainDefOf.cs" />
     <None Include="BiomeExt\TerrainThresholdWEO.cs" />
     <None Include="BiomeExt\WLTileGraphicData.cs" />
+    <None Include="BiomeExt\BiomeUniversalCalculation.cs" />
+    <None Include="BiomeExt\BiomeWorker_Universal.cs" />
+    <None Include="BiomeExt\DefModExt_BiomeWorker.cs" />
     <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\CompProperties_PawnDeterrant.cs" />
@@ -224,6 +227,7 @@
     <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
     <Compile Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
+    <None Include="HarmonyPatches\Transpilers\Patch_BiomeWorkerUniversal.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
     <Compile Include="Hivemind\Comp_HivemindCore.cs" />
@@ -248,6 +252,9 @@
     <Compile Include="Laser\SpinningLaserGunDef.cs" />
     <Compile Include="Laser\SpinningLaserGunTurret.cs" />
     <Compile Include="Laser\ThingExtensions.cs" />
+    <Compile Include="BuildingExt\Building_MultiStage.cs" />
+    <Compile Include="BuildingExt\DefModExt_MultiStage.cs" />
+    <Compile Include="BuildingExt\RecipeDef_MultiStage.cs" />
     <Compile Include="NotQuiteHumanoid\NQH_Pawn.cs" />
     <Compile Include="NotQuiteHumanoid\NQH_Utility.cs" />
     <Compile Include="NotQuiteHumanoid\ThinkNode_ConditionalColonistOrNQH.cs" />
@@ -297,10 +304,6 @@
     <Compile Include="CustomHive\Toils_Extra.cs" />
     <Compile Include="PawnSpawner\CompProperties_PawnSpawner.cs" />
     <Compile Include="PawnSpawner\Comp_PawnSpawner.cs" />
-    <None Include="ModularWeapon\DefModExtension_ModularWeapon.cs" />
-    <None Include="ModularWeapon\ITab_ModularWeapon.cs" />
-    <Compile Include="ModularWeapon\WeaponModuleDef.cs" />
-    <Compile Include="ModularWeapon\WeaponSlot.cs" />
     <Compile Include="Needs\FleshType_Artificial.cs" />
     <Compile Include="Needs\Energy\JobDefOf.cs" />
     <Compile Include="Needs\Energy\JobGiver_GetEnergy.cs" />
