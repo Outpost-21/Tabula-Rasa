@@ -13,7 +13,7 @@ namespace O21Toolbox.Utility
     public class Popup_ListSelector : Window
     {
         private readonly string _label;
-        private readonly ThingDef _current;
+        private ThingDef _current;
         private readonly List<ThingDef> _list;
         private readonly Action<ThingDef> _callback;
 
@@ -29,32 +29,27 @@ namespace O21Toolbox.Utility
             _current = current;
             _list = list;
             _callback = callback;
+
+            doCloseButton = true;
         }
 
         protected override void SetInitialSizeAndPosition()
         {
-            var vector = Verse.UI.MousePositionOnUIInverted;
-            if (vector.x + InitialSize.x > Verse.UI.screenWidth)
-            {
-                vector.x = Verse.UI.screenWidth - InitialSize.x;
-            }
-            if (vector.y + InitialSize.y - 50 > Verse.UI.screenHeight)
-            {
-                vector.y = Verse.UI.screenHeight - InitialSize.y - 50;
-            }
-            windowRect = new Rect(vector.x, vector.y + InitialSize.y - 100, 350, 500);
+            int windowHeight = 500;
+            int windowWidth = 350;
+            windowRect = new Rect(UI.screenWidth / 2 - (windowWidth / 2), UI.screenHeight / 2 - (windowHeight / 2), windowWidth , windowHeight);
         }
 
         public override void DoWindowContents(Rect rect)
         {
-            if (!rect.Contains(Event.current.mousePosition))
-            {
-                if (GenUI.DistFromRect(rect, Event.current.mousePosition) > 75f)
-                {
-                    Close(false);
-                    return;
-                }
-            }
+            //if (!rect.Contains(Event.current.mousePosition))
+            //{
+            //    if (GenUI.DistFromRect(rect, Event.current.mousePosition) > 75f)
+            //    {
+            //        Close(false);
+            //        return;
+            //    }
+            //}
 
             Text.Font = GameFont.Medium;
             Widgets.Label(new Rect(0f, 0f, this.InitialSize.x / 2f, 40f), _label);
@@ -69,26 +64,31 @@ namespace O21Toolbox.Utility
             {
                 this.DoItemInfo(inRect, def, ref inRect, ref num2);
 
-                Widgets.RadioButton(inRect.xMax - RowHeight, inRect.y, def == _current);
 
             }
             Widgets.EndScrollView();
+
+            _callback(_current);
         }
 
         private void DoItemInfo(Rect rect, ThingDef def, ref Rect inRect, ref int index)
         {
-            if(index % 2 == 1)
+            Rect itemRect = new Rect(inRect.xMin, inRect.yMin, inRect.width, RowHeight);
+            //if (index % 2 == 1)
+            //{
+            //    Widgets.DrawHighlight(new Rect(itemRect.xMax, itemRect.yMax, itemRect.width, itemRect.height));
+            //}
+            Widgets.DefIcon(new Rect(itemRect.xMin, itemRect.yMin + 4f, IconSize, IconSize), def);
+            if(Widgets.RadioButton(itemRect.xMax - IconSize, itemRect.yMin, def == _current))
             {
-                Widgets.DrawHighlight(new Rect(inRect.xMax, inRect.yMax, rect.width, RowHeight));
+                _current = def;
             }
-            Widgets.DefIcon(new Rect(inRect.xMax, inRect.yMax + 4f, IconSize, IconSize), def);
-            inRect.xMax += RowHeight;
-            Rect rect2 = new Rect(inRect.xMax, inRect.yMax, def.LabelCap.GetWidthCached(), RowHeight);
+            Rect rect2 = new Rect(itemRect.xMin + (IconSize + 4f), itemRect.yMin, itemRect.width, itemRect.height);
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(rect2, def.LabelCap);
             Text.Anchor = TextAnchor.UpperLeft;
-            inRect.xMax += rect2.width + 4f;
-            if (Mouse.IsOver(rect2))
+            inRect.yMin += RowHeight;
+            if (Mouse.IsOver(itemRect))
             {
                 TipSignal tip = new TipSignal(() => string.Concat(new string[]
                 {
@@ -97,8 +97,8 @@ namespace O21Toolbox.Utility
                     def.description,
                     "\n\n"
                 }), def.index ^ 283684);
-                TooltipHandler.TipRegion(rect2, tip);
-                Widgets.DrawHighlight(rect2);
+                TooltipHandler.TipRegion(itemRect, tip);
+                Widgets.DrawHighlight(itemRect);
             }
             index++;
         }

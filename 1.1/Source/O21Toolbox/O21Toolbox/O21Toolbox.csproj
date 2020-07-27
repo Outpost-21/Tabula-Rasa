@@ -168,8 +168,6 @@
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
-    <None Include="BiomeExt\BiomeDefExtension.cs" />
-    <None Include="BiomeExt\BiomeDefOf.cs" />
     <None Include="BiomeExt\BiomeWorkers\Special.cs" />
     <None Include="BiomeExt\BiomeWorkersSpecial\Archipelago.cs" />
     <None Include="BiomeExt\BiomeWorkersSpecial\Atoll.cs" />
@@ -191,20 +189,12 @@
     <None Include="BiomeExt\DefModExt\Biome_Replacement.cs" />
     <None Include="BiomeExt\DefModExt\Biome_Temperature.cs" />
     <None Include="BiomeExt\DefModExt\Buildable.cs" />
-    <None Include="BiomeExt\HiveOverwriteType.cs" />
-    <None Include="BiomeExt\RockChunksOverwriteType.cs" />
     <None Include="BiomeExt\DefModExt\Terrain.cs" />
-    <None Include="BiomeExt\GenFeatureTristate.cs" />
-    <None Include="BiomeExt\GenWorldGen.cs" />
-    <None Include="BiomeExt\RoofOverwriteType.cs" />
-    <None Include="BiomeExt\RoomCalculationType.cs" />
-    <None Include="BiomeExt\TerrainDefOf.cs" />
-    <None Include="BiomeExt\TerrainThresholdWEO.cs" />
-    <None Include="BiomeExt\WLTileGraphicData.cs" />
-    <None Include="BiomeExt\BiomeUniversalCalculation.cs" />
-    <None Include="BiomeExt\BiomeWorker_Universal.cs" />
-    <None Include="BiomeExt\DefModExt_BiomeWorker.cs" />
+    <Compile Include="BiomeExt\BiomeWorker_Universal.cs" />
+    <Compile Include="BiomeExt\DefModExt_BiomeWorker.cs" />
     <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
+    <Compile Include="BiomeExt\WorldGenStep_UniversalBiomeWorker.cs" />
+    <Compile Include="BiomeExt\WorldLayer_UniversalBiomeWorker.cs" />
     <Compile Include="BuildingExt\CompProperties_OrganicBuilding.cs" />
     <Compile Include="BuildingExt\CompProperties_PawnDeterrant.cs" />
     <Compile Include="BuildingExt\Comp_OrganicBuilding.cs" />
@@ -216,18 +206,20 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceCapable.cs" />
+    <None Include="HarmonyPatches\Patches\Harmony_Animals.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_CustomDispenser.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Needs.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_NQH.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Weapons.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_CheckOrUpdateGameOver.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_CanBeResearchedAt_Postfix.cs" />
+    <None Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
     <Compile Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
-    <None Include="HarmonyPatches\Transpilers\Patch_BiomeWorkerUniversal.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
     <Compile Include="Hivemind\Comp_HivemindCore.cs" />
@@ -277,6 +269,8 @@
     <Compile Include="BiomeExt\BiomeOverrideDef.cs" />
     <None Include="Needs\Solar\DefModExt_SolarNeed.cs" />
     <None Include="Needs\Solar\Need_Solar.cs" />
+    <Compile Include="PawnExt\CompProperties_PawnStorage.cs" />
+    <Compile Include="PawnExt\Comp_PawnStorage.cs" />
     <Compile Include="PawnExt\DefModExt_BigBox.cs" />
     <Compile Include="PawnExt\HitBoxHolder.cs" />
     <None Include="packages.config" />
@@ -316,18 +310,23 @@
     <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
     <Compile Include="Terraformer\Comp_Terraformer.cs" />
     <Compile Include="Terraformer\TerraformerRulesDef.cs" />
+    <Compile Include="Utility\AnimalApparelUtility.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />
     <Compile Include="Utility\CustomDispenserUtility.cs" />
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
+    <Compile Include="Utility\HediffApplier.cs" />
     <Compile Include="Utility\Popup_ListSelector.cs" />
     <Compile Include="Utility\PositionalUtility.cs" />
     <Compile Include="Utility\MentalBreakDefOf.cs" />
     <Compile Include="Utility\Popup_IntSlider.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
+    <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
     <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
+    <Compile Include="WeaponExt\Comp_VerbSwitch.cs" />
+    <Compile Include="WeaponExt\DefModExt_VerbSwitchIcon.cs" />
     <Compile Include="WeaponExt\RestrictionCheck.cs" />
     <Compile Include="TurretsPlus\Building_Emplacement.cs" />
     <Compile Include="TurretsPlus\Building_Bunker.cs" />
@@ -359,6 +358,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AnimalExt\" />
+    <Folder Include="HarmonyPatches\Transpilers\" />
     <Folder Include="ScenarioParts\" />
   </ItemGroup>
   <ItemGroup>

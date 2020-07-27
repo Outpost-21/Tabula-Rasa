@@ -59,7 +59,7 @@ namespace O21Toolbox.CustomDispenser
         {
             get
             {
-                return (!dispenserProps.requiresPower || (powerComp.PowerOn && AvailablePower() > dispenserProps.powerPerUse));
+                return (!dispenserProps.requiresPower || (powerComp.PowerOn && AvailablePower() > (dispenserProps.powerPerUse)));
             }
         }
         #endregion
@@ -73,7 +73,7 @@ namespace O21Toolbox.CustomDispenser
             if (this.dispensingTicks > 0)
             {
                 this.dispensingTicks--;
-                this.powerComp.PowerOutput = -dispenserProps.powerPerUse;
+                this.powerComp.PowerOutput = -(dispenserProps.powerPerUse * 4f.SecondsToTicks());
             }
         }
         public override void SpawnSetup(Map map, bool respawningAfterLoad)

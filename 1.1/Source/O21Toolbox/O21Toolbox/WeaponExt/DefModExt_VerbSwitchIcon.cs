@@ -8,12 +8,10 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.BiomeExt
+namespace O21Toolbox.WeaponExt
 {
-	public enum RockChunksOverwriteType
-	{
-		Default,
-		Remove,
-		AddToCaves
-	}
+    public class DefModExt_VerbSwitchIcon : DefModExtension
+    {
+        public string gizmoIcon;
+    }
 }

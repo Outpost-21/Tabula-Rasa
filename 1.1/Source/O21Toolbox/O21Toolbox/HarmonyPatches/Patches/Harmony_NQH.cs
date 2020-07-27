@@ -54,6 +54,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPatch("ShouldSendNotificationAbout")]
         public static class ShouldSendNotificationPatch
         {
+            [HarmonyPrefix]
             public static bool Prefix(Pawn p)
             {
                 return !(p is NQH_Pawn);
@@ -64,6 +65,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPatch("IsColonistPlayerControlled", MethodType.Getter)]
         public static class IsColonistPatch
         {
+            [HarmonyPostfix]
             public static void Postfix(Pawn __instance, ref bool __result)
             {
                 if (__instance is NQH_Pawn)

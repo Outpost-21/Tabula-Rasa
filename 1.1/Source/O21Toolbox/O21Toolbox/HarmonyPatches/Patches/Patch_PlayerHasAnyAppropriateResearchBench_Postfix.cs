@@ -30,7 +30,7 @@ namespace O21Toolbox.HarmonyPatches
                         DefModExt_ResearchBenchSubstitutes comp = allBuildingsColonist[j].def.TryGetModExtension<DefModExt_ResearchBenchSubstitutes>();
                         if (comp != null)
                         {
-                            if (comp.actLikeResearchBench.Contains(__instance.requiredResearchBuilding))
+                            if (__instance.requiredResearchBuilding != null && comp.actLikeResearchBench.Contains(__instance.requiredResearchBuilding))
                             {
                                 __result = true;
                             }

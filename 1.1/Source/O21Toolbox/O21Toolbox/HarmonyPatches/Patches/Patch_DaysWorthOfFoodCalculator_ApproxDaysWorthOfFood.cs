@@ -17,6 +17,7 @@ namespace O21Toolbox.HarmonyPatches
     [HarmonyPatch(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood", new Type[] {typeof(List<Pawn>), typeof(List<ThingDefCount>), typeof(int), typeof(IgnorePawnsInventoryMode),typeof(Faction), typeof(WorldPath), typeof(float), typeof(int), typeof(bool)})]
     public class Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood
     {
+        [HarmonyPrefix]
         public static bool Prefix(ref List<Pawn> pawns, List<ThingDefCount> extraFood, int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
         {
             List<Pawn> modifiedPawnsList = new List<Pawn>(pawns);

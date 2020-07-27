@@ -8,6 +8,9 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
+using O21Toolbox.Projectiles;
+using O21Toolbox.Utility;
+
 namespace O21Toolbox.Laser
 {
     public class LaserBeam : Bullet
@@ -107,6 +110,11 @@ namespace O21Toolbox.Laser
             }
 
             base.Impact(hitThing);
+
+            if (def.HasModExtension<DefModExt_HediffApplier>())
+            {
+                HediffApplier.ApplyHediff(hitThing, def.GetModExtension<DefModExt_HediffApplier>());
+            }
         }
 
     }
