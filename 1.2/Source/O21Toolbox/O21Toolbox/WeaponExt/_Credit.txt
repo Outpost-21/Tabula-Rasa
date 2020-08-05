@@ -1,0 +1,2 @@
+﻿The oversized weapon comp originates from JecsTools, due to the time it took for JecsTools to update to 1.1 (at no fault of Jecrell, life is more important),
+I decided to incorporate the comp into the Toolbox and maintain it myself for future updates where the delay would then be only my own fault.

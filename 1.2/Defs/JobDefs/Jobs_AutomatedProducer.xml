@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+	<JobDef>
+		<defName>O21_FillAutomatedProducer</defName>
+		<driverClass>JobDriver_HaulToContainer</driverClass>
+		<reportString>hauling TargetA.</reportString>
+	</JobDef>
+	
+</Defs>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- ============================= Thoughts related to tinker titles ============================= -->
+
+	<ThoughtDef>
+		<defName>O21_GainedTitle</defName>
+		<durationDays>7</durationDays>
+		<thoughtClass>Thought_MemoryRoyalTitle</thoughtClass>
+		<stages>
+			<li>
+				<label>Recieved {TITLE} title</label>
+				<description>I was awarded the title of {TITLE}. It's good to have my accomplishments recognized.</description>
+				<baseMoodEffect>6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>O21_LostTitle</defName>
+		<durationDays>7</durationDays>
+		<thoughtClass>Thought_MemoryRoyalTitle</thoughtClass>
+		<stages>
+			<li>
+				<label>Lost {TITLE} title</label>
+				<description>I lost my title of {TITLE}. It's rough knowing I didn't do enough to retain it.</description>
+				<baseMoodEffect>-6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

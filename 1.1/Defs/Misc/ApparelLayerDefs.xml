@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ApparelLayerDef>
+	<!-- ApparelLayerDef>
 		<defName>OnSkinExtra</defName>
 		<label>skin accessory</label>
 		<drawOrder>50</drawOrder>
@@ -17,7 +17,7 @@
 		<defName>ShellExtra</defName>
 		<label>outer accessory</label>
 		<drawOrder>350</drawOrder>
-	</ApparelLayerDef>
+	</ApparelLayerDef -->
 
 	<ApparelLayerDef>
 		<defName>FullBody</defName>
