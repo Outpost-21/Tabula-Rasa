@@ -30,12 +30,9 @@ namespace O21Toolbox.ApparelExt
             if (apparelDef.HasModExtension<DefModExt_ApparelRestrict>())
             {
                 DefModExt_ApparelRestrict modExt = apparelDef.GetModExtension<DefModExt_ApparelRestrict>();
-                if (modExt.allRequired && modExt.requiredApparel.All(x => IsWearing(x, pawn)))
-                {
-                }
-                else if (modExt.requiredApparel.Any(x => IsWearing(x, pawn)))
-                {
-                }
+                if (modExt.allRequired && modExt.requiredApparel.All(x => IsWearing(x, pawn))) { }
+                else if (modExt.requiredApparel.Any(x => IsWearing(x, pawn))) { }
+                else if (modExt.requiredTag.Any(x => IsWearingTag(x, pawn))) { }
                 else
                 {
                     return false;
@@ -59,6 +56,18 @@ namespace O21Toolbox.ApparelExt
             for (int i = 0; i < pawn.apparel.WornApparelCount; i++)
             {
                 if (pawn.apparel.WornApparel[i].def == apparel)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsWearingTag(string tag, Pawn pawn)
+        {
+            for (int i = 0; i < pawn.apparel.WornApparelCount; i++)
+            {
+                if (pawn.apparel.WornApparel[i].def.apparel.tags.Contains(tag))
                 {
                     return true;
                 }

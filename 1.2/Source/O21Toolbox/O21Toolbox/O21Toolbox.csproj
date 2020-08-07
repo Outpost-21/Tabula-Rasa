@@ -190,6 +190,7 @@
     <None Include="BiomeExt\DefModExt\Biome_Temperature.cs" />
     <None Include="BiomeExt\DefModExt\Buildable.cs" />
     <None Include="BiomeExt\DefModExt\Terrain.cs" />
+    <Compile Include="FriendlyFire\DefModExt_FriendlyFire.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Artifical.cs" />
     <Compile Include="PawnConversion\DefModExt_BasicConvert.cs" />
     <Compile Include="PawnConversion\Hediff_BasicConvert.cs" />

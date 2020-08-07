@@ -11,7 +11,9 @@ namespace O21Toolbox
 {
     public class DefModExt_ApparelRestrict : DefModExtension
     {
-        public List<ThingDef> requiredApparel = null;
+        public List<ThingDef> requiredApparel = new List<ThingDef>();
+
+        public List<string> requiredTag = new List<string>();
 
         public bool allRequired = false;
     }
