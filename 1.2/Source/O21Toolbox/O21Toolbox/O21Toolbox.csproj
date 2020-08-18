@@ -133,6 +133,8 @@
     <Compile Include="Alliances\RelationAlliance.cs" />
     <Compile Include="Alliances\RelationFaction.cs" />
     <Compile Include="Alliances\RelationPlayer.cs" />
+    <Compile Include="Animation\CompProperties_AnimationOverlay.cs" />
+    <Compile Include="Animation\Comp_AnimationOverlay.cs" />
     <Compile Include="ApparelExt\CompProperties_Bondable.cs" />
     <Compile Include="ApparelExt\CompProperties_Evolving.cs" />
     <Compile Include="ApparelExt\CompProperties_Named.cs" />
@@ -192,6 +194,13 @@
     <None Include="BiomeExt\DefModExt\Terrain.cs" />
     <Compile Include="FriendlyFire\DefModExt_FriendlyFire.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Artifical.cs" />
+    <None Include="Interface\DefModExt_DesignationCatSettings.cs" />
+    <None Include="Interface\DesignationSubCatDef.cs" />
+    <None Include="Interface\Designator_CustomMenu.cs" />
+    <None Include="Interface\SubCategoryCache.cs" />
+    <Compile Include="Misc\CompProperties_ReNameable.cs" />
+    <Compile Include="Misc\Comp_Nameable.cs" />
+    <Compile Include="Misc\Dialog_NameThing.cs" />
     <Compile Include="PawnConversion\DefModExt_BasicConvert.cs" />
     <Compile Include="PawnConversion\Hediff_BasicConvert.cs" />
     <Compile Include="BiomeExt\BiomeWorker_Universal.cs" />
@@ -286,6 +295,12 @@
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
+    <Compile Include="Teleporter\CompProperties_Teleporter.cs" />
+    <Compile Include="Teleporter\JobDriver_UseTeleporter.cs" />
+    <Compile Include="Teleporter\MapComp_Teleporter.cs" />
+    <Compile Include="Teleporter\Comp_Teleporter.cs" />
+    <Compile Include="Teleporter\TeleporterDefOf.cs" />
+    <Compile Include="Terraformer\Grid_Terraformer.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
     <Compile Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
@@ -319,6 +334,7 @@
     <Compile Include="Utility\AnimalApparelUtility.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />
+    <Compile Include="Utility\CellUtility.cs" />
     <Compile Include="Utility\CustomDispenserUtility.cs" />
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
@@ -328,6 +344,7 @@
     <Compile Include="Utility\MentalBreakDefOf.cs" />
     <Compile Include="Utility\Popup_IntSlider.cs" />
     <Compile Include="Utility\RemovableHediff.cs" />
+    <Compile Include="Utility\ToolboxContent.cs" />
     <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
     <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />

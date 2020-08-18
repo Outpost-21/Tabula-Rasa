@@ -12,6 +12,12 @@ namespace O21Toolbox.Terraformer
     public class CompProperties_Terraformer : CompProperties
     {
         /// <summary>
+        /// Terraformers that should function as part of the same grid should all share the same tag.
+        /// Overlapping terraformers that share a tag but do different things will have strange behaviours.
+        /// </summary>
+        public string terraformerTag;
+
+        /// <summary>
         /// If null, no nodes will spawn from this. Otherwise a random node from the list is chosen.
         /// 
         /// </summary>
@@ -101,5 +107,77 @@ namespace O21Toolbox.Terraformer
         /// If True, edited tiles will slowly restore if the terraformer has been destroyed.
         /// </summary>
         public bool canNatureRestore = false;
+
+        public List<TerrainDef> TerrainCandidates
+        {
+            get
+            {
+                if (terraformerRules.terrainRules.NullOrEmpty())
+                {
+                    return new List<TerrainDef>();
+                }
+
+                List<TerrainDef> candidates = new List<TerrainDef>();
+                for (int i = 0; i < terraformerRules.terrainRules.Count(); i++)
+                {
+                    if (!terraformerRules.terrainRules[i].terrainDefsWhitelist.NullOrEmpty())
+                    {
+                        for (int j = 0; j < terraformerRules.terrainRules[i].terrainDefsWhitelist.Count; j++)
+                        {
+                            candidates.Add(terraformerRules.terrainRules[i].terrainDefsWhitelist[j]);
+                        }
+                    }
+                }
+                return candidates;
+            }
+        }
+
+        public List<TerrainDef> PotentialResults
+        {
+            get
+            {
+                List<TerrainDef> results = new List<TerrainDef>();
+
+                if (terraformerRules.terrainRules.NullOrEmpty())
+                {
+                    return results;
+                }
+
+                for (int i = 0; i < terraformerRules.terrainRules.Count(); i++)
+                {
+                    for (int j = 0; j < terraformerRules.terrainRules[i].terrainResult.Count(); j++)
+                    {
+                        results.Add(terraformerRules.terrainRules[i].terrainResult[j]);
+                    }
+                }
+
+                return results;
+            }
+        }
+
+        public List<ThingDef> EdificeCandidates
+        {
+            get
+            {
+                List<ThingDef> candidates = new List<ThingDef>();
+
+                if (terraformerRules.edificeRules.NullOrEmpty())
+                {
+                    return candidates;
+                }
+
+                for (int i = 0; i < terraformerRules.edificeRules.Count(); i++)
+                {
+                    if (!terraformerRules.edificeRules[i].thingWhitelist.NullOrEmpty())
+                    {
+                        for (int j = 0; j < terraformerRules.edificeRules[i].thingWhitelist.Count; j++)
+                        {
+                            candidates.Add(terraformerRules.edificeRules[i].thingWhitelist[j]);
+                        }
+                    }
+                }
+                return candidates;
+            }
+        }
     }
 }

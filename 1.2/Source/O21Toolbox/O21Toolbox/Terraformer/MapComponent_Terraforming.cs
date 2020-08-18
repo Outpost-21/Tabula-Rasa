@@ -11,17 +11,34 @@ namespace O21Toolbox.Terraformer
 {
     public class MapComponent_Terraforming : MapComponent
     {
-        public List<Building> terraformers = new List<Building>();
-        public List<Building> removedTerraformers = new List<Building>();
+        private List<Building> terraformers = new List<Building>();
 
-        public Dictionary<IntVec3, TerraformedInfo> terraformedTiles = new Dictionary<IntVec3, TerraformedInfo>();
+        private Dictionary<string, Grid_Terraformer> terraformerGrids = new Dictionary<string, Grid_Terraformer>();
+
+        public List<Building> Terraformers
+        {
+            get
+            {
+                if (!terraformers.NullOrEmpty())
+                {
+                    foreach (Building building in terraformers.ToList())
+                    {
+                        if (building == null || building.Destroyed)
+                        {
+                            UnregisterTerraformer(building);
+                        }
+                    }
+                }
+
+                return terraformers;
+            }
+        }
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Collections.Look(ref terraformers, "terraformers", LookMode.Reference);
-            Scribe_Collections.Look(ref removedTerraformers, "removedTerraformers", LookMode.Reference);
-            Scribe_Collections.Look<IntVec3, TerraformedInfo>(ref terraformedTiles, "terraformedTiles", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref terraformerGrids, "terraformerGrids", LookMode.Deep);
         }
 
         public MapComponent_Terraforming(Map map) : base(map)
@@ -31,62 +48,35 @@ namespace O21Toolbox.Terraformer
         public override void MapComponentTick()
         {
             base.MapComponentTick();
+        }
 
-            CheckTerraformers();
-            RestoreAttempt();
+        public bool InRangeOfTerraformer(Grid_Terraformer grid, IntVec3 c)
+        {
+            List<Building> nodes = terraformers.Where(t => t.TryGetComp<Comp_Terraformer>().Props.terraformerTag == terraformerGrids.Where(g => g.Value == grid).First().Key && t.Map == grid.map).ToList();
+
+            if (!nodes.NullOrEmpty())
+            {
+                foreach (Building building in nodes)
+                {
+                    Comp_Terraformer comp = building.TryGetComp<Comp_Terraformer>();
+
+                    if (comp.GetRadialCells.Contains(c))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public void CheckTerraformers()
         {
-            if (!terraformers.NullOrEmpty())
-            {
-                foreach (Building building in terraformers.ToList())
-                {
-                    if (building == null || building.Destroyed)
-                    {
-                        UnregisterTerraformer(building);
-                    }
-                }
-            }
-            if (Current.Game.tickManager.TicksGame % 1000 == 0 && !removedTerraformers.NullOrEmpty())
-            {
-                foreach (Building building in removedTerraformers.ToList())
-                {
-                    if (!terraformedTiles.Any(t => t.Value.terraformer == building))
-                    {
-                        removedTerraformers.Remove(building);
-                    }
-                }
-            }
         }
 
-        public void RestoreAttempt()
+        public void RestoreTile(IntVec3 c)
         {
-            if(Current.Game.tickManager.TicksGame % 600 == 0)
-            {
-                if (!removedTerraformers.NullOrEmpty())
-                {
-                    foreach(Building terraformer in removedTerraformers)
-                    {
-                        if (terraformedTiles.Any(i => i.Value.terraformer == terraformer))
-                        {
-                            RestoreTile(terraformedTiles.Where(k => k.Value.terraformer == terraformer).ToList().RandomElement());
-                        }
-                    }
-                }
-            }
-        }
-
-        public void RestoreTile(KeyValuePair<IntVec3, TerraformedInfo> info)
-        {
-            if(info.Value.currentTerrain != map.terrainGrid.TerrainAt(info.Key))
-            {
-                terraformedTiles.Remove(info.Key);
-            }
-            else
-            {
-                map.terrainGrid.SetTerrain(info.Key, info.Value.originalTerrain);
-            }
+            map.terrainGrid.SetTerrain(c, (map.terrainGrid.UnderTerrainAt(c)));
         }
 
         public void RegisterTerraformer(Building terraformer)
@@ -97,48 +87,29 @@ namespace O21Toolbox.Terraformer
         public void UnregisterTerraformer(Building terraformer)
         {
             this.terraformers.Remove(terraformer);
-            this.removedTerraformers.Add(terraformer);
         }
 
-        public void RegisterTerraformedTile(IntVec3 loc, Building terraformer, TerrainDef original, TerrainDef current)
+        public Grid_Terraformer GetGridByTag(string tag)
         {
-            if (terraformedTiles.ContainsKey(loc))
+            Grid_Terraformer result;
+            if (!terraformerGrids.EnumerableNullOrEmpty() && terraformerGrids.ContainsKey(tag)) 
             {
-                TerraformedInfo oldInfo;
-                terraformedTiles.TryGetValue(loc, out oldInfo);
-                if(oldInfo != null)
-                {
-                    terraformedTiles.Remove(loc);
-                    terraformedTiles.Add(loc, new TerraformedInfo(terraformer, oldInfo.originalTerrain, current));
-                }
+                result = terraformerGrids.Where(g => g.Key == tag).First().Value;
             }
             else
             {
-                terraformedTiles.Add(loc, new TerraformedInfo(terraformer, original, current));
+                result = GenerateNewGridByTag(tag);
             }
+            return result;
         }
 
-        public class TerraformedInfo : IExposable
+        public Grid_Terraformer GenerateNewGridByTag(string tag)
         {
-            public Building terraformer;
+            Grid_Terraformer newGrid = new Grid_Terraformer(map);
 
-            public TerrainDef originalTerrain;
+            terraformerGrids.Add(tag, newGrid);
 
-            public TerrainDef currentTerrain;
-
-            public TerraformedInfo(Building terraformer, TerrainDef originalTerrain, TerrainDef currentTerrain)
-            {
-                this.terraformer = terraformer;
-                this.originalTerrain = originalTerrain;
-                this.currentTerrain = currentTerrain;
-            }
-
-            public void ExposeData()
-            {
-                Scribe_References.Look(ref terraformer, "terraformer");
-                Scribe_Defs.Look(ref originalTerrain, "originalTerrain");
-                Scribe_Defs.Look(ref currentTerrain, "currentTerrain");
-            }
+            return newGrid;
         }
     }
 }

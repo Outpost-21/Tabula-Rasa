@@ -11,9 +11,11 @@ namespace O21Toolbox.Terraformer
 {
     public class Comp_Terraformer : ThingComp
     {
-        public CompProperties_Terraformer Props => (CompProperties_Terraformer)this.props;
+        public CompProperties_Terraformer Props => (CompProperties_Terraformer)props;
 
         public CompPowerTrader powerComp = null;
+
+        public MapComponent_Terraforming mapComp => parent.Map.GetComponent<MapComponent_Terraforming>();
 
         public int workTick = -50;
 
@@ -21,42 +23,105 @@ namespace O21Toolbox.Terraformer
 
         public int witherTickCurrent = 0;
 
-        public float currentRadiusT = 0f;
+        //private List<IntVec3> cachedViableCells = new List<IntVec3>();
+
+        private Grid_Terraformer terraformerGrid;
+
+        public Grid_Terraformer TerraformerGrid
+        {
+            get
+            {
+                if(terraformerGrid == null)
+                {
+                    terraformerGrid = mapComp.GetGridByTag(Props.terraformerTag);
+                }
+
+                return terraformerGrid;
+            }
+        }
+
+        public List<IntVec3> GetRadialCells => GenRadial.RadialCellsAround(this.parent.Position, Props.terraformRange, true).ToList();
+
+        public List<IntVec3> GetViableCells
+        {
+            get
+            {
+                List<IntVec3> results = new List<IntVec3>();
+                if (!TerraformerGrid.terraformerCells.Contains(parent.Position))
+                {
+                    TerraformerGrid.terraformerCells.Add(parent.Position);
+                    TerraformerGrid.MakeDirty(parent.Position);
+                }
+                if (!TerraformerGrid.growthEdgeGrid.ActiveCells.ToList().NullOrEmpty())
+                {
+                    results = TerraformerGrid.growthEdgeGrid.ActiveCells.ToList();
+                }
+                return results;
+            }
+        }
+
+        //public void RecacheViableCells()
+        //{
+        //    if (Props.terraformerRules.terrainRules.NullOrEmpty())
+        //    {
+        //        return;
+        //    }
+
+        //    List<IntVec3> allCells = GetRadialCells;
+        //    List<IntVec3> potentialCells = new List<IntVec3>();
+
+        //    for (int k = 0; k < allCells.Count(); k++)
+        //    {
+        //        if (!parent.OccupiedRect().Where(c => c.AdjacentTo8WayOrInside(allCells[k])).EnumerableNullOrEmpty())
+        //        {
+        //            potentialCells.Add(allCells[k]);
+        //        }
+        //        else if (GenAdjFast.AdjacentCells8Way(allCells[k]).Where(c => mapComp.terraformedTiles.Where(t => t.Key.AdjacentTo8Way(allCells[k]) && t.Value.terraformer == parent).EnumerableNullOrEmpty()).EnumerableNullOrEmpty())
+        //        {
+        //            potentialCells.Add(allCells[k]);
+        //        }
+        //        else if (!GenAdjFast.AdjacentCells8Way(allCells[k]).Where(c => Props.PotentialResults.Contains(c.GetTerrain(parent.Map))).EnumerableNullOrEmpty())
+        //        {
+        //            potentialCells.Add(allCells[k]);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < potentialCells.Count(); i++)
+        //    {
+        //        if (!Props.TerrainCandidates.NullOrEmpty())
+        //        {
+        //            if (Props.TerrainCandidates.Contains(potentialCells[i].GetTerrain(parent.Map)) && !cachedViableCells.Contains(potentialCells[i]))
+        //            {
+        //                cachedViableCells.Add(potentialCells[i]);
+        //            }
+        //        }
+        //        else if (!Props.EdificeCandidates.NullOrEmpty())
+        //        {
+        //            if(potentialCells[i].GetEdifice(parent.Map) != null && Props.EdificeCandidates.Contains(potentialCells[i].GetEdifice(parent.Map).def) && !cachedViableCells.Contains(potentialCells[i]))
+        //            {
+        //                cachedViableCells.Add(potentialCells[i]);
+        //            }
+        //        }
+        //    }
+        //}
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
 
-            powerComp = this.parent.TryGetComp<CompPowerTrader>();
+            powerComp = parent.TryGetComp<CompPowerTrader>();
 
             if (!respawningAfterLoad)
             {
-                UpdateRadiusT();
                 ResetWorkTick();
             }
-            if (this.Props.canNatureRestore)
-            {
-                this.parent.Map.GetComponent<MapComponent_Terraforming>().RegisterTerraformer((Building)this.parent);
-            }
+            parent.Map.GetComponent<MapComponent_Terraforming>().RegisterTerraformer((Building)parent);
         }
 
         public override void PostExposeData()
         {
             base.PostExposeData();
 
-        }
-
-        private void UpdateRadiusT()
-        {
-            if((currentRadiusT - Props.terraformRangeGap) != Props.terraformRange && ListTerraformableTiles(Props.terraformRangeGap).Count <= 0)
-            {
-                //currentRadiusT++;
-                //if(currentRadiusT > Props.terraformRange)
-                //{
-                //    currentRadiusT = Props.terraformRange;
-                //}
-                currentRadiusT = Props.terraformRange;
-            }
         }
 
         public void InitializeParams(Thing node)
@@ -76,7 +141,6 @@ namespace O21Toolbox.Terraformer
                 }
                 TryTerraform();
                 ResetWorkTick();
-                UpdateRadiusT();
             }
 
             if (IsWithering())
@@ -129,21 +193,7 @@ namespace O21Toolbox.Terraformer
 
         public override string CompInspectStringExtra()
         {
-            string text = string.Concat(new string[]
-            {
-                "Work For Current Tile".Translate().CapitalizeFirst(),
-                ": ",
-                this.workTick.ToString(),
-                "\n",
-                "CurrentRadius".Translate().CapitalizeFirst(),
-                ": ",
-                this.currentRadiusT.ToString(),
-                "\n",
-                "Max Radius".Translate().CapitalizeFirst(),
-                ": ",
-                this.Props.terraformRange.ToString(),
-            });
-            return text;
+            return "Work For Current Tile" + ": " + this.workTick.ToString();
         }
 
         private void TryTerraform()
@@ -151,59 +201,69 @@ namespace O21Toolbox.Terraformer
             //Log.Message("Attempting Terraform");
             TryTerraform_Terrain();
             TryTerraform_Edifice();
-            if (currentRadiusT >= Props.terraformRange)
-            {
-                TryTerraform_Plants();
-            }
+            //TryTerraform_Plants();
             //TryTerraform_CreateNodes();
         }
 
-        private void HarmRandomPlantInRadius()
-        {
-            IntVec3 c = this.parent.Position + (Rand.InsideUnitCircleVec3 * currentRadiusT).ToIntVec3();
-            if (!c.InBounds(this.parent.Map))
-            {
-                return;
-            }
-            if (Props.killUnlistedPlants)
-            {
-                Plant plant = c.GetPlant(this.parent.Map);
-                if(plant != null)
-                {
-                    if(Props.terraformerRules.plantRules != null)
-                    {
-                        foreach(TerraformerPlantRule rule in Props.terraformerRules.plantRules)
-                        {
-                            if(!(rule.thingResult.Exists(x => x.thingDef == plant.def) || (rule.thingWhitelist != null && rule.thingWhitelist.Exists(x => x == plant.def))))
-                            {
-                                plant.Kill(null, null);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        plant.Kill(null, null);
-                    }
-                }
-            }
-        }
+        //private void HarmRandomPlantInRadius()
+        //{
+        //    IntVec3 c = this.parent.Position + (Rand.InsideUnitCircleVec3 * currentRadiusT).ToIntVec3();
+        //    if (!c.InBounds(this.parent.Map))
+        //    {
+        //        return;
+        //    }
+        //    if (Props.killUnlistedPlants)
+        //    {
+        //        Plant plant = c.GetPlant(this.parent.Map);
+        //        if(plant != null)
+        //        {
+        //            if(Props.terraformerRules.plantRules != null)
+        //            {
+        //                foreach(TerraformerPlantRule rule in Props.terraformerRules.plantRules)
+        //                {
+        //                    if(!(rule.thingResult.Exists(x => x.thingDef == plant.def) || (rule.thingWhitelist != null && rule.thingWhitelist.Exists(x => x == plant.def))))
+        //                    {
+        //                        plant.Kill(null, null);
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                plant.Kill(null, null);
+        //            }
+        //        }
+        //    }
+        //}
 
         private void TryTerraform_Terrain()
         {
             if(Props.terraformerRules.terrainRules != null)
             {
-                List<IntVec3> tileList = ListTerraformableTiles(0);
+                List<IntVec3> tileList = GetViableCells;
+                List<IntVec3> finalList = new List<IntVec3>();
                 if(tileList.Count() > 0)
                 {
-                    foreach(TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
+                    foreach (TerraformerTerrainRule rule in Props.terraformerRules.terrainRules)
                     {
-                        IntVec3 randomTile = tileList.RandomElement();
-                        TerrainDef newTerrain = rule.terrainResult.RandomElement();
-                        TerrainDef oldTerrain = randomTile.GetTerrain(this.parent.Map);
-                        if (rule.terrainDefsWhitelist.Exists(x => x == randomTile.GetTerrain(this.parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == randomTile.GetTerrain(this.parent.Map))))
+                        for (int k = 0; k < tileList.Count(); k++)
                         {
-                            this.parent.Map.terrainGrid.SetTerrain(randomTile, newTerrain);
-                            this.parent.Map.GetComponent<MapComponent_Terraforming>().RegisterTerraformedTile(randomTile, (Building)this.parent, oldTerrain, newTerrain);
+                            if (!parent.OccupiedRect().Where(c => c.AdjacentTo8WayOrInside(tileList[k])).EnumerableNullOrEmpty())
+                            {
+                                finalList.Add(tileList[k]);
+                            }
+                            else if (!GenAdjFast.AdjacentCells8Way(tileList[k]).Where(c => rule.terrainResult.Contains(c.GetTerrain(parent.Map))).EnumerableNullOrEmpty())
+                            {
+                                finalList.Add(tileList[k]);
+                            }
+                        }
+
+                        IntVec3 randomTile = finalList.RandomElementByWeightWithDefault(t => GenAdjFast.AdjacentCells8Way(t).Where(c => rule.terrainResult.Contains(c.GetTerrain(parent.Map))).Count(), 0.01f);
+                        TerrainDef newTerrain = rule.terrainResult.RandomElement();
+
+                        if (rule.terrainDefsWhitelist.Exists(x => x == randomTile.GetTerrain(parent.Map)) || (rule.terrainDefsWhitelist == null && rule.terrainDefsBlacklist != null && !rule.terrainDefsBlacklist.Exists(x => x == randomTile.GetTerrain(parent.Map))))
+                        {
+                            TerraformerGrid.MakeDirty(randomTile);
+                            parent.Map.terrainGrid.SetTerrain(randomTile, newTerrain);
                             break;
                         }
                     }
@@ -211,36 +271,34 @@ namespace O21Toolbox.Terraformer
             }
         }
 
-        private List<IntVec3> ListTerraformableTiles(float f)
-        {
-            List<IntVec3> terraformTiles = new List<IntVec3>();
+        //private List<IntVec3> ListTerraformableTiles(float f)
+        //{
+        //    List<IntVec3> terraformTiles = new List<IntVec3>();
 
-            int num = GenRadial.NumCellsInRadius(this.currentRadiusT - f);
-            for (int i = 0; i < num; i++)
-            {
-                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                foreach (TerraformerTerrainRule rule in this.Props.terraformerRules.terrainRules)
-                {
-                    if ((rule.terrainDefsWhitelist != null && rule.terrainDefsWhitelist.Contains(tile.GetTerrain(this.parent.Map))) || (rule.terrainDefsBlacklist != null && rule.terrainDefsBlacklist.Contains(tile.GetTerrain(this.parent.Map))))
-                    {
-                        if ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => GetSpreaderTerrains(this).Contains(loc.GetTerrain(this.parent.Map))) || ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => GetSpreaderEdifices(this).Contains(loc.GetEdifice(this.parent.Map)?.def))) || this.currentRadiusT == 0f)) && GenAdjFast.AdjacentCells8Way(tile).Any(loc => !loc.Filled(this.parent.Map)))
-                        {
-                            terraformTiles.Add(tile);
-                        }
-                    }
-                }
-            }
+        //    int num = GenRadial.NumCellsInRadius(this.currentRadiusT - f);
+        //    for (int i = 0; i < num; i++)
+        //    {
+        //        IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+        //        foreach (TerraformerTerrainRule rule in this.Props.terraformerRules.terrainRules)
+        //        {
+        //            if ((rule.terrainDefsWhitelist != null && rule.terrainDefsWhitelist.Contains(tile.GetTerrain(this.parent.Map))) || (rule.terrainDefsBlacklist != null && rule.terrainDefsBlacklist.Contains(tile.GetTerrain(this.parent.Map))))
+        //            {
+        //                if ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => (bool)(GetSpreaderTerrains(this)?.Contains(loc.GetTerrain(this.parent.Map)))) || ((GenAdjFast.AdjacentCellsCardinal(tile).Any(loc => (bool)(GetSpreaderEdifices(this)?.Contains(loc.GetEdifice(this.parent.Map)?.def)))) || this.currentRadiusT == 0f)) && GenAdjFast.AdjacentCells8Way(tile).Any(loc => !loc.Filled(this.parent.Map)))
+        //                {
+        //                    terraformTiles.Add(tile);
+        //                }
+        //            }
+        //        }
+        //    }
 
-            //Log.Message("TerraformListed: " + terraformTiles.Count());
-
-            return terraformTiles;
-        }
+        //    return terraformTiles;
+        //}
 
         private void TryTerraform_Edifice()
         {
             if(Props.terraformerRules.edificeRules != null)
             {
-                List<IntVec3> tileList = ListTerraformableEdifices();
+                List<IntVec3> tileList = GetViableCells;
                 if (tileList.Count() > 0)
                 {
                     foreach (TerraformerThingRule rule in Props.terraformerRules.edificeRules)
@@ -257,66 +315,66 @@ namespace O21Toolbox.Terraformer
             }
         }
 
-        private List<IntVec3> ListTerraformableEdifices()
-        {
-            List<IntVec3> terraformTiles = new List<IntVec3>();
+        //private List<IntVec3> ListTerraformableEdifices()
+        //{
+        //    List<IntVec3> terraformTiles = new List<IntVec3>();
 
-            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
-            for (int i = 0; i < num; i++)
-            {
-                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                foreach (TerraformerThingRule rule in this.Props.terraformerRules.edificeRules)
-                {
-                    if (((rule.thingWhitelist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingWhitelist.Contains(tile.GetEdifice(this.parent.Map).def)) || (rule.thingBlacklist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingBlacklist.Contains(tile.GetEdifice(this.parent.Map).def))) && GetSpreaderTerrains(this).Contains(tile.GetTerrain(this.parent.Map)))
-                    {
-                        terraformTiles.Add(tile);
-                    }
-                }
-            }
+        //    int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+        //    for (int i = 0; i < num; i++)
+        //    {
+        //        IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+        //        foreach (TerraformerThingRule rule in this.Props.terraformerRules.edificeRules)
+        //        {
+        //            if (((rule.thingWhitelist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingWhitelist.Contains(tile.GetEdifice(this.parent.Map).def)) || (rule.thingBlacklist != null && tile.GetEdifice(this.parent.Map) != null && rule.thingBlacklist.Contains(tile.GetEdifice(this.parent.Map).def))) && GetSpreaderTerrains(this).Contains(tile.GetTerrain(this.parent.Map)))
+        //            {
+        //                terraformTiles.Add(tile);
+        //            }
+        //        }
+        //    }
 
-            return terraformTiles;
-        }
+        //    return terraformTiles;
+        //}
 
-        public void TryTerraform_Things()
-        {
-            throw new NotImplementedException();
-        }
+        //public void TryTerraform_Things()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void TryTerraform_Plants()
-        {
-            if (Props.terraformerRules.plantRules.NullOrEmpty())
-            {
-                return;
-            }
-            foreach (TerraformerPlantRule rule in Props.terraformerRules.plantRules)
-            {
-                List<IntVec3> tileList = ListPlantableTiles(rule.ignoreFertility, rule.fertilityAbove, rule.fertilityBelow);
-                foreach (ThingDefCount tdc in rule.thingResult)
-                {
-                    if(GetThingsInRadius(tdc.ThingDef).Count < tdc.Count)
-                    {
-                        GenSpawn.Spawn(tdc.ThingDef, tileList.RandomElement(), this.parent.Map);
-                    }
-                }
-            }
-        }
+        //private void TryTerraform_Plants()
+        //{
+        //    if (Props.terraformerRules.plantRules.NullOrEmpty())
+        //    {
+        //        return;
+        //    }
+        //    foreach (TerraformerPlantRule rule in Props.terraformerRules.plantRules)
+        //    {
+        //        List<IntVec3> tileList = ListPlantableTiles(rule.ignoreFertility, rule.fertilityAbove, rule.fertilityBelow);
+        //        foreach (ThingDefCount tdc in rule.thingResult)
+        //        {
+        //            if(GetThingsInRadius(tdc.ThingDef).Count < tdc.Count)
+        //            {
+        //                GenSpawn.Spawn(tdc.ThingDef, tileList.RandomElement(), this.parent.Map);
+        //            }
+        //        }
+        //    }
+        //}
 
-        private List<IntVec3> GetThingsInRadius(ThingDef thingDef)
-        {
-            List<IntVec3> thingTiles = new List<IntVec3>();
+        //private List<IntVec3> GetThingsInRadius(ThingDef thingDef)
+        //{
+        //    List<IntVec3> thingTiles = new List<IntVec3>();
 
-            int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
-            for (int i = 0; i < num; i++)
-            {
-                IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                if (tile.GetThingList(this.parent.Map).Any(x => x.def == thingDef))
-                {
-                    thingTiles.Add(tile);
-                }
-            }
+        //    int num = GenRadial.NumCellsInRadius(this.currentRadiusT);
+        //    for (int i = 0; i < num; i++)
+        //    {
+        //        IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
+        //        if (tile.GetThingList(this.parent.Map).Any(x => x.def == thingDef))
+        //        {
+        //            thingTiles.Add(tile);
+        //        }
+        //    }
 
-            return thingTiles;
-        }
+        //    return thingTiles;
+        //}
 
         private List<IntVec3> ListPlantableTiles(bool useFertility, float min, float max)
         {
@@ -326,7 +384,7 @@ namespace O21Toolbox.Terraformer
             for (int i = 0; i < num; i++)
             {
                 IntVec3 tile = this.parent.Position + GenRadial.RadialPattern[i];
-                if((useFertility || (!useFertility && tile.GetTerrain(this.parent.Map).fertility >= min && tile.GetTerrain(this.parent.Map).fertility <= max)) && GetSpreaderTerrains(this).Contains(tile.GetTerrain(this.parent.Map)))
+                if((useFertility || (!useFertility && tile.GetTerrain(this.parent.Map).fertility >= min && tile.GetTerrain(this.parent.Map).fertility <= max)) && Props.PotentialResults.Contains(tile.GetTerrain(this.parent.Map)))
                 {
                     plantableTiles.Add(tile);
                 }
@@ -340,48 +398,12 @@ namespace O21Toolbox.Terraformer
             throw new NotImplementedException();
         }
 
-        public override void PostDrawExtraSelectionOverlays()
-        {
-            if (this.currentRadiusT < this.Props.terraformRange - 0.0001f)
-            {
-                GenDraw.DrawRadiusRing(this.parent.Position, this.currentRadiusT);
-            }
-        }
-
-        public static List<TerrainDef> GetSpreaderTerrains(Comp_Terraformer comp)
-        {
-            List<TerrainDef> result = new List<TerrainDef>();
-
-            foreach(TerraformerTerrainRule rule in comp.Props.terraformerRules.terrainRules)
-            {
-                foreach(TerrainDef terrain in rule.terrainResult)
-                {
-                    if (!result.Contains(terrain))
-                    {
-                        result.Add(terrain);
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public static List<ThingDef> GetSpreaderEdifices(Comp_Terraformer comp)
-        {
-            List<ThingDef> result = new List<ThingDef>();
-
-            foreach (TerraformerThingRule rule in comp.Props.terraformerRules.edificeRules)
-            {
-                foreach (ThingDef edifice in rule.thingResult)
-                {
-                    if (!result.Contains(edifice))
-                    {
-                        result.Add(edifice);
-                    }
-                }
-            }
-
-            return result;
-        }
+        //public override void PostDrawExtraSelectionOverlays()
+        //{
+        //    if (this.currentRadiusT < this.Props.terraformRange - 0.0001f)
+        //    {
+        //        GenDraw.DrawRadiusRing(this.parent.Position, this.currentRadiusT);
+        //    }
+        //}
     }
 }
