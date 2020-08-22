@@ -293,6 +293,8 @@
     <None Include="PawnLamp\Util_PawnLamp.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
+    <Compile Include="Requisition\DefModExt_Requisition.cs" />
+    <Compile Include="Requisition\Worker_Requisition.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
     <Compile Include="Teleporter\CompProperties_Teleporter.cs" />

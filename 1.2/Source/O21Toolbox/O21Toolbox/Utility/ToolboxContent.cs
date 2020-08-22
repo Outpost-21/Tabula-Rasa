@@ -15,9 +15,9 @@ namespace O21Toolbox.Utility
     {
         static ToolboxContent()
         {
-            DefOfHelper.EnsureInitializedInCtor(typeof(ToolboxContent));
+            UnknownBuildable = ContentFinder<Texture2D>.Get("UI/Toolbox/Unknown");
         }
 
-        public static readonly Texture2D UnknownBuildable = ContentFinder<Texture2D>.Get("UI/Toolbox/Unknown");
+        public static readonly Texture2D UnknownBuildable;
     }
 }

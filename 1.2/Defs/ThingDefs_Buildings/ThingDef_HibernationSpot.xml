@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>O21_HibernationSpot</defName>
+		<label>hibernation spot</label>
+		<description>Designated location for pawns that have an energy need to hibernate in for conserving power, they will not leave until instructed.</description>
+		<thingClass>Building</thingClass>
+		
+		<graphicData>
+			<texPath>Things/Building/Misc/AnimalBed/AnimalSleepSpot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		
+		<uiIconScale>0.80</uiIconScale>
+		<size>(1,1)</size>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<rotatable>false</rotatable>
+		<canOverlapZones>false</canOverlapZones>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+		<useHitPoints>false</useHitPoints>
+		<designationCategory>Misc</designationCategory>
+		<passability>Standable</passability>
+		
+		<statBases>
+			<WorkToBuild>0</WorkToBuild>
+			<Flammability>0.0</Flammability>
+		</statBases>
+		
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		
+		<comps>
+			<li>
+				<compClass>O21Toolbox.Needs.Comp_Hibernation</compClass>
+			</li>
+		</comps>
+	</ThingDef>
+	
+</Defs>

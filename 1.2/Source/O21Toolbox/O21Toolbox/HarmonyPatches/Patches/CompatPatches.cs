@@ -414,9 +414,9 @@ namespace O21Toolbox.HarmonyPatches
                 {
                     Pawn actor = toil.actor;
 
-                    Thing repairParts = (Thing)actor.CurJob.targetB.Thing;
+                    Thing repairParts = actor.CurJob.targetB.Thing;
 
-                    if (patient.def.GetModExtension<ArtificialPawnProperties>().repairParts != null && !patient.def.GetModExtension<ArtificialPawnProperties>().repairParts.Contains(actor.CurJob.targetB.Thing.def))
+                    if (!patient.def.GetModExtension<ArtificialPawnProperties>().repairParts.NullOrEmpty() && repairParts != null && !patient.def.GetModExtension<ArtificialPawnProperties>().repairParts.Contains(actor.CurJob.targetB.Thing.def))
                     {
                         repairParts = null;
                     }
