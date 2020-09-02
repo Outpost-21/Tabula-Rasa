@@ -16,69 +16,96 @@ namespace O21Toolbox.HarmonyPatches
     public class Harmony_Apparel
     {
         public static FieldInfo int_PawnRenderer_GetPawn;
-        private static HashSet<ThingStuffPair> apparelList;
+        //private static HashSet<ThingStuffPair> apparelList;
 
-        //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[] { typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool) }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null);
-        //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
+        public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
+        {
+            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[]
+            //   {
+            //    typeof(Vector3),
+            //    typeof(float),
+            //    typeof(bool),
+            //    typeof(Rot4),
+            //    typeof(Rot4),
+            //    typeof(RotDrawMode),
+            //    typeof(bool),
+            //    typeof(bool),
+            //    typeof(bool)
+            //   }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null, null);
+            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
+        }
 
         #region ApparelPatches
 
-        //public static void RenderPawnInternalPostfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
-        //{
-        //    if (!__instance.graphics.pawn.RaceProps.Animal)
-        //    {
-        //        List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
-        //        // Get all apparel with the defModExt.
-        //        foreach(Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
-        //        {
-        //            ApparelGraphicRecord item;
-        //            if (ap.def.HasModExtension<DefModExt_HeadwearOffset>())
-        //            {
-        //                DefModExt_HeadwearOffset modExt = ap.def.GetModExtension<DefModExt_HeadwearOffset>();
-        //                if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
-        //                {
-        //                    offsetApparelList.Add(item);
-        //                }
-        //            }
-        //        }
+        [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal")]
+        [HarmonyPatch(new Type[]
+        {
+            typeof(Vector3),
+            typeof(float),
+            typeof(bool),
+            typeof(Rot4),
+            typeof(Rot4),
+            typeof(RotDrawMode),
+            typeof(bool),
+            typeof(bool),
+            typeof(bool)
+        })]
+        public static class PawnRenderer_RenderPawnInternal_Postfix
+        {
+            [HarmonyPostfix]
+            public static void Postfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump, bool invisible)
+            {
+                if (!__instance.graphics.pawn.RaceProps.Animal)
+                {
+                    List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
+                    // Get all apparel with the defModExt.
+                    foreach (Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
+                    {
+                        ApparelGraphicRecord item;
+                        if (ap.def.HasModExtension<DefModExt_ApparelOffset>())
+                        {
+                            DefModExt_ApparelOffset modExt = ap.def.GetModExtension<DefModExt_ApparelOffset>();
+                            if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
+                            {
+                                offsetApparelList.Add(item);
+                            }
+                        }
+                    }
 
-        //        // Render if any Apparel in the list and NOT an animal.
-        //        if (offsetApparelList.Count >= 1)
-        //        {
-        //            Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
-        //            for (int i = 0; i < offsetApparelList.Count; i++)
-        //            {
-        //                DefModExt_HeadwearOffset modExt = offsetApparelList[i].sourceApparel.def.GetModExtension<DefModExt_HeadwearOffset>();
-        //                Vector3 baseOffset = quaternion * modExt.offset;
-        //                Mesh mesh = __instance.graphics.HairMeshSet.MeshAt(headFacing);
-        //                Vector3 loc2 = rootLoc + baseOffset;
-        //                loc2.y += 0.03125f;
+                    // Render if any Apparel in the list
+                    if (offsetApparelList.Count >= 1)
+                    {
+                        Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
+                        Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(bodyFacing);
+                        Vector3 vector2 = rootLoc;
+                        vector2.y += ((bodyFacing == Rot4.South) ? 0.006122449f : 0.02755102f);
 
-        //                if (modExt.bodyDependant)
-        //                {
+                        for (int i = 0; i < offsetApparelList.Count; i++)
+                        {
+                            ApparelGraphicRecord apparelGraphicRecord = offsetApparelList[i];
+                            Pawn pawn = __instance.graphics.pawn;
+                            DefModExt_ApparelOffset modExt = apparelGraphicRecord.sourceApparel.def.GetModExtension<DefModExt_ApparelOffset>();
 
-        //                }
-        //                else
-        //                {
-        //                    if (!offsetApparelList[i].sourceApparel.def.apparel.hatRenderedFrontOfFace)
-        //                    {
-        //                        Material material2 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
-        //                        material2 = __instance.graphics.flasher.GetDamagedMat(material2);
-        //                        GenDraw.DrawMeshNowOrLater(mesh, loc2, quaternion, material2, portrait);
-        //                    }
-        //                    else
-        //                    {
-        //                        Material material3 = offsetApparelList[i].graphic.MatAt(bodyFacing, null);
-        //                        material3 = __instance.graphics.flasher.GetDamagedMat(material3);
-        //                        Vector3 loc3 = rootLoc + baseOffset;
-        //                        loc3.y += ((!(bodyFacing == Rot4.North)) ? 0.03515625f : 0.00390625f);
-        //                        GenDraw.DrawMeshNowOrLater(mesh, loc3, quaternion, material3, portrait);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+                            Material material = apparelGraphicRecord.graphic.MatAt(bodyFacing, null);
+                            material = OverrideMaterialIfNeeded(__instance, material, pawn, portrait);
+                            if (apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData != null)
+                            {
+                                Vector2 vector3 = apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData.BeltOffsetAt(bodyFacing, pawn.story.bodyType);
+                                Vector2 vector4 = apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData.BeltScaleAt(pawn.story.bodyType);
+                                Matrix4x4 matrix = Matrix4x4.Translate(vector2) * Matrix4x4.Rotate(quaternion) * Matrix4x4.Translate(new Vector3(vector3.x, modExt.zOffset, vector3.y)) * Matrix4x4.Scale(new Vector3(vector4.x, 1f, vector4.y));
+                                GenDraw.DrawMeshNowOrLater_NewTemp(mesh, matrix, material, portrait);
+                            }
+                        }
+                    }
+                }
+            }
+
+            private static Material OverrideMaterialIfNeeded(PawnRenderer __instance, Material original, Pawn pawn, bool portrait = false)
+            {
+                Material baseMat = (!portrait && pawn.IsInvisible()) ? InvisibilityMatPool.GetInvisibleMat(original) : original;
+                return __instance.graphics.flasher.GetDamagedMat(baseMat);
+            }
+        }
 
         /**public static void GenerateStartingApparelForPostfix()
         {
@@ -229,7 +256,7 @@ namespace O21Toolbox.HarmonyPatches
             }
         }
 
-        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_HeadwearOffset modExt, out ApparelGraphicRecord rec)
+        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_ApparelOffset modExt, out ApparelGraphicRecord rec)
         {
             if (bodyType == null)
             {

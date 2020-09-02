@@ -41,7 +41,7 @@ namespace O21Toolbox.Needs
             if (!targetPawn?.Faction?.IsPlayer ?? true)
                 return false;
 
-            if (!targetPawn.InBed() || !targetPawn.Downed)
+            if (/*!targetPawn.InBed() ||  */!targetPawn.Downed)
                 return false;
 
             if (!HealthAIUtility.ShouldSeekMedicalRest(targetPawn))
@@ -99,6 +99,29 @@ namespace O21Toolbox.Needs
         /// <returns>Thing if found any, null if not.</returns>
         public Thing TryFindBestEnergySource(Pawn pawn)
         {
+            //In inventory. (Or carried)
+            if (pawn.carryTracker is Pawn_CarryTracker carryTracker && carryTracker.CarriedThing is Thing carriedThing && carriedThing.TryGetComp<Comp_EnergySource>() is Comp_EnergySource carriedThingComp && carriedThingComp.EnergyProps.isConsumable)
+            {
+                if (carriedThing.stackCount > 0)
+                {
+                    return carryTracker.CarriedThing;
+                }
+            }
+            if (pawn.inventory is Pawn_InventoryTracker inventory)
+            {
+                Thing validInternalEnergySource =
+                        inventory.innerContainer.FirstOrDefault(
+                            thing =>
+                            thing.TryGetComp<Comp_EnergySource>() is Comp_EnergySource energySource &&
+                            energySource.EnergyProps.isConsumable
+                            );
+                if (validInternalEnergySource != null)
+                {
+                    return validInternalEnergySource;
+                }
+            }
+
+            //On map.
             Thing closestEnergySource = GenClosest.ClosestThingReachable(
                 pawn.Position, pawn.Map, ThingRequest.ForGroup(ThingRequestGroup.HaulableEver), PathEndMode.ClosestTouch, TraverseParms.For(pawn), 9999f,
                 searchThing => searchThing.TryGetComp<Comp_EnergySource>() != null && !searchThing.IsForbidden(pawn) && pawn.CanReserve(searchThing) && searchThing.Position.InAllowedArea(pawn) && pawn.CanReach(new LocalTargetInfo(searchThing), PathEndMode.OnCell, Danger.Deadly));

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ThingDef Name="O21_NQH_Base" Abstract="True">
-		<thingClass>O21Toolbox.NotQuiteHumanoid.NQH_Pawn</thingClass>
+	<ThingDef Name="O21_DroneBase" Abstract="True">
+		<thingClass>O21Toolbox.Drones.Drone_Pawn</thingClass>
 		<category>Pawn</category>
 		<selectable>true</selectable>
 		<tickerType>Normal</tickerType>
@@ -25,8 +25,6 @@
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
-			<li>ITab_Pawn_Training</li>
-			<li>ITab_Pawn_Social</li>
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
 			<li>ITab_Pawn_FormingCaravan</li>
@@ -39,11 +37,11 @@
 			</li>
 		</comps>
 		<race>
-			<thinkTreeMain>NQHMain</thinkTreeMain>
-			<thinkTreeConstant>NQHConstant</thinkTreeConstant>
+			<thinkTreeMain>DroneMain</thinkTreeMain>
+			<thinkTreeConstant>DroneConstant</thinkTreeConstant>
 			<needsRest>false</needsRest>
 			<hasGenders>false</hasGenders>
-			<fleshType>Mechanoid</fleshType>
+			<fleshType>Artificial</fleshType>
 			<foodType>None</foodType>
 			<intelligence>ToolUser</intelligence>
 			<makesFootprints>false</makesFootprints>
@@ -53,15 +51,6 @@
 			<lifeExpectancy>9999</lifeExpectancy>
 			<baseBodySize>1</baseBodySize>
 			<baseHealthScale>1</baseHealthScale>
-			<lifeStageAges>
-				<li>
-					<def>MechanoidFullyFormed</def>
-					<minAge>0</minAge>
-				</li>
-			</lifeStageAges>
-			<soundMeleeHitPawn>Pawn_Melee_MechanoidBash_HitPawn</soundMeleeHitPawn>
-			<soundMeleeHitBuilding>Pawn_Melee_MechanoidBash_HitBuilding</soundMeleeHitBuilding>
-			<soundMeleeMiss>Pawn_Melee_MechanoidBash_Miss</soundMeleeMiss>
 		</race>
 	</ThingDef>
 

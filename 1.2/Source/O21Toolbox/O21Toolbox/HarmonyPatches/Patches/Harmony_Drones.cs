@@ -10,26 +10,26 @@ using Verse;
 
 using HarmonyLib;
 
-using O21Toolbox.NotQuiteHumanoid;
+using O21Toolbox.Drones;
 
 namespace O21Toolbox.HarmonyPatches
 {
     [StaticConstructorOnStartup]
-    public class Harmony_NQH
+    public class Harmony_Drones
     {
         public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
             //O21ToolboxHarmony.Patch(typeof(SymbolResolver_RandomMechanoidGroup).GetMethods(BindingFlags.NonPublic | BindingFlags.Static).First(mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(NQHFixerAncient)));
             //O21ToolboxHarmony.Patch( typeof(CompWakeUpDormant).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First( mi => mi.HasAttribute<CompilerGeneratedAttribute>() && mi.ReturnType == typeof(bool) && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == typeof(PawnKindDef)), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(NQHFixer)));
         }
-        public static void NQHFixerAncient(ref bool __result, PawnKindDef kind)
+        public static void DroneFixerAncient(ref bool __result, PawnKindDef kind)
         {
-            if (typeof(NQH_Pawn).IsAssignableFrom(kind.race.thingClass)) __result = false;
+            if (typeof(Drone_Pawn).IsAssignableFrom(kind.race.thingClass)) __result = false;
         }
 
-        public static void NQHFixer(ref bool __result, PawnKindDef def)
+        public static void DroneFixer(ref bool __result, PawnKindDef def)
         {
-            if (typeof(NQH_Pawn).IsAssignableFrom(def.race.thingClass)) __result = false;
+            if (typeof(Drone_Pawn).IsAssignableFrom(def.race.thingClass)) __result = false;
         }
 
         [HarmonyPatch(typeof(TransferableUtility), "CanStack")]
@@ -40,7 +40,7 @@ namespace O21Toolbox.HarmonyPatches
                 if (thing.def.category == ThingCategory.Pawn)
                 {
                     Pawn pawn = (Pawn)thing;
-                    if (pawn is NQH_Pawn)
+                    if (pawn is Drone_Pawn)
                     {
                         __result = false;
                         return false;
@@ -57,7 +57,7 @@ namespace O21Toolbox.HarmonyPatches
             [HarmonyPrefix]
             public static bool Prefix(Pawn p)
             {
-                return !(p is NQH_Pawn);
+                return !(p is Drone_Pawn);
             }
         }
 
@@ -68,7 +68,7 @@ namespace O21Toolbox.HarmonyPatches
             [HarmonyPostfix]
             public static void Postfix(Pawn __instance, ref bool __result)
             {
-                if (__instance is NQH_Pawn)
+                if (__instance is Drone_Pawn)
                 {
                     __result = __instance.Spawned && (__instance.Faction != null && __instance.Faction.IsPlayer) && __instance.MentalStateDef == null && __instance.HostFaction == null;
                 }

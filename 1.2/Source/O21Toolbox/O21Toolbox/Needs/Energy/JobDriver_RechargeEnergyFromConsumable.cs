@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 using Verse.AI;
+using O21Toolbox.HarmonyPatches;
 
 namespace O21Toolbox.Needs
 {
@@ -112,8 +113,41 @@ namespace O21Toolbox.Needs
                         Comp_EnergySource energyComp = carriedThing.TryGetComp<Comp_EnergySource>();
                         if (energyComp != null)
                             energyComp.RechargeEnergyNeed(pawn);
+                        
+                        if (!carriedThing.def.HasModExtension<DefModExt_OutputFromEdible>())
+                        {
+                            pawn.carryTracker.DestroyCarriedThing();
+                        }
+                        else //Drop output items if they exist.
+                        {
+                            DefModExt_OutputFromEdible ext = carriedThing.def.GetModExtension<DefModExt_OutputFromEdible>();
+                            if (ext.outputThing != null)
+                            {
+                                Thing output = ThingMaker.MakeThing(ext.outputThing);
+                                output.stackCount = pawn.carryTracker.CarriedThing.stackCount;
 
-                        pawn.carryTracker.DestroyCarriedThing();
+                                pawn.carryTracker.DestroyCarriedThing();
+
+                                //if (pawn.IsColonist)
+                                //{
+                                //    pawn.inventory.innerContainer.TryAddOrTransfer(output);
+                                //}
+                                //else
+                                //{
+                                    if(!GenPlace.TryPlaceThing(output, pawn.Position, pawn.Map, ThingPlaceMode.Near))
+                                    {
+                                        Log.Error(string.Concat(new object[]
+                                        {
+                                            pawn,
+                                            " could not drop recipe product ",
+                                            output,
+                                            " near ",
+                                            pawn.Position
+                                        }), false);
+                                    }
+                                //}
+                            }
+                        }
                     }
                 });
 

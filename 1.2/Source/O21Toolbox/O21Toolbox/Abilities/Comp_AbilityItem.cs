@@ -24,7 +24,7 @@ namespace O21Toolbox.Abilities
         public void GetOverlayGraphic()
         {
             // Cool effect if you uncomment. Places this graffic behind the item.
-            //            this.Overlay = GraphicDatabase.Get<Graphic_Single>("UI/Glow_Corrupt", ShaderDatabase.MetaOverlay, Vector2.one, Color.white);
+            Overlay = GraphicDatabase.Get<Graphic_Single>("UI/Glow_Corrupt", ShaderDatabase.MetaOverlay, Vector2.one, Color.white);
         }
 
 

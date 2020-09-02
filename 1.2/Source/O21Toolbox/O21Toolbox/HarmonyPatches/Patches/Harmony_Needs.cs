@@ -233,40 +233,31 @@ namespace O21Toolbox.HarmonyPatches
         //    }
         //}
 
-        
-
-
-
-
-
-
-        /*public static bool CompatPatch_VomitJob(ref JobDriver_Vomit __instance)
+        [HarmonyPatch(typeof(JobDriver_Vomit), "MakeNewToils")]
+        public static class Patch_VomitJob
         {
-            Pawn pawn = __instance.pawn;
-
-            if (pawn.def.HasModExtension<MechanicalPawnProperties>())
+            [HarmonyPrefix]
+            public static bool Prefix(ref JobDriver_Vomit __instance)
             {
-                //__instance.ended = true;
-                return false;
+                Pawn pawn = __instance.pawn;
+
+                if (pawn.def.HasModExtension<ArtificialPawnProperties>())
+                {
+                    __instance.ended = true;
+                    return false;
+                }
+
+                return true;
             }
+        }
 
-            return true;
-        }*/
-
-
-
-
-        
-
-        
-
-        //erdelf: No special mechanoids in ancient dangers.
+        // No special mechanoids in ancient dangers.
         public static void MechanoidsFixerAncient(ref bool __result, PawnKindDef kind)
         {
             if (kind.race.HasModExtension<ArtificialPawnProperties>()) __result = false;
         }
 
-        //erdelf:  No special mechanoids in crashed ships.
+        // No special mechanoids in crashed ships.
         public static void MechanoidsFixer(ref bool __result, PawnKindDef def)
         {
             if (def.race.HasModExtension<ArtificialPawnProperties>()) __result = false;

@@ -54,7 +54,7 @@ namespace O21Toolbox.Needs
 
                     if (thingCount > 0)
                     {
-                        FloatMenuOption floatMenuOption = new FloatMenuOption("AndroidConsumeEnergySource".Translate(parent.LabelCap),
+                        FloatMenuOption floatMenuOption = new FloatMenuOption("Consume energy from " + parent.Label,
                         () => selPawn.jobs.TryTakeOrderedJob(
                             new Verse.AI.Job(JobDefOf.O21RechargeEnergyComp, new LocalTargetInfo(parent))
                             {

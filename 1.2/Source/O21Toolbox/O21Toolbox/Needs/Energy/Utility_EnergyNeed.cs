@@ -28,7 +28,7 @@ namespace O21Toolbox.Needs
         public static bool BestClosestPowerSource(Pawn pawn, Thing thing)
         {
             //Predicate which checks all relevant things first.
-            bool predicate = thing.Faction == pawn.Faction && thing.TryGetComp<CompPower>() is CompPower compPower && compPower.PowerNet != null && compPower.PowerNet.CurrentStoredEnergy() > 50f && !thing.IsForbidden(pawn) && pawn.CanReserve(new LocalTargetInfo(thing)) && thing.Position.InAllowedArea(pawn) && pawn.CanReach(new LocalTargetInfo(thing), PathEndMode.OnCell, Danger.Deadly);
+            bool predicate = thing.TryGetComp<CompPower>() is CompPower compPower && compPower.PowerNet != null && compPower.PowerNet.CurrentStoredEnergy() > 50f && !thing.IsForbidden(pawn) && pawn.CanReserve(new LocalTargetInfo(thing)) && thing.Position.InAllowedArea(pawn) && pawn.CanReach(new LocalTargetInfo(thing), PathEndMode.OnCell, Danger.Deadly);
             if (!predicate)
                 return false;
 

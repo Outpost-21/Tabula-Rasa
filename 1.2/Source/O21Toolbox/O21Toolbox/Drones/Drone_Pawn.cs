@@ -9,11 +9,10 @@ using Verse;
 using Verse.AI;
 using Verse.AI.Group;
 
-namespace O21Toolbox.NotQuiteHumanoid
+namespace O21Toolbox.Drones
 {
-    public class NQH_Pawn : Pawn
+    public class Drone_Pawn : Pawn
     {
-        public List<WorkTypePriorityPair> capableWorktypes = new List<WorkTypePriorityPair>();
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -44,6 +43,8 @@ namespace O21Toolbox.NotQuiteHumanoid
         {
             base.PostMake();
 
+            DefModExt_Drone ext = def.GetModExtension<DefModExt_Drone>();
+
             if (ownership == null)
             {
                 ownership = new Pawn_Ownership(this);
@@ -51,7 +52,10 @@ namespace O21Toolbox.NotQuiteHumanoid
             if (skills == null)
             {
                 skills = new Pawn_SkillTracker(this);
-                skills.skills.Find(sr => sr.def == SkillDefOf.Construction).Level = 15;
+                foreach(SkillLevelSetting skill in ext.skillLevels)
+                {
+                    skills.skills.Find(sr => sr.def == skill.skill).Level = skill.level;
+                }
             }
             if (story == null)
             {
@@ -69,9 +73,9 @@ namespace O21Toolbox.NotQuiteHumanoid
             {
                 workSettings = new Pawn_WorkSettings(this);
                 workSettings.EnableAndInitializeIfNotAlreadyInitialized();
-                if(!capableWorktypes.NullOrEmpty())
+                if(!ext.capableWorkTypes.NullOrEmpty())
                 {
-                    foreach(WorkTypePriorityPair pair in capableWorktypes)
+                    foreach(WorkTypePriorityPair pair in ext.capableWorkTypes)
                     {
                         workSettings.SetPriority(pair.workType, pair.priority);
                     }
@@ -85,12 +89,5 @@ namespace O21Toolbox.NotQuiteHumanoid
                 }
             }
         }
-    }
-
-    public class WorkTypePriorityPair
-    {
-        public WorkTypeDef workType;
-
-        public int priority = 1;
     }
 }

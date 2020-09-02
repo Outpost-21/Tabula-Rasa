@@ -38,7 +38,7 @@ namespace O21Toolbox.Needs
                     //tmpHediffsToTend[i].Tended(quality, i);
                     if (medicine == null)
                     {
-                        tmpHediffsToTend[i].Tended(0.1f, i);
+                        tmpHediffsToTend[i].Tended_NewTemp(0.1f, i);
                     }
                     else
                     {

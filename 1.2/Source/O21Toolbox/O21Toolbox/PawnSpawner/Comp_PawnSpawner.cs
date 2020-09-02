@@ -22,7 +22,7 @@ namespace O21Toolbox
         public void SpawnPawn()
         {
             bool newbornFlag = Props.newborn;
-            PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:newbornFlag, forceGenerateNewPawn:true);
+            PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:newbornFlag, forceGenerateNewPawn:true, canGeneratePawnRelations: false);
             Pawn newThing = PawnGenerator.GeneratePawn(request);
             GenSpawn.Spawn(newThing, parent.Position, parent.Map, WipeMode.Vanish);
         }

@@ -8,13 +8,13 @@ using RimWorld;
 using Verse;
 using Verse.AI;
 
-namespace O21Toolbox.NotQuiteHumanoid
+namespace O21Toolbox.Drones
 {
-    public class ThinkNode_ConditionalColonistOrNQH : ThinkNode_Conditional
+    public class ThinkNode_ConditionalColonistOrDrone : ThinkNode_Conditional
     {
         protected override bool Satisfied(Pawn pawn)
         {
-            return pawn.IsColonist || pawn.IsPlayerControlledNQH();
+            return pawn.IsColonist || pawn.IsPlayerControlledDrone();
         }
     }
 }

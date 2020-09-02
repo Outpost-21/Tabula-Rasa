@@ -29,7 +29,7 @@ namespace O21Toolbox.CustomDispenser
         {
             base.ExposeData();
 
-            Scribe_Values.Look<ThingDef>(ref currentThing, "currentThing", null);
+            Scribe_Defs.Look<ThingDef>(ref currentThing, "currentThing");
             Scribe_Values.Look<int>(ref dispensingTicks, "dispensingTicks", 0);
         }
         #endregion

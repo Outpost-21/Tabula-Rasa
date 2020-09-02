@@ -11,7 +11,7 @@ using Verse;
 using HarmonyLib;
 
 using O21Toolbox.ApparelExt;
-using O21Toolbox.NotQuiteHumanoid;
+using O21Toolbox.Drones;
 using O21Toolbox.Research;
 using O21Toolbox.Utility;
 
@@ -43,7 +43,9 @@ namespace O21Toolbox.HarmonyPatches
 
             Harmony O21ToolboxHarmony = new Harmony("com.o21toolbox.rimworld.mod");
 
-            Harmony_NQH.Harmony_Patch(O21ToolboxHarmony, patchType);
+            Harmony_Apparel.Harmony_Patch(O21ToolboxHarmony, patchType);
+
+            Harmony_Drones.Harmony_Patch(O21ToolboxHarmony, patchType);
 
             Harmony_Needs.Harmony_Patch(O21ToolboxHarmony, patchType);
 

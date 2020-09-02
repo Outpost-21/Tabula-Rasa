@@ -18,7 +18,7 @@ namespace O21Toolbox.TurretsPlus
 
         public int maxCount = 1;
 
-        private bool holdFire;
+        //private bool holdFire;
 
         public Building_Emplacement()
         {
@@ -48,10 +48,10 @@ namespace O21Toolbox.TurretsPlus
             {
                 this.ResetForcedTarget();
             }
-            if (!this.CanToggleHoldFire)
-            {
-                this.holdFire = false;
-            }
+            //if (!this.CanToggleHoldFire)
+            //{
+            //    this.holdFire = false;
+            //}
             if (this.forcedTarget.ThingDestroyed)
             {
                 this.ResetForcedTarget();

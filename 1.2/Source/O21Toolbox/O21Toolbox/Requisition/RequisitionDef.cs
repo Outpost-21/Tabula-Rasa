@@ -10,8 +10,12 @@ using Verse;
 
 namespace O21Toolbox.Requisition
 {
-    public class DefModExt_Requisition : DefModExtension
+    public class RequisitionDef : Def
     {
-        public List<RequisitionDef>
+        public List<ThingDef> requisitionThings = new List<ThingDef>();
+
+        public List<PawnKindDef> requisitionPawns = new List<PawnKindDef>();
+
+        public List<>
     }
 }

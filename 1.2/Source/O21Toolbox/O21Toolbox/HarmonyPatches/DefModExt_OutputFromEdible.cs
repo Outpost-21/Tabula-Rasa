@@ -8,10 +8,10 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Requisition
+namespace O21Toolbox.HarmonyPatches
 {
-    public class DefModExt_Requisition : DefModExtension
+    public class DefModExt_OutputFromEdible : DefModExtension
     {
-        public List<RequisitionDef>
+        public ThingDef outputThing;
     }
 }
