@@ -290,12 +290,15 @@
     <None Include="Needs\Solar\DefModExt_SolarNeed.cs" />
     <None Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="PawnExt\CompProperties_PawnStorage.cs" />
+    <Compile Include="PawnExt\CompProperties_Resurrection.cs" />
     <Compile Include="PawnExt\Comp_PawnStorage.cs" />
+    <Compile Include="PawnExt\Comp_Resurrection.cs" />
     <Compile Include="PawnExt\DefModExt_BigBox.cs" />
     <Compile Include="PawnExt\HitBoxHolder.cs" />
     <None Include="packages.config" />
     <None Include="PawnLamp\ApparelPawnLamp.cs" />
     <None Include="PawnLamp\Util_PawnLamp.cs" />
+    <Compile Include="PawnExt\ResurrectionUtility.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <None Include="Requisition\DefModExt_Requisition.cs" />

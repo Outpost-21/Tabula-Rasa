@@ -7,6 +7,8 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
+using O21Toolbox.Drones;
+
 namespace O21Toolbox
 {
     public class CompProperties_PawnSpawner : CompProperties
@@ -18,6 +20,12 @@ namespace O21Toolbox
         
         public PawnKindDef pawnKind;
 
+        public List<PawnKindDef> pawnKinds = new List<PawnKindDef>();
+
         public bool newborn = false;
+
+        public int timer = -1;
+
+        public List<SkillLevelSetting> skillSettings = new List<SkillLevelSetting>();
     }
 }
