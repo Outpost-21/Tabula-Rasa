@@ -29,6 +29,8 @@ namespace O21Toolbox.Needs
         /// </summary>
         public JobDef hibernationJob;
 
+        public float baseEnergyDecayRate = 1.0f;
+
         /// <summary>
         /// Def for the energy need used.
         /// </summary>

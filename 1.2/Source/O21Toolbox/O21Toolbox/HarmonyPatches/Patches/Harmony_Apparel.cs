@@ -20,19 +20,7 @@ namespace O21Toolbox.HarmonyPatches
 
         public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
-            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[]
-            //   {
-            //    typeof(Vector3),
-            //    typeof(float),
-            //    typeof(bool),
-            //    typeof(Rot4),
-            //    typeof(Rot4),
-            //    typeof(RotDrawMode),
-            //    typeof(bool),
-            //    typeof(bool),
-            //    typeof(bool)
-            //   }, null), null, new HarmonyMethod(patchType, "RenderPawnInternalPostfix", null), null, null);
-            //O21ToolboxHarmony.Patch(AccessTools.Method(typeof(PawnApparelGenerator), "GenerateStartingApparelFor", null, null), new HarmonyMethod(patchType, "GenerateStartingApparelForPrefix", null), new HarmonyMethod(patchType, "GenerateStartingApparelForPostfix", null), null);
+
         }
 
         #region ApparelPatches

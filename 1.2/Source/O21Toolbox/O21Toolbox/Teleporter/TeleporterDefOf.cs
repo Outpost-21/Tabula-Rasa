@@ -19,5 +19,6 @@ namespace O21Toolbox.Teleporter
         }
 
         public static JobDef O21_UseTeleporter;
+        public static JobDef O21_UseRecall;
     }
 }

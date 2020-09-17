@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
 using UnityEngine;
 using RimWorld;
 using RimWorld.BaseGen;
+using RimWorld.Planet;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 using HarmonyLib;
 
@@ -71,6 +76,37 @@ namespace O21Toolbox.HarmonyPatches
                 if (__instance is Drone_Pawn)
                 {
                     __result = __instance.Spawned && (__instance.Faction != null && __instance.Faction.IsPlayer) && __instance.MentalStateDef == null && __instance.HostFaction == null;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(TransferableUtility), nameof(TransferableUtility.CanStack))]
+        public static class CanStackDroneTranspiler
+        {
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilg)
+            {
+                List<CodeInstruction> instructionList = instructions.ToList();
+
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    CodeInstruction instruction = instructionList[i];
+                    if (instruction.opcode == OpCodes.Stloc_0)
+                    {
+                        Label label = ilg.DefineLabel();
+
+                        i++;
+                        yield return instruction;
+                        yield return new CodeInstruction(opcode: OpCodes.Ldloc_0);
+                        yield return new CodeInstruction(opcode: OpCodes.Call, operand: AccessTools.Method(typeof(Drone_Utility), nameof(Drone_Utility.IsDrone), new Type[] { typeof(Pawn) }));
+                        yield return new CodeInstruction(opcode: OpCodes.Brfalse, label);
+
+                        yield return new CodeInstruction(opcode: OpCodes.Ldc_I4_0);
+                        yield return new CodeInstruction(opcode: OpCodes.Ret);
+                        instruction = instructionList[i];
+                        instruction.labels.Add(label);
+                    }
+                    yield return instruction;
                 }
             }
         }

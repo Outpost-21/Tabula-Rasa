@@ -17,7 +17,6 @@ namespace O21Toolbox.HarmonyPatches.Patches
 	[HarmonyPatch(typeof(Pawn_NeedsTracker), "ShouldHaveNeed")]
 	public class Patch_Pawn_NeedsTracker_ShouldHaveNeed
 	{
-		// Token: 0x0600037B RID: 891 RVA: 0x00025AE4 File Offset: 0x00023CE4
 		[HarmonyPostfix]
 		public static void Postfix(NeedDef nd, ref bool __result, Pawn ___pawn)
         {

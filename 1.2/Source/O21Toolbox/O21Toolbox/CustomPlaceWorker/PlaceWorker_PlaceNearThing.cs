@@ -11,76 +11,57 @@ namespace O21Toolbox.CustomPlaceWorker
 {
     public class PlaceWorker_PlaceNearThing : PlaceWorker
     {
-        private static List<IntVec3> checkableCells = new List<IntVec3>();
+        List<Thing> buildingsInRange = new List<Thing>();
 
-        public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null)
+        public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
         {
-            bool result = false;
-            if (checkingDef.GetModExtension<DefModExtension_PlaceNearThing>() != null)
+            DefModExt_PlaceNearThing modExt = checkingDef.GetModExtension<DefModExt_PlaceNearThing>();
+            if (modExt != null)
             {
-                if (!checkingDef.GetModExtension<DefModExtension_PlaceNearThing>().preventPlacement)
+                foreach (ThingDef targetThing in checkingDef.GetModExtension<DefModExt_PlaceNearThing>().thingDefs)
                 {
-                    return true;
-                }
-                foreach (ThingDef targetThing in checkingDef.GetModExtension<DefModExtension_PlaceNearThing>().thingDefs)
-                {
-                    foreach (things)
-                        Thing thing = map.thingGrid.ThingAt(loc, targetThing);
-
-                        if (thing == null || thing.Position != loc)
+                    foreach (Thing building in map.listerThings.ThingsOfDef(targetThing))
+                    {
+                        if(loc.DistanceTo(building.Position) < modExt.radius)
                         {
+                            buildingsInRange.Add(building);
                         }
-                        else if (thing != null || thing.Position == loc)
+                    }
+                    foreach (Thing building in map.listerThings.ThingsOfDef(targetThing.blueprintDef))
+                    {
+                        if (loc.DistanceTo(building.Position) < modExt.radius)
                         {
-                            result = true;
+                            buildingsInRange.Add(building);
                         }
+                    }
                 }
 
-                if (result != true)
+                if (!modExt.blacklist && buildingsInRange.NullOrEmpty())
                 {
-                    return "Must be placed near specific thing(s), check building details for more info.";
+                    return "Must be placed near specific thing(s), check building description for more info.";
+                }
+
+                if (modExt.blacklist && !buildingsInRange.NullOrEmpty())
+                {
+                    return "Must be placed away from specific thing(s), check building description for more info.";
                 }
                 return true;
             }
-            return "Building has PlaceWorker_ProximityRestriction but lacks a DefModExtension_ProximityRestriction to tell it what it can place on.";
+            return "Building has PlaceWorker_PlaceNearThing but lacks a DefModExt_PlaceNearThing to tell it what it can or cannot place nearby.";
         }
 
-        public List<IntVec3> CheckableCells(BuildableDef checkingDef, IntVec3 pos, Map map)
+        public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
         {
-            checkableCells.Clear();
-            if (!pos.InBounds(map))
+            base.DrawGhost(def, center, rot, ghostCol, thing);
+            //for (int i = 0; i < buildingsInRange.Count; i++)
+            //{
+            //    GenDraw.DrawLineBetween(center.ToVector3(), buildingsInRange[i].Position.ToVector3());
+            //}
+            DefModExt_PlaceNearThing modExt = def.GetModExtension<DefModExt_PlaceNearThing>();
+            if (modExt != null && modExt.radius > 0)
             {
-                return checkableCells;
+                GenDraw.DrawRadiusRing(center, modExt.radius);
             }
-            Region region = pos.GetRegion(map, RegionType.Set_Passable);
-            if (region == null)
-            {
-                return checkableCells;
-            }
-            RegionTraverser.BreadthFirstTraverse(region, (Region from, Region r) => r.door == null, 
-                delegate (Region r)
-                {
-                    foreach (IntVec3 item in r.Cells)
-                    {
-                        if (item.InHorDistOf(pos, checkingDef.GetModExtension<DefModExtension_PlaceNearThing>().radius))
-                        {
-                            checkableCells.Add(item);
-                        }
-                    }
-                    return false;
-                }, 
-                13, RegionType.Set_Passable);
-        }
-
-        public bool CheckAreaForThing(int radius, ThingDef thing)
-        {
-            return false;
-        }
-
-        public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol)
-        {
-            Map currentMap = Find.CurrentMap;
-            GenDraw.DrawFieldEdges(WatchBuildingUtility.CalculateWatchCells(def, center, rot, currentMap).ToList<IntVec3>());
         }
     }
 }

@@ -75,24 +75,25 @@ namespace O21Toolbox.HarmonyPatches
         }
     }
 
-    //[HarmonyPatch(typeof(ImmunityHandler), "DiseaseContractChanceFactor", new Type[] { typeof(HediffDef), typeof(HediffDef), typeof(BodyPartRecord) })]
-    //public class Patch_ImmunityHandler_DiseaseContractChanceFactor
-    //{
-    //    [HarmonyPostfix]
-    //    public static void Postfix(ImmunityHandler __instance, float __result)
-    //    {
-    //        if(__result > 0f)
-    //        {
-    //            if (__instance.pawn.def.race.FleshType.IsArtificialPawn())
-    //            {
-    //                __result = 0f;
-    //            }
-    //        }
-    //    }
-    //}
+    [HarmonyPatch(typeof(ImmunityHandler), "DiseaseContractChanceFactor")]
+    [HarmonyPatch(new Type[] { typeof(HediffDef), typeof(BodyPartRecord) })]
+    public class Patch_ImmunityHandler_DiseaseContractChanceFactor
+    {
+        [HarmonyPostfix]
+        public static void Postfix(ImmunityHandler __instance, float __result)
+        {
+            if (__result > 0f)
+            {
+                if (__instance.pawn is Pawn && __instance.pawn.def.HasModExtension<ArtificialPawnProperties>())
+                {
+                    __result = 0f;
+                }
+            }
+        }
+    }
 
-    [HarmonyPatch(new Type[] { typeof(DamageInfo), typeof(bool) })]
     [HarmonyPatch(typeof(StunHandler), "Notify_DamageApplied")]
+    [HarmonyPatch(new Type[] { typeof(DamageInfo), typeof(bool) })]
     public class Notify_DamageApplied_Patch
     {
         [HarmonyPrefix]

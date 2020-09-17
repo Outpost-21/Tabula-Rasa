@@ -17,6 +17,10 @@ namespace O21Toolbox
 
         public int tickToSpawn = -1;
 
+        public int spawnMax = -1;
+
+        public int spawnTotal = 0;
+
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
@@ -24,6 +28,7 @@ namespace O21Toolbox
             if (!respawningAfterLoad)
             {
                 tickToSpawn = Current.Game.tickManager.TicksGame + Props.timer;
+                spawnMax = Props.repeatCount.RandomInRange;
             }
         }
 
@@ -34,17 +39,38 @@ namespace O21Toolbox
                 Plant plant = parent as Plant;
                 if (plant.HarvestableNow)
                 {
-                    SpawnPawn();
+                    SpawnThenDeleteOrRepeat(true);
                 }
             }
             else
             {
                 if (tickToSpawn >= Current.Game.tickManager.TicksGame)
                 {
-                    SpawnPawn();
+                    SpawnThenDeleteOrRepeat();
                 }
             }
-            parent.Destroy(DestroyMode.Vanish);
+        }
+
+        public void SpawnThenDeleteOrRepeat(bool isPlant = false)
+        {
+            SpawnPawn();
+            spawnTotal++;
+            if (Props.repeatSpawn && spawnTotal < spawnMax)
+            {
+                if (isPlant)
+                {
+                    Plant plant = parent as Plant;
+                    plant.Age = 0;
+                }
+                else
+                {
+                    tickToSpawn = Current.Game.tickManager.TicksGame + Props.timer;
+                }
+            }
+            else if (Props.deleteWhenDone)
+            {
+                parent.Destroy(DestroyMode.Vanish);
+            }
         }
         
         public void SpawnPawn()
@@ -59,14 +85,33 @@ namespace O21Toolbox
                 pawnKind = Props.pawnKind;
             }
 
-            PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:Props.newborn, forceGenerateNewPawn:true, canGeneratePawnRelations: false);
+            PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:Props.newborn, forceGenerateNewPawn:true, canGeneratePawnRelations: Props.canGeneratePawnRelations);
             Pawn newThing = PawnGenerator.GeneratePawn(request);
             if (!Props.skillSettings.NullOrEmpty())
             {
+                if (Props.purgeSkillsBeforeSetting)
+                {
+                    newThing.skills.skills.ForEach(s => s.Level = 0);
+                }
                 foreach(SkillLevelSetting skill in Props.skillSettings)
                 {
                     newThing.skills.skills.Find(sr => sr.def == skill.skill).Level = skill.level;
                 }
+            }
+            if (Props.purgeTraits)
+            {
+                if (!newThing.story.traits.allTraits.NullOrEmpty())
+                {
+                    newThing.story.traits.allTraits.RemoveAll(t => t is Trait);
+                }
+            }
+            if(!Props.enforcedBackstoriesChild.NullOrEmpty())
+            {
+                newThing.story.childhood = Props.enforcedBackstoriesChild.RandomElement();
+            }
+            if (!Props.enforcedBackstoriesAdult.NullOrEmpty())
+            {
+                newThing.story.adulthood = Props.enforcedBackstoriesAdult.RandomElement();
             }
             GenSpawn.Spawn(newThing, parent.Position, parent.Map, WipeMode.Vanish);
         }

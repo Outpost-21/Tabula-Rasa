@@ -39,6 +39,8 @@ namespace O21Toolbox.Needs
         /// </summary>
         public bool tweakCorpseRot = true;
 
+        public bool corpseEdible = false;
+
 
         public bool needFood = false;
         public bool needRest = false;
@@ -68,6 +70,10 @@ namespace O21Toolbox.Needs
                         {
                             corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_Rottable);
                             corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_SpawnerFilth);
+                        }
+                        if (!tweaker.corpseEdible)
+                        {
+                            corpseDef.ingestible = null;
                         }
                     }
                 }

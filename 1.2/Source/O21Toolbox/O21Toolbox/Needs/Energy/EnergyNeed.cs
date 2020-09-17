@@ -20,6 +20,22 @@ namespace O21Toolbox.Needs
         /// </summary>
         public static float rechargePercentage = 0.505f;
 
+        public float EnergyDrainRate
+        {
+            get
+            {
+                float drainModifier = 1f;
+                if ((!pawn.IsCaravanMember() && pawn.TryGetComp<Comp_EnergyTracker>() is Comp_EnergyTracker energyTracker && energyTracker.EnergyProperties.canHibernate && pawn.CurJobDef == energyTracker.EnergyProperties.hibernationJob) || pawn.IsPrisoner)
+                {
+                    drainModifier = -0.1f;
+                }
+
+                float result = ((1f / 1200f) * pawn.TryGetComp<Comp_EnergyTracker>().EnergyProperties.baseEnergyDecayRate) * pawn.GetStatValue(Utility.StatDefOf.O21_EnergyConsuptionRate);
+
+                return result * drainModifier;
+            }
+        }
+
         public Need_Energy(Pawn pawn)
         {
             this.pawn = pawn;
@@ -95,16 +111,10 @@ namespace O21Toolbox.Needs
                 }
             }
 
-            float drainModifier = 1f;
-            if(!pawn.IsCaravanMember() && pawn.TryGetComp<Comp_EnergyTracker>() is Comp_EnergyTracker energyTracker && energyTracker.EnergyProperties.canHibernate && pawn.CurJobDef == energyTracker.EnergyProperties.hibernationJob)
-            {
-                drainModifier = -0.1f;
-            }
-
             if (pawn.needs != null && !IsFrozen)
             {
                 //Normal drain
-                CurLevel -= drainModifier * (1f / 1200f);
+                CurLevel -= EnergyDrainRate;
 
                 //Energy gain from having a food need
                 if (pawn.needs.food != null && pawn.needs.food.CurLevelPercentage > 0.0f)

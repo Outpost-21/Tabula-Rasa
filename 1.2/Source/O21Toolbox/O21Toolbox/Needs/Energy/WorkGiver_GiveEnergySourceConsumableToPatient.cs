@@ -38,10 +38,10 @@ namespace O21Toolbox.Needs
             if (!pawn.CanReserve(new LocalTargetInfo(targetPawn)))
                 return false;
 
-            if (!targetPawn?.Faction?.IsPlayer ?? true)
+            if (!targetPawn?.Faction?.IsPlayer ?? true && !targetPawn.IsPrisoner)
                 return false;
 
-            if (/*!targetPawn.InBed() ||  */!targetPawn.Downed)
+            if (!targetPawn.InBed() ||  !targetPawn.Downed)
                 return false;
 
             if (!HealthAIUtility.ShouldSeekMedicalRest(targetPawn))
@@ -97,7 +97,7 @@ namespace O21Toolbox.Needs
         /// </summary>
         /// <param name="pawn">Pawn to look for.</param>
         /// <returns>Thing if found any, null if not.</returns>
-        public Thing TryFindBestEnergySource(Pawn pawn)
+        public static Thing TryFindBestEnergySource(Pawn pawn)
         {
             //In inventory. (Or carried)
             if (pawn.carryTracker is Pawn_CarryTracker carryTracker && carryTracker.CarriedThing is Thing carriedThing && carriedThing.TryGetComp<Comp_EnergySource>() is Comp_EnergySource carriedThingComp && carriedThingComp.EnergyProps.isConsumable)

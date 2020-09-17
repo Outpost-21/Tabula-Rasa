@@ -11,6 +11,11 @@ namespace O21Toolbox.Drones
 {
     public static class Drone_Utility
     {
+        public static bool IsDrone(this Thing thing)
+        {
+            return thing is Drone_Pawn;
+        }
+
         public static bool IsPlayerControlledDrone(this Thing thing)
         {
             return thing is Drone_Pawn p && p.Faction.IsPlayer;
