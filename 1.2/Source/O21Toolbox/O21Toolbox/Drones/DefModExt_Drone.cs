@@ -12,7 +12,11 @@ namespace O21Toolbox.Drones
 {
     public class DefModExt_Drone : DefModExtension
     {
-        public List<WorkTypePriorityPair> capableWorkTypes = new List<WorkTypePriorityPair>();
+        public List<WorkTypeDef> disabledWorkTypes = new List<WorkTypeDef>();
+
+        public List<WorkTypePriorityPair> defaultPriorities = new List<WorkTypePriorityPair>();
+
+        public List<TraitEntry> traits = new List<TraitEntry>();
 
         public List<SkillLevelSetting> skillLevels = new List<SkillLevelSetting>();
     }

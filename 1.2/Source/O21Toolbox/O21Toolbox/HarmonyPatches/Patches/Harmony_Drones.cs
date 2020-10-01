@@ -80,6 +80,22 @@ namespace O21Toolbox.HarmonyPatches
             }
         }
 
+        [HarmonyPatch(typeof(Pawn), "GetDisabledWorkTypes")]
+        public static class GetDisabledWorkTypesPrefix
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(ref Pawn __instance, ref List<WorkTypeDef> __result, bool permanentOnly)
+            {
+                if (__instance.def.HasModExtension<DefModExt_Drone>())
+                {
+                    DefModExt_Drone modExt = __instance.def.GetModExtension<DefModExt_Drone>();
+                    __result = modExt.disabledWorkTypes;
+                    return false;
+                }
+                return true;
+            }
+        }
+
         [HarmonyPatch(typeof(TransferableUtility), nameof(TransferableUtility.CanStack))]
         public static class CanStackDroneTranspiler
         {

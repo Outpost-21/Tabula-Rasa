@@ -53,7 +53,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
             //    }
             //}
 
-            if (!O21ToolboxSettings.Instance.EnergyNeedCompatMode)
+            if (!O21ToolboxMod.settings.energyNeedCompatMode)
             {
                 if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors || (Need_Bladder != null && nd == Need_Bladder) || (Need_Hygiene != null && nd == Need_Hygiene))
                 {
@@ -97,6 +97,49 @@ namespace O21Toolbox.HarmonyPatches.Patches
                     else if (___pawn.def.HasModExtension<EnergyHediffs>())
                     {
                         __result = false;
+                    }
+                }
+            }
+            else
+            {
+                if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors)
+                {
+                    if (___pawn.def.HasModExtension<ArtificialPawnProperties>())
+                    {
+                        ArtificialPawnProperties modExt = ___pawn.def.GetModExtension<ArtificialPawnProperties>();
+
+                        if (nd == NeedDefOf.Rest)
+                        {
+                            __result = modExt.needRest;
+                        }
+                        if (nd == NeedDefOf.Food)
+                        {
+                            __result = modExt.needFood;
+                        }
+                        if (nd == NeedDefOf.Joy)
+                        {
+                            __result = modExt.needJoy;
+                        }
+                        if (nd == NeedsDefOf.Beauty)
+                        {
+                            __result = modExt.needBeauty;
+                        }
+                        if (nd == NeedsDefOf.Comfort)
+                        {
+                            __result = modExt.needComfort;
+                        }
+                        if (nd == NeedsDefOf.RoomSize)
+                        {
+                            __result = modExt.needRoomSize;
+                        }
+                        if (nd == NeedsDefOf.Outdoors)
+                        {
+                            __result = modExt.needOutdoors;
+                        }
+                        else
+                        {
+                            __result = false;
+                        }
                     }
                 }
             }

@@ -32,11 +32,11 @@ namespace O21Toolbox.PawnExt
         /// List of traits which can randomly be assigned.
         /// Mutually exclusive with traitBlacklist, whitelist takes priority if both exist.
         /// </summary>
-        public List<TraitEntry> traitWhitelist = new List<TraitEntry>();
+        public List<Utility.TraitEntry> traitWhitelist = new List<Utility.TraitEntry>();
 
         /// <summary>
         /// List of traits which cannot be randomly assigned.
         /// </summary>
-        public List<TraitEntry> traitBlacklist = new List<TraitEntry>();
+        public List<Utility.TraitEntry> traitBlacklist = new List<Utility.TraitEntry>();
     }
 }

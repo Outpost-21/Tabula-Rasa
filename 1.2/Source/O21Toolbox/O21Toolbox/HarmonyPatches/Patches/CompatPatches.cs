@@ -134,18 +134,11 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref bool __result, ref Pawn p)
         {
-            //Log.Message("Guest p=" + p?.ToString() ?? "null");
-            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
+            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize || !p.def.race.EatsFood)
             {
-                //Log.Message("Guest (Mechanical) p=" + p.ToString());
-                __result = !p.Downed &&
-                    p.health.hediffSet.BleedRateTotal <= 0f &&
-                    !p.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff(false) &&
-                    !p.InAggroMentalState && !p.IsPrisoner;
+                __result = false;
                 return false;
             }
-
-            //Log.Message("Guest NOT (Mechanical) p=" + p?.ToString() ?? "null");
             return true;
         }
 
@@ -172,11 +165,28 @@ namespace O21Toolbox.HarmonyPatches
     public class CompatPatch_GetJoyTryGiveJob
     {
         [HarmonyPrefix]
-        public static bool Prefix(ref JobGiver_EatInGatheringArea __instance, ref Job __result, ref Pawn pawn)
+        public static bool Prefix(ref JobGiver_GetJoy __instance, ref Job __result, ref Pawn pawn)
         {
             if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
                 __result = null;
+                return false;
+            }
+
+            return true;
+        }
+
+    }
+
+    [HarmonyPatch(typeof(MeditationUtility), "CanMeditateNow")]
+    public class CompatPatch_MeditationUtility_CanMeditateNow
+    {
+        [HarmonyPrefix]
+        public static bool Prefix(ref bool __result, ref Pawn pawn)
+        {
+            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
+            {
+                __result = false;
                 return false;
             }
 
@@ -407,7 +417,8 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref Toil __result, Pawn patient)
         {
-            if (patient.def.HasModExtension<ArtificialPawnProperties>())
+            ArtificialPawnProperties modExt = patient.def.TryGetModExtension<ArtificialPawnProperties>();
+            if (modExt != null && !modExt.repairParts.NullOrEmpty())
             {
                 Toil toil = new Toil();
                 toil.initAction = delegate

@@ -25,6 +25,7 @@
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
+            <li>ITab_Pawn_Character</li>
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
 			<li>ITab_Pawn_FormingCaravan</li>

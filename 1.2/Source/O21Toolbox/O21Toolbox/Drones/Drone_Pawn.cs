@@ -57,6 +57,10 @@ namespace O21Toolbox.Drones
                     skills.skills.Find(sr => sr.def == skill.skill).Level = skill.level;
                 }
             }
+            if(ageTracker == null)
+            {
+                ageTracker = new Pawn_AgeTracker(this);
+            }
             if (story == null)
             {
                 story = new Pawn_StoryTracker(this);
@@ -69,13 +73,17 @@ namespace O21Toolbox.Drones
             {
                 guilt = new Pawn_GuiltTracker(this);
             }
+            if (royalty == null)
+            {
+                royalty = new Pawn_RoyaltyTracker(this);
+            }
             if (workSettings == null)
             {
                 workSettings = new Pawn_WorkSettings(this);
                 workSettings.EnableAndInitializeIfNotAlreadyInitialized();
-                if(!ext.capableWorkTypes.NullOrEmpty())
+                if(!ext.defaultPriorities.NullOrEmpty())
                 {
-                    foreach(WorkTypePriorityPair pair in ext.capableWorkTypes)
+                    foreach(WorkTypePriorityPair pair in ext.defaultPriorities)
                     {
                         workSettings.SetPriority(pair.workType, pair.priority);
                     }
@@ -84,7 +92,10 @@ namespace O21Toolbox.Drones
                 {
                     foreach (WorkTypeDef def in DefDatabase<WorkTypeDef>.AllDefs)
                     {
-                        workSettings.SetPriority(def, 1);
+                        if (!GetDisabledWorkTypes().Contains(def))
+                        {
+                            workSettings.SetPriority(def, 1);
+                        }
                     }
                 }
             }

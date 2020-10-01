@@ -27,7 +27,10 @@ namespace O21Toolbox
 
             if (!respawningAfterLoad)
             {
-                tickToSpawn = Current.Game.tickManager.TicksGame + Props.timer;
+                if(Props.timer > 0)
+                {
+                    tickToSpawn = Props.timer;
+                }
                 spawnMax = Props.repeatCount.RandomInRange;
             }
         }
@@ -44,11 +47,12 @@ namespace O21Toolbox
             }
             else
             {
-                if (tickToSpawn >= Current.Game.tickManager.TicksGame)
+                if (tickToSpawn <= 0)
                 {
                     SpawnThenDeleteOrRepeat();
                 }
             }
+            tickToSpawn--;
         }
 
         public void SpawnThenDeleteOrRepeat(bool isPlant = false)
@@ -64,7 +68,7 @@ namespace O21Toolbox
                 }
                 else
                 {
-                    tickToSpawn = Current.Game.tickManager.TicksGame + Props.timer;
+                    tickToSpawn = Props.timer;
                 }
             }
             else if (Props.deleteWhenDone)
@@ -76,13 +80,13 @@ namespace O21Toolbox
         public void SpawnPawn()
         {
             PawnKindDef pawnKind;
-            if (Props.pawnKind == null)
+            if (Props.pawnKind != null)
             {
-                pawnKind = Props.pawnKinds.RandomElement();
+                pawnKind = Props.pawnKind;
             }
             else
             {
-                pawnKind = Props.pawnKind;
+                pawnKind = Props.pawnKinds.RandomElement();
             }
 
             PawnGenerationRequest request = new PawnGenerationRequest(kind:Props.pawnKind, faction:Faction.OfPlayer, newborn:Props.newborn, forceGenerateNewPawn:true, canGeneratePawnRelations: Props.canGeneratePawnRelations);
@@ -104,14 +108,6 @@ namespace O21Toolbox
                 {
                     newThing.story.traits.allTraits.RemoveAll(t => t is Trait);
                 }
-            }
-            if(!Props.enforcedBackstoriesChild.NullOrEmpty())
-            {
-                newThing.story.childhood = Props.enforcedBackstoriesChild.RandomElement();
-            }
-            if (!Props.enforcedBackstoriesAdult.NullOrEmpty())
-            {
-                newThing.story.adulthood = Props.enforcedBackstoriesAdult.RandomElement();
             }
             GenSpawn.Spawn(newThing, parent.Position, parent.Map, WipeMode.Vanish);
         }

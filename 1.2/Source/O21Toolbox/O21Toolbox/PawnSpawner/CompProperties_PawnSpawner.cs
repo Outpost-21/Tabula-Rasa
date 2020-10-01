@@ -63,16 +63,6 @@ namespace O21Toolbox
         public List<SkillLevelSetting> skillSettings = new List<SkillLevelSetting>();
 
         /// <summary>
-        /// Sets childhood to one from this list, ignoring what it was before.
-        /// </summary>
-        public List<Backstory> enforcedBackstoriesChild = new List<Backstory>();
-
-        /// <summary>
-        /// Sets adulthood to one from this list, ignoring what it was before.
-        /// </summary>
-        public List<Backstory> enforcedBackstoriesAdult = new List<Backstory>();
-
-        /// <summary>
         /// Whether or not the pawn should be treated as a newborn.
         /// </summary>
         public bool newborn = false;

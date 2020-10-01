@@ -85,6 +85,21 @@ namespace O21Toolbox.HarmonyPatches
             }
         }
 
+        [HarmonyPatch(typeof(MentalBreakWorker), "BreakCanOccur")]
+        public static class Patch_CanBeResearchedAt_Postfix
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MentalBreakWorker __instance, bool __result, Pawn pawn)
+            {
+                if (!pawn.def.race.EatsFood)
+                {
+                    __result = false;
+                    return false;
+                }
+                return true;
+            }
+        }
+
         // No special mechanoids in ancient dangers.
         public static void MechanoidsFixerAncient(ref bool __result, PawnKindDef kind)
         {

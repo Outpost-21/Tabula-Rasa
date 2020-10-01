@@ -19,5 +19,7 @@ namespace O21Toolbox.Utility
         }
 
         public static readonly Texture2D UnknownBuildable;
+
+        public static MainButtonDef O21_MainTab_Drones;
     }
 }

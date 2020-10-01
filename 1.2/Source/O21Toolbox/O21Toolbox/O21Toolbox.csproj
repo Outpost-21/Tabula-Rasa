@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.2\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
@@ -179,10 +180,16 @@
     <None Include="Interface\DesignationSubCatDef.cs" />
     <None Include="Interface\Designator_CustomMenu.cs" />
     <None Include="Interface\SubCategoryCache.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_MoonCycle.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Toils_Ingest_FinalizeIngest.cs" />
     <Compile Include="Misc\CompProperties_ReNameable.cs" />
     <Compile Include="Misc\Comp_Nameable.cs" />
     <Compile Include="Misc\Dialog_NameThing.cs" />
+    <Compile Include="MoonCycle\GameCondition_FullMoon.cs" />
+    <Compile Include="MoonCycle\GameCondition_MoonCycle.cs" />
+    <Compile Include="MoonCycle\Moon.cs" />
+    <Compile Include="MoonCycle\WorldComponent_MoonCycle.cs" />
+    <Compile Include="O21ToolboxStartup.cs" />
     <Compile Include="PawnConversion\DefModExt_BasicConvert.cs" />
     <Compile Include="PawnConversion\Hediff_BasicConvert.cs" />
     <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />
@@ -326,6 +333,7 @@
     <Compile Include="Utility\DroidUtility.cs" />
     <Compile Include="Utility\ExtensionUtility.cs" />
     <Compile Include="Utility\HediffApplier.cs" />
+    <Compile Include="Utility\MemoryDefOf.cs" />
     <Compile Include="Utility\PawnKindCount.cs" />
     <Compile Include="Utility\PawnKindCountClass.cs" />
     <Compile Include="Utility\Popup_ListSelector.cs" />
@@ -335,6 +343,7 @@
     <Compile Include="Utility\RemovableHediff.cs" />
     <Compile Include="Utility\StatDefOf.cs" />
     <Compile Include="Utility\ToolboxContent.cs" />
+    <Compile Include="Utility\TraitEntry.cs" />
     <Compile Include="Utility\WornEquipmentUtility.cs" />
     <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
     <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
@@ -368,7 +377,6 @@
     <Compile Include="Needs\Energy\Utility_EnergyNeed.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="O21ToolboxMod.cs" />
-    <Compile Include="O21ToolboxSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +387,7 @@
   <ItemGroup>
     <Content Include="Abilities\_Credit.txt" />
     <Content Include="Laser\_Credit.txt" />
+    <Content Include="MoonCycle\_Credit.txt" />
     <Content Include="Needs\_Credit.txt" />
     <Content Include="WeaponExt\_Credit.txt" />
   </ItemGroup>
