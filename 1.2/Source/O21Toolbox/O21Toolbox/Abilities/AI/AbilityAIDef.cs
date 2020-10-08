@@ -124,7 +124,6 @@ namespace O21Toolbox.Abilities.AI
             if (!usedOnCaster && target.IsValid)
             {
                 var distance = Math.Abs(caster.Position.DistanceTo(target.Cell));
-                //Log.Message("CanPawnUseThisAbility.distance=" + distance);
 
                 if (distance < minRange || distance > maxRange)
                     return false;

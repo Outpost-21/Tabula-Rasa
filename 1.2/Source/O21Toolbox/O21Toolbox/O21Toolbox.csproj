@@ -170,6 +170,8 @@
     <Compile Include="AutomatedProducer\WorkGiver_Properties_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\WorkGiver_AutomatedProducer.cs" />
     <Compile Include="AutoTraining\Hediff_AutoTraining.cs" />
+    <Compile Include="BuildingExt\Building_MultiPart.cs" />
+    <Compile Include="BuildingExt\DefModExt_MultiPart.cs" />
     <Compile Include="CustomDropPod\DefModExt_CustomDropPod.cs" />
     <Compile Include="Drones\DefModExt_Drone.cs" />
     <Compile Include="Drones\MainTabWindow_Drones.cs" />

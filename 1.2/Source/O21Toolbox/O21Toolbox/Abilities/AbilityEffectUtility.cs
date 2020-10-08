@@ -67,10 +67,8 @@ namespace O21Toolbox.Abilities
 
         public static void SingleSpawnLoop(SpawnThings spawnables, IntVec3 positionHeld, Map mapHeld, Pawn caster)
         {
-            //Log.Message("SingleSpawnLoops");
             if (spawnables.def != null)
             {
-                //Log.Message("2");
 
                 var factionToAssign = ResolveFaction(spawnables, caster);
                 if (spawnables.def.race != null)
@@ -85,7 +83,6 @@ namespace O21Toolbox.Abilities
                 }
                 else
                 {
-                    //Log.Message("3b");
                     var thingDef = spawnables.def;
                     ThingDef stuff = null;
                     if (thingDef.MadeFromStuff)
@@ -99,15 +96,12 @@ namespace O21Toolbox.Abilities
 
         public static void SpawnSpawnables(List<SpawnThings> localSpawnThings, Pawn caster, Map mapHeld, IntVec3 positionHeld)
         {
-            //Log.Message("SpawnSpawnables");
             if (localSpawnThings != null && localSpawnThings.Count > 0)
                 foreach (var spawnables in localSpawnThings)
-                    //Log.Message("2S");
                     if (spawnables.spawnCount == 1)
                         SingleSpawnLoop(spawnables, positionHeld, mapHeld, caster);
                     else
                         for (var i = 0; i < spawnables.spawnCount; i++)
-                            //Log.Message("3S");
                             SingleSpawnLoop(spawnables, positionHeld, mapHeld, caster);
         }
 

@@ -14,13 +14,13 @@ namespace O21Toolbox.BuildingExt
     {
         public CompProperties_PawnDeterrant() => this.compClass = typeof(Comp_PawnDeterrant);
 
+        public int ticksBetweenRuns = 600;
         public int radius = 10;
-        public bool radiusEditable = false;
-        public IntRange radiusLimits = new IntRange(0, 100);
-
+        public int minFleeDistance = 20;
         public bool affectsAnimals = false;
-        public float maxAnimalSizeAffected = 1.0f;
         public bool affectsPawns = false;
+        public bool affectsColony = false;
+        public float maxBodySizeAffected = 1.0f;
         public List<ThingDef> raceWhitelist = new List<ThingDef>();
         public List<ThingDef> raceBlacklist = new List<ThingDef>();
     }

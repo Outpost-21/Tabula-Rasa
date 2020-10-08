@@ -22,7 +22,6 @@ namespace O21Toolbox.HarmonyPatches
         {
             if (!__result)
             {
-                Log.Message("Firing CanBeResearchedAt Postfix for: " + __instance.label);
                 if (!ignoreResearchBenchPowerStatus)
                 {
                     CompPowerTrader power = bench.GetComp<CompPowerTrader>();

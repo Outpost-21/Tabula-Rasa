@@ -34,28 +34,22 @@ namespace O21Toolbox.BiomeExt
                     {
                         ReplaceEdifice(map, current);
                     }
-                    if (current.edificeOverrides == null && overrideLogging) { Log.Message("Skipping Edifice Overrides for: " + current.defName); }
                     if (current.terrainOverrides != null)
                     {
                         ReplaceTerrain(map, current);
                     }
-                    if (current.terrainOverrides == null && overrideLogging) { Log.Message("Skipping Terrain Overrides for: " + current.defName); }
                     if (current.thingOverrides != null)
                     {
                         ReplaceThings(map, current);
                     }
-                    if (current.thingOverrides == null && overrideLogging) { Log.Message("Skipping Thing Overrides for: " + current.defName); }
                 }
-                else if (overrideLogging) { Log.Message("Current biome not valid for BiomeOverrideDef: " + current.defName); }
             }
         }
 
         public void ReplaceEdifice(Map map, BiomeOverrideDef current)
         {
-            Log.Message("BiomeOverride: Edifice Replacer, Replacing Process: " + current.defName);
             foreach (BiomeOverrideDef.BiomeEdificeOverrides currentEdifice in current.edificeOverrides)
             {
-                Log.Message("Replacing: " + currentEdifice.oldEdifice.label + ", with: " + currentEdifice.newEdifice.label);
                 foreach (IntVec3 c in map.AllCells)
                 {
                     Building edifice = c.GetEdifice(map);
@@ -72,7 +66,6 @@ namespace O21Toolbox.BiomeExt
         {
             foreach (BiomeOverrideDef.BiomeTerrainOverrides currentTerrain in current.terrainOverrides)
             {
-                Log.Message("Replacing: " + currentTerrain.oldTerrain.label + ", with: " + currentTerrain.newTerrain.label);
                 foreach (IntVec3 c in map.AllCells)
                 {
                     TerrainDef terrain = c.GetTerrain(map);
@@ -88,7 +81,6 @@ namespace O21Toolbox.BiomeExt
         {
             foreach (BiomeOverrideDef.BiomeThingOverrides currenThing in current.thingOverrides)
             {
-                Log.Message("Replacing: " + currenThing.oldThing.label + ", with: " + currenThing.newThing.label);
                 foreach (IntVec3 c in map.AllCells)
                 {
                     Thing thing = c.GetFirstThing(map, currenThing.oldThing);

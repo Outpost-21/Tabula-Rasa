@@ -378,13 +378,10 @@ namespace O21Toolbox.HarmonyPatches
         }
         public static bool CompatPatch_BoredPawns(ref IEnumerable<Pawn> __result)
         {
-            //Log.Message("CompatPatch_BoredPawns Alert");
-
             List<Pawn> legiblePawns = new List<Pawn>();
 
             foreach (Pawn p in PawnsFinder.AllMaps_FreeColonistsSpawned)
             {
-                //Log.Message("Pawn=" + p.Label);
                 if (p.needs.joy != null && (p.needs.joy.CurLevelPercentage < 0.24000001f || p.GetTimeAssignment() == TimeAssignmentDefOf.Joy))
                 {
                     if (p.needs.joy.tolerances.BoredOfAllAvailableJoyKinds(p))
