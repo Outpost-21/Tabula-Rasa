@@ -22,7 +22,6 @@ namespace O21Toolbox.BiomeExt
 
         public override void Generate(Map map, GenStepParams parms)
         {
-            bool overrideLogging = false;
             IEnumerable<BiomeOverrideDef> enumerable = from def in DefDatabase<BiomeOverrideDef>.AllDefs
                                                        where def.biomeDefs != null
                                                        select def;

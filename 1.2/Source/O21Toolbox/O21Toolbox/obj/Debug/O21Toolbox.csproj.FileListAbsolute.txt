@@ -21,3 +21,7 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\-O21-Toolbox\1.2\Ass
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\-O21-Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csprojAssemblyReference.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\-O21-Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csproj.CoreCompileInputs.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\-O21-Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.2\Assemblies\O21Toolbox.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csprojAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.2\Source\O21Toolbox\O21Toolbox\obj\Debug\O21Toolbox.dll
