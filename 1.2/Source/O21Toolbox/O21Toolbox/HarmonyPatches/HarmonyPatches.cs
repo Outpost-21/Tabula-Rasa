@@ -109,28 +109,82 @@ namespace O21Toolbox.HarmonyPatches
         #region ThirdPartyImprovements
         public static void SaveOurShip2_CompatibilityHook(Harmony harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
-        }
-        public static void SOS2CompatibilityHook_hasSpaceSuit_Postfix(Pawn thePawn, ref bool __result)
-        {
-            if (thePawn != null && __result == false)
+            try
             {
-                if (thePawn.def.HasModExtension<DefModExt_SpaceCapable>())
+                harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "hasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
+            }
+            catch { }
+            try
+            {
+                harmony.Patch(AccessTools.Method(typeof(SaveOurShip2.ShipInteriorMod2), "HasSpaceSuit"), null, new HarmonyMethod(typeof(HarmonyPatches), "SOS2CompatibilityHook_hasSpaceSuit_Postfix"));
+            }
+            catch { }
+        }
+        public static void SOS2CompatibilityHook_hasSpaceSuit_Postfix(Pawn thisPawn, ref bool __result)
+        {
+            if (thisPawn != null && __result == false)
+            {
+                if (thisPawn.def.HasModExtension<DefModExt_SpaceCapable>())
                 {
                     __result = true;
                 }
-                else if(thePawn.apparel != null)
+                else if (thisPawn.apparel != null)
                 {
                     bool hasHelmet = false;
                     bool hasSuit = false;
                     bool raceSpaceCapable = false;
-                    if (thePawn.def.HasModExtension<DefModExt_SpaceCapable>())
+                    if (thisPawn.def.HasModExtension<DefModExt_SpaceCapable>())
+                    {
+                        raceSpaceCapable = true;
+                    }
+                    if (!raceSpaceCapable)
+                    {
+                        foreach (Apparel ap in thisPawn.apparel.WornApparel)
+                        {
+                            if (ap.def.HasModExtension<DefModExt_SpaceApparel>())
+                            {
+                                DefModExt_SpaceApparel ext = ap.def.GetModExtension<DefModExt_SpaceApparel>();
+                                if (ext.equipmentType == spaceEquipmentType.full)
+                                {
+                                    hasHelmet = true;
+                                    hasSuit = true;
+                                }
+                                else if (ext.equipmentType == spaceEquipmentType.helmet)
+                                {
+                                    hasHelmet = true;
+                                }
+                                else if (ext.equipmentType == spaceEquipmentType.suit)
+                                {
+                                    hasSuit = true;
+                                }
+                            }
+                        }
+                    }
+
+                    __result = (hasHelmet && hasSuit) || raceSpaceCapable;
+                }
+            }
+        }
+        public static void SOS2CompatibilityHook_HasSpaceSuit_Postfix(Pawn pawn, ref bool __result)
+        {
+            if (pawn != null && __result == false)
+            {
+                if (pawn.def.HasModExtension<DefModExt_SpaceCapable>())
+                {
+                    __result = true;
+                }
+                else if(pawn.apparel != null)
+                {
+                    bool hasHelmet = false;
+                    bool hasSuit = false;
+                    bool raceSpaceCapable = false;
+                    if (pawn.def.HasModExtension<DefModExt_SpaceCapable>())
                     {
                         raceSpaceCapable = true;
                     }
                     if(!raceSpaceCapable)
                     {
-                        foreach (Apparel ap in thePawn.apparel.WornApparel)
+                        foreach (Apparel ap in pawn.apparel.WornApparel)
                         {
                             if (ap.def.HasModExtension<DefModExt_SpaceApparel>())
                             {

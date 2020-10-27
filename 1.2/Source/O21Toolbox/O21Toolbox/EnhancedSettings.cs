@@ -61,7 +61,7 @@ namespace O21Toolbox
 			Text.Anchor = TextAnchor.MiddleRight;
 			if (typeof(T).IsEnum)
 			{
-				Widgets.Label(rect, (value.ToString()));
+				Widgets.Label(rect, (value.ToString().Replace("_", " ")));
 			}
 			else
 			{

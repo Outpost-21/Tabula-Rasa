@@ -19,5 +19,6 @@ namespace O21Toolbox.Utility
         }
 
         public static StatDef O21_EnergyConsuptionRate;
+        public static StatDef O21_MeleeWeapon_DeflectionChance;
     }
 }

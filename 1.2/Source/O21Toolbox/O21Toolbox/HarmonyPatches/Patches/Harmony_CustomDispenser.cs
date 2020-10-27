@@ -34,24 +34,23 @@ namespace O21Toolbox.HarmonyPatches.Patches
 
 		private static bool RepDel(Building_CustomDispenser dispenser)
 		{
-			return allowDispenserFull 
-				&& getter.RaceProps.ToolUser 
-				&& getter.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) 
-				&& (dispenser.Faction == getter.Faction || dispenser.Faction == getter.HostFaction) 
-				&& (allowForbidden || !dispenser.IsForbidden(getter)) 
-				&& dispenser.powerComp.PowerOn 
+			return allowDispenserFull
+				&& getter.RaceProps.ToolUser
+				&& getter.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation)
+				&& (dispenser.Faction == getter.Faction || dispenser.Faction == getter.HostFaction)
+				&& (allowForbidden || !dispenser.IsForbidden(getter))
+				&& dispenser.CanDispenseNow
 				&& dispenser.InteractionCell.Standable(dispenser.Map) 
 				&& CustomDispenserUtility.IsFoodSourceOnMapSociallyProper(dispenser, getter, eater, allowSociallyImproper) 
-				&& !getter.IsWildMan() 
-				&& dispenser.CanDispenseNow
+				&& !getter.IsWildMan()
 				&& getter.Map.reachability.CanReachNonLocal(getter.Position, new TargetInfo(dispenser.InteractionCell, dispenser.Map, false), PathEndMode.OnCell, TraverseParms.For(getter, Danger.Some, TraverseMode.ByPawn, false));
 		}
 
 		[HarmonyPatch(typeof(ThingDef), "get_IsFoodDispenser")]
-		private static class Building
+		private static class ThingDef_IsFoodDispenser
 		{
 			[HarmonyPrefix]
-			private static bool IsFoodDispenserPrefix(ThingDef __instance, ref bool __result)
+			private static bool Prefix(ThingDef __instance, ref bool __result)
 			{
 				if (__instance.thingClass == typeof(Building_CustomDispenser))
 				{
@@ -66,6 +65,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[StaticConstructorOnStartup]
 		private static class Patch_BestFoodSourceOnMap
 		{
+			[HarmonyPrefix]
 			private static void Prefix(ref Pawn getter, ref Pawn eater, ref bool allowDispenserFull, ref bool allowForbidden, ref bool allowSociallyImproper)
 			{
 				bestFoodSourceOnMap = true;
@@ -76,6 +76,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 				Harmony_CustomDispenser.allowSociallyImproper = allowSociallyImproper;
 			}
 
+			[HarmonyPostfix]
 			private static void Postfix()
 			{
 				bestFoodSourceOnMap = false;
@@ -85,6 +86,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(FoodUtility), "FoodOptimality")]
 		private static class Patch_FoodOptimality
 		{
+			[HarmonyPrefix]
 			private static bool Prefix(ref ThingDef foodDef, ref float __result)
 			{
 				if (foodDef == null)
@@ -99,6 +101,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(FoodUtility), "GetFinalIngestibleDef")]
 		private static class Patch_GetFinalIngestibleDef
 		{
+			[HarmonyPrefix]
 			private static bool Prefix(ref Thing foodSource, ref ThingDef __result)
 			{
 				if (foodSource is Building_CustomDispenser && bestFoodSourceOnMap)
@@ -114,6 +117,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(ThingListGroupHelper), "Includes")]
 		private static class Patch_Includes
 		{
+			[HarmonyPrefix]
 			private static bool Prefix(ref ThingRequestGroup group, ref ThingDef def, ref bool __result)
 			{
 				if ((group == ThingRequestGroup.FoodSource || group == ThingRequestGroup.FoodSourceNotPlantOrTree) && def.thingClass == typeof(Building_CustomDispenser))
@@ -128,6 +132,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(JobDriver_FoodDeliver), "GetReport")]
 		private static class Patch_JobDriver_FoodDeliver_GetReport
 		{
+			[HarmonyPostfix]
 			private static void Postfix(JobDriver_FoodDeliver __instance, ref string __result)
 			{
 				if (__instance.job.GetTarget(TargetIndex.A).Thing is Building_CustomDispenser && (Pawn)__instance.job.targetB.Thing != null)
@@ -140,6 +145,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(JobDriver_FoodFeedPatient), "GetReport")]
 		private static class Patch_JobDriver_FoodFeedPatient_GetReport
 		{
+			[HarmonyPostfix]
 			private static void Postfix(JobDriver_FoodFeedPatient __instance, ref string __result)
 			{
 				if (__instance.job.GetTarget(TargetIndex.A).Thing is Building_CustomDispenser && (Pawn)__instance.job.targetB.Thing != null)
@@ -149,27 +155,24 @@ namespace O21Toolbox.HarmonyPatches.Patches
 			}
 		}
 
-		//[HarmonyPatch(typeof(JobDriver_Ingest), "GetReport")]
-		//private static class Patch_JobDriver_Ingest_GetReport
-		//{
-		//	private static void Postfix(JobDriver_Ingest __instance, ref string __result)
-		//	{
-		//		if (__instance.)
-		//		{
-		//			Building_CustomDispenser dispenser = (Building_CustomDispenser)__instance.job.GetTarget(TargetIndex.A).Thing;
-		//			if (dispenser != null)
-		//			{
-		//				__result = __instance.job.def.reportString.Replace("TargetA", dispenser.DispensableThing.label);
-		//				return;
-		//			}
-		//			__result = __instance.job.def.reportString.Replace("TargetA", __instance.job.GetTarget(TargetIndex.A).Thing.Label);
-		//		}
-		//	}
-		//}
+        [HarmonyPatch(typeof(JobDriver_Ingest), "GetReport")]
+        private static class Patch_JobDriver_Ingest_GetReport
+        {
+            private static void Postfix(JobDriver_Ingest __instance, ref string __result)
+            {
+                if (__instance.job.GetTarget(TargetIndex.A).Thing is Building_CustomDispenser)
+                {
+                    __result = __instance.job.def.reportString.Replace("TargetA", ((Building_CustomDispenser)__instance.job.GetTarget(TargetIndex.A).Thing).DispensableThing.label);
+                    return;
+                }
+                __result = __instance.job.def.reportString.Replace("TargetA", __instance.job.GetTarget(TargetIndex.A).Thing.Label);
+            }
+        }
 
-		[HarmonyPatch(typeof(FoodUtility), "SpawnedFoodSearchInnerScan")]
+        [HarmonyPatch(typeof(FoodUtility), "SpawnedFoodSearchInnerScan")]
 		private static class Patch_SpawnedFoodSearchInnerScan
 		{
+			[HarmonyPrefix]
 			private static bool Prefix(ref Predicate<Thing> validator)
 			{
 				Predicate<Thing> malidator = validator;
@@ -190,6 +193,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPatch(typeof(Toils_Ingest), "TakeMealFromDispenser")]
 		private static class Patch_TakeMealFromDispenser
 		{
+			[HarmonyPrefix]
 			private static bool Prefix(ref TargetIndex ind, ref Pawn eater, ref Toil __result)
 			{
 				if (eater.jobs.curJob.GetTarget(ind).Thing is Building_CustomDispenser)

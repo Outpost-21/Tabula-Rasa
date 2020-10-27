@@ -12,6 +12,13 @@
 	</supportedVersions>
 	<modDependencies />
 	<loadBefore />
-	<loadAfter />
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>UnlimitedHugs.HugsLib</li>
+		<li>erdelf.HumanoidAlienRaces</li>
+		<li>kentington.saveourship2</li>
+	</loadAfter>
 	<incompatibleWith />
 </ModMetaData>

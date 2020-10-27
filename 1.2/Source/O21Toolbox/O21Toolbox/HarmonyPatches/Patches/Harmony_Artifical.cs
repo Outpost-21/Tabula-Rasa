@@ -109,4 +109,17 @@ namespace O21Toolbox.HarmonyPatches
             }
         }
     }
+
+    [HarmonyPatch(typeof(SkillRecord), "Interval")]
+    public class Patch_SkillRecord_Interval
+    {
+        [HarmonyPrefix]
+        public static bool Prefix(SkillRecord __instance)
+        {
+            Pawn pawn = (Pawn)AccessTools.Field(typeof(SkillRecord), "pawn").GetValue(__instance);
+            ArtificialPawnProperties modExt;
+            bool flag = (modExt = pawn.def.GetModExtension<ArtificialPawnProperties>()) != null && modExt.noSkillLoss;
+            return !flag;
+        }
+    }
 }

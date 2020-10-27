@@ -59,7 +59,7 @@ namespace O21Toolbox.CustomDispenser
         {
             get
             {
-                return (!dispenserProps.requiresPower || (powerComp.PowerOn && AvailablePower() > (dispenserProps.powerPerUse)));
+                return (!dispenserProps.requiresPower || powerComp.PowerOn);
             }
         }
         #endregion
@@ -69,12 +69,6 @@ namespace O21Toolbox.CustomDispenser
         public override void Tick()
         {
             base.Tick();
-            this.powerComp.PowerOutput = powerComp.Props.basePowerConsumption;
-            if (this.dispensingTicks > 0)
-            {
-                this.dispensingTicks--;
-                this.powerComp.PowerOutput = -(dispenserProps.powerPerUse * 4f.SecondsToTicks());
-            }
         }
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -83,31 +77,6 @@ namespace O21Toolbox.CustomDispenser
             this.dispenserProps = this.def.GetModExtension<DefModExt_CustomDispenser>();
         }
 
-        public float AvailablePower()
-        {
-            if (powerComp.PowerNet == null) return 0;
-
-            float availablePower = 0;
-            foreach (var battery in powerComp.PowerNet.batteryComps)
-            {
-                availablePower += battery.StoredEnergy;
-            }
-            return availablePower;
-        }
-
-        public Thing TryDispenseThing()
-        {
-            if (this.CanDispenseNow)
-            {
-                dispenserProps.dispenseSound.PlayOneShot(new TargetInfo(Position, Map, false));
-                if (dispenserProps.requiresPower)
-                {
-                    dispensingTicks = 2f.SecondsToTicks();
-                }
-                return ThingMaker.MakeThing(DispensableThing);
-            }
-            return null;
-        }
         public Thing TryDispenseThing(Pawn eater, Pawn getter)
         {
             if (getter == null)
@@ -123,17 +92,7 @@ namespace O21Toolbox.CustomDispenser
                 return null;
             }
             dispenserProps.dispenseSound.PlayOneShot(new TargetInfo(Position, Map, false));
-            if (dispenserProps.requiresPower)
-            {
-                dispensingTicks = 2f.SecondsToTicks();
-            }
             return ThingMaker.MakeThing(DispensableThing);
-        }
-
-        public static new bool IsAcceptableFeedstock(ThingDef def)
-        {
-            bool result = def.IsNutritionGivingIngestible && def.ingestible.preferability != FoodPreferability.Undefined && (def.ingestible.foodType & FoodTypeFlags.Plant) != FoodTypeFlags.Plant && (def.ingestible.foodType & FoodTypeFlags.Tree) != FoodTypeFlags.Tree;
-            return result;
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
