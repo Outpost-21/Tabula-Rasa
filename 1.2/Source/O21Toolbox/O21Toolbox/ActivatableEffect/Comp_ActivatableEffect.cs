@@ -12,6 +12,7 @@ using Verse.Sound;
 using HarmonyLib;
 
 using O21Toolbox.Deflector;
+using O21Toolbox.SlotLoadable;
 
 namespace O21Toolbox.ActivatableEffect
 {
@@ -249,9 +250,9 @@ namespace O21Toolbox.ActivatableEffect
 
         #region Graphics
 
-        private Graphic graphicInt;
-        private readonly Color overrideColor = Color.white;
-        private bool showNow;
+        protected Graphic graphicInt;
+        protected readonly Color overrideColor = Color.white;
+        protected bool showNow;
 
         public bool ShowNow
         {
@@ -290,6 +291,7 @@ namespace O21Toolbox.ActivatableEffect
             {
                 if (graphicInt == null)
                 {
+                    Graphic result;
                     if (Props.graphicData == null)
                     {
                         Log.ErrorOnce(parent.def + " has no SecondLayer graphicData but we are trying to access it.",
@@ -298,9 +300,13 @@ namespace O21Toolbox.ActivatableEffect
                     }
                     var newColor1 = overrideColor == Color.white ? parent.DrawColor : overrideColor;
                     var newColor2 = overrideColor == Color.white ? parent.DrawColorTwo : overrideColor;
-                    graphicInt =
-                        Props.graphicData.Graphic.GetColoredVersion(parent.Graphic.Shader, newColor1, newColor2);
-                    graphicInt = PostGraphicEffects(graphicInt);
+                    GraphicData graphics = parent.TryGetComp<Comp_SlotLoadable>()?.Slots.FirstOrDefault(x => (x.def as SlotLoadableDef).doesChangeGraphic == true)?.SlotOccupant?.TryGetComp<Comp_SlottedBonus>()?.Props.graphicData ?? null;
+                    if (graphics == null)
+                    {
+                        graphics = Props.graphicData;
+                    }
+                    result = graphics.Graphic.GetColoredVersion(graphics.shaderType.Shader, newColor1, newColor2);
+                    graphicInt = PostGraphicEffects(result);
                 }
                 return graphicInt;
             }

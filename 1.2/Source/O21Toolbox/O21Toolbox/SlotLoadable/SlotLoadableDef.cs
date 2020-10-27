@@ -15,6 +15,8 @@ namespace O21Toolbox.SlotLoadable
         public ColorInt colorToChangeTo;
         public ColorInt secondColorToChangeTo;
 
+        public bool doesChangeGraphic = false;
+
         public bool doesChangeColor = false;
 
         public bool doesChangeSecondColor = false;

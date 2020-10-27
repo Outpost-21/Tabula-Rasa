@@ -17,6 +17,8 @@ namespace O21Toolbox.SlotLoadable
             compClass = typeof(Comp_SlottedBonus);
         }
 
+        public GraphicData graphicData = new GraphicData();
+
         public List<ThingDef> additionalProjectiles = new List<ThingDef>();
 
         public Color color = Color.white;
