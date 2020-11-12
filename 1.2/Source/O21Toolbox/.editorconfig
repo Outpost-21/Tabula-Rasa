@@ -8,3 +8,6 @@ dotnet_style_readonly_field = true:silent
 
 # IDE0051: Remove unused private members
 dotnet_diagnostic.IDE0051.severity = silent
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = none

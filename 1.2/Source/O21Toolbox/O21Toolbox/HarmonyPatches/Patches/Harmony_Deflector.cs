@@ -58,7 +58,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
                         }
                 }
             }
-            catch (NullReferenceException e) // TODO: Fix the error when deflected.
+            catch // TODO: Fix the error when deflected.
             {
                 //Log.Message(e.ToString());
             }

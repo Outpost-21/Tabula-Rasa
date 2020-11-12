@@ -33,9 +33,10 @@ namespace O21Toolbox
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             listingStandard.Label("General Settings - Some changes may require a restart.");
-            listingStandard.CheckboxLabeled("Energy Need Compatibility Mode", ref settings.energyNeedCompatMode, "It's likely you won't need to touch this.");
-            //listingStandard.CheckboxLabeled("Toggle Drone Tab Visibility", ref settings.showDroneTab, "Don't change this. You won't listen though, then you'll come asking why you can't define the work priority of something in a mod, and I'll make fun of you for it.");
-            listingStandard.CheckboxLabeled("Moon Cycle Enabled", ref settings.moonCycleEnabled, "Disabling this WILL cause problems with mods that rely on it. But it makes it so you multiplayer using shitsticks can stop pissing and moaning about it.");
+            listingStandard.GapLine();
+            listingStandard.CheckboxEnhanced("Energy Need Compatibility Mode", "It's likely you won't need to touch this.", ref settings.energyNeedCompatMode);
+            listingStandard.CheckboxEnhanced("Moon Cycle Enabled", "Disabling this WILL cause problems with mods that rely on it. But it makes it so you multiplayer using shitsticks can stop pissing and moaning about it.", ref settings.moonCycleEnabled);
+            listingStandard.CheckboxEnhanced("Animations Enabled", "If animations that use this framework are causing performance issues for you, you can disable all animation code in the Toolbox with this.", ref settings.animationsEnabled);
             listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -57,6 +58,7 @@ namespace O21Toolbox
         public bool firstStartUp = true;
         public bool energyNeedCompatMode = true;
         public bool moonCycleEnabled = true;
+        public bool animationsEnabled = true;
         //public bool showDroneTab = true;
 
         public override void ExposeData()
@@ -64,6 +66,7 @@ namespace O21Toolbox
             Scribe_Values.Look<bool>(ref this.firstStartUp, "FirstStartUp", true, true);
             Scribe_Values.Look<bool>(ref this.energyNeedCompatMode, "EnergyNeedCompatMode", true, true);
             Scribe_Values.Look<bool>(ref this.moonCycleEnabled, "moonCycleEnabled", true, true);
+            Scribe_Values.Look<bool>(ref this.animationsEnabled, "animationsEnabled", true, true);
             //Scribe_Values.Look<bool>(ref this.showDroneTab, "showDroneTab", true, true);
         }
     }

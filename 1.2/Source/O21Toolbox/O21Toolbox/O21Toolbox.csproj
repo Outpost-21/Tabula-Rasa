@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -135,7 +135,11 @@
     <Compile Include="Alliances\RelationAlliance.cs" />
     <Compile Include="Alliances\RelationFaction.cs" />
     <Compile Include="Alliances\RelationPlayer.cs" />
+    <Compile Include="Animation\AnimationWorker.cs" />
+    <Compile Include="Animation\AnimationWorker_DustBlast.cs" />
+    <Compile Include="Animation\CompProperties_AnimationOverlayMulti.cs" />
     <Compile Include="Animation\CompProperties_AnimationOverlay.cs" />
+    <Compile Include="Animation\Comp_AnimationOverlayMulti.cs" />
     <Compile Include="Animation\Comp_AnimationOverlay.cs" />
     <Compile Include="ApparelExt\CompProperties_Bondable.cs" />
     <Compile Include="ApparelExt\CompProperties_Evolving.cs" />
@@ -157,12 +161,12 @@
     <None Include="ApparelExt\Shielded.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
-    <Compile Include="ArtificialPawn\Recipe_Disassemble.cs" />
-    <Compile Include="ArtificialPawn\Recipe_RepairKit.cs" />
+    <Compile Include="PawnExt\Recipe_Disassemble.cs" />
+    <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
     <Compile Include="AutoHeal\Comp_AutoHeal.cs" />
     <Compile Include="AutoHeal\DefModExtension_AutoHealProps.cs" />
-    <Compile Include="ArtificialPawn\DefModExtension_DroidPartsProps.cs" />
+    <Compile Include="PawnExt\DefModExtension_DroidPartsProps.cs" />
     <Compile Include="AutoHeal\HealUtility.cs" />
     <Compile Include="AutomatedProducer\JobDriver_FillProducer.cs" />
     <Compile Include="AutomatedProducer\RepeatMode.cs" />
@@ -208,6 +212,7 @@
     <Compile Include="MoonCycle\Moon.cs" />
     <Compile Include="MoonCycle\WorldComponent_MoonCycle.cs" />
     <Compile Include="O21ToolboxStartup.cs" />
+    <Compile Include="PatchOperationFindModID.cs" />
     <Compile Include="PawnConversion\DefModExt_BasicConvert.cs" />
     <Compile Include="PawnConversion\Hediff_BasicConvert.cs" />
     <Compile Include="BiomeExt\GenStep_BiomeOverride.cs" />

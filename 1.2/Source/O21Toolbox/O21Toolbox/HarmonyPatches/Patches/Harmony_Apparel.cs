@@ -43,11 +43,11 @@ namespace O21Toolbox.HarmonyPatches
             [HarmonyPostfix]
             public static void Postfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump, bool invisible)
             {
-                if (!__instance.graphics.pawn.RaceProps.Animal)
+                if (!__instance?.graphics?.pawn?.RaceProps?.Animal ?? false)
                 {
                     List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
                     // Get all apparel with the defModExt.
-                    foreach (Apparel ap in __instance.graphics.pawn.apparel.WornApparel)
+                    foreach (Apparel ap in __instance?.graphics?.pawn?.apparel?.WornApparel)
                     {
                         ApparelGraphicRecord item;
                         if (ap.def.HasModExtension<DefModExt_ApparelOffset>())
@@ -61,7 +61,7 @@ namespace O21Toolbox.HarmonyPatches
                     }
 
                     // Render if any Apparel in the list
-                    if (offsetApparelList.Count >= 1)
+                    if (offsetApparelList?.Count >= 1)
                     {
                         Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
                         Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(bodyFacing);
