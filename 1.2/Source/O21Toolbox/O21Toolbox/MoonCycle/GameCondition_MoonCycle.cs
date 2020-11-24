@@ -59,6 +59,12 @@ namespace O21Toolbox.MoonCycle
             }
         }
 
+        public override void GameConditionTick()
+        {
+            base.GameConditionTick();
+            End();
+        }
+
         public override void End()
         {
             this.gameConditionManager.ActiveConditions.Remove(this);

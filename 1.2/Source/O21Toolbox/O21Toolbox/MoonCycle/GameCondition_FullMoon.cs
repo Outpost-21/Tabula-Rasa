@@ -34,12 +34,13 @@ namespace O21Toolbox.MoonCycle
             {
                 return;
             }
-            base.GameConditionTick();
-            if (firstTick)
-            {
-                firstTick = false;
-                FullMoonTriggerHook();
-            }
+            End();
+            //base.GameConditionTick();
+            //if (firstTick)
+            //{
+            //    firstTick = false;
+            //    FullMoonTriggerHook();
+            //}
         }
 
         /// <summary>

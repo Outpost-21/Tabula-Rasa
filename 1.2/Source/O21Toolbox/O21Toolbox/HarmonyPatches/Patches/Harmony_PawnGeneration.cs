@@ -21,7 +21,59 @@ namespace O21Toolbox.HarmonyPatches.Patches
     {
     }
 
-	[HarmonyPatch(typeof(PawnGenerator), "FinalLevelOfSkill")]
+    [HarmonyPatch(typeof(PawnGenerator), "GenerateInitialHediffs")]
+    public static class Patch_PawnGen_GenerateInitialHediffs
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn pawn, PawnGenerationRequest request)
+        {
+            DefModExt_ExtendedPawnKind modExt = pawn.kindDef.GetModExtension<DefModExt_ExtendedPawnKind>();
+
+            if (modExt != null && !pawn.Dead)
+            {
+                if (!modExt.additionalHediffs.NullOrEmpty())
+                {
+                    if (modExt.randomAdditionalHediff) 
+                    {
+                        AdditionalHediffEntry result = GetHediffEntry(pawn.kindDef);
+                        if (result != null)
+                        {
+                            Hediff hediff = HediffMaker.MakeHediff(result.hediff, pawn);
+                            hediff.Severity = result.severityRange.RandomInRange;
+                        }
+                    }
+                    else
+                    {
+                        foreach(AdditionalHediffEntry entry in modExt.additionalHediffs)
+                        {
+                            Hediff hediff = HediffMaker.MakeHediff(entry.hediff, pawn);
+                            hediff.Severity = entry.severityRange.RandomInRange;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static AdditionalHediffEntry GetHediffEntry(PawnKindDef pawnkind)
+        {
+            if (pawnkind.HasModExtension<DefModExt_ExtendedPawnKind>())
+            {
+                DefModExt_ExtendedPawnKind modExt = pawnkind.GetModExtension<DefModExt_ExtendedPawnKind>();
+                AdditionalHediffEntry resultEntry;
+                if (!modExt.altRaces.NullOrEmpty())
+                {
+                    Func<AdditionalHediffEntry, float> selector = (AdditionalHediffEntry x) => x.weight;
+                    resultEntry = modExt.additionalHediffs.RandomElementByWeight(selector);
+
+                    return resultEntry;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnGenerator), "FinalLevelOfSkill")]
 	public static class Patch_PawnGen_FinalLevelOfSkill
 	{
 		[HarmonyPostfix]

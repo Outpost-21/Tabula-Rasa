@@ -161,6 +161,9 @@
     <None Include="ApparelExt\Shielded.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
+    <Compile Include="Automation\CompProperties_Quarry.cs" />
+    <Compile Include="Automation\Comp_Quarry.cs" />
+    <Compile Include="Automation\DefModExt_QuarryThing.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
@@ -429,6 +432,7 @@
     <Content Include="Abilities\_Credit.txt" />
     <Content Include="Laser\_Credit.txt" />
     <Content Include="MoonCycle\_Credit.txt" />
+    <Content Include="MoonCycle\_DueForRemoval.txt" />
     <Content Include="Needs\_Credit.txt" />
     <Content Include="SlotLoadable\_Credit.txt" />
     <Content Include="WeaponExt\_Credit.txt" />

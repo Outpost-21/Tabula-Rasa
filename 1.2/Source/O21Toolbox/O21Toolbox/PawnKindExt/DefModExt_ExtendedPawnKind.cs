@@ -29,6 +29,25 @@ namespace O21Toolbox.PawnKindExt
         /// Sets skills to specific values.
         /// </summary>
         public List<SkillLevelSetting> skillSettings = new List<SkillLevelSetting>();
+
+        /// <summary>
+        /// For cases where vanillas options are worthless (nothing new there).
+        /// </summary>
+        public List<AdditionalHediffEntry> additionalHediffs = new List<AdditionalHediffEntry>();
+
+        /// <summary>
+        /// If true, the hediff will be randomly chosen from the list, if false, it will apply them all.
+        /// </summary>
+        public bool randomAdditionalHediff = false;
+    }
+
+    public class AdditionalHediffEntry
+    {
+        public HediffDef hediff;
+
+        public FloatRange severityRange = new FloatRange();
+
+        public float weight;
     }
 
     public class ThingDefEntry

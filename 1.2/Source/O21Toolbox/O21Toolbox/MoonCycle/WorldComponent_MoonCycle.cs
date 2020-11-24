@@ -45,27 +45,32 @@ namespace O21Toolbox.MoonCycle
                 }
                 return;
             }
-            base.WorldComponentTick();
-            if (!moons.NullOrEmpty())
+            if(moonCycleGC != null)
             {
-                foreach (Moon moon in moons)
-                {
-                    moon.Tick();
-                }
+                moonCycleGC.End();
             }
-            if (moonCycleGC == null)
-            {
-                if(Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>() == null)
-                {
-                    moonCycleGC = new GameCondition_MoonCycle();
-                    moonCycleGC.Permanent = true;
-                    Find.World.GameConditionManager.RegisterCondition(moonCycleGC);
-                }
-                else
-                {
-                    moonCycleGC = Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>();
-                }
-            }
+            moons = null;
+            //base.WorldComponentTick();
+            //if (!moons.NullOrEmpty())
+            //{
+            //    foreach (Moon moon in moons)
+            //    {
+            //        moon.Tick();
+            //    }
+            //}
+            //if (moonCycleGC == null)
+            //{
+            //    if(Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>() == null)
+            //    {
+            //        moonCycleGC = new GameCondition_MoonCycle();
+            //        moonCycleGC.Permanent = true;
+            //        Find.World.GameConditionManager.RegisterCondition(moonCycleGC);
+            //    }
+            //    else
+            //    {
+            //        moonCycleGC = Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>();
+            //    }
+            //}
         }
 
         public void AdvanceOneDay()

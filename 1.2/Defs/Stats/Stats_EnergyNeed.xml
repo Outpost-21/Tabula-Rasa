@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <StatDef Name="ArmorRatingBase">
+    <StatDef>
         <defName>O21_EnergyConsuptionRate</defName>
         <label>Energy Consuption Rate</label>
         <labelForFullStatList>Energy Consumption Rate</labelForFullStatList>

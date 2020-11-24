@@ -8,6 +8,7 @@
         <tabWindowClass>O21Toolbox.Drones.MainTabWindow_Drones</tabWindowClass>
         <buttonVisible>False</buttonVisible>
         <order>35</order>
+		<iconPath>UI/Toolbox/MenuIcon_Drones</iconPath>
     </MainButtonDef>
 
 </Defs>
