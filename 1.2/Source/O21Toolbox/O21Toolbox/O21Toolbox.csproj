@@ -283,8 +283,6 @@
     <Compile Include="AutomatedProducer\ITab_AutomatedProducer.cs" />
     <Compile Include="AutomatedProducer\RecipeDef_Automated.cs" />
     <Compile Include="AutomatedProducer\Utility_AutoProducerCard.cs" />
-    <Compile Include="Conveyors\CompProperties_ConveyorBelt.cs" />
-    <Compile Include="Conveyors\Comp_ConveyorBelt.cs" />
     <Compile Include="CustomPlaceWorker\DefModExt_PlaceOnThing.cs" />
     <Compile Include="CustomPlaceWorker\PlaceWorker_PlaceNearThing.cs" />
     <Compile Include="CustomPlaceWorker\PlaceWorker_PlaceOnThing.cs" />
@@ -430,6 +428,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Abilities\_Credit.txt" />
+    <Content Include="ActivatableEffect\_Credit.txt" />
+    <Content Include="Deflector\_Credit.txt" />
     <Content Include="Laser\_Credit.txt" />
     <Content Include="MoonCycle\_Credit.txt" />
     <Content Include="MoonCycle\_DueForRemoval.txt" />

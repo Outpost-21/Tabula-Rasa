@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThoughtDef>
+        <defName>O21_NullThought</defName>
+        <showBubble>false</showBubble>
+        <durationDays>0.0001</durationDays>
+        <stackLimit>1</stackLimit>
+        <stackedEffectMultiplier>1</stackedEffectMultiplier>
+        <stages>
+            <li>
+                <label>null thought</label>
+                <description>If you can see this, you fuckin broke something. Well Done.</description>
+                <baseMoodEffect>0</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+  
+</Defs>

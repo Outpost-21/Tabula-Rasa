@@ -8,7 +8,7 @@
         <category>BasicsPawn</category>
         <defaultBaseValue>1.0</defaultBaseValue>
         <minValue>0</minValue>
-        <hideAtValue>0</hideAtValue>
+        <hideAtValue>1.0</hideAtValue>
         <maxValue>3</maxValue>
         <toStringStyle>FloatTwoOrThree</toStringStyle>
         <formatString>{0}x</formatString>

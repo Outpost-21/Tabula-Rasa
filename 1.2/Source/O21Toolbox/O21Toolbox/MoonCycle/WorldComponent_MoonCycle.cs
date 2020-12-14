@@ -21,30 +21,30 @@ namespace O21Toolbox.MoonCycle
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<int>(ref this.ticksUntilFullMoon, "ticksUntilFullMoon", -1, false);
+            //Scribe_Values.Look<int>(ref this.ticksUntilFullMoon, "ticksUntilFullMoon", -1, false);
             //Scribe_Deep.Look<GameCondition>(ref moonCycleGC, "gcMoonCycle");
-            Scribe_Collections.Look<Moon>(ref moons, "moons", LookMode.Deep, new object[0]);
+            //Scribe_Collections.Look<Moon>(ref moons, "moons", LookMode.Deep, new object[0]);
         }
 
         public WorldComponent_MoonCycle(World world) : base(world)
         {
-            if (moons.NullOrEmpty())
-            {
-                GenerateMoons(world);
-            }
+            //if (moons.NullOrEmpty())
+            //{
+            //    GenerateMoons(world);
+            //}
         }
 
         public override void WorldComponentTick()
         {
-            if (!O21ToolboxMod.settings.moonCycleEnabled)
-            {
-                if (Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>() != null)
-                {
-                    Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>().End();
-                    moonCycleGC = null;
-                }
-                return;
-            }
+            //if (!O21ToolboxMod.settings.moonCycleEnabled)
+            //{
+            //    if (Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>() != null)
+            //    {
+            //        Find.World.GameConditionManager.GetActiveCondition<GameCondition_MoonCycle>().End();
+            //        moonCycleGC = null;
+            //    }
+            //    return;
+            //}
             if(moonCycleGC != null)
             {
                 moonCycleGC.End();

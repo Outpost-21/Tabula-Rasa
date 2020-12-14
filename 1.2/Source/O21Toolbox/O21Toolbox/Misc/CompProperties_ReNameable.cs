@@ -12,6 +12,9 @@ namespace O21Toolbox.Misc
 {
     public class CompProperties_ReNameable : CompProperties
     {
+        /// <summary>
+        /// Adding this comp to a thing will allow the player to rename it at will.
+        /// </summary>
         public CompProperties_ReNameable()
         {
             this.compClass = typeof(Comp_ReNameable);

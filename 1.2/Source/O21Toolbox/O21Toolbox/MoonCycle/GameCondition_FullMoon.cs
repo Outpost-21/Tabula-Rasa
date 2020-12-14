@@ -30,10 +30,10 @@ namespace O21Toolbox.MoonCycle
 
         public override void GameConditionTick()
         {
-            if (!O21ToolboxMod.settings.moonCycleEnabled)
-            {
-                return;
-            }
+            //if (!O21ToolboxMod.settings.moonCycleEnabled)
+            //{
+            //    return;
+            //}
             End();
             //base.GameConditionTick();
             //if (firstTick)
