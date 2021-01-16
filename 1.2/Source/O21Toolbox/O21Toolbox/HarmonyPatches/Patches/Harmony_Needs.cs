@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using UnityEngine;
 using RimWorld;
@@ -99,6 +100,57 @@ namespace O21Toolbox.HarmonyPatches
                 return true;
             }
         }
+
+
+        // TODO: Terrible patch, needs replaced with a transpiler.
+        [HarmonyPatch(typeof(MeditationUtility), "CanMeditateNow")]
+        public static class Patch_MeditationUtility_CanMeditateNow
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MentalBreakWorker __instance, bool __result, Pawn pawn)
+            {
+                if (!pawn.def.race.EatsFood)
+                {
+                    __result = CanMeditateNow(pawn);
+                    return false;
+                }
+                return true;
+            }
+
+            public static bool CanMeditateNow(Pawn pawn)
+            {
+                if (pawn.needs.rest != null && pawn.needs.rest.CurCategory >= RestCategory.VeryTired)
+                {
+                    return false;
+                }
+                if (pawn.needs.food != null && pawn.needs.food.Starving)
+                {
+                    return false;
+                }
+                if (!pawn.Awake())
+                {
+                    return false;
+                }
+                if (pawn.health.hediffSet.BleedRateTotal <= 0f)
+                {
+                    if (HealthAIUtility.ShouldSeekMedicalRest(pawn))
+                    {
+                        Pawn_TimetableTracker timetable = pawn.timetable;
+                        if (((timetable != null) ? timetable.CurrentAssignment : null) != TimeAssignmentDefOf.Meditate)
+                        {
+                            return false;
+                        }
+                    }
+                    if (!HealthAIUtility.ShouldSeekMedicalRestUrgent(pawn))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+
 
         // No special mechanoids in ancient dangers.
         public static void MechanoidsFixerAncient(ref bool __result, PawnKindDef kind)

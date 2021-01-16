@@ -66,7 +66,7 @@ namespace O21Toolbox.Utility
                     }
                 }
 
-                var harmony = new Harmony("jecstools.jecrell.humanlikeorders");
+                var harmony = new Harmony("o21toolbox.neronix17.humanlikeorders");
                 harmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders"), null,
                     new HarmonyMethod(typeof(_HumanlikeOrdersUtility), nameof(AddHumanlikeOrders_PostFix)));
                 //harmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "CanTakeOrder"), null, new HarmonyMethod(typeof(_HumanlikeOrdersUtility), nameof(CanTakeOrder_PostFix)));

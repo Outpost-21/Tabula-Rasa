@@ -20,9 +20,6 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		[HarmonyPostfix]
 		public static void Postfix(NeedDef nd, ref bool __result, Pawn ___pawn)
         {
-            NeedDef Need_Bladder = DefDatabase<NeedDef>.GetNamedSilentFail("Bladder");
-            NeedDef Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
-
             if (NeedsDefOf.O21Energy != null)
             {
                 //Is the need our Energy need?
@@ -53,93 +50,43 @@ namespace O21Toolbox.HarmonyPatches.Patches
             //    }
             //}
 
-            if (!O21ToolboxMod.settings.energyNeedCompatMode)
+            if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors)
             {
-                if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors || (Need_Bladder != null && nd == Need_Bladder) || (Need_Hygiene != null && nd == Need_Hygiene))
+                if (___pawn.def.HasModExtension<ArtificialPawnProperties>())
                 {
-                    if(___pawn.def.HasModExtension<EnergyHediffs>() && ___pawn.def.HasModExtension<ArtificialPawnProperties>())
-                    {
-                        ArtificialPawnProperties modExt = ___pawn.def.GetModExtension<ArtificialPawnProperties>();
+                    ArtificialPawnProperties modExt = ___pawn.def.GetModExtension<ArtificialPawnProperties>();
 
-                        if (nd == NeedDefOf.Rest)
-                        {
-                            __result = modExt.needRest;
-                        }
-                        if(nd == NeedDefOf.Food)
-                        {
-                            __result = modExt.needFood;
-                        }
-                        if (nd == NeedDefOf.Joy)
-                        {
-                            __result = modExt.needJoy;
-                        }
-                        if (nd == NeedsDefOf.Beauty)
-                        {
-                            __result = modExt.needBeauty;
-                        }
-                        if (nd == NeedsDefOf.Comfort)
-                        {
-                            __result = modExt.needComfort;
-                        }
-                        if (nd == NeedsDefOf.RoomSize)
-                        {
-                            __result = modExt.needRoomSize;
-                        }
-                        if (nd == NeedsDefOf.Outdoors)
-                        {
-                            __result = modExt.needOutdoors;
-                        }
-                        else
-                        {
-                            __result = false;
-                        }
+                    if (nd == NeedDefOf.Rest)
+                    {
+                        __result = modExt.needRest;
                     }
-                    else if (___pawn.def.HasModExtension<EnergyHediffs>())
+                    if (nd == NeedDefOf.Food)
+                    {
+                        __result = modExt.needFood;
+                    }
+                    //if (nd == NeedDefOf.Joy)
+                    //{
+                    //    __result = modExt.needJoy;
+                    //}
+                    //if (nd == NeedsDefOf.Beauty)
+                    //{
+                    //    __result = modExt.needBeauty;
+                    //}
+                    //if (nd == NeedsDefOf.Comfort)
+                    //{
+                    //    __result = modExt.needComfort;
+                    //}
+                    //if (nd == NeedsDefOf.RoomSize)
+                    //{
+                    //    __result = modExt.needRoomSize;
+                    //}
+                    //if (nd == NeedsDefOf.Outdoors)
+                    //{
+                    //    __result = modExt.needOutdoors;
+                    //}
+                    else
                     {
                         __result = false;
-                    }
-                }
-            }
-            else
-            {
-                if (nd == NeedDefOf.Food || nd == NeedDefOf.Rest || nd == NeedDefOf.Joy || nd == NeedsDefOf.Beauty || nd == NeedsDefOf.Comfort || nd == NeedsDefOf.RoomSize || nd == NeedsDefOf.Outdoors)
-                {
-                    if (___pawn.def.HasModExtension<ArtificialPawnProperties>())
-                    {
-                        ArtificialPawnProperties modExt = ___pawn.def.GetModExtension<ArtificialPawnProperties>();
-
-                        if (nd == NeedDefOf.Rest)
-                        {
-                            __result = modExt.needRest;
-                        }
-                        if (nd == NeedDefOf.Food)
-                        {
-                            __result = modExt.needFood;
-                        }
-                        if (nd == NeedDefOf.Joy)
-                        {
-                            __result = modExt.needJoy;
-                        }
-                        if (nd == NeedsDefOf.Beauty)
-                        {
-                            __result = modExt.needBeauty;
-                        }
-                        if (nd == NeedsDefOf.Comfort)
-                        {
-                            __result = modExt.needComfort;
-                        }
-                        if (nd == NeedsDefOf.RoomSize)
-                        {
-                            __result = modExt.needRoomSize;
-                        }
-                        if (nd == NeedsDefOf.Outdoors)
-                        {
-                            __result = modExt.needOutdoors;
-                        }
-                        else
-                        {
-                            __result = false;
-                        }
                     }
                 }
             }

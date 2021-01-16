@@ -1,2 +1,1 @@
-﻿Since so many people piss and moan about a new feature they can *see* being added, which happen to be incompatible with things that already were incompatible for the most part, 
-plans to include a moon cycle for my mods at all have been nuked, they'll all just have to deal with completely random events handling it.
+﻿Code will be removed when Ludeon next break the game with an update. Probably 1.3, so as to minimise damage to exisiting saves.

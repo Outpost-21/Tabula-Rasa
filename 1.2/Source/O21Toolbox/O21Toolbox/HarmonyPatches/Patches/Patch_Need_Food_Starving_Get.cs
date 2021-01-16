@@ -20,7 +20,9 @@ namespace O21Toolbox.HarmonyPatches
         public static void Postfix(ref bool __result, Pawn ___pawn)
         {
             if (___pawn != null && ___pawn.def.race.FleshType.IsArtificialPawn())
+            {
                 __result = false;
+            }
         }
     }
 }

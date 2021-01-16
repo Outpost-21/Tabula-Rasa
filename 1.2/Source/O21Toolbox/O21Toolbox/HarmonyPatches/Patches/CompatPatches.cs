@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using UnityEngine;
 using RimWorld;
@@ -134,14 +135,57 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref bool __result, ref Pawn p)
         {
-            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize || !p.def.race.EatsFood)
+            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && properties.canSocialize || p.needs.food == null)
             {
-                __result = false;
+                return false;
+            }
+            if(p.needs.food == null)
+            {
+                __result = ShouldGuestKeepAttendingGathering(p);
                 return false;
             }
             return true;
         }
+        public static bool ShouldGuestKeepAttendingGathering(Pawn p)
+        {
+            return !p.Downed && (p.needs == null  || p.needs.food == null || !p.needs.food.Starving) && p.health.hediffSet.BleedRateTotal <= 0f && (p.needs.rest == null || p.needs.rest.CurCategory < RestCategory.Exhausted) && !p.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff(false) && p.Awake() && !p.InAggroMentalState && !p.IsPrisoner;
+        }
+    }
 
+    [HarmonyPatch(typeof(LordToil_Party), "LordToilTick")]
+    public class CompatPatch_LordToil_Party_LordToilTick
+    {
+
+        [HarmonyPrefix]
+        public static bool Prefix(LordToil_Party __instance)
+        {
+            LordToilData_Party Data = (LordToilData_Party)AccessTools.Property(typeof(LordToil_Party), "Data").GetValue(__instance);
+            Map Map = (Map)AccessTools.Property(typeof(LordToil_Party), "Map").GetValue(__instance);
+            IntVec3 spot = (IntVec3)AccessTools.Field(typeof(LordToil_Party), "spot").GetValue(__instance);
+            float joyPerTick = (float)AccessTools.Field(typeof(LordToil_Party), "joyPerTick").GetValue(__instance);
+
+
+            List<Pawn> ownedPawns = __instance.lord.ownedPawns;
+            for (int i = 0; i < ownedPawns.Count; i++)
+            {
+                if (GatheringsUtility.InGatheringArea(ownedPawns[i].Position, spot, Map))
+                {
+                    if (ownedPawns[i].needs.joy != null) 
+                    { 
+                        ownedPawns[i].needs.joy.GainJoy(joyPerTick, JoyKindDefOf.Social); 
+                    }
+                    if (!Data.presentForTicks.ContainsKey(ownedPawns[i]))
+                    {
+                        Data.presentForTicks.Add(ownedPawns[i], 0);
+                    }
+                    Dictionary<Pawn, int> presentForTicks = Data.presentForTicks;
+                    Pawn key = ownedPawns[i];
+                    int num = presentForTicks[key];
+                    presentForTicks[key] = num + 1;
+                }
+            }
+            return false;
+        }
     }
 
     [HarmonyPatch(typeof(JobGiver_EatInGatheringArea), "TryGiveJob")]
@@ -150,7 +194,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref JobGiver_EatInGatheringArea __instance, ref Job __result, ref Pawn pawn)
         {
-            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
+            if (pawn.needs.food == null)
             {
                 __result = null;
                 return false;

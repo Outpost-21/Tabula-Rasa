@@ -205,7 +205,6 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_MoonCycle.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Sounds.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Thing_DamageWorkerDamageResult.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_Toils_Ingest_FinalizeIngest.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_World_NaturalRockTypesIn.cs" />
     <Compile Include="Misc\CompProperties_ReNameable.cs" />
     <Compile Include="Misc\Comp_Nameable.cs" />
@@ -232,7 +231,6 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceCapable.cs" />
-    <None Include="HarmonyPatches\Patches\Harmony_Animals.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_CustomDispenser.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Needs.cs" />
@@ -243,7 +241,6 @@
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_CanBeResearchedAt_Postfix.cs" />
-    <None Include="HarmonyPatches\Patches\Patch_PlayerHasAnyAppropriateResearchBench_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
     <Compile Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
