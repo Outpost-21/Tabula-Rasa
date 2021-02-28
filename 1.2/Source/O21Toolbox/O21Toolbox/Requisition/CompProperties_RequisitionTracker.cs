@@ -10,12 +10,11 @@ using Verse;
 
 namespace O21Toolbox.Requisition
 {
-    public class RequisitionDef : Def
+    public class CompProperties_RequisitionTracker : CompProperties
     {
-        public List<ThingDef> requisitionThings = new List<ThingDef>();
-
-        public List<PawnKindDef> requisitionPawns = new List<PawnKindDef>();
-
-        public List<>
+        public CompProperties_RequisitionTracker()
+        {
+            this.compClass = typeof(Comp_RequisitionTracker);
+        }
     }
 }

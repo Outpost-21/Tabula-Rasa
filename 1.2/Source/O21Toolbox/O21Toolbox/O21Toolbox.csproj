@@ -164,6 +164,7 @@
     <Compile Include="Automation\CompProperties_Quarry.cs" />
     <Compile Include="Automation\Comp_Quarry.cs" />
     <Compile Include="Automation\DefModExt_QuarryThing.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
@@ -306,12 +307,13 @@
     <Compile Include="PawnKindExt\DefModExt_ExtendedPawnKind.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
-    <None Include="Requisition\DefModExt_Requisition.cs" />
-    <None Include="Requisition\GameComponent_Requisition.cs" />
-    <None Include="Requisition\RequisitionDef.cs" />
-    <None Include="Requisition\Worker_Requisition.cs" />
+    <Compile Include="Requisition\CompProperties_RequisitionTracker.cs" />
+    <Compile Include="Requisition\Comp_RequisitionTracker.cs" />
+    <Compile Include="Requisition\RequisitionRank.cs" />
+    <Compile Include="Requisition\RequisitionRankDef.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
+    <Compile Include="SimpleNeeds\DefModExt_FoodNeedRename.cs" />
     <Compile Include="SlotLoadable\CompProperties_SlotLoadable.cs" />
     <Compile Include="SlotLoadable\CompProperties_SlottedBonus.cs" />
     <Compile Include="SlotLoadable\Comp_SlotLoadable.cs" />
@@ -419,9 +421,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AnimalExt\" />
     <Folder Include="HarmonyPatches\Transpilers\" />
-    <Folder Include="ScenarioParts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Abilities\_Credit.txt" />
@@ -431,6 +431,7 @@
     <Content Include="MoonCycle\_Credit.txt" />
     <Content Include="MoonCycle\_DueForRemoval.txt" />
     <Content Include="Needs\_Credit.txt" />
+    <Content Include="Needs\_DueForRemoval.txt" />
     <Content Include="SlotLoadable\_Credit.txt" />
     <Content Include="WeaponExt\_Credit.txt" />
   </ItemGroup>

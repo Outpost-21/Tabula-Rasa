@@ -8,13 +8,10 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.Requisition
+namespace O21Toolbox.SimpleNeeds
 {
-    public class Worker_Requisition
+    public class DefModExt_FoodNeedRename : DefModExtension
     {
-        public virtual void CallForRequisition(List<ThingDef> things, List<PawnKindDef> pawns)
-        {
-
-        }
+        public string newName = "Energy";
     }
 }

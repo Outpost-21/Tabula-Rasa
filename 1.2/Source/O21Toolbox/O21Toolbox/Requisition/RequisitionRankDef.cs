@@ -10,8 +10,7 @@ using Verse;
 
 namespace O21Toolbox.Requisition
 {
-    public class DefModExt_Requisition : DefModExtension
+    public class RequisitionRankDef : Def
     {
-        public List<RequisitionDef>
     }
 }
