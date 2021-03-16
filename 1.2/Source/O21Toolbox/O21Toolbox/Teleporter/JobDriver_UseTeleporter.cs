@@ -37,7 +37,7 @@ namespace O21Toolbox.Teleporter
             return true;
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnIncapable(PawnCapacityDefOf.Manipulation);
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);

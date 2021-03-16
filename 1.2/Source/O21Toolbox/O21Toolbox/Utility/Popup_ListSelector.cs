@@ -33,7 +33,7 @@ namespace O21Toolbox.Utility
             doCloseButton = true;
         }
 
-        protected override void SetInitialSizeAndPosition()
+        public override void SetInitialSizeAndPosition()
         {
             int windowHeight = 500;
             int windowWidth = 350;

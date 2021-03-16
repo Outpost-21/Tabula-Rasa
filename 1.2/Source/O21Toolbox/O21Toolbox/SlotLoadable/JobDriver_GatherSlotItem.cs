@@ -21,7 +21,7 @@ namespace O21Toolbox.SlotLoadable
         }
 
         [DebuggerHidden]
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
             var toil = new Toil

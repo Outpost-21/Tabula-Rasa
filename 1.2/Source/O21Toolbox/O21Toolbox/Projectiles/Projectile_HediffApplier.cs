@@ -15,7 +15,7 @@ namespace O21Toolbox.Projectiles
     {
         public DefModExt_HediffApplier modExt => this.def.GetModExtension<DefModExt_HediffApplier>();
 
-        protected override void Impact(Thing hitThing)
+        public override void Impact(Thing hitThing)
         {
             base.Impact(hitThing);
 

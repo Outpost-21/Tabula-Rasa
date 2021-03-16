@@ -23,12 +23,12 @@ namespace O21Toolbox.HarmonyPatches
         /// <summary>
         /// For internal use: Field for getting the pawn.
         /// </summary>
-        public static FieldInfo int_Pawn_NeedsTracker_GetPawn;
-        public static FieldInfo int_PawnRenderer_GetPawn;
-        public static FieldInfo int_Need_Food_Starving_GetPawn;
-        public static FieldInfo int_ConditionalPercentageNeed_need;
-        public static FieldInfo int_Pawn_HealthTracker_GetPawn;
-        public static FieldInfo int_Pawn_InteractionsTracker_GetPawn;
+        //public static FieldInfo int_Pawn_NeedsTracker_GetPawn;
+        //public static FieldInfo int_PawnRenderer_GetPawn;
+        //public static FieldInfo int_Need_Food_Starving_GetPawn;
+        //public static FieldInfo int_ConditionalPercentageNeed_need;
+        //public static FieldInfo int_Pawn_HealthTracker_GetPawn;
+        //public static FieldInfo int_Pawn_InteractionsTracker_GetPawn;
 
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;

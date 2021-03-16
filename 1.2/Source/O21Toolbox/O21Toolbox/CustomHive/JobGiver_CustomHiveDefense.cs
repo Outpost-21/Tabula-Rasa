@@ -11,7 +11,7 @@ namespace O21Toolbox.CustomHive
 {
     internal class JobGiver_CustomHiveDefense : JobGiver_AIFightEnemies
     {
-        protected override IntVec3 GetFlagPosition(Pawn pawn)
+        public override IntVec3 GetFlagPosition(Pawn pawn)
         {
             CustomHive customHive = pawn.mindState.duty.focus.Thing as CustomHive;
             bool flag = customHive != null && customHive.Spawned;
@@ -27,7 +27,7 @@ namespace O21Toolbox.CustomHive
             return position;
         }
         
-        protected override float GetFlagRadius(Pawn pawn)
+        public override float GetFlagRadius(Pawn pawn)
         {
             return pawn.mindState.duty.radius;
         }

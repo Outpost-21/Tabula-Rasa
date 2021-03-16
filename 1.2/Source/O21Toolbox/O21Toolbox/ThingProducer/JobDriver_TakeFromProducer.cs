@@ -22,7 +22,7 @@ namespace O21Toolbox.ThingProducer
             return pawn.Reserve(targetA, job, 1, -1, null, errorOnFailed);
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDespawnedOrNull(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);

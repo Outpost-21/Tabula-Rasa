@@ -23,7 +23,7 @@ namespace O21Toolbox
 		private PatchOperation nomatch;
 #pragma warning restore 649
 
-		protected override bool ApplyWorker(XmlDocument xml)
+		public override bool ApplyWorker(XmlDocument xml)
 		{
 			bool flag = false;
             if (ModLister.AnyFromListActive(mods))

@@ -59,7 +59,7 @@ namespace O21Toolbox.Laser
             }
         }
 
-        protected override void Impact(Thing hitThing)
+        public override void Impact(Thing hitThing)
         {
             bool shielded = hitThing.IsShielded() && def.IsWeakToShields;
 

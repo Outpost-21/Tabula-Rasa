@@ -18,7 +18,7 @@ namespace O21Toolbox.CustomHive
             this.ticksBetweenWandersRange = new IntRange(125, 200);
         }
         
-        protected override IntVec3 GetWanderRoot(Pawn pawn)
+        public override IntVec3 GetWanderRoot(Pawn pawn)
         {
             CustomHive customHive = pawn.mindState.duty.focus.Thing as CustomHive;
             bool flag = customHive == null || !customHive.Spawned;

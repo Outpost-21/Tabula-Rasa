@@ -32,8 +32,8 @@ namespace O21Toolbox.TurretsPlus
                 }
             }
         }
-        
-        protected override bool TryCastShot()
+
+        public override bool TryCastShot()
         {
             this.verbsList = new List<Verb>();
             bool flag = this.bunker == null;

@@ -28,7 +28,7 @@ namespace O21Toolbox.Needs
             energyNeed = GetActor().needs.TryGetNeed<Need_Energy>();
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDestroyedNullOrForbidden(PowerDestIndex);
             AddFailCondition(() => energyNeed == null);

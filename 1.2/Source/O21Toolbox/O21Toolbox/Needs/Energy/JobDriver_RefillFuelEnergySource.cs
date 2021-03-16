@@ -32,7 +32,7 @@ namespace O21Toolbox.Needs
             return false;
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDestroyedNullOrForbidden(FuelIndex);
 

@@ -15,14 +15,14 @@ namespace O21Toolbox.Drones
     {
         private const int SpaceBetweenPriorityArrowsAndWorkLabels = 40;
 
-        protected override PawnTableDef PawnTableDef
+        public override PawnTableDef PawnTableDef
         {
             get
             {
                 return PawnTableDefOf.Work;
             }
         }
-        protected override float ExtraTopSpace
+        public override float ExtraTopSpace
         {
             get
             {
@@ -30,7 +30,7 @@ namespace O21Toolbox.Drones
             }
         }
 
-        protected override IEnumerable<Pawn> Pawns
+        public override IEnumerable<Pawn> Pawns
         {
             get
             {

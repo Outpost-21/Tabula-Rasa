@@ -17,16 +17,9 @@ namespace O21Toolbox.Laser
     [HarmonyPatch(typeof(PawnRenderer), "DrawEquipmentAiming", new Type[] { typeof(Thing), typeof(Vector3), typeof(float) }), StaticConstructorOnStartup]
     public static class PatchGunDrawing
     {
-        static FieldInfo pawnField;
-
-        static PatchGunDrawing()
-        {
-            pawnField = typeof(PawnRenderer).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
-        }
-
         static void Prefix(ref Thing eq, ref Vector3 drawLoc, ref float aimAngle, PawnRenderer __instance)
         {
-            Pawn pawn = pawnField.GetValue(__instance) as Pawn;
+            Pawn pawn = (Pawn)__instance.pawn;
             if (pawn == null) return;
 
             IDrawnWeaponWithRotation gun = eq as IDrawnWeaponWithRotation;

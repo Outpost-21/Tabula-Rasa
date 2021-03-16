@@ -67,7 +67,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(ref Pawn_HealthTracker __instance, ref PawnCapacityDef __result)
         {
-            Pawn pawn = Pawn_HealthTracker_GetPawn(__instance);
+            Pawn pawn = __instance.pawn;
 
             if (pawn.def.HasModExtension<ArtificialPawnProperties>())
             {
@@ -91,7 +91,7 @@ namespace O21Toolbox.HarmonyPatches
 
         public static Pawn Pawn_HealthTracker_GetPawn(Pawn_HealthTracker instance)
         {
-            return (Pawn)int_Pawn_HealthTracker_GetPawn.GetValue(instance);
+            return (Pawn)instance.pawn;
         }
     }
 
@@ -159,10 +159,10 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(LordToil_Party __instance)
         {
-            LordToilData_Party Data = (LordToilData_Party)AccessTools.Property(typeof(LordToil_Party), "Data").GetValue(__instance);
-            Map Map = (Map)AccessTools.Property(typeof(LordToil_Party), "Map").GetValue(__instance);
-            IntVec3 spot = (IntVec3)AccessTools.Field(typeof(LordToil_Party), "spot").GetValue(__instance);
-            float joyPerTick = (float)AccessTools.Field(typeof(LordToil_Party), "joyPerTick").GetValue(__instance);
+            LordToilData_Party Data = (LordToilData_Party)__instance.data;
+            Map Map = (Map)__instance.Map;
+            IntVec3 spot = (IntVec3)__instance.spot;
+            float joyPerTick = (float)__instance.joyPerTick;
 
 
             List<Pawn> ownedPawns = __instance.lord.ownedPawns;
@@ -242,14 +242,10 @@ namespace O21Toolbox.HarmonyPatches
     [HarmonyPatch(typeof(Pawn_InteractionsTracker), "SocialFightChance")]
     public class CompatPatch_SocialFightChance
     {
-        public static FieldInfo int_Pawn_InteractionsTracker_GetPawn;
-
         [HarmonyPrefix]
         public static bool Prefix(ref Pawn_InteractionsTracker __instance, ref float __result, ref InteractionDef interaction, ref Pawn initiator)
         {
-            int_Pawn_InteractionsTracker_GetPawn = typeof(Pawn_InteractionsTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-
-            Pawn pawn = Pawn_InteractionsTracker_GetPawn(__instance);
+            Pawn pawn = __instance.pawn;
 
             if ((pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize) || (initiator.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties propertiesTwo && !propertiesTwo.canSocialize))
             {
@@ -262,7 +258,7 @@ namespace O21Toolbox.HarmonyPatches
 
         public static Pawn Pawn_InteractionsTracker_GetPawn(Pawn_InteractionsTracker instance)
         {
-            return (Pawn)int_Pawn_InteractionsTracker_GetPawn.GetValue(instance);
+            return (Pawn)instance.pawn;
         }
 
     }
@@ -270,14 +266,10 @@ namespace O21Toolbox.HarmonyPatches
     [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
     public class CompatPatch_InteractionsTrackerTick
     {
-        public static FieldInfo int_Pawn_InteractionsTracker_GetPawn;
-
         [HarmonyPrefix]
         public static bool Prefix(ref Pawn_InteractionsTracker __instance)
         {
-            int_Pawn_InteractionsTracker_GetPawn = typeof(Pawn_InteractionsTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-
-            Pawn pawn = Pawn_InteractionsTracker_GetPawn(__instance);
+            Pawn pawn = (Pawn)__instance.pawn;
 
             if (pawn.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && !properties.canSocialize)
             {
@@ -289,7 +281,7 @@ namespace O21Toolbox.HarmonyPatches
 
         public static Pawn Pawn_InteractionsTracker_GetPawn(Pawn_InteractionsTracker instance)
         {
-            return (Pawn)int_Pawn_InteractionsTracker_GetPawn.GetValue(instance);
+            return (Pawn)instance.pawn;
         }
     }
 

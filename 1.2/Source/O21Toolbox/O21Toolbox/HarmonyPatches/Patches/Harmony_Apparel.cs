@@ -15,7 +15,7 @@ namespace O21Toolbox.HarmonyPatches
 {
     public class Harmony_Apparel
     {
-        public static FieldInfo int_PawnRenderer_GetPawn;
+        //public static FieldInfo int_PawnRenderer_GetPawn;
         //private static HashSet<ThingStuffPair> apparelList;
 
         public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
@@ -272,7 +272,7 @@ namespace O21Toolbox.HarmonyPatches
 
         public static Pawn PawnRenderer_GetPawn_GetPawn(PawnRenderer instance)
         {
-            return (Pawn)int_PawnRenderer_GetPawn.GetValue(instance);
+            return (Pawn)instance.pawn;
         }
         #endregion ApparelPatches
     }

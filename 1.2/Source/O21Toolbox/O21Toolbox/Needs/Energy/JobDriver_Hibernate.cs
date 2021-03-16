@@ -39,7 +39,7 @@ namespace O21Toolbox.Needs
             return RandomSocialMode.Off;
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             powerTrader = Target.TryGetComp<CompPowerTrader>();
 

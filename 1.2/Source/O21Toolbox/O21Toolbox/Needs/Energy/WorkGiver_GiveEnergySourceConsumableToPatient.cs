@@ -22,12 +22,13 @@ namespace O21Toolbox.Needs
             if(pawn.Downed)
                 return false;
 
-            if (thing.IsForbidden(pawn) || !thing.Position.InAllowedArea(pawn))
-
-            if (!pawn.CanReach(new LocalTargetInfo(thing), PathEndMode.ClosestTouch, Danger.Deadly))
+            if (HealthAIUtility.ShouldSeekMedicalRest(pawn))
                 return false;
 
-            if (HealthAIUtility.ShouldSeekMedicalRest(pawn))
+            if (thing.IsForbidden(pawn) || !thing.Position.InAllowedArea(pawn))
+                return false;
+
+            if (!pawn.CanReach(new LocalTargetInfo(thing), PathEndMode.ClosestTouch, Danger.Deadly))
                 return false;
 
             Pawn targetPawn = thing as Pawn;

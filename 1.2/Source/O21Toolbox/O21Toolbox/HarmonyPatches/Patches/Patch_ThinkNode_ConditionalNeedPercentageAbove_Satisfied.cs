@@ -15,13 +15,11 @@ namespace O21Toolbox.HarmonyPatches.Patches
     [HarmonyPatch(typeof(ThinkNode_ConditionalNeedPercentageAbove), "Satisfied")]
     public class Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied
     {
-        public static FieldInfo int_ConditionalPercentageNeed_need;
 
         [HarmonyPrefix]
         public static bool Prefix(ref ThinkNode_ConditionalNeedPercentageAbove __instance, ref bool __result, ref Pawn pawn)
         {
-            int_ConditionalPercentageNeed_need = typeof(ThinkNode_ConditionalNeedPercentageAbove).GetField("need", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-            NeedDef need = ThinkNode_ConditionalNeedPercentageAbove_GetNeed(__instance);
+            NeedDef need = __instance.need;
             bool haveNeed = pawn.needs.TryGetNeed(need) != null;
 
             if (!haveNeed)
@@ -34,7 +32,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
         }
         public static NeedDef ThinkNode_ConditionalNeedPercentageAbove_GetNeed(ThinkNode_ConditionalNeedPercentageAbove instance)
         {
-            return (NeedDef)int_ConditionalPercentageNeed_need.GetValue(instance);
+            return (NeedDef)instance.need;
         }
     }
 }

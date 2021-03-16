@@ -27,7 +27,7 @@ namespace O21Toolbox.Utility
             _callback = callback;
         }
 
-        protected override void SetInitialSizeAndPosition()
+        public override void SetInitialSizeAndPosition()
         {
             var vector = Verse.UI.MousePositionOnUIInverted;
             if (vector.x + InitialSize.x > Verse.UI.screenWidth)

@@ -25,7 +25,7 @@ namespace O21Toolbox.Needs
             get
             {
                 float drainModifier = 1f;
-                if ((!pawn.IsCaravanMember() && pawn.TryGetComp<Comp_EnergyTracker>() is Comp_EnergyTracker energyTracker && energyTracker.EnergyProperties.canHibernate && pawn.CurJobDef == energyTracker.EnergyProperties.hibernationJob) || pawn.IsPrisoner)
+                if ((!pawn.IsCaravanMember() && pawn.TryGetComp<Comp_EnergyTracker>() is Comp_EnergyTracker energyTracker && energyTracker.EnergyProperties.canHibernate && pawn.CurJobDef == energyTracker.EnergyProperties.hibernationJob) || pawn.IsPrisoner || pawn.Faction != Faction.OfPlayer)
                 {
                     drainModifier = -0.1f;
                 }

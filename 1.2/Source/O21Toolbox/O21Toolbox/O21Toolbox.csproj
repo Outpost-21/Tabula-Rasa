@@ -17,13 +17,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\..\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,8 +41,12 @@
       <HintPath>..\packages\Lib.Harmony.2.0.2\lib\net472\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp_public">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp_public.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
@@ -74,61 +79,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abilities\AbilityButtons.cs" />
-    <Compile Include="Abilities\AbilityContext.cs" />
-    <Compile Include="Abilities\AbilityData.cs" />
-    <Compile Include="Abilities\AbilityDef.cs" />
-    <Compile Include="Abilities\AbilityEffectUtility.cs" />
-    <Compile Include="Abilities\AbilityTargetCategory.cs" />
-    <Compile Include="Abilities\AbilityUserUtility.cs" />
-    <Compile Include="Abilities\AI\AbilityAIDef.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_CasterHealth.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_EnemyTargetDistance.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_EnemyTargetCover.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_EnemyTargetIsArmed.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_HasEnemyTarget.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_InCombat.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_UsingMeleeWeapon.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionConditionalNode_UsingRangedWeapon.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionNode.cs" />
-    <Compile Include="Abilities\AI\AbilityDecisionNode_PickAbilityWithMatchingTags.cs" />
-    <Compile Include="Abilities\AI\AbilityMaths.cs" />
-    <Compile Include="Abilities\AI\AbilityProfileWorker.cs" />
-    <Compile Include="Abilities\AI\AbilityUserAIProfileDef.cs" />
-    <Compile Include="Abilities\AI\AbilityUtility.cs" />
-    <Compile Include="Abilities\AI\AbilityWorker.cs" />
-    <Compile Include="Abilities\AI\AbilityWorker_AreaOfEffect.cs" />
-    <Compile Include="Abilities\AI\AbilityWorker_HealAlly.cs" />
-    <Compile Include="Abilities\AI\JobGiver_AIAbilityUser.cs" />
-    <Compile Include="Abilities\AI\TagWeight.cs" />
-    <Compile Include="Abilities\ApplyHediffs.cs" />
-    <Compile Include="Abilities\ApplyMentalStates.cs" />
-    <Compile Include="Abilities\Command_PawnAbility.cs" />
-    <Compile Include="Abilities\Comp_AbilityUser.cs" />
-    <Compile Include="Abilities\Comp_AbilityItem.cs" />
-    <Compile Include="Abilities\CompProperties_AbilityItem.cs" />
-    <Compile Include="Abilities\CompProperties_AbilityUser.cs" />
-    <Compile Include="Abilities\ExtraDamage.cs" />
-    <Compile Include="Abilities\FlyingObject.cs" />
-    <Compile Include="Abilities\FlyingObject_Equippable.cs" />
-    <Compile Include="Abilities\JobDriver_CastAbilitySelf.cs" />
-    <Compile Include="Abilities\JobDriver_CastAbilityVerb.cs" />
-    <Compile Include="Abilities\PassiveEffectProperties.cs" />
-    <Compile Include="Abilities\PassiveEffectWorker.cs" />
-    <Compile Include="Abilities\PawnAbility.cs" />
-    <Compile Include="Abilities\PawnSummoned.cs" />
-    <Compile Include="Abilities\ProjectileDef_Ability.cs" />
-    <Compile Include="Abilities\ProjectileDef_AbilityLaser.cs" />
-    <Compile Include="Abilities\Projectile_Ability.cs" />
-    <Compile Include="Abilities\Projectile_AbilityBase.cs" />
-    <Compile Include="Abilities\Projectile_AbilityLaser.cs" />
-    <Compile Include="Abilities\AbilityDefOf.cs" />
-    <Compile Include="Abilities\SpawnThings.cs" />
-    <Compile Include="Abilities\StringsToTranslate.cs" />
-    <Compile Include="Abilities\TargetAoEProperties.cs" />
-    <Compile Include="Abilities\VerbProperties_Ability.cs" />
-    <Compile Include="Abilities\Verb_UseAbility.cs" />
-    <Compile Include="Abilities\Verb_UseAbility_TrueBurst.cs" />
     <Compile Include="ActivatableEffect\CompProperties_ActivatableEffect.cs" />
     <Compile Include="ActivatableEffect\Comp_ActivatableEffect.cs" />
     <Compile Include="Alliances\AllianceDef.cs" />
@@ -165,6 +115,7 @@
     <Compile Include="Automation\Comp_Quarry.cs" />
     <Compile Include="Automation\DefModExt_QuarryThing.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
@@ -228,7 +179,6 @@
     <Compile Include="CustomDispenser\Building_CustomDispenser.cs" />
     <Compile Include="CustomDispenser\DefModExt_CustomDispenser.cs" />
     <Compile Include="HarmonyPatches\Patches\CompatPatches.cs" />
-    <Compile Include="HarmonyPatches\Patches\Harmony_Abilities.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceCapable.cs" />
@@ -289,8 +239,6 @@
     <Compile Include="AutoHeal\Hediff_GrowingPart.cs" />
     <Compile Include="AutoHeal\HediffDefOf_AutoHeal.cs" />
     <Compile Include="BiomeExt\BiomeOverrideDef.cs" />
-    <None Include="Needs\Solar\DefModExt_SolarNeed.cs" />
-    <None Include="Needs\Solar\Need_Solar.cs" />
     <Compile Include="PawnExt\CompProperties_AlienBodyCorrection.cs" />
     <Compile Include="PawnExt\CompProperties_PawnStorage.cs" />
     <Compile Include="PawnExt\CompProperties_Resurrection.cs" />
@@ -325,6 +273,8 @@
     <Compile Include="Sound\CompProperties_ExtraSounds.cs" />
     <Compile Include="Sound\Comp_ExtraSounds.cs" />
     <Compile Include="Sound\DefModExt_ExtraSounds.cs" />
+    <Compile Include="UpdateListings\UpdateDef.cs" />
+    <Compile Include="UpdateListings\UpdateListing.cs" />
     <Compile Include="Utility\HumanlikeOrdersUtility.cs" />
     <Compile Include="Utility\JobDefOf.cs" />
     <Compile Include="Utility\SlotLoadableUtility.cs" />
@@ -343,8 +293,6 @@
     <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
     <Compile Include="TurretsPlus\CompProperties_Bunker.cs" />
     <Compile Include="TurretsPlus\Comp_Bunker.cs" />
-    <None Include="HarmonyPatches\Patches\PatchGunDrawing.cs" />
-    <None Include="HarmonyPatches\Patches\PatchTuretTopDrawTurret.cs" />
     <Compile Include="CustomHive\CustomHive.cs" />
     <Compile Include="CustomHive\HiveProperties.cs" />
     <Compile Include="CustomHive\JobGiver_CustomHiveDefense.cs" />
@@ -424,7 +372,6 @@
     <Folder Include="HarmonyPatches\Transpilers\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Abilities\_Credit.txt" />
     <Content Include="ActivatableEffect\_Credit.txt" />
     <Content Include="Deflector\_Credit.txt" />
     <Content Include="Laser\_Credit.txt" />

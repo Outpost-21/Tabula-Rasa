@@ -18,10 +18,10 @@ namespace O21Toolbox.Automation
         public CompPowerTrader compPower;
         public CompRefuelable compRefuelable;
 
-        private List<ThingDef> cachedMineableThings = new List<ThingDef>();
-        private Dictionary<ThingDef, bool> mineableThings = new Dictionary<ThingDef, bool>();
+        public List<ThingDef> cachedMineableThings = new List<ThingDef>();
+        public Dictionary<ThingDef, bool> mineableThings = new Dictionary<ThingDef, bool>();
 
-        protected List<ThingDef> CachedMineableThings
+        public List<ThingDef> CachedMineableThings
         {
             get
             {

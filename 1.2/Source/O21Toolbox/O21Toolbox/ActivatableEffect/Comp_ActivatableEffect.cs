@@ -282,7 +282,7 @@ namespace O21Toolbox.ActivatableEffect
             }
         }
 
-        public CompProperties_ActivatableEffect Props => (CompProperties_ActivatableEffect)props;
+        public new CompProperties_ActivatableEffect Props => (CompProperties_ActivatableEffect)props;
 
         public virtual Graphic Graphic
         {

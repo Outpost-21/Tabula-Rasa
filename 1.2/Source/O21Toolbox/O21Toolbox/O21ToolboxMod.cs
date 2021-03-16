@@ -23,7 +23,8 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: Outpost 21 Toolbox - Version 1.1.7 Initialised ::");
+            Log.Message(":: Outpost 21 Toolbox - Version 1.2.0 Initialised ::");
+            if (!settings.modUpdates) { Log.Message(":: Mod Updates Disabled ::"); }
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -35,6 +36,7 @@ namespace O21Toolbox
             listingStandard.Label("General Settings");
             listingStandard.GapLine();
             listingStandard.CheckboxEnhanced("Animations Enabled", "If animations that use this framework are causing performance issues for you, you can disable all animation code in the Toolbox with this.", ref settings.animationsEnabled);
+            //listingStandard.CheckboxEnhanced("Mod Updates", "Disable this and you waive any support.", ref settings.modUpdates);
             listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -42,10 +44,12 @@ namespace O21Toolbox
     public class O21ToolboxSettings : ModSettings
     {
         public bool animationsEnabled = true;
+        public bool modUpdates = true;
 
         public override void ExposeData()
         {
             Scribe_Values.Look<bool>(ref this.animationsEnabled, "animationsEnabled", true);
+            Scribe_Values.Look<bool>(ref this.modUpdates, "modUpdates", true);
         }
     }
 }

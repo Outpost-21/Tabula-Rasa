@@ -12,7 +12,7 @@ namespace O21Toolbox.Drones
 {
     public class ThinkNode_ConditionalColonistOrDrone : ThinkNode_Conditional
     {
-        protected override bool Satisfied(Pawn pawn)
+        public override bool Satisfied(Pawn pawn)
         {
             return pawn.IsColonist || pawn.IsPlayerControlledDrone();
         }

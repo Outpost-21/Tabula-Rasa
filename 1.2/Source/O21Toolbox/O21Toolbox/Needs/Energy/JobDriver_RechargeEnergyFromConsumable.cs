@@ -59,7 +59,7 @@ namespace O21Toolbox.Needs
             }
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
+        public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDestroyedNullOrForbidden(PowerDestIndex);
             if (!TargetB.IsValid)

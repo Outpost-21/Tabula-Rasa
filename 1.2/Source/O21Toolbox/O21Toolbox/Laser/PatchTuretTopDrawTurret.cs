@@ -16,21 +16,13 @@ namespace O21Toolbox.Laser
     [HarmonyPatch(typeof(TurretTop), "DrawTurret", new Type[] { }), StaticConstructorOnStartup]
     class PatchTuretTopDrawTurret
     {
-        static FieldInfo parentTurretField;
-        static FieldInfo curRotationIntField;
-
-        static PatchTuretTopDrawTurret()
-        {
-            parentTurretField = typeof(TurretTop).GetField("parentTurret", BindingFlags.NonPublic | BindingFlags.Instance);
-            curRotationIntField = typeof(TurretTop).GetField("curRotationInt", BindingFlags.NonPublic | BindingFlags.Instance);
-        }
 
         static bool Prefix(TurretTop __instance)
         {
-            Building_LaserGun turret = parentTurretField.GetValue(__instance) as Building_LaserGun;
-            if (turret == null) return true;
+            if (!(__instance.parentTurret is Building_LaserGun)) { return true; }
 
-            float rotation = (float)curRotationIntField.GetValue(__instance);
+            Building_LaserGun turret = (Building_LaserGun)__instance.parentTurret;
+            float rotation = (float)__instance.curRotationInt;
             if (turret.TargetCurrentlyAimingAt.HasThing)
             {
                 rotation = (turret.TargetCurrentlyAimingAt.CenterVector3 - turret.TrueCenter()).AngleFlat();

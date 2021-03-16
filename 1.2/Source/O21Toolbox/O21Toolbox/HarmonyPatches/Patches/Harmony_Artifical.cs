@@ -116,7 +116,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPrefix]
         public static bool Prefix(SkillRecord __instance)
         {
-            Pawn pawn = (Pawn)AccessTools.Field(typeof(SkillRecord), "pawn").GetValue(__instance);
+            Pawn pawn = (Pawn)__instance.pawn;
             ArtificialPawnProperties modExt;
             bool flag = (modExt = pawn.def.GetModExtension<ArtificialPawnProperties>()) != null && modExt.noSkillLoss;
             return !flag;

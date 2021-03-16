@@ -90,7 +90,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private bool WarmingUp
+        public new bool WarmingUp
         {
             get
             {
@@ -98,13 +98,13 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private void ResetCurrentTarget()
+        public new void ResetCurrentTarget()
         {
             this.currentTargetInt = LocalTargetInfo.Invalid;
             this.burstWarmupTicksLeft = 0;
         }
 
-        private bool CanToggleHoldFire
+        public new bool CanToggleHoldFire
         {
             get
             {
@@ -112,7 +112,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private void ResetForcedTarget()
+        public new void ResetForcedTarget()
         {
             this.forcedTarget = LocalTargetInfo.Invalid;
             this.burstWarmupTicksLeft = 0;
@@ -122,7 +122,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private bool CanSetForcedTarget
+        public new bool CanSetForcedTarget
         {
             get
             {
@@ -130,7 +130,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private bool CanExtractShell
+        public new bool CanExtractShell
         {
             get
             {
@@ -143,7 +143,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private void UpdateGunVerbs()
+        public new void UpdateGunVerbs()
         {
             List<Verb> allVerbs = this.gun.TryGetComp<CompEquippable>().AllVerbs;
             for (int i = 0; i < allVerbs.Count; i++)
@@ -154,7 +154,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private void ExtractShell()
+        public new void ExtractShell()
         {
             GenPlace.TryPlaceThing(this.gun.TryGetComp<CompChangeableProjectile>().RemoveShell(), base.Position, base.Map, ThingPlaceMode.Near, null, null);
         }
@@ -168,7 +168,7 @@ namespace O21Toolbox.TurretsPlus
             });
         }
 
-        private bool MannedByColonist
+        public new bool MannedByColonist
         {
             get
             {
@@ -176,7 +176,7 @@ namespace O21Toolbox.TurretsPlus
             }
         }
 
-        private bool PlayerControlled
+        public new bool PlayerControlled
         {
             get
             {

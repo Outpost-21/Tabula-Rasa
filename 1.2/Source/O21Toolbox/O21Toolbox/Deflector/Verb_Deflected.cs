@@ -21,7 +21,7 @@ namespace O21Toolbox.Deflector
         }
 
         //A16 TryCastShot Code
-        protected override bool TryCastShot()
+        public override bool TryCastShot()
         {
             return TryCastShot_V1Vanilla_Modified();
         }

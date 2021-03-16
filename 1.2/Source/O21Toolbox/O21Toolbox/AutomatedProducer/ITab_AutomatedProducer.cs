@@ -27,7 +27,7 @@ namespace O21Toolbox.AutomatedProducer
             this.labelKey = "TabAutoProducer";
         }
 
-        protected Building_AutomatedProducer SelTable
+        public Building_AutomatedProducer SelTable
         {
             get
             {
@@ -35,7 +35,7 @@ namespace O21Toolbox.AutomatedProducer
             }
         }
 
-        protected override void FillTab()
+        public override void FillTab()
         {
             Rect rect = new Rect(ITab_AutomatedProducer.WinSize.x - ITab_AutomatedProducer.PasteX, ITab_AutomatedProducer.PasteY, ITab_AutomatedProducer.PasteSize, ITab_AutomatedProducer.PasteSize);
             Rect rect2 = new Rect(0f, 0f, ITab_AutomatedProducer.WinSize.x, ITab_AutomatedProducer.WinSize.y).ContractedBy(10f);

@@ -158,7 +158,7 @@ namespace O21Toolbox.TurretsPlus
             return result;
         }
         
-        private bool MannedByColonist
+        public new bool MannedByColonist
         {
             get
             {
