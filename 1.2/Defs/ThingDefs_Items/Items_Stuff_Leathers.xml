@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="LeatherBase">
+		<defName>O21_AlienLeather_Thin</defName>
+		<label>thin alien leather</label>
+		<description>Tanned, dried, scraped alien skin. Most people find this material horrifying. Some find it fascinating. While a decent leather, it neither protects nor insulates particularly well.</description>
+		<graphicData>
+			<color>(199, 193, 169)</color>
+		</graphicData>
+		<statBases>
+			<MarketValue>4.2</MarketValue>
+			<StuffPower_Armor_Sharp>0.64</StuffPower_Armor_Sharp>
+			<StuffPower_Insulation_Cold>12</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>12</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<color>(199, 193, 169)</color>
+			<commonality>0.0</commonality>
+		</stuffProps>
+	</ThingDef>
+
+	<ThingDef ParentName="LeatherBase">
+		<defName>O21_AlienLeather_Thick</defName>
+		<label>thick alien leather</label>
+		<description>Tanned, dried, scraped alien skin. Most people find this material horrifying. Some find it fascinating. While a decent leather, it neither protects nor insulates particularly well.</description>
+		<graphicData>
+			<color>(153, 149, 133)</color>
+		</graphicData>
+		<statBases>
+			<MarketValue>4.8</MarketValue>
+			<StuffPower_Armor_Sharp>0.74</StuffPower_Armor_Sharp>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>15</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<color>(153, 149, 133)</color>
+			<commonality>0.0</commonality>
+		</stuffProps>
+	</ThingDef>
+
+	<ThingDef ParentName="LeatherBase">
+		<defName>O21_AlienLeather_Scaled</defName>
+		<label>scaled alien leather</label>
+		<description>Tanned, dried, scraped alien skin. Most people find this material horrifying. Some find it fascinating. While a decent leather, it neither protects nor insulates particularly well.</description>
+		<graphicData>
+			<color>(150, 173, 137)</color>
+		</graphicData>
+		<statBases>
+			<MarketValue>4.8</MarketValue>
+			<StuffPower_Armor_Sharp>0.74</StuffPower_Armor_Sharp>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>15</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<color>(150, 173, 137)</color>
+			<commonality>0.0</commonality>
+		</stuffProps>
+	</ThingDef>
+
+	<ThingDef ParentName="LeatherBase">
+		<defName>O21_AlienLeather_Furry</defName>
+		<label>furry alien leather</label>
+		<description>Tanned, dried, scraped alien skin. Most people find this material horrifying. Some find it fascinating. While a decent leather, it neither protects nor insulates particularly well.</description>
+		<graphicData>
+			<color>(92, 86, 75)</color>
+		</graphicData>
+		<statBases>
+			<MarketValue>4.8</MarketValue>
+			<StuffPower_Armor_Sharp>0.74</StuffPower_Armor_Sharp>
+			<StuffPower_Insulation_Cold>17</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>17</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<color>(92, 86, 75)</color>
+			<commonality>0.0</commonality>
+		</stuffProps>
+	</ThingDef>
+
+</Defs>

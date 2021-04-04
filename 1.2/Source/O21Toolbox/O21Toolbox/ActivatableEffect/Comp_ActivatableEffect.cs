@@ -300,6 +300,11 @@ namespace O21Toolbox.ActivatableEffect
                     }
                     var newColor1 = overrideColor == Color.white ? parent.DrawColor : overrideColor;
                     var newColor2 = overrideColor == Color.white ? parent.DrawColorTwo : overrideColor;
+                    if (Props.whiteout)
+                    {
+                        newColor1 = Color.white;
+                        newColor2 = Color.white;
+                    }
                     GraphicData graphics = parent.TryGetComp<Comp_SlotLoadable>()?.Slots.FirstOrDefault(x => (x.def as SlotLoadableDef).doesChangeGraphic == true)?.SlotOccupant?.TryGetComp<Comp_SlottedBonus>()?.Props.graphicData ?? null;
                     if (graphics == null)
                     {

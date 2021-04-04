@@ -36,6 +36,8 @@ namespace O21Toolbox.ActivatableEffect
         public string uiIconPathActivate;
         public string uiIconPathDeactivate;
 
+        public bool whiteout = false;
+
         public float Altitude => Altitudes.AltitudeFor(altitudeLayer);
     }
 }

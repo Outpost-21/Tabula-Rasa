@@ -107,6 +107,7 @@
     <Compile Include="ApparelExt\DefModExt_HediffApparel.cs" />
     <None Include="ApparelExt\CompProperties_Shielded.cs" />
     <None Include="ApparelExt\Gizmo_ShieldStatus.cs" />
+    <Compile Include="ApparelExt\DefModExt_SpecificSpeciesHeadwear.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
     <None Include="ApparelExt\Shielded.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
@@ -114,8 +115,17 @@
     <Compile Include="Automation\CompProperties_Quarry.cs" />
     <Compile Include="Automation\Comp_Quarry.cs" />
     <Compile Include="Automation\DefModExt_QuarryThing.cs" />
+    <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
+    <Compile Include="FactionExt\DefModExt_FactionExtension.cs" />
+    <Compile Include="FactionExt\PawnGroupMaker_FactionPoints.cs" />
+    <Compile Include="FactionExt\PawnGroupMaker_Temperature.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_FactionExt.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_BuildingExt.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_LootCache.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="LootCache\Comp_UseLootCache.cs" />
+    <Compile Include="LootCache\LootCacheDef.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
@@ -275,6 +285,7 @@
     <Compile Include="Sound\DefModExt_ExtraSounds.cs" />
     <Compile Include="UpdateListings\UpdateDef.cs" />
     <Compile Include="UpdateListings\UpdateListing.cs" />
+    <Compile Include="Utility\FactionUtils.cs" />
     <Compile Include="Utility\HumanlikeOrdersUtility.cs" />
     <Compile Include="Utility\JobDefOf.cs" />
     <Compile Include="Utility\SlotLoadableUtility.cs" />

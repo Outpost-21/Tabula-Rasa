@@ -8,15 +8,10 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using O21Toolbox.Utility;
-
-namespace O21Toolbox
+namespace O21Toolbox.ApparelExt
 {
-    [StaticConstructorOnStartup]
-    public static class O21ToolboxStartup
+    public class DefModExt_SpecificSpeciesHeadwear : DefModExtension
     {
-        static O21ToolboxStartup()
-        {
-        }
+        public List<ThingDef> specifiedSpecies = new List<ThingDef>();
     }
 }

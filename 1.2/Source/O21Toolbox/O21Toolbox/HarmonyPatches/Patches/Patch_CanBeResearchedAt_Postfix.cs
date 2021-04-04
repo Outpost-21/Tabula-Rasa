@@ -22,6 +22,7 @@ namespace O21Toolbox.HarmonyPatches
         {
             if (!__result)
             {
+                // Double check power, result could be false because of that.
                 if (!ignoreResearchBenchPowerStatus)
                 {
                     CompPowerTrader power = bench.GetComp<CompPowerTrader>();
@@ -30,10 +31,12 @@ namespace O21Toolbox.HarmonyPatches
                         return;
                     }
                 }
-                DefModExt_ResearchBenchSubstitutes comp = bench.def.TryGetModExtension<DefModExt_ResearchBenchSubstitutes>();
-                if (comp != null)
+                // Try and get modExt
+                DefModExt_ResearchBenchSubstitutes modExt = bench.def.TryGetModExtension<DefModExt_ResearchBenchSubstitutes>();
+                if (modExt != null)
                 {
-                    if (comp.actLikeResearchBench.Contains(__instance.requiredResearchBuilding))
+                    // If modExt exists, check if it's a viable bench based on the info provided.
+                    if (modExt.actLikeResearchBench.Contains(__instance.requiredResearchBuilding))
                     {
                         __result = true;
                     }
@@ -43,7 +46,7 @@ namespace O21Toolbox.HarmonyPatches
                         bool hasFacilities = true;
                         foreach (ThingDef facility in __instance.requiredResearchFacilities)
                         {
-                            if (!comp.actLikeResearchFacility.Contains(facility))
+                            if (!modExt.actLikeResearchFacility.Contains(facility))
                             {
                                 hasFacilities = false;
                             }

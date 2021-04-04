@@ -46,10 +46,14 @@ namespace O21Toolbox
         public bool animationsEnabled = true;
         public bool modUpdates = true;
 
+        public List<string> markedAsSeen = new List<String>();
+
         public override void ExposeData()
         {
-            Scribe_Values.Look<bool>(ref this.animationsEnabled, "animationsEnabled", true);
-            Scribe_Values.Look<bool>(ref this.modUpdates, "modUpdates", true);
+            Scribe_Values.Look(ref this.animationsEnabled, "animationsEnabled", true);
+            Scribe_Values.Look(ref this.modUpdates, "modUpdates", true);
+
+            Scribe_Collections.Look(ref this.markedAsSeen, "markedAsSeen");
         }
     }
 }

@@ -24,6 +24,17 @@ namespace O21Toolbox.UpdateListings
             allUpdates.SortBy(x => x.date);
             allUpdates.Reverse();
 
+            if (!O21ToolboxMod.settings.markedAsSeen.NullOrEmpty())
+            {
+                for (int i = 0; i < O21ToolboxMod.settings.markedAsSeen.Count(); i++)
+                {
+                    if (allUpdates.Any(x => x.defName == O21ToolboxMod.settings.markedAsSeen[i]))
+                    {
+                        allUpdates.Remove(DefDatabase<UpdateDef>.GetNamed(O21ToolboxMod.settings.markedAsSeen[i]));
+                    }
+                }
+            }
+
             int selectedUpdate = -1;
 
             float height = 500;
@@ -55,23 +66,39 @@ namespace O21Toolbox.UpdateListings
                 Rect listRect = new Rect(0, curY, inRect.width, 64);
                 Rect hoverRect = new Rect(listRect);
                 DoUpdateSelection(listRect, allUpdates[i]);
-                if (Widgets.ButtonInvisible(listRect))
-                {
-                    Application.OpenURL(allUpdates[i].linkUrl);
-                }
                 if (Mouse.IsOver(hoverRect))
                 {
+                    if(Event.current.type == EventType.MouseDown && Event.current.button == 1)
+                    {
+                        RemoveSelection(allUpdates[i].defName);
+                    }
+                    else if (Widgets.ButtonInvisible(hoverRect))
+                    {
+                        Application.OpenURL(allUpdates[i].linkUrl);
+                    }
                     selectedUpdate = i;
                 }
                 curY += 68;
             }
             listing.End();
 
+            MainMenuDrawer.DoExpansionIcons();
+
             if (selectedUpdate < 0)
             {
                 return;
             }
             DoSelectedUpdateInfo(allUpdates[selectedUpdate]);
+        }
+
+        public static void RemoveSelection(string defName)
+        {
+            if (O21ToolboxMod.settings.markedAsSeen.NullOrEmpty())
+            {
+                O21ToolboxMod.settings.markedAsSeen = new List<string>();
+            }
+            O21ToolboxMod.settings.markedAsSeen.Add(defName);
+            O21ToolboxMod.mod.WriteSettings();
         }
 
         public static void DoUpdateSelection(Rect rect, UpdateDef info)

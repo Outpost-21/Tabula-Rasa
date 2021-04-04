@@ -9,6 +9,7 @@ using RimWorld;
 using Verse;
 
 using O21Toolbox.Drones;
+using O21Toolbox.SlotLoadable;
 
 namespace O21Toolbox.PawnKindExt
 {
@@ -39,6 +40,29 @@ namespace O21Toolbox.PawnKindExt
         /// If true, the hediff will be randomly chosen from the list, if false, it will apply them all.
         /// </summary>
         public bool randomAdditionalHediff = false;
+
+        /// <summary>
+        /// If true, attempts to fill slottable weapons automatically,
+        /// if true and used with slottableRestrictions correctly will
+        /// also stick to the whitelist of what is allowed for this pawnKind.
+        /// </summary>
+        public bool slottableWeapon = false;
+
+        /// <summary>
+        /// Sets up restrictions on what is allowed to spawn in a specific slotLoadable.
+        /// </summary>
+        public List<SlottableRestrictions> slottableRestrictions = new List<SlottableRestrictions>();
+    }
+
+    public class SlottableRestrictions
+    {
+        public SlotLoadableDef slotLoadableDef;
+
+        public List<ThingDef> slottableThingDefs = new List<ThingDef>();
+
+        public bool canBeEmpty = false;
+
+        public float chanceToFill = 1.0f;
     }
 
     public class AdditionalHediffEntry

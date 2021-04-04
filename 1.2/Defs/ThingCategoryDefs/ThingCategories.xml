@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-		
-	<!-- Necron Corpses -->
-	
-    <ThingCategoryDef>
+
+	<!-- Artificial Corpses -->
+
+	<ThingCategoryDef>
 		<defName>CorpsesArtificial</defName>
 		<label>artificial corpses</label>
 		<parent>Corpses</parent>
-    </ThingCategoryDef>
-	
+	</ThingCategoryDef>
+
+	<!-- Loot Caches -->
+
+	<ThingCategoryDef>
+		<defName>O21_LootCache</defName>
+		<label>caches</label>
+		<parent>Root</parent>
+		<iconPath>UI/Toolbox/ThingCat_LootCaches</iconPath>
+		<resourceReadoutRoot>true</resourceReadoutRoot>
+	</ThingCategoryDef>
+
 </Defs>

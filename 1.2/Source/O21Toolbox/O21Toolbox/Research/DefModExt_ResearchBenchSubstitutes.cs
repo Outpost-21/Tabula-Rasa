@@ -11,8 +11,8 @@ namespace O21Toolbox.Research
 {
     public class DefModExt_ResearchBenchSubstitutes : DefModExtension
     {
-        public List<ThingDef> actLikeResearchBench = null;
+        public List<ThingDef> actLikeResearchBench = new List<ThingDef>();
 
-        public List<ThingDef> actLikeResearchFacility = null;
+        public List<ThingDef> actLikeResearchFacility = new List<ThingDef>();
     }
 }

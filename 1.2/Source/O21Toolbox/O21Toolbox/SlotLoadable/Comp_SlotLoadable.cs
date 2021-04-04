@@ -96,17 +96,26 @@ namespace O21Toolbox.SlotLoadable
                     foreach (var slot in Props.slots)
                     {
                         var newSlot = new SlotLoadable(slot, parent);
-                        //Log.Message("Added Slot");
+                        Log.Message("Added Slot");
                         slots.Add(newSlot);
                     }
                 }
             }
         }
 
+        public override void PostPostMake()
+        {
+            base.PostPostMake();
+
+            if (slots.NullOrEmpty() && Props?.slots != null)
+            {
+                Initialize();
+            }
+        }
+
         public override void CompTick()
         {
             base.CompTick();
-            if (!isInitialized) Initialize();
         }
 
         private void TryCancel(string reason = "")
@@ -217,9 +226,10 @@ namespace O21Toolbox.SlotLoadable
 
         public virtual IEnumerable<Gizmo> EquippedGizmos()
         {
-            if (!slots.NullOrEmpty())
+            if (!slots.NullOrEmpty() && GetPawn.Faction.IsPlayer)
             {
                 if (isGathering)
+                {
                     yield return new Command_Action
                     {
                         defaultLabel = "Designator_Cancel".Translate(),
@@ -227,8 +237,11 @@ namespace O21Toolbox.SlotLoadable
                         icon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel", true),
                         action = delegate { TryCancel(); }
                     };
+                }
                 foreach (var slot in slots)
+                {
                     if (slot.IsEmpty())
+                    {
                         yield return new Command_Action
                         {
                             defaultLabel = slot.LabelNoCount,
@@ -236,7 +249,9 @@ namespace O21Toolbox.SlotLoadable
                             defaultDesc = SlotDesc(slot),
                             action = delegate { ProcessInput(slot); }
                         };
+                    }
                     else
+                    {
                         yield return new Command_Action
                         {
                             defaultLabel = slot.LabelNoCount,
@@ -245,6 +260,8 @@ namespace O21Toolbox.SlotLoadable
                             defaultIconColor = slot.SlotColor(),
                             action = delegate { ProcessInput(slot); }
                         };
+                    }
+                }
             }
         }
 

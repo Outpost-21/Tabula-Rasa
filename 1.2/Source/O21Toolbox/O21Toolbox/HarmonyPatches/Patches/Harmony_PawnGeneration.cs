@@ -14,6 +14,7 @@ using HarmonyLib;
 
 using O21Toolbox.Drones;
 using O21Toolbox.PawnKindExt;
+using O21Toolbox.SlotLoadable;
 
 namespace O21Toolbox.HarmonyPatches.Patches
 {
@@ -134,6 +135,44 @@ namespace O21Toolbox.HarmonyPatches.Patches
             }
 
             return pawnkind.race;
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnGenerator), "GenerateGearFor")]
+    public static class Patch_PawnGen_GenerateGearFor
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn pawn, PawnGenerationRequest request)
+        {
+            CheckSlotLoadables(pawn);
+        }
+
+        public static void CheckSlotLoadables(Pawn pawn)
+        {
+            if (pawn.kindDef.HasModExtension<DefModExt_ExtendedPawnKind>())
+            {
+                DefModExt_ExtendedPawnKind modExt = pawn.kindDef.GetModExtension<DefModExt_ExtendedPawnKind>();
+                if (modExt.slottableWeapon)
+                {
+                    List<ThingWithComps> list = pawn.equipment.AllEquipmentListForReading;
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        ThingWithComps equipment = list[i];
+                        Comp_SlotLoadable comp = equipment.TryGetComp<Comp_SlotLoadable>();
+                        if(comp != null)
+                        {
+                            for (int j = 0; j < modExt.slottableRestrictions.Count; j++)
+                            {
+                                if (!comp.SlotDefs.NullOrEmpty() && comp.SlotDefs.Contains(modExt.slottableRestrictions[j].slotLoadableDef))
+                                {
+                                    Thing slottable = ThingMaker.MakeThing(modExt.slottableRestrictions[j].slottableThingDefs.RandomElement());
+                                    comp.Slots.Find(slot => slot.def == modExt.slottableRestrictions[j].slotLoadableDef).TryLoadSlot(slottable);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

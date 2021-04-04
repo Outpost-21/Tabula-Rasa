@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using UnityEngine;
 using RimWorld;
@@ -274,6 +275,115 @@ namespace O21Toolbox.HarmonyPatches
         {
             return (Pawn)instance.pawn;
         }
+
+        //[HarmonyPatch(typeof(ApparelGraphicRecordGetter), "TryGetGraphicApparel")]
+        //public static class Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel
+        //{
+        //    /// <summary>
+        //    /// Confirmation I haven't got a fucking clue how to use Transpilers properly yet.
+        //    /// </summary>
+        //    //[HarmonyTranspiler]
+        //    //public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        //    //{
+        //    //    FieldInfo apparel = AccessTools.Field(typeof(Apparel), "apparel");
+        //    //    FieldInfo path = AccessTools.Field(typeof(Apparel), "path");
+
+        //    //    int counter = 0;
+
+        //    //    List<CodeInstruction> instructionList = instructions.ToList();
+        //    //    for (int i = 0; i < instructionList.Count; i++)
+        //    //    {
+        //    //        CodeInstruction instruction = instructionList[i];
+
+        //    //        if (instruction.opcode == OpCodes.Ldarg_0)
+        //    //        {
+        //    //            if(counter < 4)
+        //    //            {
+        //    //                counter++;
+        //    //            }
+        //    //            else if (counter == 4)
+        //    //            {
+        //    //                instructionList[i + 1] = new CodeInstruction(OpCodes.Nop);
+        //    //                instructionList[i + 2] = new CodeInstruction(OpCodes.Nop);
+        //    //                instructionList[i + 3] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel), nameof(GetSpecificSpeciesHeadwear))) { labels = instructionList[i + 3].labels };
+        //    //                counter++;
+        //    //                yield return instruction;
+        //    //                i += 3;
+        //    //            }
+        //    //            else
+        //    //            {
+        //    //                yield return instruction;
+        //    //            }
+        //    //        }
+        //    //        else
+        //    //        {
+        //    //            yield return instruction;
+        //    //        }
+        //    //    }
+        //    //}
+
+        //    [HarmonyPrefix]
+        //    public static bool Prefix(bool __result, Apparel apparel, BodyTypeDef bodyType, out ApparelGraphicRecord rec)
+        //    {
+        //        if (bodyType == null)
+        //        {
+        //            Log.Error("Getting apparel graphic with undefined body type.", false);
+        //            bodyType = BodyTypeDefOf.Male;
+        //        }
+        //        if (apparel.def.apparel.wornGraphicPath.NullOrEmpty())
+        //        {
+        //            rec = new ApparelGraphicRecord(null, null);
+        //            __result = false;
+        //        }
+        //        string path;
+        //        if (apparel.def.apparel.LastLayer == ApparelLayerDefOf.Overhead || PawnRenderer.RenderAsPack(apparel) || apparel.def.apparel.wornGraphicPath == BaseContent.PlaceholderImagePath)
+        //        {
+        //            if (apparel.def.HasModExtension<DefModExt_SpecificSpeciesHeadwear>())
+        //            {
+        //                DefModExt_SpecificSpeciesHeadwear modExt = apparel.def.GetModExtension<DefModExt_SpecificSpeciesHeadwear>();
+        //                if (modExt.specifiedSpecies.Contains(apparel.Wearer.def))
+        //                {
+        //                    path = apparel.def.apparel.wornGraphicPath + "_" + apparel.Wearer.def.defName;
+        //                }
+        //                else
+        //                {
+        //                    path = apparel.def.apparel.wornGraphicPath;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                path = apparel.def.apparel.wornGraphicPath;
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            path = apparel.def.apparel.wornGraphicPath + "_" + bodyType.defName;
+        //        }
+        //        Shader shader = ShaderDatabase.Cutout;
+        //        if (apparel.def.apparel.useWornGraphicMask)
+        //        {
+        //            shader = ShaderDatabase.CutoutComplex;
+        //        }
+        //        Graphic graphic = GraphicDatabase.Get<Graphic_Multi>(path, shader, apparel.def.graphicData.drawSize, apparel.DrawColor);
+        //        rec = new ApparelGraphicRecord(graphic, apparel);
+        //        __result = true;
+        //        return false;
+        //    }
+
+            //public static string GetSpecificSpeciesHeadwear(Apparel apparel, string path)
+            //{
+            //    if (apparel.def.HasModExtension<DefModExt_SpecificSpeciesHeadwear>())
+            //    {
+            //        DefModExt_SpecificSpeciesHeadwear modExt = apparel.def.GetModExtension<DefModExt_SpecificSpeciesHeadwear>();
+            //        if (modExt.specifiedSpecies.Contains(apparel.Wearer.def))
+            //        {
+            //            return apparel.def.apparel.wornGraphicPath + "_" + apparel.Wearer.def.defName;
+            //        }
+            //    }
+            //    return apparel.def.apparel.wornGraphicPath;
+            //}
+        //}
         #endregion ApparelPatches
     }
 }
