@@ -3,7 +3,7 @@
 
 	<ThingDef ParentName="LeatherBase">
 		<defName>O21_AlienLeather_Thin</defName>
-		<label>thin alien leather</label>
+		<label>alien leather</label>
 		<description>Tanned, dried, scraped alien skin. Most people find this material horrifying. Some find it fascinating. While a decent leather, it neither protects nor insulates particularly well.</description>
 		<graphicData>
 			<color>(199, 193, 169)</color>
