@@ -122,6 +122,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_FactionExt.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_BuildingExt.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_LootCache.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="LootCache\Comp_UseLootCache.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Alliances.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceApparel.cs" />
     <Compile Include="HarmonyPatches\DefModExt_SpaceCapable.cs" />
-    <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_PawnRenderer.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_CustomDispenser.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Needs.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Drones.cs" />
@@ -345,6 +346,10 @@
     <Compile Include="Utility\ToolboxContent.cs" />
     <Compile Include="Utility\TraitEntry.cs" />
     <Compile Include="Utility\WornEquipmentUtility.cs" />
+    <Compile Include="VisualHediffs\Comp_VisualHediffs.cs" />
+    <Compile Include="VisualHediffs\DefModExt_VisualHediff.cs" />
+    <Compile Include="VisualHediffs\DefModExt_VisualHediffCompat.cs" />
+    <Compile Include="VisualHediffs\HediffGraphicRecord.cs" />
     <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
     <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />

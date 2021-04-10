@@ -16,115 +16,10 @@ namespace O21Toolbox.HarmonyPatches
 {
     public class Harmony_Apparel
     {
-        //public static FieldInfo int_PawnRenderer_GetPawn;
-        //private static HashSet<ThingStuffPair> apparelList;
-
         public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
 
         }
-
-        #region ApparelPatches
-
-        [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal")]
-        [HarmonyPatch(new Type[]
-        {
-            typeof(Vector3),
-            typeof(float),
-            typeof(bool),
-            typeof(Rot4),
-            typeof(Rot4),
-            typeof(RotDrawMode),
-            typeof(bool),
-            typeof(bool),
-            typeof(bool)
-        })]
-        public static class PawnRenderer_RenderPawnInternal_Postfix
-        {
-            [HarmonyPostfix]
-            public static void Postfix(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump, bool invisible)
-            {
-                if (!__instance?.graphics?.pawn?.RaceProps?.Animal ?? false)
-                {
-                    List<ApparelGraphicRecord> offsetApparelList = new List<ApparelGraphicRecord>();
-                    // Get all apparel with the defModExt.
-                    foreach (Apparel ap in __instance?.graphics?.pawn?.apparel?.WornApparel)
-                    {
-                        ApparelGraphicRecord item;
-                        if (ap.def.HasModExtension<DefModExt_ApparelOffset>())
-                        {
-                            DefModExt_ApparelOffset modExt = ap.def.GetModExtension<DefModExt_ApparelOffset>();
-                            if (TryGetGraphicApparelSpecial(ap, __instance.graphics.pawn.story.bodyType, modExt, out item))
-                            {
-                                offsetApparelList.Add(item);
-                            }
-                        }
-                    }
-
-                    // Render if any Apparel in the list
-                    if (offsetApparelList?.Count >= 1)
-                    {
-                        Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
-                        Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(bodyFacing);
-                        Vector3 vector2 = rootLoc;
-                        vector2.y += ((bodyFacing == Rot4.South) ? 0.006122449f : 0.02755102f);
-
-                        for (int i = 0; i < offsetApparelList.Count; i++)
-                        {
-                            ApparelGraphicRecord apparelGraphicRecord = offsetApparelList[i];
-                            Pawn pawn = __instance.graphics.pawn;
-                            DefModExt_ApparelOffset modExt = apparelGraphicRecord.sourceApparel.def.GetModExtension<DefModExt_ApparelOffset>();
-
-                            Material material = apparelGraphicRecord.graphic.MatAt(bodyFacing, null);
-                            material = OverrideMaterialIfNeeded(__instance, material, pawn, portrait);
-                            if (apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData != null)
-                            {
-                                Vector2 vector3 = apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData.BeltOffsetAt(bodyFacing, pawn.story.bodyType);
-                                Vector2 vector4 = apparelGraphicRecord.sourceApparel.def.apparel.wornGraphicData.BeltScaleAt(pawn.story.bodyType);
-                                Matrix4x4 matrix = Matrix4x4.Translate(vector2) * Matrix4x4.Rotate(quaternion) * Matrix4x4.Translate(new Vector3(vector3.x, modExt.zOffset, vector3.y)) * Matrix4x4.Scale(new Vector3(vector4.x, 1f, vector4.y));
-                                GenDraw.DrawMeshNowOrLater_NewTemp(mesh, matrix, material, portrait);
-                            }
-                        }
-                    }
-                }
-            }
-
-            private static Material OverrideMaterialIfNeeded(PawnRenderer __instance, Material original, Pawn pawn, bool portrait = false)
-            {
-                Material baseMat = (!portrait && pawn.IsInvisible()) ? InvisibilityMatPool.GetInvisibleMat(original) : original;
-                return __instance.graphics.flasher.GetDamagedMat(baseMat);
-            }
-        }
-
-        /**public static void GenerateStartingApparelForPostfix()
-        {
-            Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(HarmonyPatches.apparelList);
-        }**/
-
-        //[HarmonyPatch(typeof(PawnApparelGenerator), "GenerateStartingApparelFor")]
-        //public static class GenerateStartingApparelFor
-        //{
-        //    [HarmonyPrefix]
-        //    public static void Prefix(Pawn pawn)
-        //    {
-        //        Traverse traverse = Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs");
-        //        apparelList = new HashSet<ThingStuffPair>();
-        //        foreach (ThingStuffPair thingStuffPair in GenList.ListFullCopy<ThingStuffPair>(traverse.GetValue<List<ThingStuffPair>>()))
-        //        {
-        //            if (thingStuffPair.thing != null && !ApparelExt.RestrictionCheck.CanWear(thingStuffPair.thing, pawn))
-        //            {
-        //                apparelList.Add(thingStuffPair);
-        //            }
-        //        }
-        //        traverse.GetValue<List<ThingStuffPair>>().RemoveAll((ThingStuffPair tsp) => apparelList.Contains(tsp));
-        //    }
-
-        //    [HarmonyPostfix]
-        //    public static void Postfix()
-        //    {
-        //        Traverse.Create(typeof(PawnApparelGenerator)).Field("allApparelPairs").GetValue<List<ThingStuffPair>>().AddRange(apparelList);
-        //    }
-        //}
 
         [HarmonyPatch(typeof(Pawn_ApparelTracker))]
         [HarmonyPatch("Notify_ApparelAdded")]
@@ -245,7 +140,7 @@ namespace O21Toolbox.HarmonyPatches
             }
         }
 
-        private static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_ApparelOffset modExt, out ApparelGraphicRecord rec)
+        public static bool TryGetGraphicApparelSpecial(Apparel apparel, BodyTypeDef bodyType, DefModExt_ApparelOffset modExt, out ApparelGraphicRecord rec)
         {
             if (bodyType == null)
             {
@@ -270,120 +165,5 @@ namespace O21Toolbox.HarmonyPatches
             rec = new ApparelGraphicRecord(graphic, apparel);
             return true;
         }
-
-        public static Pawn PawnRenderer_GetPawn_GetPawn(PawnRenderer instance)
-        {
-            return (Pawn)instance.pawn;
-        }
-
-        //[HarmonyPatch(typeof(ApparelGraphicRecordGetter), "TryGetGraphicApparel")]
-        //public static class Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel
-        //{
-        //    /// <summary>
-        //    /// Confirmation I haven't got a fucking clue how to use Transpilers properly yet.
-        //    /// </summary>
-        //    //[HarmonyTranspiler]
-        //    //public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        //    //{
-        //    //    FieldInfo apparel = AccessTools.Field(typeof(Apparel), "apparel");
-        //    //    FieldInfo path = AccessTools.Field(typeof(Apparel), "path");
-
-        //    //    int counter = 0;
-
-        //    //    List<CodeInstruction> instructionList = instructions.ToList();
-        //    //    for (int i = 0; i < instructionList.Count; i++)
-        //    //    {
-        //    //        CodeInstruction instruction = instructionList[i];
-
-        //    //        if (instruction.opcode == OpCodes.Ldarg_0)
-        //    //        {
-        //    //            if(counter < 4)
-        //    //            {
-        //    //                counter++;
-        //    //            }
-        //    //            else if (counter == 4)
-        //    //            {
-        //    //                instructionList[i + 1] = new CodeInstruction(OpCodes.Nop);
-        //    //                instructionList[i + 2] = new CodeInstruction(OpCodes.Nop);
-        //    //                instructionList[i + 3] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel), nameof(GetSpecificSpeciesHeadwear))) { labels = instructionList[i + 3].labels };
-        //    //                counter++;
-        //    //                yield return instruction;
-        //    //                i += 3;
-        //    //            }
-        //    //            else
-        //    //            {
-        //    //                yield return instruction;
-        //    //            }
-        //    //        }
-        //    //        else
-        //    //        {
-        //    //            yield return instruction;
-        //    //        }
-        //    //    }
-        //    //}
-
-        //    [HarmonyPrefix]
-        //    public static bool Prefix(bool __result, Apparel apparel, BodyTypeDef bodyType, out ApparelGraphicRecord rec)
-        //    {
-        //        if (bodyType == null)
-        //        {
-        //            Log.Error("Getting apparel graphic with undefined body type.", false);
-        //            bodyType = BodyTypeDefOf.Male;
-        //        }
-        //        if (apparel.def.apparel.wornGraphicPath.NullOrEmpty())
-        //        {
-        //            rec = new ApparelGraphicRecord(null, null);
-        //            __result = false;
-        //        }
-        //        string path;
-        //        if (apparel.def.apparel.LastLayer == ApparelLayerDefOf.Overhead || PawnRenderer.RenderAsPack(apparel) || apparel.def.apparel.wornGraphicPath == BaseContent.PlaceholderImagePath)
-        //        {
-        //            if (apparel.def.HasModExtension<DefModExt_SpecificSpeciesHeadwear>())
-        //            {
-        //                DefModExt_SpecificSpeciesHeadwear modExt = apparel.def.GetModExtension<DefModExt_SpecificSpeciesHeadwear>();
-        //                if (modExt.specifiedSpecies.Contains(apparel.Wearer.def))
-        //                {
-        //                    path = apparel.def.apparel.wornGraphicPath + "_" + apparel.Wearer.def.defName;
-        //                }
-        //                else
-        //                {
-        //                    path = apparel.def.apparel.wornGraphicPath;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                path = apparel.def.apparel.wornGraphicPath;
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            path = apparel.def.apparel.wornGraphicPath + "_" + bodyType.defName;
-        //        }
-        //        Shader shader = ShaderDatabase.Cutout;
-        //        if (apparel.def.apparel.useWornGraphicMask)
-        //        {
-        //            shader = ShaderDatabase.CutoutComplex;
-        //        }
-        //        Graphic graphic = GraphicDatabase.Get<Graphic_Multi>(path, shader, apparel.def.graphicData.drawSize, apparel.DrawColor);
-        //        rec = new ApparelGraphicRecord(graphic, apparel);
-        //        __result = true;
-        //        return false;
-        //    }
-
-            //public static string GetSpecificSpeciesHeadwear(Apparel apparel, string path)
-            //{
-            //    if (apparel.def.HasModExtension<DefModExt_SpecificSpeciesHeadwear>())
-            //    {
-            //        DefModExt_SpecificSpeciesHeadwear modExt = apparel.def.GetModExtension<DefModExt_SpecificSpeciesHeadwear>();
-            //        if (modExt.specifiedSpecies.Contains(apparel.Wearer.def))
-            //        {
-            //            return apparel.def.apparel.wornGraphicPath + "_" + apparel.Wearer.def.defName;
-            //        }
-            //    }
-            //    return apparel.def.apparel.wornGraphicPath;
-            //}
-        //}
-        #endregion ApparelPatches
     }
 }
