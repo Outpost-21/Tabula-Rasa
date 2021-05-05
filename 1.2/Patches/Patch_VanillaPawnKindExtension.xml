@@ -8,14 +8,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="PirateBase"]/modExtensions</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</match>
@@ -23,14 +16,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="PirateBase"]</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</nomatch>
@@ -43,14 +29,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="OutlanderBase"]/modExtensions</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</match>
@@ -58,14 +37,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="OutlanderBase"]</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</nomatch>
@@ -78,14 +50,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="MercenaryBase"]/modExtensions</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</match>
@@ -93,14 +58,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="MercenaryBase"]</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</nomatch>
@@ -113,14 +71,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="TribalBase"]/modExtensions</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</match>
@@ -128,14 +79,7 @@
 			<xpath>/Defs/PawnKindDef[@Name="TribalBase"]</xpath>
 			<value>
 				<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
-					<altRaces>
-						<li>
-							<races>
-								<li>Human</li>
-							</races>
-							<weight>20</weight>
-						</li>
-					</altRaces>
+					<altRaces />
 				</li>
 			</value>
 		</nomatch>

@@ -28,6 +28,10 @@ namespace O21Toolbox.Research
 
         public bool requiresPower = false;
 
+        public bool totalPawnsAffectSpeed = false;
+
+        public float bonusPerPawn = 0.1f;
+
         public float researchSpeedFactor = 1.0f;
 
         public PawnKindDef pawnKind;

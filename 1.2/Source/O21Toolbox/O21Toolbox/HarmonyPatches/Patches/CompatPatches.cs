@@ -129,115 +129,115 @@ namespace O21Toolbox.HarmonyPatches
 
     }
 
-    [HarmonyPatch(typeof(GatheringsUtility), "ShouldGuestKeepAttendingGathering")]
-    public class CompatPatch_ShouldGuestKeepAttendingGathering
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref bool __result, ref Pawn p)
-        {
-            if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && properties.canSocialize || p.needs.food == null)
-            {
-                return false;
-            }
-            if(p.needs.food == null)
-            {
-                __result = ShouldGuestKeepAttendingGathering(p);
-                return false;
-            }
-            return true;
-        }
-        public static bool ShouldGuestKeepAttendingGathering(Pawn p)
-        {
-            return !p.Downed && (p.needs == null  || p.needs.food == null || !p.needs.food.Starving) && p.health.hediffSet.BleedRateTotal <= 0f && (p.needs.rest == null || p.needs.rest.CurCategory < RestCategory.Exhausted) && !p.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff(false) && p.Awake() && !p.InAggroMentalState && !p.IsPrisoner;
-        }
-    }
+    //[HarmonyPatch(typeof(GatheringsUtility), "ShouldGuestKeepAttendingGathering")]
+    //public class CompatPatch_ShouldGuestKeepAttendingGathering
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref bool __result, ref Pawn p)
+    //    {
+    //        if (p.def.GetModExtension<ArtificialPawnProperties>() is ArtificialPawnProperties properties && properties.canSocialize || p.needs.food == null)
+    //        {
+    //            return false;
+    //        }
+    //        if(p.needs.food == null)
+    //        {
+    //            __result = ShouldGuestKeepAttendingGathering(p);
+    //            return false;
+    //        }
+    //        return true;
+    //    }
+    //    public static bool ShouldGuestKeepAttendingGathering(Pawn p)
+    //    {
+    //        return !p.Downed && (p.needs == null  || p.needs.food == null || !p.needs.food.Starving) && p.health.hediffSet.BleedRateTotal <= 0f && (p.needs.rest == null || p.needs.rest.CurCategory < RestCategory.Exhausted) && !p.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff(false) && p.Awake() && !p.InAggroMentalState && !p.IsPrisoner;
+    //    }
+    //}
 
     [HarmonyPatch(typeof(LordToil_Party), "LordToilTick")]
-    public class CompatPatch_LordToil_Party_LordToilTick
-    {
+    //public class CompatPatch_LordToil_Party_LordToilTick
+    //{
 
-        [HarmonyPrefix]
-        public static bool Prefix(LordToil_Party __instance)
-        {
-            LordToilData_Party Data = (LordToilData_Party)__instance.data;
-            Map Map = (Map)__instance.Map;
-            IntVec3 spot = (IntVec3)__instance.spot;
-            float joyPerTick = (float)__instance.joyPerTick;
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(LordToil_Party __instance)
+    //    {
+    //        LordToilData_Party Data = (LordToilData_Party)__instance.data;
+    //        Map Map = (Map)__instance.Map;
+    //        IntVec3 spot = (IntVec3)__instance.spot;
+    //        float joyPerTick = (float)__instance.joyPerTick;
 
 
-            List<Pawn> ownedPawns = __instance.lord.ownedPawns;
-            for (int i = 0; i < ownedPawns.Count; i++)
-            {
-                if (GatheringsUtility.InGatheringArea(ownedPawns[i].Position, spot, Map))
-                {
-                    if (ownedPawns[i].needs.joy != null) 
-                    { 
-                        ownedPawns[i].needs.joy.GainJoy(joyPerTick, JoyKindDefOf.Social); 
-                    }
-                    if (!Data.presentForTicks.ContainsKey(ownedPawns[i]))
-                    {
-                        Data.presentForTicks.Add(ownedPawns[i], 0);
-                    }
-                    Dictionary<Pawn, int> presentForTicks = Data.presentForTicks;
-                    Pawn key = ownedPawns[i];
-                    int num = presentForTicks[key];
-                    presentForTicks[key] = num + 1;
-                }
-            }
-            return false;
-        }
-    }
+    //        List<Pawn> ownedPawns = __instance.lord.ownedPawns;
+    //        for (int i = 0; i < ownedPawns.Count; i++)
+    //        {
+    //            if (GatheringsUtility.InGatheringArea(ownedPawns[i].Position, spot, Map))
+    //            {
+    //                if (ownedPawns[i].needs.joy != null) 
+    //                { 
+    //                    ownedPawns[i].needs.joy.GainJoy(joyPerTick, JoyKindDefOf.Social); 
+    //                }
+    //                if (!Data.presentForTicks.ContainsKey(ownedPawns[i]))
+    //                {
+    //                    Data.presentForTicks.Add(ownedPawns[i], 0);
+    //                }
+    //                Dictionary<Pawn, int> presentForTicks = Data.presentForTicks;
+    //                Pawn key = ownedPawns[i];
+    //                int num = presentForTicks[key];
+    //                presentForTicks[key] = num + 1;
+    //            }
+    //        }
+    //        return false;
+    //    }
+    //}
 
-    [HarmonyPatch(typeof(JobGiver_EatInGatheringArea), "TryGiveJob")]
-    public class CompatPatch_EatInGatheringAreaTryGiveJob
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref JobGiver_EatInGatheringArea __instance, ref Job __result, ref Pawn pawn)
-        {
-            if (pawn.needs.food == null)
-            {
-                __result = null;
-                return false;
-            }
+    //[HarmonyPatch(typeof(JobGiver_EatInGatheringArea), "TryGiveJob")]
+    //public class CompatPatch_EatInGatheringAreaTryGiveJob
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref JobGiver_EatInGatheringArea __instance, ref Job __result, ref Pawn pawn)
+    //    {
+    //        if (pawn.needs.food == null)
+    //        {
+    //            __result = null;
+    //            return false;
+    //        }
 
-            return true;
-        }
+    //        return true;
+    //    }
 
-    }
+    //}
 
-    [HarmonyPatch(typeof(JobGiver_GetJoy), "TryGiveJob")]
-    public class CompatPatch_GetJoyTryGiveJob
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref JobGiver_GetJoy __instance, ref Job __result, ref Pawn pawn)
-        {
-            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
-            {
-                __result = null;
-                return false;
-            }
+    //[HarmonyPatch(typeof(JobGiver_GetJoy), "TryGiveJob")]
+    //public class CompatPatch_GetJoyTryGiveJob
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref JobGiver_GetJoy __instance, ref Job __result, ref Pawn pawn)
+    //    {
+    //        if (pawn.def.HasModExtension<ArtificialPawnProperties>())
+    //        {
+    //            __result = null;
+    //            return false;
+    //        }
 
-            return true;
-        }
+    //        return true;
+    //    }
 
-    }
+    //}
 
-    [HarmonyPatch(typeof(MeditationUtility), "CanMeditateNow")]
-    public class CompatPatch_MeditationUtility_CanMeditateNow
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref bool __result, ref Pawn pawn)
-        {
-            if (pawn.def.HasModExtension<ArtificialPawnProperties>())
-            {
-                __result = false;
-                return false;
-            }
+    //[HarmonyPatch(typeof(MeditationUtility), "CanMeditateNow")]
+    //public class CompatPatch_MeditationUtility_CanMeditateNow
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref bool __result, ref Pawn pawn)
+    //    {
+    //        if (pawn.def.HasModExtension<ArtificialPawnProperties>())
+    //        {
+    //            __result = false;
+    //            return false;
+    //        }
 
-            return true;
-        }
+    //        return true;
+    //    }
 
-    }
+    //}
 
     [HarmonyPatch(typeof(Pawn_InteractionsTracker), "SocialFightChance")]
     public class CompatPatch_SocialFightChance

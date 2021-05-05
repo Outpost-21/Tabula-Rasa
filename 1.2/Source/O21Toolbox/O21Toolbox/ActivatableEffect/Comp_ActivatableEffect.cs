@@ -168,7 +168,7 @@ namespace O21Toolbox.ActivatableEffect
 
         public virtual void Activate()
         {
-            graphicInt = null;
+            Graphic = null;
             currentState = State.Activated;
             if (Props.activateSound != null) PlaySound(Props.activateSound);
             StartSustainer();
@@ -181,7 +181,7 @@ namespace O21Toolbox.ActivatableEffect
             if (Props.deactivateSound != null) PlaySound(Props.deactivateSound);
             EndSustainer();
             showNow = false;
-            graphicInt = null;
+            Graphic = null;
         }
 
         public bool IsActive()
@@ -302,14 +302,15 @@ namespace O21Toolbox.ActivatableEffect
                     var newColor2 = overrideColor == Color.white ? parent.DrawColorTwo : overrideColor;
                     if (Props.whiteout)
                     {
-                        newColor1 = Color.white;
-                        newColor2 = Color.white;
+                        newColor1 = overrideColor;
+                        newColor2 = overrideColor;
                     }
-                    GraphicData graphics = parent.TryGetComp<Comp_SlotLoadable>()?.Slots.FirstOrDefault(x => (x.def as SlotLoadableDef).doesChangeGraphic == true)?.SlotOccupant?.TryGetComp<Comp_SlottedBonus>()?.Props.graphicData ?? null;
-                    if (graphics == null)
-                    {
-                        graphics = Props.graphicData;
-                    }
+                    Comp_SlottedBonus slottedBonus = parent.TryGetComp<Comp_SlotLoadable>()?.Slots.FirstOrDefault(x => (x.def as SlotLoadableDef).doesChangeGraphic == true)?.SlotOccupant?.TryGetComp<Comp_SlottedBonus>() ?? null;
+
+                    GraphicData graphics = new GraphicData();
+                    graphics.CopyFrom(slottedBonus?.Props?.graphicData ?? Props.graphicData);
+
+                    graphics.texPath = (slottedBonus?.Props?.pathPrefix ?? (Props.defaultPathPrefix ?? "")) + graphics.texPath + (slottedBonus?.Props?.pathSuffix ?? (Props.defaultPathSuffix ?? ""));
                     result = graphics.Graphic.GetColoredVersion(graphics.shaderType.Shader, newColor1, newColor2);
                     graphicInt = PostGraphicEffects(result);
                 }

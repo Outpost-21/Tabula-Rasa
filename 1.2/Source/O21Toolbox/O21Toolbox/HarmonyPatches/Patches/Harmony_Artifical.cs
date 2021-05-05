@@ -110,6 +110,33 @@ namespace O21Toolbox.HarmonyPatches
         }
     }
 
+    [HarmonyPatch(typeof(StunHandler), "AffectedByEMP", MethodType.Getter)]
+    public class Patch_StunHandler_AffectedByEMP
+    {
+        [HarmonyPostfix]
+        public static void Postfix(ref bool __result, ref StunHandler __instance, Thing ___parent)
+        {
+            Pawn pawn = (Pawn)___parent;
+            if (pawn != null && pawn.def.HasModExtension<ArtificialPawnProperties>())
+            {
+                if (pawn.def.GetModExtension<ArtificialPawnProperties>().affectedByEMP)
+                {
+                    if(pawn.apparel != null && pawn.apparel.WornApparel.Any(a => a.def.HasModExtension<DefModExt_EMPShielding>()))
+                    {
+                        __result = false;
+                        return;
+                    }
+                    if((pawn.health?.hediffSet?.hediffs?.Any(h => h.def.HasModExtension<DefModExt_EMPShielding>()) ?? false))
+                    {
+                        __result = false;
+                        return;
+                    }
+                    __result = true;
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(SkillRecord), "Interval")]
     public class Patch_SkillRecord_Interval
     {

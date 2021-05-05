@@ -17,7 +17,7 @@ namespace O21Toolbox.SlotLoadable
             compClass = typeof(Comp_SlottedBonus);
         }
 
-        public GraphicData graphicData = new GraphicData();
+        public GraphicData graphicData;
 
         public List<ThingDef> additionalProjectiles = new List<ThingDef>();
 
@@ -35,5 +35,9 @@ namespace O21Toolbox.SlotLoadable
         public List<StatModifier> statModifiers = null;
 
         public float weaponRangeMod = 0.0f;
+
+        public string pathSuffix;
+
+        public string pathPrefix;
     }
 }

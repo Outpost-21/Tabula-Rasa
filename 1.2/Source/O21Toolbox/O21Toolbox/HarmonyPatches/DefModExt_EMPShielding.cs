@@ -8,10 +8,10 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.ApparelExt
+namespace O21Toolbox.HarmonyPatches
 {
-    public class Comp_Shielded : ThingComp
+    public class DefModExt_EMPShielding : DefModExtension
     {
-        public CompProperties_Shielded Props => (CompProperties_Shielded)props;
+
     }
 }

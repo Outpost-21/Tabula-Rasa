@@ -12,5 +12,6 @@ namespace O21Toolbox.Automation
 {
     public class DefModExt_QuarryThing : DefModExtension
     {
+        public int defaultMiningTicks = -1;
     }
 }

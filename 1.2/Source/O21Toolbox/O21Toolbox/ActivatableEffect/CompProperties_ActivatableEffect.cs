@@ -39,5 +39,8 @@ namespace O21Toolbox.ActivatableEffect
         public bool whiteout = false;
 
         public float Altitude => Altitudes.AltitudeFor(altitudeLayer);
+
+        public string defaultPathSuffix;
+        public string defaultPathPrefix;
     }
 }

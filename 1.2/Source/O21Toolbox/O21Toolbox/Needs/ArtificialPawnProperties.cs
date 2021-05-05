@@ -42,13 +42,13 @@ namespace O21Toolbox.Needs
         public bool corpseEdible = false;
 
 
-        public bool needFood = false;
-        public bool needRest = false;
-        public bool needJoy = false;
-        public bool needComfort = false;
-        public bool needBeauty = false;
-        public bool needRoomSize = false;
-        public bool needOutdoors = false;
+        public bool needFood = true;
+        public bool needRest = true;
+        public bool needJoy = true;
+        public bool needComfort = true;
+        public bool needBeauty = true;
+        public bool needRoomSize = true;
+        public bool needOutdoors = true;
 
         public bool affectedByEMP = true;
     }

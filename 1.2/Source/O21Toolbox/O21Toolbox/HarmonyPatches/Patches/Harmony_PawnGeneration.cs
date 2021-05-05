@@ -12,6 +12,7 @@ using Verse;
 
 using HarmonyLib;
 
+using O21Toolbox.ApparelExt;
 using O21Toolbox.Drones;
 using O21Toolbox.PawnKindExt;
 using O21Toolbox.SlotLoadable;
@@ -39,20 +40,61 @@ namespace O21Toolbox.HarmonyPatches.Patches
                         AdditionalHediffEntry result = GetHediffEntry(pawn.kindDef);
                         if (result != null)
                         {
-                            Hediff hediff = HediffMaker.MakeHediff(result.hediff, pawn);
-                            hediff.Severity = result.severityRange.RandomInRange;
+                            GiveHediffEntry(result, pawn);
                         }
                     }
                     else
                     {
                         foreach(AdditionalHediffEntry entry in modExt.additionalHediffs)
                         {
-                            Hediff hediff = HediffMaker.MakeHediff(entry.hediff, pawn);
-                            hediff.Severity = entry.severityRange.RandomInRange;
+                            GiveHediffEntry(entry, pawn);
+                        }
+                    }
+                }
+
+                List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+
+                if (modExt.clearChronicIllness)
+                {
+                    for (int i = 0; i < hediffs.Count(); i++)
+                    {
+                        if (hediffs[i].def.chronic)
+                        {
+                            pawn.health.RemoveHediff(hediffs[i]);
+                        }
+                    }
+                }
+
+
+                if (modExt.clearAddictions)
+                {
+                    for (int i = 0; i < hediffs.Count(); i++)
+                    {
+                        if (hediffs[i].def.IsAddiction)
+                        {
+                            pawn.health.RemoveHediff(hediffs[i]);
+                        }
+                    }
+                }
+
+                if (modExt.replaceMissingParts)
+                {
+                    for (int i = 0; i < hediffs.Count(); i++)
+                    {
+                        if (pawn.health.hediffSet.PartIsMissing(hediffs[i].part))
+                        {
+                            pawn.health.RestorePart(hediffs[i].part);
                         }
                     }
                 }
             }
+        }
+
+        public static void GiveHediffEntry(AdditionalHediffEntry entry, Pawn pawn)
+        {
+            Hediff hediff = HediffMaker.MakeHediff(entry.hediff, pawn);
+            hediff.Severity = entry.severityRange.RandomInRange;
+            pawn.health.AddHediff(hediff);
         }
 
         public static AdditionalHediffEntry GetHediffEntry(PawnKindDef pawnkind)
@@ -61,7 +103,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
             {
                 DefModExt_ExtendedPawnKind modExt = pawnkind.GetModExtension<DefModExt_ExtendedPawnKind>();
                 AdditionalHediffEntry resultEntry;
-                if (!modExt.altRaces.NullOrEmpty())
+                if (!modExt.additionalHediffs.NullOrEmpty())
                 {
                     Func<AdditionalHediffEntry, float> selector = (AdditionalHediffEntry x) => x.weight;
                     resultEntry = modExt.additionalHediffs.RandomElementByWeight(selector);
@@ -127,6 +169,11 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 ThingDefEntry resultEntry;
                 if (!modExt.altRaces.NullOrEmpty())
                 {
+                    modExt.altRaces.Add(new ThingDefEntry()
+                    {
+                        races = new List<ThingDef>() { pawnkind.race },
+                        weight = 20f
+                    });
                     Func<ThingDefEntry, float> selector = (ThingDefEntry x) => x.weight;
                     resultEntry = modExt.altRaces.RandomElementByWeight(selector);
 

@@ -15,6 +15,7 @@ using HarmonyLib;
 
 using O21Toolbox.ArtificialPawn;
 using O21Toolbox.Needs;
+using O21Toolbox.SimpleNeeds;
 
 namespace O21Toolbox.HarmonyPatches
 {
@@ -32,12 +33,98 @@ namespace O21Toolbox.HarmonyPatches
 
         public static NeedDef Need_Bladder;
         public static NeedDef Need_Hygiene;
+        public static string foodNeedLabel;
 
         public static void Harmony_Patch(Harmony O21ToolboxHarmony, Type patchType)
         {
             //Try get needs.
             Need_Bladder = DefDatabase<NeedDef>.GetNamedSilentFail("Bladder");
             Need_Hygiene = DefDatabase<NeedDef>.GetNamedSilentFail("Hygiene");
+        }
+
+        [HarmonyPatch(typeof(NeedsCardUtility), "UpdateDisplayNeeds")]
+        public static class Patch_NeedsCardUtility_UpdateDisplayNeeds
+        {
+            [HarmonyPostfix]
+            public static void Postfix(Pawn pawn)
+            {
+                if(foodNeedLabel.NullOrEmpty())
+                {
+                    foodNeedLabel = NeedDefOf.Food.cachedLabelCap;
+                }
+
+                if (pawn != null && pawn.def.HasModExtension<DefModExt_FoodNeedAdjuster>())
+                {
+                    DefModExt_FoodNeedAdjuster modExt = pawn.def.GetModExtension<DefModExt_FoodNeedAdjuster>();
+                    NeedDefOf.Food.cachedLabelCap = modExt.newLabel;
+                }
+                else
+                {
+                    NeedDefOf.Food.cachedLabelCap = foodNeedLabel;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Need_Food), "NeedInterval")]
+        public static class Patch_Need_Food_NeedInterval
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(ref Need_Food __instance)
+            {
+                if (__instance.pawn.def.HasModExtension<DefModExt_FoodNeedAdjuster>())
+                {
+                    DefModExt_FoodNeedAdjuster modExt = __instance.pawn.def.GetModExtension<DefModExt_FoodNeedAdjuster>();
+
+                    if (modExt.disableFoodNeed)
+                    {
+                        __instance.CurLevel = __instance.MaxLevel;
+                        HealthUtility.AdjustSeverity(__instance.pawn, modExt.malnutritionReplacer, -__instance.MalnutritionSeverityPerInterval);
+                        return false;
+                    }
+
+                    if (!__instance.IsFrozen)
+                    {
+                        __instance.CurLevel -= __instance.FoodFallPerTick * 150f;
+                    }
+                    if (!__instance.Starving)
+                    {
+                        __instance.lastNonStarvingTick = Find.TickManager.TicksGame;
+                    }
+
+                    if(modExt.malnutritionReplacer != null)
+                    {
+                        if (!__instance.IsFrozen)
+                        {
+                            if (__instance.Starving)
+                            {
+                                HealthUtility.AdjustSeverity(__instance.pawn, modExt.malnutritionReplacer, __instance.MalnutritionSeverityPerInterval);
+                            }
+                            else
+                            {
+                                HealthUtility.AdjustSeverity(__instance.pawn, modExt.malnutritionReplacer, -__instance.MalnutritionSeverityPerInterval);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!__instance.IsFrozen)
+                        {
+                            if (__instance.Starving)
+                            {
+                                HealthUtility.AdjustSeverity(__instance.pawn, HediffDefOf.Malnutrition, __instance.MalnutritionSeverityPerInterval);
+                            }
+                            else
+                            {
+                                HealthUtility.AdjustSeverity(__instance.pawn, HediffDefOf.Malnutrition, -__instance.MalnutritionSeverityPerInterval);
+                            }
+                        }
+                    }
+
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         [HarmonyPatch(typeof(WorkGiver_Warden_Feed), "JobOnThing")]
@@ -49,6 +136,31 @@ namespace O21Toolbox.HarmonyPatches
                 if(t is Pawn prisoner && !prisoner.def.race.EatsFood)
                 {
                     return false;
+                }
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Thing), "Ingested")]
+        public static class Patch_Thing_Ingested
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(ref Thing __instance, Pawn ingester, float nutritionWanted)
+            {
+                if (__instance.def.HasModExtension<DefModExt_OutputFromEdible>())
+                {
+                    Thing thing = ThingMaker.MakeThing(__instance.def.GetModExtension<DefModExt_OutputFromEdible>().outputThing);
+                    if (!GenPlace.TryPlaceThing(thing, ingester.Position, ingester.Map, ThingPlaceMode.Near))
+                    {
+                        Log.Error(string.Concat(new object[]
+                        {
+                                            ingester,
+                                            " could not drop recipe product ",
+                                            thing,
+                                            " near ",
+                                            ingester.Position
+                        }), false);
+                    }
                 }
                 return true;
             }
@@ -87,7 +199,7 @@ namespace O21Toolbox.HarmonyPatches
         }
 
         [HarmonyPatch(typeof(MentalBreakWorker), "BreakCanOccur")]
-        public static class Patch_CanBeResearchedAt_Postfix
+        public static class Patch_MentalBreakWorker_BreakCanOccur
         {
             [HarmonyPrefix]
             public static bool Prefix(MentalBreakWorker __instance, bool __result, Pawn pawn)
@@ -100,57 +212,6 @@ namespace O21Toolbox.HarmonyPatches
                 return true;
             }
         }
-
-
-        // TODO: Terrible patch, needs replaced with a transpiler.
-        [HarmonyPatch(typeof(MeditationUtility), "CanMeditateNow")]
-        public static class Patch_MeditationUtility_CanMeditateNow
-        {
-            [HarmonyPrefix]
-            public static bool Prefix(MentalBreakWorker __instance, bool __result, Pawn pawn)
-            {
-                if (!pawn.def.race.EatsFood)
-                {
-                    __result = CanMeditateNow(pawn);
-                    return false;
-                }
-                return true;
-            }
-
-            public static bool CanMeditateNow(Pawn pawn)
-            {
-                if (pawn.needs.rest != null && pawn.needs.rest.CurCategory >= RestCategory.VeryTired)
-                {
-                    return false;
-                }
-                if (pawn.needs.food != null && pawn.needs.food.Starving)
-                {
-                    return false;
-                }
-                if (!pawn.Awake())
-                {
-                    return false;
-                }
-                if (pawn.health.hediffSet.BleedRateTotal <= 0f)
-                {
-                    if (HealthAIUtility.ShouldSeekMedicalRest(pawn))
-                    {
-                        Pawn_TimetableTracker timetable = pawn.timetable;
-                        if (((timetable != null) ? timetable.CurrentAssignment : null) != TimeAssignmentDefOf.Meditate)
-                        {
-                            return false;
-                        }
-                    }
-                    if (!HealthAIUtility.ShouldSeekMedicalRestUrgent(pawn))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-
 
         // No special mechanoids in ancient dangers.
         public static void MechanoidsFixerAncient(ref bool __result, PawnKindDef kind)

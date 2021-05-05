@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- <ThinkTreeDef>
+		<defName>O21_Jetpack_AutoRefuelCheck</defName>
+		<insertTag>Humanlike_PreMain</insertTag>
+		<insertPriority>100</insertPriority>
+		<thinkRoot Class="O21Toolbox.Jetpack.ThinkNode_CanRefuel">
+			<subNodes>
+				<li Class="ThinkNode_Priority">
+					<subNodes>
+						<li Class="O21Toolbox.Jetpack.ThinkNode_AutoRefuel" />
+					</subNodes>
+				</li>
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef> -->
+
+</Defs>

@@ -52,6 +52,11 @@ namespace O21Toolbox.PawnKindExt
         /// Sets up restrictions on what is allowed to spawn in a specific slotLoadable.
         /// </summary>
         public List<SlottableRestrictions> slottableRestrictions = new List<SlottableRestrictions>();
+
+        public bool clearChronicIllness = false;
+        public bool clearAddictions = false;
+        public bool replaceMissingParts = false;
+
     }
 
     public class SlottableRestrictions

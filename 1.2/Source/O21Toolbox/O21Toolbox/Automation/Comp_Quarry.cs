@@ -18,48 +18,18 @@ namespace O21Toolbox.Automation
         public CompPowerTrader compPower;
         public CompRefuelable compRefuelable;
 
-        public List<ThingDef> cachedMineableThings = new List<ThingDef>();
-        public Dictionary<ThingDef, bool> mineableThings = new Dictionary<ThingDef, bool>();
+        public MiningSettings mineableThings;
 
-        public List<ThingDef> CachedMineableThings
+        public ThingDef currentlyMining;
+        public int mineTicksRemaining = -1;
+
+        public override void PostPostMake()
         {
-            get
+            base.PostPostMake();
+            this.mineableThings = new MiningSettings(this);
+            if(Props.defaultMiningSettings != null)
             {
-                if(cachedMineableThings.NullOrEmpty())
-                {
-                    IEnumerable<ThingDef> enumerable = from def in DefDatabase<ThingDef>.AllDefs
-                                                  where (def.building != null && def.building.isNaturalRock && def.building.mineableThing != null) || def.HasModExtension<DefModExt_QuarryThing>()
-                                                  select def;
-
-                    if (enumerable.EnumerableNullOrEmpty())
-                    {
-                        Log.Error("O21Toolbox.Automation.Comp_Quarry: cachedMineableThings list is empty, this is something that should never happen, vanilla contains many of these items.");
-                    }
-
-                    return cachedMineableThings = enumerable.ToList();
-                }
-                return cachedMineableThings;
-            }
-        }
-        protected Dictionary<ThingDef, bool> MineableThings
-        {
-            get
-            {
-                if (mineableThings.EnumerableNullOrEmpty())
-                {
-                    foreach(ThingDef def in CachedMineableThings)
-                    {
-                        if (def.HasModExtension<DefModExt_QuarryThing>())
-                        {
-                            mineableThings.Add(def, true);
-                        }
-                        else
-                        {
-                            mineableThings.Add(def.building.mineableThing, true);
-                        }
-                    }
-                }
-                return mineableThings;
+                mineableThings.CopyFrom(Props.defaultMiningSettings);
             }
         }
 
@@ -67,11 +37,75 @@ namespace O21Toolbox.Automation
         {
             base.PostSpawnSetup(respawningAfterLoad);
 
-            compFlickable = parent.GetComp<CompFlickable>();
-            compPower = parent.GetComp<CompPowerTrader>();
-            compRefuelable = parent.GetComp<CompRefuelable>();
+            compFlickable = parent.TryGetComp<CompFlickable>();
+            compPower = parent.TryGetComp<CompPowerTrader>();
+            compRefuelable = parent.TryGetComp<CompRefuelable>();
         }
 
+        public override void CompTick()
+        {
+            base.CompTick();
+            if(compPower.PowerOn && compFlickable.SwitchIsOn)
+            {
+                if(mineTicksRemaining > 0)
+                {
+                    mineTicksRemaining--;
+                }
+                else if(currentlyMining != null)
+                {
+                    GenerateResult(currentlyMining);
+                    currentlyMining = null;
+                }
+                else if(!mineableThings?.filter?.allowedDefs?.EnumerableNullOrEmpty() ?? false)
+                {
+                    currentlyMining = GetRandomAllowedMineable();
+                    float timerBase = Props.tickCostMultiplier * (currentlyMining.BaseMarketValue * 1000f);
+                    float timerDebuff = timerBase * (Props.costDebuffPercent * MiningUtility.cachedMineableThings.Except(mineableThings.filter.allowedDefs).Count());
+                    mineTicksRemaining = Mathf.RoundToInt(timerBase + timerDebuff);
+                }
+            }
+        }
 
+        public void GenerateResult(ThingDef d)
+        {
+            if(d != null)
+            {
+                Thing t = ThingMaker.MakeThing(d);
+                if(d.deepLumpSizeRange != null)
+                {
+                    t.stackCount = d.deepLumpSizeRange.RandomInRange;
+                }
+
+                GenPlace.TryPlaceThing(t, parent.InteractionCell, parent.Map, ThingPlaceMode.Near);
+            }
+        }
+
+        public ThingDef GetRandomAllowedMineable()
+        {
+            return mineableThings.filter.allowedDefs.RandomElementByWeight(d => d.deepCommonality);
+        }
+
+        public override string CompInspectStringExtra()
+        {
+            if(currentlyMining != null)
+            {
+                return "Mining: " + currentlyMining.label + "\n" + "Time remaining: " + mineTicksRemaining.ToStringTicksToPeriod(true);
+            }
+            else
+            {
+                return "Mining Inactive";
+            }
+
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+
+            Scribe_Values.Look(ref mineableThings, "mineableThings");
+
+            Scribe_Values.Look(ref currentlyMining, "currentlyMining");
+            Scribe_Values.Look(ref mineTicksRemaining, "mineTicksRemaining");
+        }
     }
 }

@@ -16,5 +16,11 @@ namespace O21Toolbox.Automation
         {
             compClass = typeof(Comp_Quarry);
         }
+
+        public MiningSettings defaultMiningSettings;
+
+        public float tickCostMultiplier;
+
+        public float costDebuffPercent;
     }
 }

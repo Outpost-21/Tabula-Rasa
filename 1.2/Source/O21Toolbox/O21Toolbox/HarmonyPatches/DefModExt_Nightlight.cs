@@ -8,10 +8,9 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-namespace O21Toolbox.SimpleNeeds
+namespace O21Toolbox.HarmonyPatches
 {
-    public class DefModExt_FoodNeedRename : DefModExtension
+    public class DefModExt_Nightlight : DefModExtension
     {
-        public string newName = "Energy";
     }
 }

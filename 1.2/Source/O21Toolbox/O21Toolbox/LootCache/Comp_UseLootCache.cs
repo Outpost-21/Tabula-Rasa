@@ -42,6 +42,25 @@ namespace O21Toolbox.LootCache
                 return;
             }
 
+            switch (lootCacheDef.rewardType)
+            {
+                case RewardType.Normal:
+                    RewardNormal(pos, map, lootCacheDef);
+                    break;
+                case RewardType.OneOfAll:
+                    RewardOneOfAll(pos, map, lootCacheDef);
+                    break;
+                case RewardType.AllOfOne:
+                    RewardAllOfOne(pos, map, lootCacheDef);
+                    break;
+                default:
+                    RewardNormal(pos, map, lootCacheDef);
+                    break;
+            }
+        }
+
+        public void RewardNormal(IntVec3 pos, Map map, LootCacheDef lootCacheDef)
+        {
             int tries = Rand.RangeInclusive(lootCacheDef.rewardCount.min, lootCacheDef.rewardCount.max);
             for (int i = 0; i < tries; i++)
             {
@@ -60,7 +79,75 @@ namespace O21Toolbox.LootCache
                 if (thing != null)
                 {
                     thing.stackCount = Rand.RangeInclusive(rewardOption.countRange.min, rewardOption.countRange.max);
-                    GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Direct);
+                    GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Near);
+                }
+                else
+                {
+                    Log.Error("RewardOption lacking viable def or defList.");
+                    return;
+                }
+            }
+        }
+
+        public void RewardAllOfOne(IntVec3 pos, Map map, LootCacheDef lootCacheDef)
+        {
+            LootCacheRewardOption rewardOption = lootCacheDef.rewardOptions.RandomElementByWeight(new Func<LootCacheRewardOption, float>(ro => ro.weight));
+
+            Thing thing = null;
+            if (rewardOption.def != null)
+            {
+                thing = ThingMaker.MakeThing(rewardOption.def, GenStuff.RandomStuffFor(rewardOption.def));
+                if (thing != null)
+                {
+                    thing.stackCount = Rand.RangeInclusive(rewardOption.countRange.min, rewardOption.countRange.max);
+                    GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Near);
+                }
+            }
+            if (!rewardOption.defList.NullOrEmpty())
+            {
+                for (int j = 0; j < rewardOption.defList.Count(); j++)
+                {
+                    ThingDef def = rewardOption.defList[j];
+                    thing = ThingMaker.MakeThing(def, GenStuff.RandomStuffFor(def));
+                    if (thing != null)
+                    {
+                        thing.stackCount = Rand.RangeInclusive(rewardOption.countRange.min, rewardOption.countRange.max);
+                        GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Near);
+                    }
+                }
+            }
+            else
+            {
+                Log.Error("RewardOption lacking viable def or defList.");
+                return;
+            }
+        }
+
+        public void RewardOneOfAll(IntVec3 pos, Map map, LootCacheDef lootCacheDef)
+        {
+            for (int i = 0; i < lootCacheDef.rewardOptions.Count; i++)
+            {
+                LootCacheRewardOption rewardOption = lootCacheDef.rewardOptions[i];
+
+                Thing thing = null;
+                if (rewardOption.def != null)
+                {
+                    thing = ThingMaker.MakeThing(rewardOption.def, GenStuff.RandomStuffFor(rewardOption.def));
+                    if (thing != null)
+                    {
+                        thing.stackCount = Rand.RangeInclusive(rewardOption.countRange.min, rewardOption.countRange.max);
+                        GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Near);
+                    }
+                }
+                if (!rewardOption.defList.NullOrEmpty())
+                {
+                    ThingDef def = rewardOption.defList.RandomElement();
+                    thing = ThingMaker.MakeThing(def, GenStuff.RandomStuffFor(def));
+                    if (thing != null)
+                    {
+                        thing.stackCount = Rand.RangeInclusive(rewardOption.countRange.min, rewardOption.countRange.max);
+                        GenPlace.TryPlaceThing(thing, pos, map, ThingPlaceMode.Near);
+                    }
                 }
                 else
                 {

@@ -19,6 +19,8 @@ namespace O21Toolbox.LootCache
         public SoundDef cacheOpenSound = null;
 
         public List<LootCacheRewardOption> rewardOptions = new List<LootCacheRewardOption>();
+
+        public RewardType rewardType = RewardType.Normal;
     }
 
     public class LootCacheRewardOption
@@ -30,5 +32,12 @@ namespace O21Toolbox.LootCache
         public IntRange countRange = new IntRange(1, 1);
 
         public float weight = 1.0f;
+    }
+
+    public enum RewardType
+    {
+        Normal,
+        OneOfAll,
+        AllOfOne
     }
 }
