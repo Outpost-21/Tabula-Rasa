@@ -23,6 +23,19 @@ namespace O21Toolbox.Automation
         public ThingDef currentlyMining;
         public int mineTicksRemaining = -1;
 
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+
+            Scribe_Deep.Look<MiningSettings>(ref mineableThings, "mineableThings", new object[]
+            {
+                this
+            });
+
+            Scribe_Defs.Look<ThingDef>(ref currentlyMining, "currentlyMining");
+            Scribe_Values.Look<int>(ref mineTicksRemaining, "mineTicksRemaining");
+        }
+
         public override void PostPostMake()
         {
             base.PostPostMake();
@@ -96,16 +109,6 @@ namespace O21Toolbox.Automation
                 return "Mining Inactive";
             }
 
-        }
-
-        public override void PostExposeData()
-        {
-            base.PostExposeData();
-
-            Scribe_Values.Look(ref mineableThings, "mineableThings");
-
-            Scribe_Values.Look(ref currentlyMining, "currentlyMining");
-            Scribe_Values.Look(ref mineTicksRemaining, "mineTicksRemaining");
         }
     }
 }

@@ -16,6 +16,11 @@ namespace O21Toolbox.Automation
 
         public MiningFilter filter;
 
+        public MiningSettings()
+        {
+            this.filter = new MiningFilter();
+        }
+
         public MiningSettings(Comp_Quarry q)
         {
             parent = q;
@@ -30,7 +35,6 @@ namespace O21Toolbox.Automation
         public void ExposeData()
         {
             Scribe_Deep.Look<MiningFilter>(ref this.filter, "filter");
-            Scribe_Values.Look<Comp_Quarry>(ref this.parent, "parent");
         }
     }
 }
