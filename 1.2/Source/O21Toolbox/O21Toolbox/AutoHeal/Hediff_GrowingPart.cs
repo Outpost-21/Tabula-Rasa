@@ -34,9 +34,7 @@ namespace O21Toolbox.AutoHeal
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.Append(base.TipStringExtra);
-                stringBuilder.AppendLine(Translator.Translate("Efficiency") + ": " + GenText.ToStringPercent
-                    (this.def.addedPartProps.partEfficiency));
-                stringBuilder.AppendLine(this.pawn.health.hediffSet.GetFirstHediffOfDef(this.def.GetModExtension<DefModExtension_AutoHealProps>().autoHealHediff, false).def.GetModExtension<DefModExtension_AutoHealProps>().growthText + GenText.ToStringPercent(this.Severity));
+                stringBuilder.AppendLine(this.def.GetModExtension<DefModExtension_AutoHealProps>().growthText + GenText.ToStringPercent(this.Severity));
                 return stringBuilder.ToString();
             }
         }

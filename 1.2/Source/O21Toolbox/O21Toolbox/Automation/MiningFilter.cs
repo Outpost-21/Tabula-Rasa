@@ -45,6 +45,17 @@ namespace O21Toolbox.Automation
             }
         }
 
+        public void SetAllowAll()
+        {
+            allowedDefs.Clear();
+            allowedDefs = MiningUtility.CachedMineableThings.ToHashSet();
+        }
+
+        public void SetDisallowAll()
+        {
+            allowedDefs.Clear();
+        }
+
         public bool Allows(ThingDef def)
         {
             return this.allowedDefs.Contains(def);

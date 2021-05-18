@@ -102,12 +102,14 @@
 			<li Class="HediffCompProperties_Immunizable">
 				<!-- Decides how fast the body part heals/grows -->
 				<!-- 0.07 is roughly a Quadrum (15 days) -->
-				<severityPerDayNotImmune>0.07</severityPerDayNotImmune> 
+				<severityPerDayNotImmune>0.14</severityPerDayNotImmune> 
 			</li>
 		</comps>
 		<modExtensions>
 			<li Class="O21Toolbox.AutoHeal.DefModExtension_AutoHealProps">
 				<autoHealHediff>O21_AutoHeal</autoHealHediff>
+				<growthText>Growth: </growthText>
+				<curedBodyPart>AutoHeal_CuredBodypart</curedBodyPart>
 			</li>
 		</modExtensions>
 	</HediffDef>

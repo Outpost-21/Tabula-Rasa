@@ -169,10 +169,15 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 ThingDefEntry resultEntry;
                 if (!modExt.altRaces.NullOrEmpty())
                 {
+                    float defaultWeight = 20f;
+                    if(pawnkind.race == PawnKindDefOf.Colonist.race)
+                    {
+                        defaultWeight = O21ToolboxMod.settings.humanSpawnWeight;
+                    }
                     modExt.altRaces.Add(new ThingDefEntry()
                     {
                         races = new List<ThingDef>() { pawnkind.race },
-                        weight = 20f
+                        weight = defaultWeight
                     });
                     Func<ThingDefEntry, float> selector = (ThingDefEntry x) => x.weight;
                     resultEntry = modExt.altRaces.RandomElementByWeight(selector);

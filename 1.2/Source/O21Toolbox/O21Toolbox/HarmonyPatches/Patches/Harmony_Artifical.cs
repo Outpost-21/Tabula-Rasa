@@ -116,22 +116,25 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPostfix]
         public static void Postfix(ref bool __result, ref StunHandler __instance, Thing ___parent)
         {
-            Pawn pawn = (Pawn)___parent;
-            if (pawn != null && pawn.def.HasModExtension<ArtificialPawnProperties>())
+            if(___parent is Pawn) 
             {
-                if (pawn.def.GetModExtension<ArtificialPawnProperties>().affectedByEMP)
+                Pawn pawn = (Pawn)___parent;
+                if (pawn != null && pawn.def.HasModExtension<ArtificialPawnProperties>())
                 {
-                    if(pawn.apparel != null && pawn.apparel.WornApparel.Any(a => a.def.HasModExtension<DefModExt_EMPShielding>()))
+                    if (pawn.def.GetModExtension<ArtificialPawnProperties>().affectedByEMP)
                     {
-                        __result = false;
-                        return;
+                        if (pawn.apparel != null && pawn.apparel.WornApparel.Any(a => a.def.HasModExtension<DefModExt_EMPShielding>()))
+                        {
+                            __result = false;
+                            return;
+                        }
+                        if ((pawn.health?.hediffSet?.hediffs?.Any(h => h.def.HasModExtension<DefModExt_EMPShielding>()) ?? false))
+                        {
+                            __result = false;
+                            return;
+                        }
+                        __result = true;
                     }
-                    if((pawn.health?.hediffSet?.hediffs?.Any(h => h.def.HasModExtension<DefModExt_EMPShielding>()) ?? false))
-                    {
-                        __result = false;
-                        return;
-                    }
-                    __result = true;
                 }
             }
         }

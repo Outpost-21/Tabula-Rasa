@@ -58,7 +58,7 @@ namespace O21Toolbox.Needs
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             // Debug Stuff
-            if(Prefs.DevMode && DebugSettings.godMode)
+            if(Prefs.DevMode && DebugSettings.godMode && energyNeed != null)
             {
                 {
                     Command_Action gizmo = new Command_Action();

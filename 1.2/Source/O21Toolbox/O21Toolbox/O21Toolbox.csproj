@@ -115,6 +115,7 @@
     <Compile Include="Automation\Comp_Quarry.cs" />
     <Compile Include="Automation\DefModExt_QuarryThing.cs" />
     <Compile Include="Automation\ITab_Mining.cs" />
+    <Compile Include="Automation\Listing_TreeMiningFilter.cs" />
     <Compile Include="Automation\MiningFilter.cs" />
     <Compile Include="Automation\MiningSettings.cs" />
     <Compile Include="Automation\MiningUtility.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="FactionExt\PawnGroupMaker_Temperature.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_VanillaIssueFixes.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Currency.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Jetpack.cs" />
@@ -134,6 +136,9 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="Hibernation\DefModExt_Hibernation.cs" />
+    <Compile Include="Hibernation\Comp_Hibernation.cs" />
+    <Compile Include="Hibernation\JobDriver_Hibernate.cs" />
     <Compile Include="Jetpack\Apparel_Jetpack.cs" />
     <Compile Include="Jetpack\Command_Jetpack.cs" />
     <Compile Include="Jetpack\CompProperties_Jetpack.cs" />
@@ -194,7 +199,6 @@
     <Compile Include="MoonCycle\GameCondition_MoonCycle.cs" />
     <Compile Include="MoonCycle\Moon.cs" />
     <Compile Include="MoonCycle\WorldComponent_MoonCycle.cs" />
-    <Compile Include="O21ToolboxStartup.cs" />
     <Compile Include="PatchOperationFindModID.cs" />
     <Compile Include="PawnConversion\DefModExt_BasicConvert.cs" />
     <Compile Include="PawnConversion\Hediff_BasicConvert.cs" />

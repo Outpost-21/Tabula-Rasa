@@ -33,7 +33,7 @@
 		
 		<comps>
 			<li>
-				<compClass>O21Toolbox.Needs.Comp_Hibernation</compClass>
+				<compClass>O21Toolbox.Hibernation.Comp_Hibernation</compClass>
 			</li>
 		</comps>
 	</ThingDef>

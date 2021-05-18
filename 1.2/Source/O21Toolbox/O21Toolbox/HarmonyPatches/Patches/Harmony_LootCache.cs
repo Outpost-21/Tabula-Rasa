@@ -23,9 +23,13 @@ namespace O21Toolbox.HarmonyPatches.Patches
 		{
 			ThingDef thingDef = null;
 			float value = Rand.Value;
+			List<LootCacheDef> thingDefList = DefDatabase<LootCacheDef>.AllDefsListForReading;
+			if (thingDefList.NullOrEmpty())
+			{
+				return;
+			}
 			if (value < 0.5f)
 			{
-				List<LootCacheDef> thingDefList = DefDatabase<LootCacheDef>.AllDefsListForReading;
 				thingDef = (ThingDef)thingDefList.RandomElementByWeight(new Func<LootCacheDef, float>(lc => lc.cacheWeight));
 			}
 			if (thingDef == null)

@@ -15,6 +15,7 @@ namespace O21Toolbox
         // General
         public bool animationsEnabled = true;
         public bool modUpdates = true;
+        public float humanSpawnWeight = 20;
 
         // Jetpacks
         public bool roofPunch = true;
@@ -28,6 +29,7 @@ namespace O21Toolbox
             // General
             Scribe_Values.Look(ref this.animationsEnabled, "animationsEnabled", true);
             Scribe_Values.Look(ref this.modUpdates, "modUpdates", true);
+            Scribe_Values.Look(ref this.humanSpawnWeight, "humanSpawnWeight", 20);
 
             // Jetpacks
             Scribe_Values.Look(ref this.roofPunch, "roofPunch", true);

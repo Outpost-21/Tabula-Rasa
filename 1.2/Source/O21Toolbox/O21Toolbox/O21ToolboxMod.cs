@@ -25,7 +25,7 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: Outpost 21 Toolbox - Version 1.3.1 Initialised ::");
+            Log.Message(":: Outpost 21 Toolbox - Version 1.3.2 Initialised ::");
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -51,6 +51,9 @@ namespace O21Toolbox
             if(currentPage == O21ToolboxSettingsPage.General)
             {
                 listingStandard.CheckboxEnhanced("Animations Enabled", "If animations that use this framework are causing performance issues for you, you can disable all animation code in the Toolbox with this.", ref settings.animationsEnabled);
+                listingStandard.GapLine();
+                string humanSpawnWeight_Buffer = settings.humanSpawnWeight.ToString();
+                listingStandard.TextFieldNumericLabeled("Human Spawn Weight", ref settings.humanSpawnWeight, ref humanSpawnWeight_Buffer);
             }
             base.DoSettingsWindowContents(inRect);
         }
@@ -64,5 +67,13 @@ namespace O21Toolbox
     public enum O21ToolboxSettingsPage
     {
         General
+    }
+
+    [StaticConstructorOnStartup]
+    public static class O21ToolboxStartup
+    {
+        static O21ToolboxStartup()
+        {
+        }
     }
 }
