@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Royalty</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<!-- Royalty Lodger Integration Hook -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Lodger"]/modExtensions</xpath>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Lodger"]/modExtensions</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</match>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Lodger"]</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</nomatch>
+				</li>
+				<!-- Royalty Trader Integration Hook -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Trader"]/modExtensions</xpath>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Trader"]/modExtensions</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</match>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Trader"]</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</nomatch>
+				</li>
+				<!-- Royalty Laborer Integration Hook -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Laborer"]/modExtensions</xpath>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Laborer"]/modExtensions</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</match>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/PawnKindDef[@defName="Empire_Common_Laborer"]</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</nomatch>
+				</li>
+				<!-- Royalty Fighter Integration Hook -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]/modExtensions</xpath>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]/modExtensions</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</match>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</nomatch>
+				</li>
+				<!-- Royalty Integration Hook -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]/modExtensions</xpath>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]/modExtensions</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</match>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]</xpath>
+						<value>
+							<li Class="O21Toolbox.PawnKindExt.DefModExt_ExtendedPawnKind">
+								<altRaces />
+							</li>
+						</value>
+					</nomatch>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

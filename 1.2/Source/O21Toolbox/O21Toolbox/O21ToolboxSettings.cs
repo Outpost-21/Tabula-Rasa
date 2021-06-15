@@ -8,6 +8,8 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
+using O21Toolbox.Background;
+
 namespace O21Toolbox
 {
     public class O21ToolboxSettings : ModSettings
@@ -24,6 +26,9 @@ namespace O21Toolbox
         // UpdateListings
         public List<string> markedAsSeen = new List<String>();
 
+        // Backgrounds
+        public string background = "BackgroundDef_Default";
+
         public override void ExposeData()
         {
             // General
@@ -37,6 +42,9 @@ namespace O21Toolbox
 
             // UpdateListings
             Scribe_Collections.Look(ref this.markedAsSeen, "markedAsSeen");
+
+            // Backgrounds
+            Scribe_Values.Look(ref background, "background", null);
         }
     }
 }

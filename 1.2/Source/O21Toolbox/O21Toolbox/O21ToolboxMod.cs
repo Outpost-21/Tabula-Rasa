@@ -10,6 +10,8 @@ using Verse;
 
 using HarmonyLib;
 
+using O21Toolbox.Background;
+
 namespace O21Toolbox
 {
     [StaticConstructorOnStartup]
@@ -54,6 +56,31 @@ namespace O21Toolbox
                 listingStandard.GapLine();
                 string humanSpawnWeight_Buffer = settings.humanSpawnWeight.ToString();
                 listingStandard.TextFieldNumericLabeled("Human Spawn Weight", ref settings.humanSpawnWeight, ref humanSpawnWeight_Buffer);
+                listingStandard.GapLine();
+                Func<List<FloatMenuOption>> bgOptionsMaker = delegate()
+                {
+                    List<FloatMenuOption> bgList = new List<FloatMenuOption>();
+                    List<BackgroundDef> defList = DefDatabase<BackgroundDef>.AllDefsListForReading;
+                    for (int i = 0; i < defList.Count; i++)
+                    {
+                        bgList.Add(new FloatMenuOption(defList[i].label, delegate ()
+                        {
+                            settings.background = defList[i].defName;
+                        }));
+                    }
+                    if (!bgList.Any())
+                    {
+                        bgList.Add(new FloatMenuOption("NoneBrackets".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    }
+
+                    return bgList;
+                };
+                if (listingStandard.ButtonTextLabeled("Background Image", Background.Background.allBackgroundDefs.Find(d => d.defName == settings.background).label))
+                {
+                    Find.WindowStack.Add(new FloatMenu(bgOptionsMaker()));
+                }
+
+                Background.Background.AdjustBackgroundArt(settings.background);
             }
             base.DoSettingsWindowContents(inRect);
         }
