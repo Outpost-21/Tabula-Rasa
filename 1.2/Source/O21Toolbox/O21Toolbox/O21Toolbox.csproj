@@ -45,9 +45,8 @@
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp_public">
-      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp_public.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Assembly-CSharp_public_1.2">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp_public_1.2.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="ShipsHaveInsides">
@@ -91,7 +90,6 @@
     <Compile Include="Animation\CompProperties_AnimationOverlay.cs" />
     <Compile Include="Animation\Comp_AnimationOverlayMulti.cs" />
     <Compile Include="Animation\Comp_AnimationOverlay.cs" />
-    <Compile Include="ApparelExt\EnergyShieldExtended.cs" />
     <Compile Include="ApparelExt\CompProperties_Bondable.cs" />
     <Compile Include="ApparelExt\CompProperties_Evolving.cs" />
     <Compile Include="ApparelExt\CompProperties_Named.cs" />
@@ -105,8 +103,6 @@
     <Compile Include="ApparelExt\DefModExt_BodyRestrict.cs" />
     <Compile Include="ApparelExt\DefModExt_ApparelOffset.cs" />
     <Compile Include="ApparelExt\DefModExt_HediffApparel.cs" />
-    <Compile Include="ApparelExt\DefModExt_EnergyShieldProps.cs" />
-    <Compile Include="ApparelExt\Gizmo_ShieldStatus.cs" />
     <Compile Include="ApparelExt\DefModExt_SpecificSpeciesHeadwear.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
@@ -119,8 +115,8 @@
     <Compile Include="Automation\MiningFilter.cs" />
     <Compile Include="Automation\MiningSettings.cs" />
     <Compile Include="Automation\MiningUtility.cs" />
-    <Compile Include="Background\Background.cs" />
-    <Compile Include="Background\BackgroundDef.cs" />
+    <None Include="Background\Background.cs" />
+    <None Include="Background\BackgroundDef.cs" />
     <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
     <Compile Include="Currency\DefModExt_Currency.cs" />
     <Compile Include="FactionExt\DefModExt_FactionExtension.cs" />

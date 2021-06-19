@@ -10,7 +10,7 @@ using Verse;
 
 using HarmonyLib;
 
-using O21Toolbox.Background;
+//using O21Toolbox.Background;
 
 namespace O21Toolbox
 {
@@ -27,7 +27,7 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: Outpost 21 Toolbox - Version 1.3.2 Initialised ::");
+            Log.Message(":: Outpost 21 Toolbox - Version 1.3.3 Initialised ::");
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -56,31 +56,31 @@ namespace O21Toolbox
                 listingStandard.GapLine();
                 string humanSpawnWeight_Buffer = settings.humanSpawnWeight.ToString();
                 listingStandard.TextFieldNumericLabeled("Human Spawn Weight", ref settings.humanSpawnWeight, ref humanSpawnWeight_Buffer);
-                listingStandard.GapLine();
-                Func<List<FloatMenuOption>> bgOptionsMaker = delegate()
-                {
-                    List<FloatMenuOption> bgList = new List<FloatMenuOption>();
-                    List<BackgroundDef> defList = DefDatabase<BackgroundDef>.AllDefsListForReading;
-                    for (int i = 0; i < defList.Count; i++)
-                    {
-                        bgList.Add(new FloatMenuOption(defList[i].label, delegate ()
-                        {
-                            settings.background = defList[i].defName;
-                        }));
-                    }
-                    if (!bgList.Any())
-                    {
-                        bgList.Add(new FloatMenuOption("NoneBrackets".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null));
-                    }
+                //listingStandard.GapLine();
+                //Func<List<FloatMenuOption>> bgOptionsMaker = delegate()
+                //{
+                //    List<FloatMenuOption> bgList = new List<FloatMenuOption>();
+                //    List<BackgroundDef> defList = DefDatabase<BackgroundDef>.AllDefsListForReading;
+                //    for (int i = 0; i < defList.Count; i++)
+                //    {
+                //        bgList.Add(new FloatMenuOption(defList[i].label, delegate ()
+                //        {
+                //            settings.background = defList[i].defName;
+                //        }));
+                //    }
+                //    if (!bgList.Any())
+                //    {
+                //        bgList.Add(new FloatMenuOption("NoneBrackets".Translate(), null, MenuOptionPriority.Default, null, null, 0f, null, null));
+                //    }
 
-                    return bgList;
-                };
-                if (listingStandard.ButtonTextLabeled("Background Image", Background.Background.allBackgroundDefs.Find(d => d.defName == settings.background).label))
-                {
-                    Find.WindowStack.Add(new FloatMenu(bgOptionsMaker()));
-                }
+                //    return bgList;
+                //};
+                //if (listingStandard.ButtonTextLabeled("Background Image", Background.Background.allBackgroundDefs.Find(d => d.defName == settings.background).label))
+                //{
+                //    Find.WindowStack.Add(new FloatMenu(bgOptionsMaker()));
+                //}
 
-                Background.Background.AdjustBackgroundArt(settings.background);
+                //Background.Background.AdjustBackgroundArt(settings.background);
             }
             base.DoSettingsWindowContents(inRect);
         }

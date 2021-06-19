@@ -8,7 +8,7 @@ using UnityEngine;
 using RimWorld;
 using Verse;
 
-using O21Toolbox.Background;
+//using O21Toolbox.Background;
 
 namespace O21Toolbox
 {
@@ -27,7 +27,7 @@ namespace O21Toolbox
         public List<string> markedAsSeen = new List<String>();
 
         // Backgrounds
-        public string background = "BackgroundDef_Default";
+        //public string background = "BackgroundDef_Default";
 
         public override void ExposeData()
         {
@@ -44,7 +44,7 @@ namespace O21Toolbox
             Scribe_Collections.Look(ref this.markedAsSeen, "markedAsSeen");
 
             // Backgrounds
-            Scribe_Values.Look(ref background, "background", null);
+            //Scribe_Values.Look(ref background, "background", null);
         }
     }
 }
