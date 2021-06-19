@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="Assembly-CSharp_public_1.2">
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp_public_1.2.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="ShipsHaveInsides">
