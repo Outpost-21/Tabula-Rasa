@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- <ThingDef>
+		<defName>O21_DummyFood</defName>
+		<label>DummyFood</label>
+		<description>A dummy food item, used to work around issues where a food item is required for code to run but not actually required to be used.</description>
+		<graphicData>
+			<texPath>Things/Item/Meal/SurvivalPack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<tradeability>None</tradeability>
+
+		<thingClass>ThingWithComps</thingClass>
+		<category>Item</category>
+		<drawerType>MapMeshOnly</drawerType>
+		<useHitPoints>true</useHitPoints>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<selectable>true</selectable>
+		<statBases>
+			<MaxHitPoints>1</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-100</Beauty>
+			<Mass>1000</Mass>
+			<DeteriorationRate>100</DeteriorationRate>
+			<Nutrition>1.0</Nutrition>
+		</statBases>
+		<altitudeLayer>Item</altitudeLayer>
+		<stackLimit>10</stackLimit>
+		<tickerType>Normal</tickerType>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<alwaysHaulable>true</alwaysHaulable>
+		<comps>
+			<li Class="CompProperties_Forbiddable" />
+			<li Class="CompProperties_Ingredients" />
+			<li Class="CompProperties_FoodPoisonable" />
+		</comps>
+		<pathCost>14</pathCost>
+		<resourceReadoutPriority>Last</resourceReadoutPriority>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<destroyOnDrop>True</destroyOnDrop>
+		<ingestible>
+			<foodType>Meal</foodType>
+			<maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+			<preferability>MealSimple</preferability>
+			<optimalityOffsetHumanlikes>0</optimalityOffsetHumanlikes>
+			<optimalityOffsetFeedingAnimals>-10</optimalityOffsetFeedingAnimals>
+			<ingestEffect>EatVegetarian</ingestEffect>
+			<ingestSound>Meal_Eat</ingestSound>
+		</ingestible>
+	</ThingDef> -->
+
+</Defs>

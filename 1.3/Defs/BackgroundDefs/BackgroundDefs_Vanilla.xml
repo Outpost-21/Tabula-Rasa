@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Unique def specifically to know when someone hasn't chosen to change the background. -->
+	<O21Toolbox.Background.BackgroundDef>
+		<defName>BackgroundDef_Default</defName>
+		<label>Default</label>
+	</O21Toolbox.Background.BackgroundDef>
+
+	<O21Toolbox.Background.BackgroundDef>
+		<defName>BackgroundDef_Vanilla</defName>
+		<label>Vanilla</label>
+		<bgImagePath>UI/HeroArt/BGPlanet</bgImagePath>
+	</O21Toolbox.Background.BackgroundDef>
+
+	<O21Toolbox.Background.BackgroundDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>BackgroundDef_Royalty</defName>
+		<label>Royalty</label>
+		<bgImagePath>UI/HeroArt/MenuBG_Royalty</bgImagePath>
+	</O21Toolbox.Background.BackgroundDef>
+	
+</Defs>

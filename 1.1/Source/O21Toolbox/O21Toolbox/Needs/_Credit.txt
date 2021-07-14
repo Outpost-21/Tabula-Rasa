@@ -1,1 +1,0 @@
-﻿The Energy need code is simply an adapted variant of Chjees' Androids energy need, credit to him for making all of the original code there.

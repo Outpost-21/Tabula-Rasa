@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+	<JobDef>
+		<defName>O21Hibernate</defName>
+		<driverClass>O21Toolbox.Hibernation.JobDriver_Hibernate</driverClass>
+		<reportString>hibernating at TargetA.</reportString>
+	</JobDef>
+	
+</Defs>

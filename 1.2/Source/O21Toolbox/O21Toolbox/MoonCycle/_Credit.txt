@@ -1,1 +1,0 @@
-﻿The Moon Cycle originated from Jecrells Werewolves mod, although much of it has been altered to be modularly usable by any mod that wants to hook into a moon cycle for any reason.

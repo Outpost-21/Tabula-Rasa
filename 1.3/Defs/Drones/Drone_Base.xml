@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="O21_DroneBase" Abstract="True">
+		<thingClass>O21Toolbox.Drones.Drone_Pawn</thingClass>
+		<category>Pawn</category>
+		<selectable>true</selectable>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Pawn</altitudeLayer>
+		<useHitPoints>false</useHitPoints>
+		<hasTooltip>true</hasTooltip>
+		<soundImpactDefault>MetalHitImportant</soundImpactDefault>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<repairEffect>Repair</repairEffect>
+		<statBases>
+			<PsychicSensitivity>0</PsychicSensitivity>
+			<ToxicSensitivity>0</ToxicSensitivity>
+			<Flammability>0.35</Flammability>
+			<ComfyTemperatureMin>-100</ComfyTemperatureMin>
+			<ComfyTemperatureMax>250</ComfyTemperatureMax>
+			<Mass>75</Mass>
+			<MeatAmount>0</MeatAmount>
+			<LeatherAmount>0</LeatherAmount>
+		</statBases>
+		<inspectorTabs>
+			<li>ITab_Pawn_Health</li>
+			<li>ITab_Pawn_Needs</li>
+            <li>ITab_Pawn_Character</li>
+			<li>ITab_Pawn_Guest</li>
+			<li>ITab_Pawn_Prisoner</li>
+			<li>ITab_Pawn_FormingCaravan</li>
+			<li>ITab_Pawn_Gear</li>
+			<li>ITab_Pawn_Log</li>
+		</inspectorTabs>
+		<comps>
+			<li>
+				<compClass>CompAttachBase</compClass>
+			</li>
+		</comps>
+		<race>
+			<thinkTreeMain>DroneMain</thinkTreeMain>
+			<thinkTreeConstant>DroneConstant</thinkTreeConstant>
+			<needsRest>false</needsRest>
+			<hasGenders>false</hasGenders>
+			<fleshType>Artificial</fleshType>
+			<foodType>None</foodType>
+			<intelligence>ToolUser</intelligence>
+			<makesFootprints>false</makesFootprints>
+			<nameCategory>NoName</nameCategory>
+			<wildness>0</wildness>
+			<mateMtbHours>0</mateMtbHours>
+			<lifeExpectancy>9999</lifeExpectancy>
+			<baseBodySize>1</baseBodySize>
+			<baseHealthScale>1</baseHealthScale>
+		</race>
+	</ThingDef>
+
+</Defs>
