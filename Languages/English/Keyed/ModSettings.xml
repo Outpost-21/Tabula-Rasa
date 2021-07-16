@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<LanguageData>
-	
-	<!-- Mod General Settings -->
-	<ToolboxSettingsGeneralLabel>General Settings</ToolboxSettingsGeneralLabel>
-	<EnergyNeedCompatModeLabel>Toggle Mode</EnergyNeedCompatModeLabel>
-	<EnergyNeedCompatModeDesc>When enabled, makes mechanical pawns more compatible.</EnergyNeedCompatModeDesc>
- 
-</LanguageData>

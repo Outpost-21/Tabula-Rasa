@@ -18,16 +18,16 @@ namespace O21Toolbox.Shield
         public bool interceptNonHostileProjectiles = true;
         public bool interceptOutgoingProjectiles = false;
 
-        public EffecterDef reactivateEffect = EffecterDefOf.ActivatorProximityTriggered;
+        public EffecterDef reactivateEffect;
 
         public string stressLabel = "Shield Stress Level";
 
         public int resetTime = 30000;
 
-        public SoundDef startupSound = SoundDefOf.Power_OnSmall;
-        public SoundDef shutdownSound = SoundDefOf.Power_OffSmall;
-        public SoundDef impactSound = SoundDefOf.EnergyShield_AbsorbDamage;
-        public SoundDef breakSound = SoundDefOf.EnergyShield_Broken;
+        public SoundDef startupSound;
+        public SoundDef shutdownSound;
+        public SoundDef impactSound;
+        public SoundDef breakSound;
 
         public FloatRange powerUsageRange = new FloatRange(0f, 0f);
 
@@ -41,7 +41,7 @@ namespace O21Toolbox.Shield
         public float shieldOverloadThreshold = 0.9f;
         public float shieldOverloadChance = 0.3f;
         public int extraOverloadRange = 3;
-        public DamageDef overloadDamageType = DamageDefOf.EMP;
+        public DamageDef overloadDamageType;
 
         public bool explodeOnCollapse = false;
 
@@ -57,5 +57,34 @@ namespace O21Toolbox.Shield
         public float idlePulseSpeed;
 
         public bool podBlocker = true;
+
+        public override void ResolveReferences(ThingDef parentDef)
+        {
+            base.ResolveReferences(parentDef);
+            if(startupSound == null)
+            {
+                startupSound = SoundDefOf.Power_OnSmall;
+            }
+            if(shutdownSound == null)
+            {
+                shutdownSound = SoundDefOf.Power_OffSmall;
+            }
+            if(impactSound == null)
+            {
+                impactSound = SoundDefOf.EnergyShield_AbsorbDamage;
+            }
+            if(breakSound == null)
+            {
+                breakSound = SoundDefOf.EnergyShield_Broken;
+            }
+            if(reactivateEffect == null)
+            {
+                reactivateEffect = EffecterDefOf.ActivatorProximityTriggered;
+            }
+            if(overloadDamageType == null)
+            {
+                overloadDamageType = DamageDefOf.EMP;
+            }
+        }
     }
 }

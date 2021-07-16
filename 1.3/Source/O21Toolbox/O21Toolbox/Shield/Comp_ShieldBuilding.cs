@@ -610,6 +610,7 @@ namespace O21Toolbox.Shield
 				yield return new Command_Toggle
 				{
 					defaultLabel = "ShieldGenToggleVisibility".Translate(),
+					defaultDesc = "ShieldGenToggleVisibilityDesc".Translate(),
 					isActive = (() => this.showShieldToggle),
 					icon = ContentFinder<Texture2D>.Get("UI/Buttons/ShieldVisibility"),
 					toggleAction = delegate ()
