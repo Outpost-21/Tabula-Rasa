@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ShieldGenColorLabel>设置颜色</ShieldGenColorLabel>
+  <ShieldGenColorDescription>设置护盾罩的颜色.</ShieldGenColorDescription>
+  <ShieldGenColorTitle>颜色设置</ShieldGenColorTitle>
+  <ShieldGenHexLabel>十六进制</ShieldGenHexLabel>
+  <ShieldGenHexColorCodeIsIllFormed>无效的十六进制代码</ShieldGenHexColorCodeIsIllFormed>
+
+  <ShieldGenRadiusLabel>设置半径</ShieldGenRadiusLabel>
+  <ShieldGenRadiusDescription>设置当前半径.</ShieldGenRadiusDescription>
+  <ShieldGenRadiusTitle>半径</ShieldGenRadiusTitle>
+
+  <ShieldGenOffsetXLabel>设置偏移量X</ShieldGenOffsetXLabel>
+  <ShieldGenOffsetXDescription>设置防护罩左右偏移.</ShieldGenOffsetXDescription>
+  <ShieldGenOffsetXTitle>X偏移</ShieldGenOffsetXTitle>
+
+  <ShieldGenOffsetYLabel>Y偏移</ShieldGenOffsetYLabel>
+  <ShieldGenOffsetYDescription>上下偏移量.</ShieldGenOffsetYDescription>
+  <ShieldGenOffsetYTitle>Y 偏移</ShieldGenOffsetYTitle>
+
+  <ShieldGenToggleVisibility>更改未选中时屏蔽是否完全可见。.</ShieldGenToggleVisibility>
+  <ShieldGenToggleVisibilityDesc>更改未选中时屏蔽是否完全可见。.</ShieldGenToggleVisibilityDesc>
+
+</LanguageData>

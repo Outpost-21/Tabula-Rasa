@@ -179,7 +179,8 @@ namespace O21Toolbox.Shield
 				return false;
 			}
 			if(!Comp_ShieldBuilding.InterceptsProjectile(Props, projectile))
-            {
+			{
+				Log.Message("Flag 1");
 				return false;
             }
 			if ((projectile.Launcher == null || !projectile.Launcher.HostileTo(parent)) && !debugInterceptNonHostileProjectiles && Props.interceptNonHostileProjectiles)
@@ -207,14 +208,15 @@ namespace O21Toolbox.Shield
 
 		public static bool InterceptsProjectile(CompProperties_Shield props, Projectile projectile)
 		{
-			if (props.interceptGroundProjectiles)
+			if (props.interceptGroundProjectiles && !projectile.def.projectile.flyOverhead)
 			{
-				return !projectile.def.projectile.flyOverhead;
+				return true;
 			}
-			else
+            if (props.interceptAirProjectiles && projectile.def.projectile.flyOverhead)
 			{
-				return (props.interceptAirProjectiles && projectile.def.projectile.flyOverhead);
+				return true;
 			}
+			return false;
 		}
 
 		public void TriggerEffecter(IntVec3 pos)
