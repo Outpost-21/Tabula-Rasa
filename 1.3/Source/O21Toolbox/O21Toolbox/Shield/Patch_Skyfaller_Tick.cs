@@ -31,8 +31,8 @@ namespace O21Toolbox.Shield
                         impactSound.PlayOneShot(new TargetInfo(__instance.Position, __instance.Map, false));
                         foreach (IntVec3 cell in __instance.OccupiedRect().ToList())
                         {
-                            MoteMaker.MakeStaticMote(cell, __instance.Map, DefDatabase<ThingDef>.GetNamed("Mote_ElectricalSpark"));
-                            MoteMaker.MakeStaticMote(cell, __instance.Map, DefDatabase<ThingDef>.GetNamed("Mote_PsycastPsychicEffect"));
+                            FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("ElectricalSpark"));
+                            FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("PsycastPsychicEffect"));
                         }
                         __instance.Destroy(DestroyMode.Vanish);
                         return false;
