@@ -64,7 +64,7 @@ namespace O21Toolbox.Shield
 			Scribe_Values.Look<bool>(ref overloaded, "overloaded", false);
 			Scribe_Values.Look<bool>(ref activeLastTick, "activeLastTick", false);
 			Scribe_Values.Look<int>(ref shieldOffsetX, "shieldOffsetX", 0);
-			Scribe_Values.Look<int>(ref shieldOffsetY, "shieldOffsetX", 0);
+			Scribe_Values.Look<int>(ref shieldOffsetY, "shieldOffsetY", 0);
 			Scribe_Values.Look<int>(ref curShieldRadius, "curShieldRadius", Props.shieldScaleDefault);
 			Scribe_Values.Look<Color>(ref currentColor, "currentColor", Props.shieldColour);
 		}

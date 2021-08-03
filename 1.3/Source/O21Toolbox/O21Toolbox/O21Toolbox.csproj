@@ -118,7 +118,10 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
+    <Compile Include="BuildingExt\CompProperties_Salvage.cs" />
+    <Compile Include="BuildingExt\Comp_Salvage.cs" />
     <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
+    <Compile Include="Culture\DefModExt_CultureExtended.cs" />
     <Compile Include="Currency\DefModExt_Currency.cs" />
     <Compile Include="FactionExt\DefModExt_FactionExtension.cs" />
     <Compile Include="FactionExt\PawnGroupMaker_FactionPoints.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_LootCache.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Apparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="Hibernation\DefModExt_Hibernation.cs" />
     <Compile Include="Hibernation\Comp_Hibernation.cs" />
@@ -218,7 +222,7 @@
     <Compile Include="HarmonyPatches\Patches\Patch_Need_Food_Starving_Get.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_CanBeResearchedAt_Postfix.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied.cs" />
-    <Compile Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
+    <None Include="HarmonyPatches\Patches\WeaponExt_OversizedWeapon.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindCore.cs" />
     <Compile Include="Hivemind\CompProperties_HivemindPawn.cs" />
     <Compile Include="Hivemind\Comp_HivemindCore.cs" />

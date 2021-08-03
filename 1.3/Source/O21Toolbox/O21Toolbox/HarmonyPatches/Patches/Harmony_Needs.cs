@@ -142,6 +142,12 @@ namespace O21Toolbox.HarmonyPatches
                         }
                     }
 
+                    if (__instance.pawn.IsCaravanMember())
+                    {
+                        // TODO: Fix up better, this is a really lazy way of handling it but it's fixed for short-term.
+                        __instance.CurLevel = __instance.MaxLevel;
+                    }
+
                     return false;
                 }
 
