@@ -108,6 +108,8 @@
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
     <Compile Include="Attributes.cs" />
+    <Compile Include="AutomatedProducer\CompProperties_ProgressOverlay.cs" />
+    <Compile Include="AutomatedProducer\Comp_ProgressOverlay.cs" />
     <Compile Include="Automation\CompProperties_Quarry.cs" />
     <Compile Include="Automation\Comp_Quarry.cs" />
     <Compile Include="Automation\DefModExt_QuarryThing.cs" />
@@ -118,7 +120,9 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
+    <Compile Include="BuildingExt\CompProperties_HediffGiver.cs" />
     <Compile Include="BuildingExt\CompProperties_Salvage.cs" />
+    <Compile Include="BuildingExt\Comp_HediffGiver.cs" />
     <Compile Include="BuildingExt\Comp_Salvage.cs" />
     <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
     <Compile Include="Culture\DefModExt_CultureExtended.cs" />
@@ -126,6 +130,8 @@
     <Compile Include="FactionExt\DefModExt_FactionExtension.cs" />
     <Compile Include="FactionExt\PawnGroupMaker_FactionPoints.cs" />
     <Compile Include="FactionExt\PawnGroupMaker_Temperature.cs" />
+    <Compile Include="GasStuff\DefModExt_GasHediffGiver.cs" />
+    <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />

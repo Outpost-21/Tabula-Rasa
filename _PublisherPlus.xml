@@ -2,7 +2,5 @@
 <Configuration>
   <Excluded>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\.git</exclude>
-    <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.0\Source</exclude>
-    <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.1\Source</exclude>
   </Excluded>
 </Configuration>

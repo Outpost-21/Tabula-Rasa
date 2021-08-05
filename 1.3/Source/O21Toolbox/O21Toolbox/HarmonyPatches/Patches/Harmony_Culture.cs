@@ -19,7 +19,7 @@ namespace O21Toolbox.HarmonyPatches
         [HarmonyPostfix]
         public static void PostFix(Ideo __instance, IdeoIconDef iconDef, ColorDef colorDef, bool clearPrimaryFactionColor)
         {
-            if ((bool)__instance.culture?.HasModExtension<DefModExt_CultureExtended>())
+            if (__instance.culture != null && __instance.culture.HasModExtension<DefModExt_CultureExtended>())
             {
                 DefModExt_CultureExtended ext = __instance.culture.GetModExtension<DefModExt_CultureExtended>();
 

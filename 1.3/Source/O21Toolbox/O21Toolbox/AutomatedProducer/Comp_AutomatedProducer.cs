@@ -93,6 +93,8 @@ namespace O21Toolbox.AutomatedProducer
             return result;
         }
 
+        public float WorkProgress => (1 - (workTick / workTickMax));
+
         public string RepeatString()
         {
             if (repeatMode == RepeatMode.none)
