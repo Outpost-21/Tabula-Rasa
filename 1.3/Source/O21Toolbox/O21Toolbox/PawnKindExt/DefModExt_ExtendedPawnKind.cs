@@ -14,12 +14,13 @@ using O21Toolbox.SlotLoadable;
 namespace O21Toolbox.PawnKindExt
 {
     public class DefModExt_ExtendedPawnKind : DefModExtension
-    {
+    {        
         /// <summary>
         /// Add a chance for the pawnKind to be a different race!
         /// Finally a balanced way to integrate into an existing faction with minimal effort!
         /// </summary>
         public List<ThingDefEntry> altRaces = new List<ThingDefEntry>();
+
         /// <summary>
         /// If true, will remove the chance for faction based race weighting to affect the pawnkind.
         /// </summary>

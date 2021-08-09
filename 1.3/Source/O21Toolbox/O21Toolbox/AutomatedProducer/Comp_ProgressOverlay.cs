@@ -66,10 +66,7 @@ namespace O21Toolbox.AutomatedProducer
 
 					if (parent.def.graphicData.graphicClass == typeof(Graphic_Multi))
 					{
-						else
-						{
-							result += ("_" + parent.Rotation.ToStringWord().ToLower());
-						}
+						result += ("_" + parent.Rotation.ToStringWord().ToLower());
 					}
 				}
 			}

@@ -139,7 +139,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 }
             }
         }
-	}
+    }
 
     [HarmonyPatch(typeof(PawnGenerator), "TryGenerateNewPawnInternal")]
     public static class Patch_PawnGen_TryGenerateNewPawnInternal
