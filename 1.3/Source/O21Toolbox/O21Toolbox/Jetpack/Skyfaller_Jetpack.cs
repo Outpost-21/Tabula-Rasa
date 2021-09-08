@@ -77,6 +77,11 @@ namespace O21Toolbox.Jetpack
                     {
                         Map.terrainGrid.Notify_TerrainDestroyed(thing.Position);
                     }
+                    Pawn pawn = thing as Pawn;
+                    if(pawn != null && pawn.Faction == Faction.OfPlayer)
+                    {
+                        pawn.drafter.Drafted = true;
+                    }
                     JetpackApplyCooldown(thing);
                 });
             }

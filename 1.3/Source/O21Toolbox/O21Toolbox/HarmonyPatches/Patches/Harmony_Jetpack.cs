@@ -31,7 +31,7 @@ namespace O21Toolbox.HarmonyPatches
 			if (map != null)
 			{
 				List<Thing> CheckList = map.listerThings.ThingsInGroup(ThingRequestGroup.ThingHolder);
-				if (CheckList.Any(t => t is Apparel_Jetpack))
+				if (CheckList.Any(t => t is Skyfaller_Jetpack))
 				{
 					return true;
 				}

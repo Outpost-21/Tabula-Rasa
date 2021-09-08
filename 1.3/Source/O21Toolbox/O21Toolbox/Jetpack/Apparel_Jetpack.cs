@@ -64,6 +64,11 @@ namespace O21Toolbox.Jetpack
                         jetpackMaxJump = comp.Props.jumpRange.max,
                         action = delegate (IntVec3 cell)
                         {
+                            if(jetpackCooldownTicks > 0)
+                            {
+                                Messages.Message("Cannot do that, ability still on cooldown.", MessageTypeDefOf.RejectInput, false);
+                                return;
+                            }
                             SoundDefOf.Click.PlayOneShotOnCamera(null);
                             UseJetpack(Wearer, this, cell);
                         }
@@ -169,6 +174,7 @@ namespace O21Toolbox.Jetpack
             if (JetpackOnCooldown)
             {
                 Messages.Message("Cannot do that, ability still on cooldown.", MessageTypeDefOf.RejectInput, false);
+                return;
             }
             if(!JetpackComposMentis(pilot, jetpack, out reason))
             {
