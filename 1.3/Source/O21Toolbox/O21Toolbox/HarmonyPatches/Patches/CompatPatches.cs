@@ -153,27 +153,30 @@ namespace O21Toolbox.HarmonyPatches
 
     }
 
-    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
-    public class CompatPatch_InteractionsTrackerTick
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref Pawn_InteractionsTracker __instance)
-        {
-            Pawn pawn = (Pawn)__instance.pawn;
+    /// <summary>
+    /// TODO: Find better way to handle this. Currently unused in public O21 mods so disabled for now.
+    /// </summary>
+    //[HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
+    //public class CompatPatch_InteractionsTrackerTick
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref Pawn_InteractionsTracker __instance)
+    //    {
+    //        Pawn pawn = (Pawn)__instance.pawn;
 
-            if (pawn.def.GetModExtension<DefModExt_ArtificialPawn>() is DefModExt_ArtificialPawn properties && !properties.canSocialize)
-            {
-                return false;
-            }
+    //        if (pawn.def.GetModExtension<DefModExt_ArtificialPawn>() is DefModExt_ArtificialPawn properties && !properties.canSocialize)
+    //        {
+    //            return false;
+    //        }
 
-            return true;
-        }
+    //        return true;
+    //    }
 
-        public static Pawn Pawn_InteractionsTracker_GetPawn(Pawn_InteractionsTracker instance)
-        {
-            return (Pawn)instance.pawn;
-        }
-    }
+    //    public static Pawn Pawn_InteractionsTracker_GetPawn(Pawn_InteractionsTracker instance)
+    //    {
+    //        return (Pawn)instance.pawn;
+    //    }
+    //}
 
     [HarmonyPatch(typeof(Pawn_InteractionsTracker), "CanInteractNowWith")]
     public class CompatPatch_CanInteractNowWith

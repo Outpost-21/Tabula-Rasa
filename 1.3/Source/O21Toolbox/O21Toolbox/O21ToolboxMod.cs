@@ -27,7 +27,7 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: Outpost 21 Toolbox - Version 2.0.5 Initialised ::");
+            Log.Message(":: Outpost 21 Toolbox - Version 2.0.6 Initialised ::");
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
