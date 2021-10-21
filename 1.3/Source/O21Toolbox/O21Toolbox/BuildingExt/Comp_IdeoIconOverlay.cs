@@ -16,6 +16,8 @@ namespace O21Toolbox.BuildingExt
 
         private Texture2D iconTexture;
 
+        private Color ideoColor = Color.white;
+
         private Material Graphic
         {
             get
@@ -76,13 +78,14 @@ namespace O21Toolbox.BuildingExt
             }
         }
 
-        private Color IdeoColor => Find.FactionManager.OfPlayer.ideos.PrimaryIdeo.Color;
+        private Color GetIdeoColor => Find.FactionManager.OfPlayer.ideos.PrimaryIdeo.Color;
 
         public override void CompTickRare()
         {
             base.CompTickRare();
 
             iconTexture = null;
+            ideoColor = GetIdeoColor;
         }
 
         public override void PostDraw()
@@ -93,7 +96,7 @@ namespace O21Toolbox.BuildingExt
                 MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
                 if (parent.Stuff != null && parent.Stuff.stuffProps.color != null)
                 {
-                    propertyBlock.SetColor(ShaderPropertyIDs.Color, IdeoColor);
+                    propertyBlock.SetColor(ShaderPropertyIDs.Color, ideoColor);
                 }
                 Matrix4x4 matrix = default(Matrix4x4);
                 matrix.SetTRS(parent.DrawPos + CurrentOffset, Quaternion.AngleAxis(0, Vector3.up), new Vector3(Props.drawSize.x, 1, Props.drawSize.y));
