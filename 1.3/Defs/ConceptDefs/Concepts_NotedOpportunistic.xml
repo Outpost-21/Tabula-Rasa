@@ -3,7 +3,7 @@
 
 	<ConceptDef>
 		<defName>O21_Concept_AutomatedProduction</defName>
-		<label>[O21] Production tab</label>
+		<label>Production tab</label>
 		<needsOpportunity>true</needsOpportunity>
 		<opportunityDecays>false</opportunityDecays>
 		<priority>50</priority>
