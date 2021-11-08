@@ -313,7 +313,10 @@ namespace O21Toolbox.Shield
 				{
 					tempChange -= Props.stressReduction;
 				}
-
+				if (!Active)
+				{
+					tempChange = -Props.stressReduction;
+				}
 				lastTempChange = (tempChange * 0.01f / 60);
 				CurStressLevel = Mathf.Clamp(CurStressLevel + lastTempChange, 0f, MaxStressLevel);
 			}
