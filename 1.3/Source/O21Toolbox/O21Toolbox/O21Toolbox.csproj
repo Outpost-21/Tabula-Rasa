@@ -136,6 +136,7 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_DiseaseImmunity.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_VanillaIssueFixes.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Currency.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="LootCache\Comp_UseLootCache.cs" />
     <Compile Include="LootCache\LootCacheDef.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
+    <Compile Include="PawnExt\DefModExt_DiseaseImmunity.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />
     <Compile Include="AutoHeal\CompProperties_AutoHeal.cs" />
