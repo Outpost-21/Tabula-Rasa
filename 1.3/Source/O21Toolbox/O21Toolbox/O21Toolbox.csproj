@@ -136,6 +136,7 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_DiseaseImmunity.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_VanillaIssueFixes.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="Health\CompProperties_UseHealthPack.cs" />
+    <Compile Include="Health\Comp_UseHealthPack.cs" />
     <Compile Include="Hibernation\DefModExt_Hibernation.cs" />
     <Compile Include="Hibernation\Comp_Hibernation.cs" />
     <Compile Include="Hibernation\JobDriver_Hibernate.cs" />
