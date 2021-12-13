@@ -76,5 +76,10 @@ namespace O21Toolbox
         /// Whether or not the pawn should spawn with any relations.
         /// </summary>
         public bool canGeneratePawnRelations = false;
+
+        /// <summary>
+        /// Removes any apparel that somehow made it onto the pawn. Example: Ideo preferred apparel.
+        /// </summary>
+        public bool purgeApparel = false;
     }
 }

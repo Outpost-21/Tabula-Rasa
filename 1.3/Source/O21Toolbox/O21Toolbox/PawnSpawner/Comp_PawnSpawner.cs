@@ -109,7 +109,29 @@ namespace O21Toolbox
                     newThing.story.traits.allTraits.RemoveAll(t => t is Trait);
                 }
             }
+            if (Props.purgeApparel)
+            {
+                if(newThing.apparel.AnyApparel)
+                {
+                    newThing.apparel.DestroyAll();
+                }
+            }
+
+            PreSpawnHook(newThing);
+
             GenSpawn.Spawn(newThing, parent.Position, parent.Map, WipeMode.Vanish);
+
+            PostSpawnHook(newThing);
+        }
+
+        public virtual void PreSpawnHook(Pawn pawn)
+        {
+
+        }
+
+        public virtual void PostSpawnHook(Pawn pawn)
+        {
+
         }
     }
 }
