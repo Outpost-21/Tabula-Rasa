@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "54fc37d9-90e8-47d6-aa6c-8aa33a255b3d": {
+      "ProjectGuid": "54fc37d9-90e8-47d6-aa6c-8aa33a255b3d",
+      "DisplayName": "RimHUDRacePatch",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -139,6 +139,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_DiseaseImmunity.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Projectile.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_VanillaIssueFixes.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Currency.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Jetpack.cs" />
@@ -296,6 +297,8 @@
     <Compile Include="PawnExt\ResurrectionUtility.cs" />
     <Compile Include="PawnKindExt\AltRaceForFactions.cs" />
     <Compile Include="PawnKindExt\DefModExt_ExtendedPawnKind.cs" />
+    <Compile Include="Projectiles\CompProperties_Homing.cs" />
+    <Compile Include="Projectiles\Comp_Homing.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
     <Compile Include="Requisition\CompProperties_RequisitionTracker.cs" />
