@@ -307,6 +307,7 @@
     <Compile Include="Requisition\RequisitionRankDef.cs" />
     <Compile Include="Research\CompProperties_AutoResearch.cs" />
     <Compile Include="Research\Comp_AutoResearch.cs" />
+    <Compile Include="Scenario\ScenPart_SpecificPawnKindJoins.cs" />
     <Compile Include="Shield\CompProperties_Shield.cs" />
     <Compile Include="Shield\Comp_ShieldBuilding.cs" />
     <Compile Include="Shield\Gizmo_ShieldStatus.cs" />

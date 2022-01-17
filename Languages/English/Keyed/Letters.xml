@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<O21_LetterLabel_PawnKindJoins>Pawn joins: {PAWN_nameDef}</O21_LetterLabel_PawnKindJoins>
+	<O21_LetterText_PawnKindJoins>A {PAWN_title} named {PAWN_nameDef} has arrived as scheduled to join the colony.\n\nYou can choose to send {PAWN_objective} away. However, your colonists will be disturbed by your decision.</O21_LetterText_PawnKindJoins>
+
+</LanguageData>
