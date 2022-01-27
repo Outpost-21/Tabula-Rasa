@@ -344,41 +344,49 @@ namespace O21Toolbox.HarmonyPatches
         public static bool Prefix(ref Toil __result, Pawn patient)
         {
             DefModExt_ArtificialPawn modExt = patient.def.TryGetModExtension<DefModExt_ArtificialPawn>();
-            if (modExt != null && !modExt.repairParts.NullOrEmpty())
+            if (modExt != null)
             {
-                Toil toil = new Toil();
-                toil.initAction = delegate
+                if (!modExt.canBeRepaired)
                 {
-                    Pawn actor = toil.actor;
-
-                    Thing repairParts = actor.CurJob.targetB.Thing;
-
-                    if (!patient.def.GetModExtension<DefModExt_ArtificialPawn>().repairParts.NullOrEmpty() && repairParts != null && !patient.def.GetModExtension<DefModExt_ArtificialPawn>().repairParts.Contains(actor.CurJob.targetB.Thing.def))
+                    __result = null;
+                    return false;
+                }
+                if (!modExt.repairParts.NullOrEmpty())
+                {
+                    Toil toil = new Toil();
+                    toil.initAction = delegate
                     {
-                        repairParts = null;
-                    }
+                        Pawn actor = toil.actor;
 
-                    //Experience
-                    float num = (!patient.RaceProps.Animal) ? 500f : 175f;
-                    float num2 = RimWorld.ThingDefOf.MedicineIndustrial.MedicineTendXpGainFactor;
-                    actor.skills.Learn(SkillDefOf.Crafting, num * num2, false);
+                        Thing repairParts = actor.CurJob.targetB.Thing;
 
-                    //Tending
-                    //TendUtility.DoTend(actor, patient, medicine);
-                    Utility_ArtificalPawn.DoTend(actor, patient, repairParts);
+                        if (!patient.def.GetModExtension<DefModExt_ArtificialPawn>().repairParts.NullOrEmpty() && repairParts != null && !patient.def.GetModExtension<DefModExt_ArtificialPawn>().repairParts.Contains(actor.CurJob.targetB.Thing.def))
+                        {
+                            repairParts = null;
+                        }
 
-                    if (repairParts != null && repairParts.Destroyed)
-                    {
-                        actor.CurJob.SetTarget(TargetIndex.B, LocalTargetInfo.Invalid);
-                    }
-                    if (toil.actor.CurJob.endAfterTendedOnce)
-                    {
-                        actor.jobs.EndCurrentJob(JobCondition.Succeeded, true);
-                    }
-                };
-                toil.defaultCompleteMode = ToilCompleteMode.Instant;
-                __result = toil;
-                return false;
+                        //Experience
+                        float num = (!patient.RaceProps.Animal) ? 500f : 175f;
+                        float num2 = RimWorld.ThingDefOf.MedicineIndustrial.MedicineTendXpGainFactor;
+                        actor.skills.Learn(SkillDefOf.Crafting, num * num2, false);
+
+                        //Tending
+                        //TendUtility.DoTend(actor, patient, medicine);
+                        Utility_ArtificalPawn.DoTend(actor, patient, repairParts);
+
+                        if (repairParts != null && repairParts.Destroyed)
+                        {
+                            actor.CurJob.SetTarget(TargetIndex.B, LocalTargetInfo.Invalid);
+                        }
+                        if (toil.actor.CurJob.endAfterTendedOnce)
+                        {
+                            actor.jobs.EndCurrentJob(JobCondition.Succeeded, true);
+                        }
+                    };
+                    toil.defaultCompleteMode = ToilCompleteMode.Instant;
+                    __result = toil;
+                    return false;
+                }
             }
 
             return true;

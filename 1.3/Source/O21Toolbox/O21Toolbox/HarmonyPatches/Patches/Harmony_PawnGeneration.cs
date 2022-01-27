@@ -23,6 +23,24 @@ namespace O21Toolbox.HarmonyPatches.Patches
     {
     }
 
+    [HarmonyPatch(typeof(PawnGenerator), "GeneratePawn", new Type[] { typeof(PawnGenerationRequest) })]
+    public class Patch_PawnGenerator_GeneratePawn
+    {
+        [HarmonyPostfix]
+        public static void Postfix(PawnGenerationRequest request, Pawn __result)
+        {
+            Pawn pawn = __result;
+            DefModExt_ExtendedPawnKind modExt = pawn.kindDef.GetModExtension<DefModExt_ExtendedPawnKind>();
+            if (modExt != null && modExt.clearApparel)
+            {
+                for (int i = 0; i < pawn.apparel.WornApparel.Count(); i++)
+                {
+                    pawn.apparel.Remove(pawn.apparel.WornApparel[i]);
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(PawnGenerator), "GenerateInitialHediffs")]
     public static class Patch_PawnGen_GenerateInitialHediffs
     {
@@ -135,6 +153,27 @@ namespace O21Toolbox.HarmonyPatches.Patches
                     else if (modExt.flattenSkills)
                     {
                         __result = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnGenerator), "GenerateSkills")]
+    public static class Patch_PawnGen_GenerateSkills
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn pawn)
+        {
+            DefModExt_ExtendedPawnKind modExt = pawn.kindDef.GetModExtension<DefModExt_ExtendedPawnKind>();
+
+            if (modExt != null)
+            {
+                if (!modExt.clearPassions)
+                {
+                    for (int i = 0; i < pawn.skills.skills.Count(); i++)
+                    {
+                        pawn.skills.skills[i].passion = Passion.None;
                     }
                 }
             }

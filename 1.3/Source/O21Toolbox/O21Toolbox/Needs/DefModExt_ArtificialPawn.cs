@@ -51,6 +51,7 @@ namespace O21Toolbox.Needs
         public bool needOutdoors = true;
 
         public bool affectedByEMP = true;
+        public bool canBeRepaired = true;
     }
 
     [StaticConstructorOnStartup]

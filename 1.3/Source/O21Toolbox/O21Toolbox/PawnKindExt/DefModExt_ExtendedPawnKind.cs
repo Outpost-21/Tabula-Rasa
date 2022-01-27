@@ -32,6 +32,17 @@ namespace O21Toolbox.PawnKindExt
         public bool flattenSkills = false;
 
         /// <summary>
+        /// If True, removes all skill passions on generation.
+        /// </summary>
+        public bool clearPassions = false;
+
+        /// <summary>
+        /// If True, this removes all apparel at the end of generation, including that stupid fucking apparel Ideology forces onto pawns who SHOULD NOT HAVE IT!
+        /// FUCK, TYNAN, WHY?
+        /// </summary>
+        public bool clearApparel = false;
+
+        /// <summary>
         /// Sets skills to specific values.
         /// </summary>
         public List<SkillLevelSetting> skillSettings = new List<SkillLevelSetting>();

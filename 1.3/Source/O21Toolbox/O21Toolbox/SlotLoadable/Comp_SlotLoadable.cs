@@ -15,9 +15,10 @@ namespace O21Toolbox.SlotLoadable
         private SlotLoadable colorChangingSlot;
         public bool GizmosOnEquip = true;
 
-        private bool isGathering;
+        public bool isGathering;
 
         private bool isInitialized;
+        public bool IsInitialized => isInitialized;
 
 
         private SlotLoadable secondColorChangingSlot;
@@ -81,7 +82,7 @@ namespace O21Toolbox.SlotLoadable
 
         public CompEquippable GetEquippable => parent.GetComp<CompEquippable>();
 
-        public Pawn GetPawn => GetEquippable.verbTracker.PrimaryVerb.CasterPawn;
+        private Pawn GetPawn => GetEquippable.verbTracker.PrimaryVerb.CasterPawn;
 
 
         public CompProperties_SlotLoadable Props => (CompProperties_SlotLoadable)props;
@@ -155,7 +156,7 @@ namespace O21Toolbox.SlotLoadable
             }
         }
 
-        public bool TryLoadSlot(Thing thing)
+        public virtual bool TryLoadSlot(Thing thing)
         {
             //Log.Message("TryLoadSlot Called");
             isGathering = false;

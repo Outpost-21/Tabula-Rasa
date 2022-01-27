@@ -136,6 +136,7 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
+    <Compile Include="HarmonyPatches\Patches\Harmony_Ideology.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_DiseaseImmunity.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Hibernation.cs" />
