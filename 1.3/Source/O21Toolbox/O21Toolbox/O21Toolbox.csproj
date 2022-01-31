@@ -300,8 +300,11 @@
     <Compile Include="PawnKindExt\DefModExt_ExtendedPawnKind.cs" />
     <Compile Include="Projectiles\CompProperties_Homing.cs" />
     <Compile Include="Projectiles\Comp_Homing.cs" />
+    <Compile Include="Projectiles\DefModExt_EventCauser.cs" />
+    <Compile Include="Projectiles\DefModExt_StagedExplosive.cs" />
     <Compile Include="Projectiles\Projectile_HediffApplier.cs" />
     <Compile Include="Projectiles\DefModExt_HediffApplier.cs" />
+    <Compile Include="Projectiles\Projectile_AdvancedExplosive.cs" />
     <Compile Include="Requisition\CompProperties_RequisitionTracker.cs" />
     <Compile Include="Requisition\Comp_RequisitionTracker.cs" />
     <Compile Include="Requisition\RequisitionRank.cs" />
