@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<O21_CycleGraphic>Cycle Graphic</O21_CycleGraphic>
+	<O21_CycleGraphicDesc>Cycles through the available graphics for this building in order.</O21_CycleGraphicDesc>
+	<O21_ChangeGraphic>Set Graphic</O21_ChangeGraphic>
+	<O21_ChangeGraphicDesc>Provides a full list of all available alternative graphics to choose from.</O21_ChangeGraphicDesc>
+
+</LanguageData>

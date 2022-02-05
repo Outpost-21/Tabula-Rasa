@@ -120,9 +120,13 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
+    <Compile Include="BuildingExt\CompProperties_AdvFireOverlay.cs" />
+    <Compile Include="BuildingExt\CompProperties_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\CompProperties_HediffGiver.cs" />
     <Compile Include="BuildingExt\CompProperties_IdeoIconOverlay.cs" />
     <Compile Include="BuildingExt\CompProperties_Salvage.cs" />
+    <Compile Include="BuildingExt\Comp_AdvFireOverlay.cs" />
+    <Compile Include="BuildingExt\Comp_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\Comp_HediffGiver.cs" />
     <Compile Include="BuildingExt\Comp_IdeoIconOverlay.cs" />
     <Compile Include="BuildingExt\Comp_Salvage.cs" />
