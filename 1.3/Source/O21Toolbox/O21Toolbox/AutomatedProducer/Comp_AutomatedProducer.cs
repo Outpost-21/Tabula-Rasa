@@ -84,7 +84,7 @@ namespace O21Toolbox.AutomatedProducer
             }
             else if(currentStatus == ProducerStatus.working)
             {
-                result = "Working: " + (100 - (100 * workTick / workTickMax)) + "%";
+                result = "Working: " + WorkProgress.ToStringPercent();
             }
             else if(currentStatus == ProducerStatus.producing)
             {
@@ -93,7 +93,7 @@ namespace O21Toolbox.AutomatedProducer
             return result;
         }
 
-        public float WorkProgress => (1 - (workTick / workTickMax));
+        public float WorkProgress => (1f - (float)((float)workTick / (float)workTickMax));
 
         public string RepeatString()
         {

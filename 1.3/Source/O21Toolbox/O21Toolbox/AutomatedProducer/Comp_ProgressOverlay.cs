@@ -68,7 +68,7 @@ namespace O21Toolbox.AutomatedProducer
 
 		public ProgressState GetCurrentState(List<ProgressState> progStates)
         {
-			float progress = prodComp.WorkProgress;
+			float progress = 1f - prodComp.WorkProgress;
 			for (int i = progStates.Count - 1; i >= 0; i--)
 			{
 				if (progress >= progStates[i].progress)
