@@ -26,7 +26,7 @@ namespace O21Toolbox.Teleporter
 
         public bool IsActive => (!Props.needsPower || IsPowered) || (!Props.usesFuel || HasFuel);
 
-        public bool IsPowered => (powerComp != null && powerComp.PowerOn);
+        public bool IsPowered => ((powerComp != null && powerComp.PowerOn) || powerComp == null);
 
         public bool HasFuel => (fuelComp != null && fuelComp.Fuel > Props.fuelCost);
 
@@ -136,7 +136,7 @@ namespace O21Toolbox.Teleporter
                     {
                         Comp_Teleporter portComp = port.TryGetComp<Comp_Teleporter>();
                         if (portComp != null && !portComp.Props.networkTags.Where(t => Props.networkTags.Contains(t)).ToList().NullOrEmpty()
-                            && portComp.Props.direction != TeleporterDirection.receiver
+                            && portComp.Props.direction != TeleporterDirection.transmitter
                             && (!needPad || Props.isPad || portComp.Props.isPad)) 
                             
                         {
@@ -151,7 +151,7 @@ namespace O21Toolbox.Teleporter
                 {
                     Comp_Teleporter portComp = port.TryGetComp<Comp_Teleporter>();
                     if (portComp != null && !portComp.Props.networkTags.Where(t => Props.networkTags.Contains(t)).ToList().NullOrEmpty()
-                        && portComp.Props.direction != TeleporterDirection.receiver
+                        && portComp.Props.direction != TeleporterDirection.transmitter
                             && (!needPad || Props.isPad || portComp.Props.isPad))
                     {
                         results.Add(port);

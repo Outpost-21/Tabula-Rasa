@@ -27,7 +27,7 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: O21 Toolbox :: Version 2.2.3 ::");
+            Log.Message(":: O21 Toolbox :: Version 2.3.0 ::");
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -82,6 +82,8 @@ namespace O21Toolbox
 
                 //Background.Background.AdjustBackgroundArt(settings.background);
             }
+
+            listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }
 

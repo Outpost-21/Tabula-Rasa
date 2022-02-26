@@ -20,6 +20,8 @@ namespace O21Toolbox.SimpleNeeds
 
         public bool dieOnEmpty = false;
 
+        public bool wirelesslyCharged = true;
+
         public HediffDef malnutritionReplacer;
     }
 }

@@ -326,6 +326,8 @@
     <Compile Include="Shield\Popup_ColourPicker.cs" />
     <Compile Include="Shield\Popup_IntSlider.cs" />
     <Compile Include="Shield\PositionalUtility.cs" />
+    <Compile Include="SimpleNeeds\CompProperties_WirelessCharger.cs" />
+    <Compile Include="SimpleNeeds\Comp_WirelessCharger.cs" />
     <Compile Include="SimpleNeeds\DefModExt_FoodNeedAdjuster.cs" />
     <Compile Include="SlotLoadable\CompProperties_SlotLoadable.cs" />
     <Compile Include="SlotLoadable\CompProperties_SlottedBonus.cs" />

@@ -54,23 +54,29 @@ namespace O21Toolbox.AutomatedProducer
         {
 			string result = "";
 			RecipeState state = Props.recipeStates.Find(rs => rs.recipeDef == recipe.defName);
-			if(state != null)
-			{
-				IEnumerable<ProgressState> progStates = from s in state.states
-												 where s.progress < prodComp.WorkProgress
-												 select s;
+			if(state != null && !state.states.NullOrEmpty())
+			{ 
+				result = GetCurrentState(state.states).texPath;
 
-                if (!progStates.EnumerableNullOrEmpty()) 
+				if (parent.def.graphicData.graphicClass == typeof(Graphic_Multi))
 				{
-					result = progStates.Last().texPath;
-
-					if (parent.def.graphicData.graphicClass == typeof(Graphic_Multi))
-					{
-						result += ("_" + parent.Rotation.ToStringWord().ToLower());
-					}
+					result += ("_" + parent.Rotation.ToStringWord().ToLower());
 				}
 			}
 			return result;
         }
+
+		public ProgressState GetCurrentState(List<ProgressState> progStates)
+        {
+			float progress = prodComp.WorkProgress;
+			for (int i = progStates.Count - 1; i >= 0; i--)
+			{
+				if (progress >= progStates[i].progress)
+				{
+					return progStates[i];
+				}
+			}
+			return progStates.FirstOrDefault();
+		}
     }
 }

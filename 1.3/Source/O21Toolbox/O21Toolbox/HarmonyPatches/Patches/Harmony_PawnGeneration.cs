@@ -169,7 +169,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
 
             if (modExt != null)
             {
-                if (!modExt.clearPassions)
+                if (modExt.clearPassions)
                 {
                     for (int i = 0; i < pawn.skills.skills.Count(); i++)
                     {

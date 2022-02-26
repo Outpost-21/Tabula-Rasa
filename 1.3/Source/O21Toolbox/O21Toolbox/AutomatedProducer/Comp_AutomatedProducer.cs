@@ -58,8 +58,8 @@ namespace O21Toolbox.AutomatedProducer
 
         private CompProperties_AutomatedProducer producerCompProps;
 
-        private int workTick = -50;
-        private int workTickMax = 0;
+        public int workTick = -50;
+        public int workTickMax = 0;
 
         public ProducerStatus currentStatus = ProducerStatus.idle;
 
