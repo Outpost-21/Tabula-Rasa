@@ -16,5 +16,6 @@ namespace O21Toolbox.GasStuff
         public HediffDef hediffDef;
         public int ticksBeforeApply;
         public int adjustSeverity;
+        public bool checkToxicSensitivity = true;
     }
 }

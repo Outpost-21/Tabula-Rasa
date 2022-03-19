@@ -171,6 +171,7 @@
     <Compile Include="LootCache\Comp_UseLootCache.cs" />
     <Compile Include="LootCache\LootCacheDef.cs" />
     <Compile Include="O21ToolboxSettings.cs" />
+    <Compile Include="PatchOperation_SettingActive.cs" />
     <Compile Include="PawnExt\DefModExt_DiseaseImmunity.cs" />
     <Compile Include="PawnExt\Recipe_Disassemble.cs" />
     <Compile Include="PawnExt\Recipe_RepairKit.cs" />

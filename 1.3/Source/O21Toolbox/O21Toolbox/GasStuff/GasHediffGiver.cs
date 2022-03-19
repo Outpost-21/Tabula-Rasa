@@ -59,7 +59,14 @@ namespace O21Toolbox.GasStuff
                     {
                         Dictionary<Pawn, int> dictionary = this.affectedPawns;
                         dictionary[pawn] -= modExt.ticksBeforeApply;
-                        HealthUtility.AdjustSeverity(pawn, modExt.hediffDef, modExt.adjustSeverity);
+                        if (modExt.checkToxicSensitivity)
+                        {
+                            HealthUtility.AdjustSeverity(pawn, modExt.hediffDef, (modExt.adjustSeverity * pawn.GetStatValue(StatDefOf.ToxicSensitivity)));
+                        }
+                        else
+                        {
+                            HealthUtility.AdjustSeverity(pawn, modExt.hediffDef, modExt.adjustSeverity);
+                        }
                     }
                 }
             }

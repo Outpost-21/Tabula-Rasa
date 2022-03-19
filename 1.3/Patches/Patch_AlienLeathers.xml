@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="O21Toolbox.PatchOperation_SettingActive">
+		<settings>
+			<li>alienLeathers</li>
+		</settings>
+		<inactive Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationRemove">
+					<xpath>/Defs/ThingDef[defName="O21_AlienLeather_Thin" or defName="O21_AlienLeather_Thick" or defName="O21_AlienLeather_Scaled" or defName="O21_AlienLeather_Furry"]</xpath>
+				</li>
+			</operations>
+		</inactive>
+	</Operation>
+
+</Patch>

@@ -27,7 +27,7 @@ namespace O21Toolbox
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: O21 Toolbox :: Version 2.3.0 ::");
+            Log.Message(":: O21 Toolbox :: Version 2.3.2 ::");
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
@@ -53,6 +53,8 @@ namespace O21Toolbox
             if(currentPage == O21ToolboxSettingsPage.General)
             {
                 listingStandard.CheckboxEnhanced("Animations Enabled", "If animations that use this framework are causing performance issues for you, you can disable all animation code in the Toolbox with this.", ref settings.animationsEnabled);
+                listingStandard.GapLine();
+                listingStandard.CheckboxEnhanced("Enable Alien Leathers", "For those who don't use any alien races making use of this option, you can disable this. When RimWorld 1.4 comes around this will be automated, it's manual to prevent breaking peoples saves right now. Obviously this can and will cause errors if you disable them while using any alien races which make use of them, or on an existing save.", ref settings.alienLeathers);
                 listingStandard.GapLine();
                 string humanSpawnWeight_Buffer = settings.humanSpawnWeight.ToString();
                 listingStandard.TextFieldNumericLabeled("Human Spawn Weight", ref settings.humanSpawnWeight, ref humanSpawnWeight_Buffer);

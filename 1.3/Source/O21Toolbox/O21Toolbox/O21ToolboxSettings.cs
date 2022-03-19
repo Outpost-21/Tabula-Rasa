@@ -17,6 +17,7 @@ namespace O21Toolbox
         // General
         public bool animationsEnabled = true;
         public bool modUpdates = true;
+        public bool alienLeathers = true;
         public float humanSpawnWeight = 20;
 
         // Jetpacks
@@ -34,6 +35,7 @@ namespace O21Toolbox
             // General
             Scribe_Values.Look(ref this.animationsEnabled, "animationsEnabled", true);
             Scribe_Values.Look(ref this.modUpdates, "modUpdates", true);
+            Scribe_Values.Look(ref this.alienLeathers, "alienLeathers", true);
             Scribe_Values.Look(ref this.humanSpawnWeight, "humanSpawnWeight", 20);
 
             // Jetpacks
@@ -45,6 +47,14 @@ namespace O21Toolbox
 
             // Backgrounds
             //Scribe_Values.Look(ref background, "background", null);
+        }
+
+        public IEnumerable<string> GetEnabledSettings
+        {
+            get
+            {
+                return GetType().GetFields().Where(p => p.FieldType == typeof(bool) && (bool)p.GetValue(this)).Select(p => p.Name);
+            }
         }
     }
 }
