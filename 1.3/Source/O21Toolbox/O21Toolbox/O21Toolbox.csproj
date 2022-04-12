@@ -157,6 +157,8 @@
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
+    <Compile Include="Health\HediffCompProperties_TooltipDescription.cs" />
+    <Compile Include="Health\HediffComp_TooltipDescription.cs" />
     <Compile Include="Hibernation\DefModExt_Hibernation.cs" />
     <Compile Include="Hibernation\Comp_Hibernation.cs" />
     <Compile Include="Hibernation\JobDriver_Hibernate.cs" />

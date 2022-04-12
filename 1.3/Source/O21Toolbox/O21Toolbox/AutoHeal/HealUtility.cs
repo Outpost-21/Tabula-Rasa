@@ -25,16 +25,14 @@ namespace O21Toolbox.AutoHeal
             IEnumerable<Hediff> enumerable = from hd in pawn.health.hediffSet.hediffs
                                              where hd.TendableNow() && !ignoredHediffs.Contains(hd.def)
                                              select hd;
-            bool flag = enumerable != null;
-            if (flag)
+            if (enumerable != null)
             {
                 foreach (Hediff hediff in enumerable)
                 {
                     if (hediff != null)
                     {
                         HediffWithComps hediffWithComps = hediff as HediffWithComps;
-                        bool flag2 = hediffWithComps != null;
-                        if (flag2)
+                        if (hediffWithComps != null)
                         {
                             HediffComp_TendDuration hediffComp_TendDuration = HediffUtility.TryGetComp<HediffComp_TendDuration>(hediffWithComps);
                             if(hediffComp_TendDuration != null)
@@ -42,6 +40,12 @@ namespace O21Toolbox.AutoHeal
                                 hediffComp_TendDuration.tendQuality = 2f;
                                 hediffComp_TendDuration.tendTicksLeft = Find.TickManager.TicksGame;
                             }
+                            pawn.health.Notify_HediffChanged(hediff);
+                        }
+                        Hediff_MissingPart missingBodyPart = hediff as Hediff_MissingPart;
+                        if (missingBodyPart != null)
+                        {
+                            missingBodyPart.Tended(2f, 2f);
                             pawn.health.Notify_HediffChanged(hediff);
                         }
                     }
@@ -114,8 +118,7 @@ namespace O21Toolbox.AutoHeal
                     {
                         BodyPartRecord part = enumerator.Current;
                         Hediff hediff2 = pawn.health.hediffSet.hediffs.First((Hediff hediff) => hediff.Part == part && hediff.def == HediffDefOf.MissingBodyPart);
-                        bool flag = hediff2 != null;
-                        if (flag)
+                        if (hediff2 != null)
                         {
                             pawn.health.RemoveHediff(hediff2);
                             pawn.health.AddHediff(protoBodyPart, part, null, null);
