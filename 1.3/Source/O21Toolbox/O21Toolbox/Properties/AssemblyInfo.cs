@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("O21Toolbox")]
+[assembly: AssemblyTitle("O21 Toolbox")]
 [assembly: AssemblyDescription("Framework mod distributed by Outpost 21")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Outpost 21")]
-[assembly: AssemblyProduct("O21Toolbox")]
+[assembly: AssemblyProduct("O21 Toolbox")]
 [assembly: AssemblyCopyright("Copyright © Outpost 21 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.*")]

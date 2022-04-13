@@ -9,6 +9,7 @@ using RimWorld;
 using Verse;
 
 using HarmonyLib;
+using System.IO;
 
 //using O21Toolbox.Background;
 
@@ -22,12 +23,20 @@ namespace O21Toolbox
 
         public O21ToolboxSettingsPage currentPage = O21ToolboxSettingsPage.General;
 
+        internal static string VersionDir => Path.Combine(ModLister.GetActiveModWithIdentifier("neronix17.toolbox").RootDir.FullName, "Version.txt");
+        public static string CurrentVersion { get; private set; }
+
         public O21ToolboxMod(ModContentPack content) : base(content)
         {
             mod = this;
             settings = GetSettings<O21ToolboxSettings>();
 
-            Log.Message(":: O21 Toolbox :: Version 2.3.2 ::");
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            CurrentVersion = $"{version.Major}.{version.Minor}.{version.Build}";
+
+            Log.Message($":: Outpost 21 Toolbox :: {CurrentVersion} ::");
+
+            File.WriteAllText(VersionDir, CurrentVersion);
         }
 
         public override string SettingsCategory() => "O21 Toolbox";
