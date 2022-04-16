@@ -14,7 +14,6 @@ namespace O21Toolbox.CustomDispenser
 {
     public class Building_CustomDispenser : Building_NutrientPasteDispenser
     {
-        #region Values
         public new CompPowerTrader powerComp;
 
         public DefModExt_CustomDispenser dispenserProps;
@@ -22,19 +21,7 @@ namespace O21Toolbox.CustomDispenser
         public int dispensingTicks = 0;
 
         public ThingDef currentThing;
-        #endregion
 
-        #region Saved Data
-        public override void ExposeData()
-        {
-            base.ExposeData();
-
-            Scribe_Defs.Look<ThingDef>(ref currentThing, "currentThing");
-            Scribe_Values.Look<int>(ref dispensingTicks, "dispensingTicks", 0);
-        }
-        #endregion
-
-        #region Getters
         public ThingDef DispensableThing
         {
             get
@@ -62,9 +49,14 @@ namespace O21Toolbox.CustomDispenser
                 return (!dispenserProps.requiresPower || powerComp.PowerOn);
             }
         }
-        #endregion
 
-        #region Functions
+        public override void ExposeData()
+        {
+            base.ExposeData();
+
+            Scribe_Defs.Look<ThingDef>(ref currentThing, "currentThing");
+            Scribe_Values.Look<int>(ref dispensingTicks, "dispensingTicks", 0);
+        }
 
         public override void Tick()
         {
@@ -123,6 +115,5 @@ namespace O21Toolbox.CustomDispenser
             stringBuilder.AppendLine("Dispenses: " + DispensableThing.LabelCap);
             return stringBuilder.ToString().Trim();
         }
-        #endregion
     }
 }

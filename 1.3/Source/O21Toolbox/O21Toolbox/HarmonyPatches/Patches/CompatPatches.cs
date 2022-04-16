@@ -337,6 +337,25 @@ namespace O21Toolbox.HarmonyPatches
 
     }
 
+    [HarmonyPatch(typeof(HealthAIUtility), "ShouldEverReceiveMedicalCareFromPlayer")]
+    public class Patch_HealthAIUtility_ShouldEverReceiveMedicalCareFromPlayer
+    {
+        [HarmonyPostfix]
+        public static bool Prefix(Pawn pawn, bool __result)
+        {
+            if (pawn != null)
+            {
+                DefModExt_ArtificialPawn modExt = pawn.def.TryGetModExtension<DefModExt_ArtificialPawn>();
+                if(modExt!= null && !modExt.canBeRepaired)
+                {
+                    __result = false;
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
     [HarmonyPatch(typeof(Toils_Tend), "FinalizeTend")]
     public class Patch_Toils_Tend_FinalizeTend
     {
@@ -348,7 +367,13 @@ namespace O21Toolbox.HarmonyPatches
             {
                 if (!modExt.canBeRepaired)
                 {
-                    __result = null;
+                    Toil toil = new Toil();
+                    toil.initAction = delegate
+                    {
+                        return;
+                    };
+                    toil.defaultCompleteMode = ToilCompleteMode.Instant;
+                    __result = toil;
                     return false;
                 }
                 if (!modExt.repairParts.NullOrEmpty())

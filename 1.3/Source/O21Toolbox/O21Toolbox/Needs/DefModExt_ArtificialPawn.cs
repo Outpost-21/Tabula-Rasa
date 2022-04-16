@@ -41,7 +41,6 @@ namespace O21Toolbox.Needs
 
         public bool corpseEdible = false;
 
-
         public bool needFood = true;
         public bool needRest = true;
         public bool needJoy = true;

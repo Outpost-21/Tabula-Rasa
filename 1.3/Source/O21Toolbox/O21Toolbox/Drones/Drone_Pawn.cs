@@ -13,7 +13,6 @@ namespace O21Toolbox.Drones
 {
     public class Drone_Pawn : Pawn
     {
-
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);

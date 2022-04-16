@@ -1,3 +1,3 @@
-﻿The oversized ability code originates from JecsTools, due to the time it took for JecsTools to update to 1.1 (at no fault of Jecrell, life is more important),
+﻿This code originates from JecsTools, due to the time it took for JecsTools to update to 1.1 (at no fault of Jecrell, life is more important),
 I decided to incorporate the comp into the Toolbox and maintain it myself for future updates where the delay would then be only my own fault.
 This also allows me more freedom in how I want to handle abilites in my own mods without having to patch, extend or whatever else onto JecsTools.

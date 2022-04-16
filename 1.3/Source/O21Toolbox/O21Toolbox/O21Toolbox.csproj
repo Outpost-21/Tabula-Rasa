@@ -193,7 +193,6 @@
     <Compile Include="BiomeExt\DefModExt_StoneTypeOverride.cs" />
     <Compile Include="BuildingExt\Building_MultiPart.cs" />
     <Compile Include="BuildingExt\DefModExt_MultiPart.cs" />
-    <Compile Include="CustomDropPod\DefModExt_CustomDropPod.cs" />
     <Compile Include="Deflector\CompProperties_Deflector.cs" />
     <Compile Include="Deflector\Comp_Deflector.cs" />
     <Compile Include="Deflector\JobDriver_CastDeflectVerb.cs" />
@@ -202,7 +201,6 @@
     <Compile Include="Drones\DefModExt_Drone.cs" />
     <Compile Include="Drones\MainTabWindow_Drones.cs" />
     <Compile Include="EnhancedSettings.cs" />
-    <Compile Include="FriendlyFire\DefModExt_FriendlyFire.cs" />
     <Compile Include="HarmonyPatches\DefModExt_OutputFromEdible.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_PawnGeneration.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Activatable.cs" />
