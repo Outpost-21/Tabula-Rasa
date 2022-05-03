@@ -39,7 +39,7 @@ namespace O21Toolbox
             File.WriteAllText(VersionDir, CurrentVersion);
         }
 
-        public override string SettingsCategory() => "O21 Toolbox";
+        public override string SettingsCategory() => "Outpost 21 Toolbox";
 
         public override void DoSettingsWindowContents(Rect inRect)
         {

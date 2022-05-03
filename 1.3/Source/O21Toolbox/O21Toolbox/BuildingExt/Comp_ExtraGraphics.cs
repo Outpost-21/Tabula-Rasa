@@ -44,35 +44,13 @@ namespace O21Toolbox.BuildingExt
 		{
 			if (parent.Faction != null && parent.Faction.IsPlayer && parent.StyleDef == null)
 			{
-				if(Props.extraGraphics.Count() > 3)
+				yield return new Command_Action
 				{
-					yield return new Command_Action
-					{
-						defaultLabel = "O21_ChangeGraphic".Translate(),
-						defaultDesc = "O21_ChangeGraphicDesc".Translate(),
-						icon = ContentFinder<Texture2D>.Get("Toolbox/UI/Cycle", true),
-						action = delegate { SelectableGraphicListing(); }
-					};
-				}
-                else
-				{
-					yield return new Command_Action
-					{
-						defaultLabel = "O21_CycleGraphic".Translate(),
-						defaultDesc = "O21_CycleGraphicDesc".Translate(),
-						icon = ContentFinder<Texture2D>.Get("Toolbox/UI/Cycle", true),
-						action = delegate ()
-						{
-							if (Props.extraGraphics.NullOrEmpty())
-							{
-								newGraphicPath = "";
-								newGraphicSinglePath = "";
-							}
-							LongEventHandler.ExecuteWhenFinished(new Action(ChangeGraphic));
-							parent.Map.mapDrawer.MapMeshDirty(parent.Position, MapMeshFlag.Things | MapMeshFlag.Buildings);
-						}
-					};
-				}
+					defaultLabel = "O21_ChangeGraphic".Translate(),
+					defaultDesc = "O21_ChangeGraphicDesc".Translate(),
+					icon = ContentFinder<Texture2D>.Get("Toolbox/UI/Cycle", true),
+					action = delegate { SelectableGraphicListing(); }
+				};
 			}
 			yield break;
 		}

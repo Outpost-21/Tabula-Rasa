@@ -120,6 +120,7 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
+    <Compile Include="BiomeExt\BiomeExt_LightLevel.cs" />
     <Compile Include="BuildingExt\CompProperties_AdvFireOverlay.cs" />
     <Compile Include="BuildingExt\CompProperties_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\CompProperties_HediffGiver.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="HarmonyPatches\Patch_SkyManager_CurSkyGlow.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
     <Compile Include="Health\HediffCompProperties_TooltipDescription.cs" />
