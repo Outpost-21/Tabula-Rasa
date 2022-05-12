@@ -12,7 +12,7 @@ using HarmonyLib;
 using O21Toolbox.Research;
 using O21Toolbox.Utility;
 
-namespace O21Toolbox.HarmonyPatches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(ResearchProjectDef), "CanBeResearchedAt")]
     public static class Patch_CanBeResearchedAt_Postfix

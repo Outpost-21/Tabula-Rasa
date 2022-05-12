@@ -10,7 +10,7 @@ using Verse;
 
 using HarmonyLib;
 
-namespace O21Toolbox.HarmonyPatches.Patches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(ThinkNode_ConditionalNeedPercentageAbove), "Satisfied")]
     public class Patch_ThinkNode_ConditionalNeedPercentageAbove_Satisfied

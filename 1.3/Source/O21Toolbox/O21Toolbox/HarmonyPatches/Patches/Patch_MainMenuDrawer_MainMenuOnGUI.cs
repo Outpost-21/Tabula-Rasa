@@ -11,7 +11,7 @@ using HarmonyLib;
 
 using O21Toolbox.UpdateListings;
 
-namespace O21Toolbox.HarmonyPatches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(MainMenuDrawer), "MainMenuOnGUI")]
     public static class Patch_MainMenuOnGui

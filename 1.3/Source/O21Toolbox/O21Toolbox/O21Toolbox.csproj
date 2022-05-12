@@ -103,7 +103,7 @@
     <Compile Include="ApparelExt\DefModExt_HediffApparel.cs" />
     <Compile Include="ApparelExt\DefModExt_EnergyShieldProps.cs" />
     <None Include="ApparelExt\Gizmo_ShieldStatus.cs" />
-    <Compile Include="ApparelExt\DefModExt_SpecificSpeciesHeadwear.cs" />
+    <Compile Include="ApparelExt\DefModExt_SpeciesSpecificApparel.cs" />
     <Compile Include="ApparelExt\RestrictionCheck.cs" />
     <Compile Include="AreaEffects\CompProperties_AreaEffects.cs" />
     <Compile Include="AreaEffects\Comp_AreaEffects.cs" />
@@ -120,16 +120,17 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
-    <Compile Include="BiomeExt\BiomeExt_LightLevel.cs" />
     <Compile Include="BuildingExt\CompProperties_AdvFireOverlay.cs" />
     <Compile Include="BuildingExt\CompProperties_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\CompProperties_HediffGiver.cs" />
     <Compile Include="BuildingExt\CompProperties_IdeoIconOverlay.cs" />
+    <Compile Include="BuildingExt\CompProperties_RandomSounds.cs" />
     <Compile Include="BuildingExt\CompProperties_Salvage.cs" />
     <Compile Include="BuildingExt\Comp_AdvFireOverlay.cs" />
     <Compile Include="BuildingExt\Comp_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\Comp_HediffGiver.cs" />
     <Compile Include="BuildingExt\Comp_IdeoIconOverlay.cs" />
+    <Compile Include="BuildingExt\Comp_RandomSounds.cs" />
     <Compile Include="BuildingExt\Comp_Salvage.cs" />
     <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
     <Compile Include="Culture\DefModExt_CultureExtended.cs" />
@@ -141,6 +142,8 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_FoodUtility_WillIngestStackCountOf.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Ideology.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_DiseaseImmunity.cs" />
@@ -156,7 +159,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
-    <Compile Include="HarmonyPatches\Patch_SkyManager_CurSkyGlow.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
     <Compile Include="Health\HediffCompProperties_TooltipDescription.cs" />

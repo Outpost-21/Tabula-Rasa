@@ -67,7 +67,7 @@ namespace O21Toolbox.BuildingExt
 
                     if(!linkedBuildings.Any(b => b.Position == itemPos) && GenConstruct.CanPlaceBlueprintAt(item.def, itemPos, Rotation, Map, false, null, null, Stuff).Accepted)
                     {
-                        GenConstruct.PlaceBlueprintForBuild(item.def, itemPos, Map, Rotation, Faction.OfPlayer, Stuff);
+                        GenConstruct.PlaceBlueprintForBuild_NewTemp(item.def, itemPos, Map, Rotation, Faction.OfPlayer, Stuff);
                     }
                 }
             }

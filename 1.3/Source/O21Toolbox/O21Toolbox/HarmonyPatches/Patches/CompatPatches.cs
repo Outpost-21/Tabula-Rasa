@@ -18,26 +18,6 @@ using O21Toolbox.Utility;
 
 namespace O21Toolbox.HarmonyPatches
 {
-    [HarmonyPatch(typeof(FoodUtility), "WillIngestStackCountOf")]
-    public class CompatPatch_WillIngestStackCountOf
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(int __result, ref Pawn ingester, ref ThingDef def)
-        {
-            if (ingester == null)
-                return true;
-
-            bool haveNeed = ingester?.needs.TryGetNeed(NeedDefOf.Food) != null;
-
-            if (!haveNeed)
-            {
-                __result = 0;
-                return false;
-            }
-
-            return true;
-        }
-    }
 
     [HarmonyPatch(typeof(RecordWorker_TimeInBedForMedicalReasons), "ShouldMeasureTimeNow")]
     public class CompatPatch_ShouldMeasureTimeNow

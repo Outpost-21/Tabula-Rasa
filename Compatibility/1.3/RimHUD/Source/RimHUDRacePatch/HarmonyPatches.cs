@@ -25,14 +25,21 @@ namespace RimHUDRacePatch
         }
     }
 
-    [HarmonyPatch(typeof(PawnModel), "GetRaceIfNotHuman")]
+    [HarmonyPatch(typeof(PawnModel), "GetRace", MethodType.Normal)]
     public static class PawnModel_GetRaceIfNotHuman
     {
-        [HarmonyPrefix]
-        public static bool Prefix(ref string __result, PawnModel __instance)
+        [HarmonyPostfix]
+        public static void Postfix(ref string __result, PawnModel __instance)
         {
-            __result = __instance.Base.RaceProps?.Humanlike ?? true ? null : __instance.Base.def?.label;
-            return false;
+            string result = null;
+            if ((bool)__instance.Base.RaceProps?.Humanlike)
+            {
+                result = __instance.Base.def?.label ?? null;
+            }
+            if(result != null)
+            {
+                __result = result;
+            }
         }
     }
 }

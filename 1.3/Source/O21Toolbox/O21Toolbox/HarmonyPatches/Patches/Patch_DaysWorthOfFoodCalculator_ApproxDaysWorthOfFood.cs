@@ -12,7 +12,7 @@ using HarmonyLib;
 
 using O21Toolbox.Needs;
 
-namespace O21Toolbox.HarmonyPatches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood", new Type[] {typeof(List<Pawn>), typeof(List<ThingDefCount>), typeof(int), typeof(IgnorePawnsInventoryMode),typeof(Faction), typeof(WorldPath), typeof(float), typeof(int), typeof(bool)})]
     public class Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood

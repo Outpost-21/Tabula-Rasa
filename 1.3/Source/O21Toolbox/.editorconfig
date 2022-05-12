@@ -11,3 +11,6 @@ dotnet_diagnostic.IDE0051.severity = silent
 
 # Default severity for analyzer diagnostics with category 'Style'
 dotnet_analyzer_diagnostic.category-Style.severity = none
+
+# CS0612: Type or member is obsolete
+dotnet_diagnostic.CS0612.severity = none

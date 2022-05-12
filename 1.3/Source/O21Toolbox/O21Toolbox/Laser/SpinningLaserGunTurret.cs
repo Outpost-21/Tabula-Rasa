@@ -12,7 +12,7 @@ namespace O21Toolbox.Laser
 {
     class SpinningLaserGunTurret : SpinningLaserGunBase
     {
-        internal Building_LaserGun turret;
+        public Building_LaserGun turret;
 
         public override void UpdateState()
         {

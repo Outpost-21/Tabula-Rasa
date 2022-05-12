@@ -13,7 +13,7 @@ using HarmonyLib;
 using O21Toolbox.Utility;
 using O21Toolbox.WeaponExt;
 
-namespace O21Toolbox.HarmonyPatches.Patches
+namespace O21Toolbox
 {
     [StaticConstructorOnStartup]
     public class Harmony_Weapons

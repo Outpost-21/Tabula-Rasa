@@ -12,7 +12,7 @@ using HarmonyLib;
 
 using O21Toolbox.TurretsPlus;
 
-namespace O21Toolbox.HarmonyPatches.Patches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(GameEnder), "CheckOrUpdateGameOver")]
     public static class Patch_CheckOrUpdateGameOver

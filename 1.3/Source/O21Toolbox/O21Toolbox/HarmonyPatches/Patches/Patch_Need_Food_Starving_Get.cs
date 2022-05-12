@@ -11,7 +11,7 @@ using HarmonyLib;
 
 using O21Toolbox.Needs;
 
-namespace O21Toolbox.HarmonyPatches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(Need_Food), "Starving", MethodType.Getter)]
     public class Patch_Need_Food_Starving_Get

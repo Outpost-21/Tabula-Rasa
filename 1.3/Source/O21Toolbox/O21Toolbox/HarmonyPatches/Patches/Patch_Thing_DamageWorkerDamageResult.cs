@@ -12,7 +12,7 @@ using HarmonyLib;
 
 using O21Toolbox.PawnExt;
 
-namespace O21Toolbox.HarmonyPatches.Patches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(Thing), "TakeDamage")]
     public static class Patch_Fireproof_Thing_TakeDamage

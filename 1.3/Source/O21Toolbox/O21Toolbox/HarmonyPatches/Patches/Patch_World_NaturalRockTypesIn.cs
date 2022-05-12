@@ -13,7 +13,7 @@ using HarmonyLib;
 
 using O21Toolbox.BiomeExt;
 
-namespace O21Toolbox.HarmonyPatches.Patches
+namespace O21Toolbox
 {
     [HarmonyPatch(typeof(World))]
     [HarmonyPatch("NaturalRockTypesIn")]

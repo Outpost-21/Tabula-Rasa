@@ -106,7 +106,7 @@ namespace O21Toolbox.BuildingExt
 					field2.SetValue(thingToGrab, newGraphicSingle);
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
 				Log.Warning("Caught an exeption changing graphic. Most likely a misconfigured def.");
 			}
@@ -192,7 +192,7 @@ namespace O21Toolbox.BuildingExt
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
 				Log.Message("Probably added mid-save. Ignoring load error.");
 			}
