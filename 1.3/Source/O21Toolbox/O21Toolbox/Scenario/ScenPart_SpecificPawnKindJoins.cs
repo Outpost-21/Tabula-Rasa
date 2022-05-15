@@ -13,13 +13,14 @@ namespace O21Toolbox.Scenario
 	{
 		private const float IntervalMidpoint = 30f;
 		private const float IntervalDeviation = 15f;
-		private float intervalDays;
-		private bool repeat;
-		private string intervalDaysBuffer;
-		private float occurTick;
-		private bool isFinished;
+		public float intervalDays;
+		public bool repeat;
+		public string intervalDaysBuffer;
+		public float occurTick;
+		public bool isFinished;
 		public PlayerPawnsArriveMethod arrivalMode = PlayerPawnsArriveMethod.DropPods;
 		public PawnKindDef pawnKind;
+		public FactionDef faction;
 
 		public float IntervalTicks
 		{
@@ -119,6 +120,14 @@ namespace O21Toolbox.Scenario
 
 		public bool CanSpawnJoiner(Map map)
 		{
+			if (faction != null)
+			{
+				Faction intFaction = Find.FactionManager.FirstFactionOfDef(faction);
+				if (intFaction != null && intFaction.AllyOrNeutralTo(Faction.OfPlayer))
+                {
+					return false;
+                }
+            }
 			IntVec3 intVec;
 			return TryFindEntryCell(map, out intVec);
 		}
@@ -239,6 +248,10 @@ namespace O21Toolbox.Scenario
             {
 				summary += " They will arrive by drop pod.";
             }
+			if(faction != null)
+            {
+				summary += "\nThese pawns will stop arriving if relations with " + faction.fixedName + " become hostile.";
+            }
 			return summary;
 		}
 
@@ -254,8 +267,9 @@ namespace O21Toolbox.Scenario
 			if (Scribe.mode == LoadSaveMode.PostLoadInit && this.pawnKind == null)
 			{
 				this.pawnKind = PawnKindDefOf.Colonist;
-				Log.Error("ScenPart has null incident after loading. Changing to " + this.pawnKind.ToStringSafe());
+				Log.Error("ScenPart has null pawnKind reference after loading. Changing to " + this.pawnKind.ToStringSafe());
 			}
+			Scribe_Defs.Look<FactionDef>(ref faction, "faction");
 		}
 	}
 }
