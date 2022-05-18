@@ -43,7 +43,7 @@ namespace O21Toolbox.Deflector
 
             if (lastShotReflected)
             {
-                ////Log.Message("lastShotReflected Called");
+                ////LogUtil.LogMessage("lastShotReflected Called");
                 projectile.Launch(caster, currentTarget, currentTarget, ProjectileHitFlags.IntendedTarget, false, EquipmentSource); //TODO
                 return true;
             }

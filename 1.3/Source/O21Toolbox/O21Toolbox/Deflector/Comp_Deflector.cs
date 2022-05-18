@@ -196,7 +196,7 @@ namespace O21Toolbox.Deflector
                 if (UseSkill(out skill))
                 {
                     modifier += (int)(props.reflectRatePerSkillPoint * skill.Level);
-                    //Log.Message("Deflection mod: " + modifier.ToString());
+                    //LogUtil.LogMessage("Deflection mod: " + modifier.ToString());
                 }
                 // Due to possibility of ReflectionAccuracy_InFix implementation using Rand, option to use a fixed Random seed.
                 if (fixedRandSeed)
@@ -432,9 +432,9 @@ namespace O21Toolbox.Deflector
             }
             catch (NullReferenceException e) // TODO: Is this still needed?
             {
-                Log.Message(e.ToString());
+                LogUtil.LogMessage(e.ToString());
             }
-            ////Log.Message("TryToTakeOrderedJob Called");
+            ////LogUtil.LogMessage("TryToTakeOrderedJob Called");
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace O21Toolbox.Deflector
                     {
                         if (CompActivatableEffectiveIsActive == false)
                         {
-                            //Log.Message("Inactivate Weapon");
+                            //LogUtil.LogMessage("Inactivate Weapon");
                             absorbed = false;
                             return;
                         }

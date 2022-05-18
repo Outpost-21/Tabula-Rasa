@@ -34,7 +34,7 @@ namespace O21Toolbox
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             CurrentVersion = $"{version.Major}.{version.Minor}.{version.Build}";
 
-            Log.Message($":: Outpost 21 Toolbox :: {CurrentVersion} ::");
+            LogUtil.LogMessage($"Version: {CurrentVersion} ::");
 
             File.WriteAllText(VersionDir, CurrentVersion);
         }

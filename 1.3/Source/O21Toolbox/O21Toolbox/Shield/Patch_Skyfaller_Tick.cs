@@ -21,7 +21,11 @@ namespace O21Toolbox.Shield
         {
             if (__instance.Map != null && __instance.ticksToImpact <= 20)
             {
-                //Log.Message("Checking Skyfaller against shields.");
+                //if(__instance.Faction.IsPlayer || (!__instance.innerContainer.NullOrEmpty() && ((bool)__instance.innerContainer.Any(t => (bool)t.Faction.IsPlayer)))) 
+                //{ 
+                //    return true; 
+                //}
+                //LogUtil.LogMessage("Checking Skyfaller against shields.");
                 List<ThingWithComps> list = __instance.Map.GetComponent<MapComp_ShieldList>().shieldGenList;
                 for (int i = 0; i < list.Count; i++)
                 {

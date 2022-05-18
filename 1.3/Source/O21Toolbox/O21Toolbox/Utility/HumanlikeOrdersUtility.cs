@@ -89,7 +89,7 @@ namespace O21Toolbox.Utility
 
             public static void DebugMessage(string s)
             {
-                if (debugMode) Log.Message(s);
+                if (debugMode) LogUtil.LogMessage(s);
             }
 
 
@@ -172,8 +172,8 @@ namespace O21Toolbox.Utility
 
             public bool Passes(object toCheck)
             {
-                //Log.Message(toCheck.GetType().ToString());
-                //Log.Message(Data.ToString());
+                //LogUtil.LogMessage(toCheck.GetType().ToString());
+                //LogUtil.LogMessage(Data.ToString());
 
                 switch (Condition)
                 {

@@ -133,6 +133,7 @@
     <Compile Include="BuildingExt\Comp_RandomSounds.cs" />
     <Compile Include="BuildingExt\Comp_Salvage.cs" />
     <Compile Include="BuildingExt\DefModExt_BedExtensions.cs" />
+    <Compile Include="BuildingExt\DefModExt_SelfPoweredDoor.cs" />
     <Compile Include="Culture\DefModExt_CultureExtended.cs" />
     <Compile Include="Currency\DefModExt_Currency.cs" />
     <Compile Include="FactionExt\DefModExt_FactionExtension.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Requisition.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="HarmonyPatches\Patches\Patch_Building_Door_DoorPowerOn.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
@@ -351,6 +353,7 @@
     <Compile Include="Utility\FactionUtils.cs" />
     <Compile Include="Utility\HumanlikeOrdersUtility.cs" />
     <Compile Include="Utility\JobDefOf.cs" />
+    <Compile Include="Utility\LogUtil.cs" />
     <Compile Include="Utility\SlotLoadableUtility.cs" />
     <Compile Include="Teleporter\CompProperties_Teleporter.cs" />
     <Compile Include="Teleporter\JobDriver_UseRecall.cs" />

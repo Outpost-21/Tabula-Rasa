@@ -29,14 +29,14 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 var pawn_EquipmentTracker = pawn.equipment;
                 if (pawn_EquipmentTracker != null)
                 {
-                    //Log.Message("2");
+                    //LogUtil.LogMessage("2");
                     var thingWithComps =
                         pawn_EquipmentTracker
                             .Primary; // (ThingWithComps)AccessTools.Field(typeof(Pawn_EquipmentTracker), "primaryInt").GetValue(pawn_EquipmentTracker);
 
                     if (thingWithComps != null)
                     {
-                        //Log.Message("3");
+                        //LogUtil.LogMessage("3");
                         var CompExtraSounds = thingWithComps.GetComp<Comp_ExtraSounds>();
                         if (CompExtraSounds != null)
                             if (CompExtraSounds.Props.soundMiss != null)
@@ -70,14 +70,14 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 var pawn_EquipmentTracker = pawn.equipment;
                 if (pawn_EquipmentTracker != null)
                 {
-                    //Log.Message("2");
+                    //LogUtil.LogMessage("2");
                     var thingWithComps =
                         pawn_EquipmentTracker
                             .Primary; // (ThingWithComps)AccessTools.Field(typeof(Pawn_EquipmentTracker), "primaryInt").GetValue(pawn_EquipmentTracker);
 
                     if (thingWithComps != null)
                     {
-                        //Log.Message("3");
+                        //LogUtil.LogMessage("3");
                         var CompExtraSounds = thingWithComps.GetComp<Comp_ExtraSounds>();
 
                         if (CompExtraSounds != null)
@@ -100,14 +100,14 @@ namespace O21Toolbox.HarmonyPatches.Patches
                 var pawn_EquipmentTracker = pawn.equipment;
                 if (pawn_EquipmentTracker != null)
                 {
-                    //Log.Message("2");
+                    //LogUtil.LogMessage("2");
                     var thingWithComps =
                         pawn_EquipmentTracker
                             .Primary; // (ThingWithComps)AccessTools.Field(typeof(Pawn_EquipmentTracker), "primaryInt").GetValue(pawn_EquipmentTracker);
 
                     if (thingWithComps != null)
                     {
-                        //Log.Message("3");
+                        //LogUtil.LogMessage("3");
                         var CompExtraSounds = thingWithComps.GetComp<Comp_ExtraSounds>();
                         if (CompExtraSounds != null)
                             if (CompExtraSounds.Props.soundHitBuilding != null)

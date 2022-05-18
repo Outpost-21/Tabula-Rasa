@@ -823,8 +823,8 @@ namespace O21Toolbox
 		{
 			if (Dialog_ColourPicker.first)
 			{
-				//Log.Message(this.InitialSize.ToString());
-				//Log.Message(this.windowRect.ToString());
+				//LogUtil.LogMessage(this.InitialSize.ToString());
+				//LogUtil.LogMessage(this.windowRect.ToString());
 			}
 			Rect rect = new Rect(inRect.xMin, inRect.yMin, (float)this._pickerSize, (float)this._pickerSize);
 			Rect rect2 = new Rect(rect.xMax + this._margin, inRect.yMin, (float)this._sliderWidth, (float)this._pickerSize);

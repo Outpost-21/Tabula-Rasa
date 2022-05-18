@@ -180,7 +180,6 @@ namespace O21Toolbox.Shield
 			}
 			if(!Comp_ShieldBuilding.InterceptsProjectile(Props, projectile))
 			{
-				Log.Message("Flag 1");
 				return false;
             }
 			if ((projectile.Launcher == null || !projectile.Launcher.HostileTo(parent)) && !debugInterceptNonHostileProjectiles && Props.interceptNonHostileProjectiles)
@@ -269,7 +268,7 @@ namespace O21Toolbox.Shield
 		{
             if (!ModLister.CheckRoyalty("Projectile interception"))
             {
-				Log.Message("Shield Cannot Be Setup because user lacks Royalty.");
+				LogUtil.LogMessage("Shield Cannot Be Setup because user lacks Royalty.");
                 return;
             }
 

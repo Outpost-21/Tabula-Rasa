@@ -198,7 +198,7 @@ namespace O21Toolbox.Terraformer
 
         private void TryTerraform()
         {
-            //Log.Message("Attempting Terraform");
+            //LogUtil.LogMessage("Attempting Terraform");
             TryTerraform_Terrain();
             TryTerraform_Edifice();
             //TryTerraform_Plants();

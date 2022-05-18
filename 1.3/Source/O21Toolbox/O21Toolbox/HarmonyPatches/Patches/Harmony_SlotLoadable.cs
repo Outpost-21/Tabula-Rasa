@@ -126,7 +126,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
                             var caster = __instance.caster;
 
                             var newdamage = GenMath.RoundRandom(num);
-                            //Log.Message("applying damage " + newdamage + " out of "+num);
+                            //LogUtil.LogMessage("applying damage " + newdamage + " out of "+num);
                             var damageInfo = new DamageInfo(slotBonus.Props.damageDef, newdamage, slotBonus.Props.armorPenetration, -1f,
                                 caster, null, def2);
                             damageInfo.SetBodyRegion(BodyPartHeight.Undefined, BodyPartDepth.Outside);

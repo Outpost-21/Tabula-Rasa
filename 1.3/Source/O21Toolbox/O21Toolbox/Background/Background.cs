@@ -19,7 +19,7 @@ namespace O21Toolbox.Background
         {
             foreach (BackgroundDef bgdef in DefDatabase<BackgroundDef>.AllDefs)
             {
-                Log.Message("Background: " + bgdef.label);
+                LogUtil.LogMessage("Background: " + bgdef.label);
                 allBackgroundDefs.Add(bgdef);
             }
 

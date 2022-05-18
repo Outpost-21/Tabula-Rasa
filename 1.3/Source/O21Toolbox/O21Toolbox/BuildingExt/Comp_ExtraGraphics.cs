@@ -194,7 +194,7 @@ namespace O21Toolbox.BuildingExt
 			}
 			catch
 			{
-				Log.Message("Probably added mid-save. Ignoring load error.");
+				LogUtil.LogMessage("Probably added mid-save. Ignoring load error.");
 			}
 		}
 	}

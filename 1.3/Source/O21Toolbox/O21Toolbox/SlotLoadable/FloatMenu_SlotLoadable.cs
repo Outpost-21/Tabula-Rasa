@@ -24,7 +24,7 @@ namespace O21Toolbox.SlotLoadable
 
             List<FloatMenuOption> CurFunc(Vector3 clickPos, Pawn pawn, Thing curThing)
             {
-                //Log.Message("Patch is loaded");
+                //LogUtil.LogMessage("Patch is loaded");
                 var opts = new List<FloatMenuOption>();
                 List<IThingHolder> holders = new List<IThingHolder>();
                 pawn.GetChildHolders(holders);

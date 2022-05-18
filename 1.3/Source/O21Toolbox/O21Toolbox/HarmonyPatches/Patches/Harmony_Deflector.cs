@@ -60,7 +60,7 @@ namespace O21Toolbox.HarmonyPatches.Patches
             }
             catch // TODO: Fix the error when deflected.
             {
-                //Log.Message(e.ToString());
+                //LogUtil.LogMessage(e.ToString());
             }
             return true;
         }

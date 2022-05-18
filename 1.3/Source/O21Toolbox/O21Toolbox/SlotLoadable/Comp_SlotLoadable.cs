@@ -97,7 +97,7 @@ namespace O21Toolbox.SlotLoadable
                     foreach (var slot in Props.slots)
                     {
                         var newSlot = new SlotLoadable(slot, parent);
-                        Log.Message("Added Slot");
+                        LogUtil.LogMessage("Added Slot");
                         slots.Add(newSlot);
                     }
                 }
@@ -158,7 +158,7 @@ namespace O21Toolbox.SlotLoadable
 
         public virtual bool TryLoadSlot(Thing thing)
         {
-            //Log.Message("TryLoadSlot Called");
+            //LogUtil.LogMessage("TryLoadSlot Called");
             isGathering = false;
             if (slots != null)
             {
@@ -294,12 +294,12 @@ namespace O21Toolbox.SlotLoadable
                             {
                                 var v = Utility.SlotLoadableUtility.DetermineSlottableStatAugment(slot.SlotOccupant, mod.stat);
                                 var modstring = mod.stat.ValueToString(v, ToStringNumberSense.Offset);
-                                //Log.Message("Determined slot stat augment "+v+" and made string "+modstring);
+                                //LogUtil.LogMessage("Determined slot stat augment "+v+" and made string "+modstring);
                                 s.AppendLine("  " + mod.stat.LabelCap + " " + modstring);
                                 //s.AppendLine("\t" + mod.stat.LabelCap + " " + mod.ToStringAsOffset);
                             }
                             /*
-                            //Log.Message("fix this to display statModifiers");
+                            //LogUtil.LogMessage("fix this to display statModifiers");
                             List<StatModifier> statMods = slot.SlotOccupant.def.statBases.FindAll(
                                 (StatModifier z) => z.stat.category == StatCategoryDefOf.Weapon ||
                                                     z.stat.category == StatCategoryDefOf.EquippedStatOffsets);
