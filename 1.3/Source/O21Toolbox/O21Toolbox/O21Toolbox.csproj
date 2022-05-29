@@ -120,6 +120,7 @@
     <Compile Include="Automation\MiningUtility.cs" />
     <None Include="Background\Background.cs" />
     <None Include="Background\BackgroundDef.cs" />
+    <Compile Include="BuildingExt\Building_TurretGunSmart.cs" />
     <Compile Include="BuildingExt\CompProperties_AdvFireOverlay.cs" />
     <Compile Include="BuildingExt\CompProperties_ExtraGraphics.cs" />
     <Compile Include="BuildingExt\CompProperties_HediffGiver.cs" />
@@ -354,6 +355,7 @@
     <Compile Include="Utility\HumanlikeOrdersUtility.cs" />
     <Compile Include="Utility\JobDefOf.cs" />
     <Compile Include="Utility\LogUtil.cs" />
+    <Compile Include="Utility\OnDemandUtil.cs" />
     <Compile Include="Utility\SlotLoadableUtility.cs" />
     <Compile Include="Teleporter\CompProperties_Teleporter.cs" />
     <Compile Include="Teleporter\JobDriver_UseRecall.cs" />
