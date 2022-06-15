@@ -57,6 +57,10 @@ namespace O21Toolbox.ThingProducer
         public override void Tick()
         {
             base.Tick();
+            if (!Spawned)
+            {
+                return;
+            }
             if(storedThingCount < producerProps.maxThings)
             {
                 if(currentWork <= 0)
