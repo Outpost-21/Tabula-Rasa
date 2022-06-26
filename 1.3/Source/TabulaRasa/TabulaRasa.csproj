@@ -70,6 +70,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Harmony\Patch_PawnGenerator_TryGenerateNewPawnInternal.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_FinalLevelOfSkill.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GenerateInitialHediffs.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GeneratePawn.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GenerateSkills.cs" />
+    <Compile Include="Misc\AdditionalHediffEntry.cs" />
     <Compile Include="Buildings\Building_DoorAdv.cs" />
     <Compile Include="Comps\CompProperties_AreaEffects.cs" />
     <Compile Include="Comps\CompProperties_Named.cs" />
@@ -77,13 +83,25 @@
     <None Include="Comps\CompProperties_CompositeWeapon.cs" />
     <Compile Include="Comps\CompProperties_WirelessCharger.cs" />
     <None Include="Comps\Comp_CompositeWeapon.cs" />
+    <Compile Include="ModExtensions\DefModExt_PawnKindAltRaces.cs" />
+    <Compile Include="ModExtensions\DefModExt_PawnKindExtended.cs" />
+    <Compile Include="ModExtensions\DefModExt_FactionExtension.cs" />
     <Compile Include="Enums\ThingNameFormat.cs" />
+    <Compile Include="Misc\SkillLevelSetting.cs" />
+    <Compile Include="Misc\AltRaceEntry.cs" />
+    <Compile Include="ScenPart_FactionReinforcementJoins.cs" />
+    <Compile Include="Utility\FactionUtil.cs" />
+    <Compile Include="Harmony\Patch_PawnGroupMaker_CanGenerateFrom.cs" />
+    <Compile Include="Harmony\Patch_Ideo_SetIcon.cs" />
     <Compile Include="Jobs\JobDriver_PlaySounds.cs" />
     <Compile Include="Misc\HediffSeverityPairing.cs" />
     <Compile Include="ModExtensions\DefModExt_AutomatedLinkables.cs" />
+    <Compile Include="ModExtensions\DefModExt_CultureExtended.cs" />
     <Compile Include="ModExtensions\DefModExt_DoorAdv.cs" />
     <Compile Include="ModExtensions\DefModExt_Sounds.cs" />
     <Compile Include="ModExtensions\DefModExt_VerbSwitchIcon.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_FactionPoints.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Temperature.cs" />
     <Compile Include="TabulaRasaStartup.cs" />
     <Compile Include="Utility\SettingsUtil.cs" />
     <Compile Include="Utility\ApparelUtil.cs" />
@@ -117,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Hediffs\" />
+    <Folder Include="Scenarios\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

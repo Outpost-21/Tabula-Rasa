@@ -17,7 +17,7 @@ namespace TabulaRasa
         public static TabulaRasaMod mod;
         public static TabulaRasaSettings settings;
 
-        internal static string VersionDir => Path.Combine(ModLister.GetActiveModWithIdentifier("Neronix17.TabulaRasa").RootDir.FullName, "Version.txt");
+        internal static string VersionDir => Path.Combine(ModLister.GetActiveModWithIdentifier("neronix17.toolbox").RootDir.FullName, "Version.txt");
         public static string CurrentVersion { get; private set; }
 
         public TabulaRasaMod(ModContentPack content) : base(content)

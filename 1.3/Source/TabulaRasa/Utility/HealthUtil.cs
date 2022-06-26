@@ -127,7 +127,7 @@ namespace TabulaRasa
             {
                 using (IEnumerator<BodyPartRecord> enumerator = pawn.GetFirstMatchingBodyparts(pawn.RaceProps.body.corePart,
                                                                                                HediffDefOf.MissingBodyPart,
-                                                                                               TabulaRasaDefOf.O21_AutoHeal_ProtoBodypart,
+                                                                                               protoBodyPart,
                                                                                                (Hediff hediff) => hediff is Hediff_AddedPart).GetEnumerator())
                 {
                     while (enumerator.MoveNext())
@@ -138,7 +138,7 @@ namespace TabulaRasa
                         if (flag)
                         {
                             pawn.health.RemoveHediff(hediff2);
-                            pawn.health.AddHediff(TabulaRasaDefOf.O21_AutoHeal_ProtoBodypart, part, null, null);
+                            pawn.health.AddHediff(protoBodyPart, part, null, null);
                             pawn.health.hediffSet.DirtyCache();
                         }
                     }

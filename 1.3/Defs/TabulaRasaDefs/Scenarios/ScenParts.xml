@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<ScenPartDef>
+		<defName>TabulaRasa_SpecificPawnKindJoins</defName>
+		<label>specific pawn kind joins</label>
+		<scenPartClass>TabulaRasa.Scenario.ScenPart_SpecificPawnKindJoins</scenPartClass>
+		<category>Rule</category>
+		<selectionWeight>1.0</selectionWeight>
+		<summaryPriority>361</summaryPriority>
+	</ScenPartDef>
+
+</Defs>

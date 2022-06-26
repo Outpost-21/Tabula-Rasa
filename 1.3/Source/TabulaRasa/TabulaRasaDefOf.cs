@@ -17,10 +17,6 @@ namespace TabulaRasa
             DefOfHelper.EnsureInitializedInCtor(typeof(TabulaRasaDefOf));
         }
 
-        public static HediffDef O21_AutoHeal;
-        public static HediffDef O21_AutoHeal_ProtoBodypart;
-        public static HediffDef O21_AutoHeal_CuredBodypart;
-
         public static JobDef O21_UseTeleporter;
         public static JobDef O21_UseRecall;
     }
