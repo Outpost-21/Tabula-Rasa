@@ -57,24 +57,4 @@ namespace TabulaRasa
             return result;
         }
     }
-
-    public class CompProperties_Named : CompProperties
-    {
-        public CompProperties_Named()
-        {
-            this.compClass = typeof(Comp_Named);
-        }
-
-        public RulePackDef nameMaker;
-
-        public ThingNameFormat nameFormat = ThingNameFormat.Bracketed;
-    }
-
-    public enum ThingNameFormat
-    {
-        Prefix,
-        Suffix,
-        Bracketed,
-        Replace
-    }
 }

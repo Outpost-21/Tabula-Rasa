@@ -47,14 +47,4 @@ namespace TabulaRasa
             }
         }
     }
-
-    public class CompProperties_WirelessCharger : CompProperties
-    {
-        public CompProperties_WirelessCharger()
-        {
-            compClass = typeof(Comp_WirelessCharger);
-        }
-
-        public float chargingRadius;
-    }
 }

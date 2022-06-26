@@ -142,34 +142,6 @@ namespace TabulaRasa
         }
     }
 
-    public class CompProperties_VerbSwitch : CompProperties
-    {
-        public CompProperties_VerbSwitch()
-        {
-            this.compClass = typeof(Comp_VerbSwitch);
-        }
-
-        /// <summary>
-        /// Research required to be able to switch modes.
-        /// </summary>
-        public ResearchProjectDef requiredResearch;
-
-        /// <summary>
-        /// Research required for a specific verb.
-        /// </summary>
-        public List<VerbSwitchPair> requiredResearchSpecific = new List<VerbSwitchPair>();
-
-        /// <summary>
-        /// If True, will initiate cooldown after switch.
-        /// </summary>
-        public bool useCooldown = true;
-    }
-
-    public class DefModExt_VerbSwitchIcon : DefModExtension
-    {
-        public string gizmoIcon;
-    }
-
     public class VerbSwitchPair
     {
         public int index;

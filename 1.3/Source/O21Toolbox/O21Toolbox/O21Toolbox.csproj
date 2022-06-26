@@ -366,9 +366,9 @@
     <Compile Include="Teleporter\MapComp_Teleporter.cs" />
     <Compile Include="Teleporter\Comp_Teleporter.cs" />
     <Compile Include="Teleporter\TeleporterDefOf.cs" />
-    <Compile Include="Terraformer\Grid_Terraformer.cs" />
+    <None Include="Terraformer\Grid_Terraformer.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
-    <Compile Include="Terraformer\TerrainCategoryDef.cs" />
+    <None Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
     <Compile Include="ThingProducer\DefModExt_ThingProducer.cs" />
     <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
@@ -387,9 +387,9 @@
     <Compile Include="Needs\DefModExt_ArtificialPawn.cs" />
     <Compile Include="Needs\ArtificialPawnUtils.cs" />
     <Compile Include="Research\DefModExt_ResearchBenchSubstitutes.cs" />
-    <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
-    <Compile Include="Terraformer\Comp_Terraformer.cs" />
-    <Compile Include="Terraformer\TerraformerRulesDef.cs" />
+    <None Include="Terraformer\CompProperties_Terraformer.cs" />
+    <None Include="Terraformer\Comp_Terraformer.cs" />
+    <None Include="Terraformer\TerraformerRulesDef.cs" />
     <Compile Include="Utility\AnimalApparelUtility.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />
@@ -411,8 +411,8 @@
     <Compile Include="Utility\TraitEntry.cs" />
     <Compile Include="Utility\WornEquipmentUtility.cs" />
     <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
-    <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
-    <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
+    <None Include="WeaponExt\Comp_OversizedWeapon.cs" />
+    <None Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\Comp_VerbSwitch.cs" />
     <Compile Include="WeaponExt\DefModExt_VerbSwitchIcon.cs" />
     <Compile Include="WeaponExt\RestrictionCheck.cs" />

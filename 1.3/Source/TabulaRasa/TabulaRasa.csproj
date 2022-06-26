@@ -71,10 +71,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_DoorAdv.cs" />
+    <Compile Include="Comps\CompProperties_AreaEffects.cs" />
+    <Compile Include="Comps\CompProperties_Named.cs" />
+    <Compile Include="Comps\CompProperties_VerbSwitch.cs" />
+    <None Include="Comps\CompProperties_CompositeWeapon.cs" />
+    <Compile Include="Comps\CompProperties_WirelessCharger.cs" />
+    <None Include="Comps\Comp_CompositeWeapon.cs" />
+    <Compile Include="Enums\ThingNameFormat.cs" />
     <Compile Include="Jobs\JobDriver_PlaySounds.cs" />
+    <Compile Include="Misc\HediffSeverityPairing.cs" />
     <Compile Include="ModExtensions\DefModExt_AutomatedLinkables.cs" />
     <Compile Include="ModExtensions\DefModExt_DoorAdv.cs" />
     <Compile Include="ModExtensions\DefModExt_Sounds.cs" />
+    <Compile Include="ModExtensions\DefModExt_VerbSwitchIcon.cs" />
     <Compile Include="TabulaRasaStartup.cs" />
     <Compile Include="Utility\SettingsUtil.cs" />
     <Compile Include="Utility\ApparelUtil.cs" />
