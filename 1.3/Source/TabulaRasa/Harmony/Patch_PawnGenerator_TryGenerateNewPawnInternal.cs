@@ -59,31 +59,19 @@ namespace TabulaRasa
         {
             ThingDef result = pawnkind.race;
 
-            DefModExt_PawnKindAltRaces modExt = null;
-            if (pawnkind.HasModExtension<DefModExt_PawnKindAltRaces>())
+            DefModExt_PawnKindRaces modExt = null;
+            if (pawnkind.HasModExtension<DefModExt_PawnKindRaces>())
             {
-                modExt = pawnkind.GetModExtension<DefModExt_PawnKindAltRaces>();
+                modExt = pawnkind.GetModExtension<DefModExt_PawnKindRaces>();
             }
 
             if (modExt != null)
             {
-                AltRaceEntry resultEntry;
                 if (!modExt.altRaces.NullOrEmpty())
                 {
-                    float defaultWeight = 100f;
-                    if (pawnkind.race == PawnKindDefOf.Colonist.race)
-                    {
-                        defaultWeight = 100f;
-                    }
-                    modExt.altRaces.Add(new AltRaceEntry()
-                    {
-                        races = new List<ThingDef>() { pawnkind.race },
-                        weight = defaultWeight
-                    });
-                    Func<AltRaceEntry, float> selector = (AltRaceEntry x) => x.weight;
-                    resultEntry = modExt.altRaces.RandomElementByWeight(selector);
-
-                    return resultEntry.races.RandomElement();
+                    modExt.altRaces.Add(new ThingDefCountClass(pawnkind.race, 100));
+                    Func<ThingDefCountClass, float> selector = (ThingDefCountClass x) => x.count;
+                    return modExt.altRaces.RandomElementByWeight(selector).thingDef;
                 }
             }
             return result;

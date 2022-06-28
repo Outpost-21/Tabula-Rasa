@@ -2,9 +2,9 @@
 <Defs>
 
 	<ScenPartDef>
-		<defName>TabulaRasa_SpecificPawnKindJoins</defName>
-		<label>specific pawn kind joins</label>
-		<scenPartClass>TabulaRasa.Scenario.ScenPart_SpecificPawnKindJoins</scenPartClass>
+		<defName>TabulaRasa_ReinforcementJoins</defName>
+		<label>reinforcement joins</label>
+		<scenPartClass>TabulaRasa.ScenPart_ReinforcementJoins</scenPartClass>
 		<category>Rule</category>
 		<selectionWeight>1.0</selectionWeight>
 		<summaryPriority>361</summaryPriority>

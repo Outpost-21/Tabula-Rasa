@@ -83,13 +83,14 @@
     <None Include="Comps\CompProperties_CompositeWeapon.cs" />
     <Compile Include="Comps\CompProperties_WirelessCharger.cs" />
     <None Include="Comps\Comp_CompositeWeapon.cs" />
-    <Compile Include="ModExtensions\DefModExt_PawnKindAltRaces.cs" />
+    <Compile Include="ModExtensions\DefModExt_PawnKindRaces.cs" />
     <Compile Include="ModExtensions\DefModExt_PawnKindExtended.cs" />
     <Compile Include="ModExtensions\DefModExt_FactionExtension.cs" />
     <Compile Include="Enums\ThingNameFormat.cs" />
     <Compile Include="Misc\SkillLevelSetting.cs" />
-    <Compile Include="Misc\AltRaceEntry.cs" />
-    <Compile Include="ScenPart_FactionReinforcementJoins.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_AprilFools.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_PrideMonth.cs" />
+    <Compile Include="Scenarios\ScenPart_ReinforcementJoins.cs" />
     <Compile Include="Utility\FactionUtil.cs" />
     <Compile Include="Harmony\Patch_PawnGroupMaker_CanGenerateFrom.cs" />
     <Compile Include="Harmony\Patch_Ideo_SetIcon.cs" />
@@ -135,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Hediffs\" />
-    <Folder Include="Scenarios\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

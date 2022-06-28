@@ -40,6 +40,10 @@ namespace TabulaRasa
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
+            Listing_Standard listingStandard = new Listing_Standard();
+            listingStandard.Begin(inRect);
+            listingStandard.CheckboxEnhanced("Special Occasions", "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.", ref settings.specialOccasions);
+            listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }
     }

@@ -17,13 +17,19 @@ namespace TabulaRasa
         public bool modUpdates = true;
         public List<string> markedAsSeen = new List<String>();
 
+        // Special PawnGroupMakers
+        public bool specialOccasions = true;
+
         public override void ExposeData()
         {
             base.ExposeData();
 
             // UpdateListings
-            Scribe_Values.Look(ref this.modUpdates, "modUpdates", true);
-            Scribe_Collections.Look(ref this.markedAsSeen, "markedAsSeen");
+            Scribe_Values.Look(ref modUpdates, "modUpdates", true);
+            Scribe_Collections.Look(ref markedAsSeen, "markedAsSeen");
+
+            // Special PawnGroupMakers
+            Scribe_Values.Look(ref specialOccasions, "specialPawnGroupMakers", true);
         }
 
         public bool IsValidSetting(string input)

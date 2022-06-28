@@ -9,13 +9,13 @@ using Verse;
 
 namespace TabulaRasa
 {
-    public class DefModExt_PawnKindAltRaces : DefModExtension
+    public class DefModExt_PawnKindRaces : DefModExtension
     {
         /// <summary>
         /// Add a chance for the pawnKind to be a different race!
         /// Finally a balanced way to integrate into an existing faction with minimal effort!
         /// </summary>
-        public List<AltRaceEntry> altRaces = new List<AltRaceEntry>();
+        public List<ThingDefCountClass> altRaces = new List<ThingDefCountClass>();
 
     }
 }
