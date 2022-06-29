@@ -15,7 +15,7 @@ namespace TabulaRasa
     public static class Patch_CompAffectedByFacilities_Notify_LinkRemoved
     {
         [HarmonyPostfix]
-        public static void Postfix(Thing facility, CompAffectedByFacilities __instance)
+        public static void Postfix(Thing thing, CompAffectedByFacilities __instance)
         {
             Comp_RecipesFromFacilities.UpdateRecipes(__instance);
         }
