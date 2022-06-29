@@ -70,6 +70,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompProperties_RecipesFromFacilities.cs" />
+    <Compile Include="Comp_RecipeUnlocker.cs" />
+    <Compile Include="FacilityRecipeListing.cs" />
+    <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_LinkRemoved.cs" />
+    <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_NewLink.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_TryGenerateNewPawnInternal.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_FinalLevelOfSkill.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_GenerateInitialHediffs.cs" />

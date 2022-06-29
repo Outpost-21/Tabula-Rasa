@@ -17,7 +17,7 @@ namespace TabulaRasa
         [HarmonyPostfix]
         public static void Postfix(Thing facility, CompAffectedByFacilities __instance)
         {
-            Comp_RecipesFromFacilities.AddRecipe(facility, __instance);
+            Comp_RecipesFromFacilities.UpdateRecipes(__instance);
         }
     }
 }
