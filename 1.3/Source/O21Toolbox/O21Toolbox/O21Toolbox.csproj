@@ -144,7 +144,7 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
+    <None Include="HarmonyPatches\Patches\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_FoodUtility_WillIngestStackCountOf.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Ideology.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Building_Door_DoorPowerOn.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
+    <None Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
     <Compile Include="Health\HediffCompProperties_TooltipDescription.cs" />
@@ -411,8 +411,8 @@
     <Compile Include="Utility\TraitEntry.cs" />
     <Compile Include="Utility\WornEquipmentUtility.cs" />
     <Compile Include="WeaponExt\CompProperties_VerbSwitch.cs" />
-    <None Include="WeaponExt\Comp_OversizedWeapon.cs" />
-    <None Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
+    <Compile Include="WeaponExt\Comp_OversizedWeapon.cs" />
+    <Compile Include="WeaponExt\CompProperties_OversizedWeapon.cs" />
     <Compile Include="WeaponExt\Comp_VerbSwitch.cs" />
     <Compile Include="WeaponExt\DefModExt_VerbSwitchIcon.cs" />
     <Compile Include="WeaponExt\RestrictionCheck.cs" />

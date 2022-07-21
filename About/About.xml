@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>[O21] Toolbox</name>
+	<name>Tabula Rasa</name>
 	<author>Neronix17</author>
 	<packageId>neronix17.toolbox</packageId>
 	<url></url>
-	<description>Utility mod, provides a lot of useful, reusable code, primarily for Outpost 21 mods, but usable by anyone.</description>
+	<description>Formerly [O21] Toolbox. A library mod, provides a lot of useful, reusable code, primarily for Outpost 21 mods, but usable by anyone.</description>
 	<supportedVersions>
 		<li>1.0</li>
 		<li>1.1</li>

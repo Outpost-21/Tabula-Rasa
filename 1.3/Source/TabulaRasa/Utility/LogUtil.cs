@@ -17,7 +17,11 @@ namespace TabulaRasa
 
         public static readonly Color errColor = new Color(0.901f, 0.192f, 0.152f);
 
+        public static readonly Color dbgColor = new Color(0.411f, 0.749f, 0.666f);
+
         public static readonly string msgPrefix = $":: Tabula Rasa ::";
+
+        public static readonly bool debugEnabled = false;
 
         public static void LogMessage(string msg)
         {
@@ -49,6 +53,17 @@ namespace TabulaRasa
             }
             UnityEngine.Debug.Log(msg);
             Log.messageQueue.Enqueue(new LogMessage(LogMessageType.Message, $"{msgPrefix.Colorize(errColor)} {msg}", StackTraceUtility.ExtractStackTrace()));
+            Log.PostMessage();
+        }
+
+        public static void LogDebug(string msg)
+        {
+            if (Log.ReachedMaxMessagesLimit || !debugEnabled)
+            {
+                return;
+            }
+            UnityEngine.Debug.Log(msg);
+            Log.messageQueue.Enqueue(new LogMessage(LogMessageType.Message, $"{msgPrefix.Colorize(dbgColor)} Debug :: {msg}", StackTraceUtility.ExtractStackTrace()));
             Log.PostMessage();
         }
     }
