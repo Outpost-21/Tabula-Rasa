@@ -88,7 +88,7 @@ namespace TabulaRasa
                                 option.action = delegate ()
                                 {
                                     target = receiver;
-                                    selPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.O21_UseTeleporter, parent), JobTag.Misc);
+                                    selPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseTeleporter, parent), JobTag.Misc);
                                 };
                             }
 

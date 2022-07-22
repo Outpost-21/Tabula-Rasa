@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>TabulaRasa_CorpsesArtificial</defName>
+		<label>artificial</label>
+		<parent>Corpses</parent>
+	</ThingCategoryDef>
+
+</Defs>

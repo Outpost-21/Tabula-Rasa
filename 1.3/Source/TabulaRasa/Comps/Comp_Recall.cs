@@ -99,7 +99,7 @@ namespace TabulaRasa
                             option.action = delegate ()
                             {
                                 target = receiver;
-                                GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.O21_UseRecall, GetPawn.Position, parent), JobTag.Misc);
+                                GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseRecall, GetPawn.Position, parent), JobTag.Misc);
                             };
                         }
 

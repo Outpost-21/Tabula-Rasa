@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.QuestGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using static RimWorld.QuestGen.QuestNode_GetRandomPawnKindForFaction;
 
 namespace TabulaRasa
 {
@@ -15,6 +17,63 @@ namespace TabulaRasa
         static TabulaRasaStartup()
         {
             FillLinkablesAutomatically();
+            FillRaceAlternatesAutomatically();
+        }
+
+        public static void FillRaceAlternatesAutomatically()
+        {
+            foreach(RaceSpawningDef rsd in DefDatabase<RaceSpawningDef>.AllDefs)
+            {
+                if (CheckRaceSpawningDefForFlaws(rsd))
+                {
+                    DistributeRaceAmongFactionKinds(rsd);
+                }
+            }
+        }
+
+        public static void DistributeRaceAmongFactionKinds(RaceSpawningDef rsd)
+        {
+            List<PawnKindDef> viableKinds = new List<PawnKindDef>();
+            foreach(PawnKindDef pkd in DefDatabase<PawnKindDef>.AllDefs)
+            {
+                if(pkd.defaultFactionType != null && rsd.factions.Contains(pkd.defaultFactionType))
+                {
+                    viableKinds.Add(pkd);
+                }
+            }
+
+            for (int i = 0; i < viableKinds.Count(); i++)
+            {
+                PawnKindDef curPkd = viableKinds[i];
+                if (!curPkd.HasModExtension<DefModExt_PawnKindRaces>())
+                {
+                    curPkd.modExtensions.Add(new DefModExt_PawnKindRaces());
+                }
+                for (int j = 0; j < rsd.races.Count(); j++)
+                {
+                    DefModExt_PawnKindRaces modExt = curPkd.GetModExtension<DefModExt_PawnKindRaces>();
+                    if (!modExt.altRaces.Any(ar => ar.thingDef == rsd.races[j]))
+                    {
+                        ThingDefCountClass weightedRace = new ThingDefCountClass(rsd.races[j], rsd.weight);
+                        modExt.altRaces.Add(weightedRace);
+                    }
+                }
+            }
+        }
+
+        public static bool CheckRaceSpawningDefForFlaws(RaceSpawningDef rsd)
+        {
+            if (rsd.races.NullOrEmpty())
+            {
+                LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
+                return false;
+            }
+            if (rsd.factions.NullOrEmpty())
+            {
+                LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
+                return false;
+            }
+            return true;
         }
 
         public static void FillLinkablesAutomatically()

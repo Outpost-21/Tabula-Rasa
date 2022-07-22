@@ -5,7 +5,7 @@
 		<defName>TabulaRasa_RobotPawn</defName>
 		<hediffGivers>
 			<li Class="HediffGiver_Bleeding">
-				<hediff>O21_CoolantLoss</hediff>
+				<hediff>TabulaRasa_CoolantLoss</hediff>
 			</li>
 		</hediffGivers>
 	</HediffGiverSetDef>

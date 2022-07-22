@@ -2,26 +2,15 @@
 <Defs>
 
 	<HediffDef>
-		<defName>TabulaRasa_LowEnergy</defName>
-		<label>low energy</label>
-		<description>Extremely low energy supplies, only running on emergency reserves. Without additional energy soon, the pawn will not be able to get back up.</description>
+		<defName>TabulaRasa_EmergencyPower</defName>
+		<label>emergency power</label>
+		<description>Extremely low energy, only running on emergency reserves. Without additional energy soon, the pawn will not be able to get back up.</description>
 		<lethalSeverity>1</lethalSeverity>
 		<scenarioCanAdd>true</scenarioCanAdd>
 		<stages>
 			<li>
-				<label>trivial</label>
-				<hungerRateFactorOffset>0.5</hungerRateFactorOffset>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>-0.05</offset>
-					</li>
-				</capMods>
-			</li>
-			<li>
 				<minSeverity>0.2</minSeverity>
 				<label>minor</label>
-				<hungerRateFactorOffset>0.6</hungerRateFactorOffset>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>
@@ -32,7 +21,6 @@
 			<li>
 				<minSeverity>0.4</minSeverity>
 				<label>moderate</label>
-				<hungerRateFactorOffset>0.6</hungerRateFactorOffset>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>
@@ -43,7 +31,6 @@
 			<li>
 				<minSeverity>0.6</minSeverity>
 				<label>severe</label>
-				<hungerRateFactorOffset>0.6</hungerRateFactorOffset>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>
@@ -55,7 +42,6 @@
 				<minSeverity>0.8</minSeverity>
 				<label>extreme</label>
 				<lifeThreatening>true</lifeThreatening>
-				<hungerRateFactorOffset>0.6</hungerRateFactorOffset>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>

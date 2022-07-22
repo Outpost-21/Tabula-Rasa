@@ -17,7 +17,16 @@ namespace TabulaRasa
             DefOfHelper.EnsureInitializedInCtor(typeof(TabulaRasaDefOf));
         }
 
-        public static JobDef O21_UseTeleporter;
-        public static JobDef O21_UseRecall;
+        public static JobDef TabulaRasa_UseTeleporter;
+        public static JobDef TabulaRasa_UseRecall;
+        public static JobDef TabulaRasa_Hibernate;
+        public static JobDef TabulaRasa_ConsumeEnergySource;
+        public static JobDef TabulaRasa_RechargeFromSocket;
+
+        public static HediffDef TabulaRasa_EmergencyPower;
+        public static HediffDef TabulaRasa_ProtoBodypart;
+
+        public static StatDef TabulaRasa_EnergyBase;
+        public static StatDef TabulaRasa_EnergyMultiplier;
     }
 }

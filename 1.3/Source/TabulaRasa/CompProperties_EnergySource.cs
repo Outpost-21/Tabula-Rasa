@@ -9,13 +9,14 @@ using Verse;
 
 namespace TabulaRasa
 {
-    public class CompProperties_WirelessCharger : CompProperties
+    public class CompProperties_EnergySource : CompProperties
     {
-        public CompProperties_WirelessCharger()
+        public CompProperties_EnergySource()
         {
-            compClass = typeof(Comp_WirelessCharger);
+            compClass = typeof(Comp_EnergySource);
         }
 
-        public float chargingRadius;
+        public float energyGiven = 0f;
+
     }
 }
