@@ -2,7 +2,7 @@
 <Defs>
 
 	<HediffGiverSetDef>
-		<defName>TabulaRasa_RobotPawn</defName>
+		<defName>TabulaRasa_ArtificialPawn</defName>
 		<hediffGivers>
 			<li Class="HediffGiver_Bleeding">
 				<hediff>TabulaRasa_CoolantLoss</hediff>

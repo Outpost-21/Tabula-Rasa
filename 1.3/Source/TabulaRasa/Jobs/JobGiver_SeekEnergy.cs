@@ -79,7 +79,7 @@ namespace TabulaRasa
                 {
                     Comp_EnergySource energySourceComp = validEnergySource.TryGetComp<Comp_EnergySource>();
 
-                    int thingCount = (int)Math.Ceiling((energy.MaxLevel - energy.CurLevel) / energySourceComp.EnergyProps.energyGiven);
+                    int thingCount = (int)Math.Ceiling((energy.MaxLevel - energy.CurLevel) / energySourceComp.Props.energyGiven);
                     thingCount = Math.Min(thingCount, validEnergySource.stackCount);
 
                     if (thingCount > 0)
@@ -99,7 +99,7 @@ namespace TabulaRasa
                 Comp_EnergySource energySourceComp = closestConsumablePowerSource.TryGetComp<Comp_EnergySource>();
                 if (energySourceComp != null)
                 {
-                    int thingCount = (int)Math.Ceiling((energy.MaxLevel - energy.CurLevel) / energySourceComp.EnergyProps.energyGiven);
+                    int thingCount = (int)Math.Ceiling((energy.MaxLevel - energy.CurLevel) / energySourceComp.Props.energyGiven);
                     if (thingCount > 0)
                     {
                         return new Job(TabulaRasaDefOf.TabulaRasa_ConsumeEnergySource, new LocalTargetInfo(closestConsumablePowerSource))

@@ -17,8 +17,9 @@ namespace TabulaRasa
         public bool deathMatters = true;
         public bool corpseEdible = true;
         public bool corpseRots = true;
-        public bool affectedbyEMP = false;
+        public bool affectedByEMP = false;
         // List of items able to be used in place of medicine
+        public bool canBeRepaired = true;
         public List<ThingDef> repairParts = new List<ThingDef>();
     }
 }

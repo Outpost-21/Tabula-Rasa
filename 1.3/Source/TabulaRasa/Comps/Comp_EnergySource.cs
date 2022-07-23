@@ -11,15 +11,23 @@ namespace TabulaRasa
 {
     public class Comp_EnergySource : ThingComp
     {
-        public CompProperties_EnergySource EnergyProps => props as CompProperties_EnergySource;
+        public CompProperties_EnergySource Props => props as CompProperties_EnergySource;
 
         public virtual void RechargeEnergyNeed(Pawn targetPawn)
         {
             Need_Energy energyNeed = targetPawn.needs.TryGetNeed<Need_Energy>();
             if (energyNeed != null)
             {
-                float finalEnergyGain = parent.stackCount * EnergyProps.energyGiven;
+                float finalEnergyGain = parent.stackCount * Props.energyGiven;
                 energyNeed.CurLevel += finalEnergyGain;
+                if(Props.outputThing != null)
+                {
+                    Thing thing = ThingMaker.MakeThing(Props.outputThing);
+                    if (!GenPlace.TryPlaceThing(thing, targetPawn.Position, targetPawn.Map, ThingPlaceMode.Near))
+                    {
+                        LogUtil.LogError($"{targetPawn}, could not drop recipe product {thing} near {targetPawn.Position}");
+                    }
+                }
             }
         }
 
@@ -28,7 +36,7 @@ namespace TabulaRasa
             Need_Energy energyNeed = selPawn.needs.TryGetNeed<Need_Energy>();
             if (energyNeed != null)
             {
-                int thingCount = (int)Math.Ceiling((energyNeed.MaxLevel - energyNeed.CurLevel) / EnergyProps.energyGiven);
+                int thingCount = (int)Math.Ceiling((energyNeed.MaxLevel - energyNeed.CurLevel) / Props.energyGiven);
 
                 if (thingCount > 0)
                 {

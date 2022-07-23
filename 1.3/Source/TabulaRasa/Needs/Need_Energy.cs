@@ -55,7 +55,7 @@ namespace TabulaRasa
         {
             get
             {
-                float energyRate = pawn.GetStatValue(TabulaRasaDefOf.TabulaRasa_EnergyBase);
+                float energyRate = 1f;
                 energyRate *= pawn.GetStatValue(TabulaRasaDefOf.TabulaRasa_EnergyMultiplier);
                 return energyRate;
             }
@@ -84,7 +84,7 @@ namespace TabulaRasa
             }
             if (!IsFrozen)
             {
-                CurLevel -= GetPawnOxygenConsumption() * 1200f;
+                CurLevel -= GetPawnOxygenConsumption() * 200f;
 
                 if (EmergencyPower)
                 {

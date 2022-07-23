@@ -26,7 +26,8 @@ namespace TabulaRasa
         public static HediffDef TabulaRasa_EmergencyPower;
         public static HediffDef TabulaRasa_ProtoBodypart;
 
-        public static StatDef TabulaRasa_EnergyBase;
         public static StatDef TabulaRasa_EnergyMultiplier;
+
+        public static FleshTypeDef TabulaRasa_Artificial;
     }
 }

@@ -70,13 +70,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comps\CompProperties_EnergySource.cs" />
     <Compile Include="Comps\CompProperties_TraitsOverTime.cs" />
     <Compile Include="Comps\Comp_TraitsOverTime.cs" />
     <Compile Include="Comps\Comp_Hibernation.cs" />
+    <Compile Include="Comps\Comp_EnergySource.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
+    <Compile Include="ModExtensions\DefModExt_ExtraStrings.cs" />
     <Compile Include="Harmony\Patch_Pawn_HealthTracker_AddHediff.cs" />
     <Compile Include="Hediffs\HediffCompProperties_AutoHeal.cs" />
     <Compile Include="Hediffs\HediffComp_AutoHeal.cs" />
+    <Compile Include="Jobs\JobDriver_ConsumeEnergySource.cs" />
+    <Compile Include="Jobs\JobDriver_RechargeFromSocket.cs" />
+    <Compile Include="Jobs\JobGiver_SeekEnergy.cs" />
     <Compile Include="Jobs\JobDriver_Hibernate.cs" />
     <Compile Include="ModExtensions\DefModExt_ArtificialPawn.cs" />
     <Compile Include="ModExtensions\DefModExt_DiseaseImmunity.cs" />
@@ -95,6 +101,7 @@
     <Compile Include="Needs\Need_Energy.cs" />
     <Compile Include="PatchOperations\PatchOperation_ReplaceCostThing.cs" />
     <Compile Include="Defs\RaceSpawningDef.cs" />
+    <Compile Include="Utility\ArtificialUtil.cs" />
     <Compile Include="Utility\BigBoxUtil.cs" />
     <Compile Include="Comps\CompProperties_RecipesFromFacilities.cs" />
     <Compile Include="Comps\Comp_RecipeUnlocker.cs" />
@@ -158,7 +165,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TabulaRasaMod.cs" />
     <Compile Include="TabulaRasaSettings.cs" />
-    <Compile Include="WorldComps\WorldComp_WirelessChargers.cs" />
+    <Compile Include="WorldComps\WorldComp_EnergyNeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

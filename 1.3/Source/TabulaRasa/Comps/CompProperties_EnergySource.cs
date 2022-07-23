@@ -18,5 +18,6 @@ namespace TabulaRasa
 
         public float energyGiven = 0f;
 
+        public ThingDef outputThing;
     }
 }

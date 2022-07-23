@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<JobDef>
+		<defName>TabulaRasa_Hibernate</defName>
+		<driverClass>TabulaRasa.JobDriver_Hibernate</driverClass>
+		<reportString>hibernating at TargetA.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TabulaRasa_RechargeFromSocket</defName>
+		<driverClass>TabulaRasa.JobDriver_RechargeFromSocket</driverClass>
+		<reportString>recharging at TargetA.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+		<suspendable>false</suspendable>
+	</JobDef>
+
+	<JobDef>
+		<defName>TabulaRasa_ConsumeEnergySource</defName>
+		<driverClass>TabulaRasa.JobDriver_ConsumeEnergySource</driverClass>
+		<reportString>recharging from TargetA.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+		<suspendable>false</suspendable>
+		<modExtensions>
+			<li Class="TabulaRasa.DefModExt_ExtraStrings">
+				<extraReportString>recharging TargetB with TargetA.</extraReportString>
+			</li>
+		</modExtensions>
+	</JobDef>
+
+</Defs>
