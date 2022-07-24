@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<FleshTypeDef>
+		<defName>TabulaRasa_Artificial</defName>
+		<corpseCategory>CorpsesArtificial</corpseCategory>
+		<damageEffecter>Damage_HitMechanoid</damageEffecter>
+		<genericWounds>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundMechA</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundMechB</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundMechC</texture>
+			</li>
+		</genericWounds>
+	</FleshTypeDef>
+
+	<FleshTypeDef>
+		<defName>TabulaRasa_NormalNoHediffs</defName>
+		<corpseCategory>CorpsesAnimal</corpseCategory>
+		<damageEffecter>Damage_HitFlesh</damageEffecter>
+		<genericWounds>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundFleshA</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundFleshB</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/WoundFleshC</texture>
+			</li>
+		</genericWounds>
+		<bandagedWounds>
+			<li>
+				<texture>Things/Pawn/Wounds/BandagedA</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/BandagedB</texture>
+			</li>
+			<li>
+				<texture>Things/Pawn/Wounds/BandagedC</texture>
+			</li>
+		</bandagedWounds>
+	</FleshTypeDef>
+
+</Defs>

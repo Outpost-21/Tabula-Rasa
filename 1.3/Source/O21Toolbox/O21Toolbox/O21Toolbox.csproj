@@ -144,7 +144,7 @@
     <Compile Include="GasStuff\GasHediffGiver.cs" />
     <Compile Include="HarmonyPatches\DefModExt_EMPShielding.cs" />
     <Compile Include="HarmonyPatches\DefModExt_Nightlight.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
+    <None Include="HarmonyPatches\Patches\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_FoodUtility_WillIngestStackCountOf.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Ideology.cs" />
     <Compile Include="HarmonyPatches\Patches\Harmony_Health.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="HarmonyPatches\Patches\Harmony_Culture.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
     <Compile Include="HarmonyPatches\Patches\Patch_Building_Door_DoorPowerOn.cs" />
-    <Compile Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
+    <None Include="HarmonyPatches\Patches\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
     <Compile Include="Health\CompProperties_UseHealthPack.cs" />
     <Compile Include="Health\Comp_UseHealthPack.cs" />
     <Compile Include="Health\HediffCompProperties_TooltipDescription.cs" />
@@ -366,9 +366,9 @@
     <Compile Include="Teleporter\MapComp_Teleporter.cs" />
     <Compile Include="Teleporter\Comp_Teleporter.cs" />
     <Compile Include="Teleporter\TeleporterDefOf.cs" />
-    <Compile Include="Terraformer\Grid_Terraformer.cs" />
+    <None Include="Terraformer\Grid_Terraformer.cs" />
     <Compile Include="Terraformer\MapComponent_Terraforming.cs" />
-    <Compile Include="Terraformer\TerrainCategoryDef.cs" />
+    <None Include="Terraformer\TerrainCategoryDef.cs" />
     <Compile Include="ThingProducer\Building_ThingProducer.cs" />
     <Compile Include="ThingProducer\DefModExt_ThingProducer.cs" />
     <Compile Include="ThingProducer\JobDriver_TakeFromProducer.cs" />
@@ -387,9 +387,9 @@
     <Compile Include="Needs\DefModExt_ArtificialPawn.cs" />
     <Compile Include="Needs\ArtificialPawnUtils.cs" />
     <Compile Include="Research\DefModExt_ResearchBenchSubstitutes.cs" />
-    <Compile Include="Terraformer\CompProperties_Terraformer.cs" />
-    <Compile Include="Terraformer\Comp_Terraformer.cs" />
-    <Compile Include="Terraformer\TerraformerRulesDef.cs" />
+    <None Include="Terraformer\CompProperties_Terraformer.cs" />
+    <None Include="Terraformer\Comp_Terraformer.cs" />
+    <None Include="Terraformer\TerraformerRulesDef.cs" />
     <Compile Include="Utility\AnimalApparelUtility.cs" />
     <Compile Include="Utility\BodyPartUtility.cs" />
     <Compile Include="Utility\ButcherUtility.cs" />

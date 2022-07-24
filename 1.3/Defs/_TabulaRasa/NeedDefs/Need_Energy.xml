@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<NeedDef>
+		<defName>TabulaRasa_EnergyNeed</defName>
+		<needClass>TabulaRasa.Need_Energy</needClass>
+		<label>energy</label>
+		<description>Energy is the amount of electrical power stored inside the pawn. If it is at zero, the pawn will switch to emergency power mode and soon deactivate if not charged.</description>
+		<listPriority>850</listPriority>
+		<major>true</major>
+		<showForCaravanMembers>true</showForCaravanMembers>
+		<scaleBar>true</scaleBar>
+	</NeedDef>
+
+</Defs>

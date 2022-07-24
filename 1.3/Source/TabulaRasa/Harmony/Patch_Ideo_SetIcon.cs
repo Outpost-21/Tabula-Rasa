@@ -1,0 +1,35 @@
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using Verse;
+
+using HarmonyLib;
+
+namespace TabulaRasa
+{
+    [HarmonyPatch(typeof(Ideo), "SetIcon")]
+    public static class Patch_Ideo_SetIcon
+    {
+        [HarmonyPostfix]
+        public static void PostFix(Ideo __instance, IdeoIconDef iconDef, ColorDef colorDef, bool clearPrimaryFactionColor)
+        {
+            if (__instance.culture != null && __instance.culture.HasModExtension<DefModExt_CultureExtended>())
+            {
+                DefModExt_CultureExtended ext = __instance.culture.GetModExtension<DefModExt_CultureExtended>();
+
+                if (ext.ideoIconDef != null)
+                {
+                    __instance.iconDef = ext.ideoIconDef;
+                }
+                if (ext.ideoIconColor != null)
+                {
+                    __instance.colorDef = ext.ideoIconColor;
+                }
+            }
+        }
+    }
+}

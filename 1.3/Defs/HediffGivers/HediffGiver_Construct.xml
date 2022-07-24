@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
 	<HediffGiverSetDef>
-    	<defName>O21_Construct</defName>
+		<defName>O21_Construct</defName>
 		<hediffGivers>
 			<li Class="HediffGiver_Bleeding">
 				<hediff>O21_CoolantLoss</hediff>
@@ -11,15 +11,15 @@
 				<hediff>O21_ConstructSoftware</hediff>
 			</li>
 		</hediffGivers>
-  	</HediffGiverSetDef>
+	</HediffGiverSetDef>
 
 	<HediffGiverSetDef>
-    	<defName>O21_ConstructHumanoid</defName>
+		<defName>O21_ConstructHumanoid</defName>
 		<hediffGivers>
 			<li Class="HediffGiver_Bleeding">
 				<hediff>O21_CoolantLoss</hediff>
 			</li>
 		</hediffGivers>
-  	</HediffGiverSetDef>
-	
+	</HediffGiverSetDef>
+
 </Defs>

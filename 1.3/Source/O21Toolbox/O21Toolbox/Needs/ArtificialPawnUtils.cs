@@ -26,16 +26,14 @@ namespace O21Toolbox.Needs
             {
                 if (medicine != null && medicine.Destroyed)
                 {
-                    Log.Warning("Tried to use destroyed repair kit.");
+                    LogUtil.LogWarning("Tried to use destroyed repair kit.");
                     medicine = null;
                 }
 
-                //float quality = 1f; //CalculateBaseTendQuality
                 GetOptimalHediffsToTendWithSingleTreatment(patient, medicine != null, tmpHediffsToTend, null);
 
                 for (int i = 0; i < tmpHediffsToTend.Count; i++)
                 {
-                    //tmpHediffsToTend[i].Tended(quality, i);
                     if (medicine == null)
                     {
                         tmpHediffsToTend[i].Tended(0.1f, i);
@@ -51,11 +49,9 @@ namespace O21Toolbox.Needs
                 }
                 if (doctor != null && doctor.RaceProps.Humanlike && patient.RaceProps.Animal)
                 {
-                    bool flag5 = RelationsUtility.TryDevelopBondRelation(doctor, patient, 0.004f);
-                    if (flag5)
+                    if (RelationsUtility.TryDevelopBondRelation(doctor, patient, 0.004f))
                     {
-                        bool flag6 = doctor.Faction != null && doctor.Faction != patient.Faction;
-                        if (flag6)
+                        if (doctor.Faction != null && doctor.Faction != patient.Faction)
                         {
                             InteractionWorker_RecruitAttempt.DoRecruit(doctor, patient, false);
                         }
@@ -94,8 +90,7 @@ namespace O21Toolbox.Needs
                 if (ModsConfig.IdeologyActive && doctor != null && doctor.Ideo != null)
                 {
                     Precept_Role role = doctor.Ideo.GetRole(doctor);
-                    bool flag15 = role != null && role.def.roleEffects != null;
-                    if (flag15)
+                    if (role != null && role.def.roleEffects != null)
                     {
                         foreach (RoleEffect eff in role.def.roleEffects)
                         {
