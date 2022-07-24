@@ -70,13 +70,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comps\CompProperties_AlienBodyCorrection.cs" />
+    <Compile Include="Comps\CompProperties_IdeoIconOverlay.cs" />
     <Compile Include="Comps\CompProperties_EnergySource.cs" />
     <Compile Include="Comps\CompProperties_TraitsOverTime.cs" />
+    <Compile Include="Comps\Comp_AlienBodyCorrection.cs" />
+    <Compile Include="Comps\Comp_IdeoIconOverlay.cs" />
     <Compile Include="Comps\Comp_TraitsOverTime.cs" />
     <Compile Include="Comps\Comp_Hibernation.cs" />
     <Compile Include="Comps\Comp_EnergySource.cs" />
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
+    <Compile Include="Hediffs\HediffGiver_Racial.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_TooltipDescription.cs" />
+    <Compile Include="Hediffs\HediffComp_TooltipDescription.cs" />
     <Compile Include="ModExtensions\DefModExt_ExtraStrings.cs" />
     <Compile Include="Harmony\Patch_Pawn_HealthTracker_AddHediff.cs" />
     <Compile Include="Hediffs\HediffCompProperties_AutoHeal.cs" />
