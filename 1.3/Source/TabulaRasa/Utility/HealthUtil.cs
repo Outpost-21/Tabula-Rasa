@@ -203,8 +203,7 @@ namespace TabulaRasa
                     for (int i = hediffs.Count - 1; i >= 0; i = num - 1)
                     {
                         Hediff hediff = hediffs[i];
-                        bool flag = hediff.Part == part && hediff.def == hediffDef;
-                        if (flag)
+                        if (hediff.Part == part && hediff.def == hediffDef)
                         {
                             matchingPart = true;
                             yield return part;
@@ -212,8 +211,7 @@ namespace TabulaRasa
                         hediff = null;
                         num = i;
                     }
-                    bool flag2 = !matchingPart;
-                    if (flag2)
+                    if (!matchingPart)
                     {
                         for (int j = 0; j < part.parts.Count; j = num + 1)
                         {
@@ -245,17 +243,14 @@ namespace TabulaRasa
                     for (int i = hediffs.Count - 1; i >= 0; i = num - 1)
                     {
                         Hediff hediff = hediffs[i];
-                        bool flag = hediff.Part == part;
-                        if (flag)
+                        if (hediff.Part == part)
                         {
-                            bool flag2 = hediff.def == hediffExceptionDef;
-                            if (flag2)
+                            if (hediff.def == hediffExceptionDef)
                             {
                                 matchingPart = true;
                                 break;
                             }
-                            bool flag3 = hediff.def == hediffDef;
-                            if (flag3)
+                            if (hediff.def == hediffDef)
                             {
                                 matchingPart = true;
                                 yield return part;
@@ -265,8 +260,7 @@ namespace TabulaRasa
                         hediff = null;
                         num = i;
                     }
-                    bool flag4 = !matchingPart;
-                    if (flag4)
+                    if (!matchingPart)
                     {
                         for (int j = 0; j < part.parts.Count; j = num + 1)
                         {
@@ -298,17 +292,14 @@ namespace TabulaRasa
                     for (int i = hediffs.Count - 1; i >= 0; i = num - 1)
                     {
                         Hediff hediff = hediffs[i];
-                        bool flag = hediff.Part == part;
-                        if (flag)
+                        if (hediff.Part == part)
                         {
-                            bool flag2 = hediff.def == hediffExceptionDef || extraExceptionPredicate(hediff);
-                            if (flag2)
+                            if (hediff.def == hediffExceptionDef || extraExceptionPredicate(hediff))
                             {
                                 matchingPart = true;
                                 break;
                             }
-                            bool flag3 = hediff.def == hediffDef;
-                            if (flag3)
+                            if (hediff.def == hediffDef)
                             {
                                 matchingPart = true;
                                 yield return part;
@@ -318,8 +309,7 @@ namespace TabulaRasa
                         hediff = null;
                         num = i;
                     }
-                    bool flag4 = !matchingPart;
-                    if (flag4)
+                    if (!matchingPart)
                     {
                         for (int j = 0; j < part.parts.Count; j = num + 1)
                         {
@@ -351,17 +341,14 @@ namespace TabulaRasa
                     for (int i = hediffs.Count - 1; i >= 0; i = num - 1)
                     {
                         Hediff hediff = hediffs[i];
-                        bool flag = hediff.Part == part;
-                        if (flag)
+                        if (hediff.Part == part)
                         {
-                            bool flag2 = hediffExceptionDefs.Contains(hediff.def);
-                            if (flag2)
+                            if (hediffExceptionDefs.Contains(hediff.def))
                             {
                                 matchingPart = true;
                                 break;
                             }
-                            bool flag3 = hediff.def == hediffDef;
-                            if (flag3)
+                            if (hediff.def == hediffDef)
                             {
                                 matchingPart = true;
                                 yield return part;
@@ -371,8 +358,7 @@ namespace TabulaRasa
                         hediff = null;
                         num = i;
                     }
-                    bool flag4 = !matchingPart;
-                    if (flag4)
+                    if (!matchingPart)
                     {
                         for (int j = 0; j < part.parts.Count; j = num + 1)
                         {

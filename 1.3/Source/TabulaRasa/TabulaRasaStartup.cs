@@ -34,9 +34,9 @@ namespace TabulaRasa
         public static void DistributeRaceAmongFactionKinds(RaceSpawningDef rsd)
         {
             List<PawnKindDef> viableKinds = new List<PawnKindDef>();
-            foreach(PawnKindDef pkd in DefDatabase<PawnKindDef>.AllDefs)
+            foreach(PawnKindDef pkd in DefDatabase<PawnKindDef>.AllDefs.Where(pk => pk.race.race.Humanlike && pk.defaultFactionType != null))
             {
-                if(pkd.defaultFactionType != null && rsd.factions.Contains(pkd.defaultFactionType))
+                if(rsd.factions.Contains(pkd.defaultFactionType))
                 {
                     viableKinds.Add(pkd);
                 }
@@ -44,19 +44,36 @@ namespace TabulaRasa
 
             for (int i = 0; i < viableKinds.Count(); i++)
             {
-                PawnKindDef curPkd = viableKinds[i];
-                if (!curPkd.HasModExtension<DefModExt_PawnKindRaces>())
+                try
                 {
-                    curPkd.modExtensions.Add(new DefModExt_PawnKindRaces());
-                }
-                for (int j = 0; j < rsd.races.Count(); j++)
-                {
-                    DefModExt_PawnKindRaces modExt = curPkd.GetModExtension<DefModExt_PawnKindRaces>();
-                    if (!modExt.altRaces.Any(ar => ar.thingDef == rsd.races[j]))
+                    LogUtil.LogDebug($"Patching races into {viableKinds[i].defName}...");
+                    PawnKindDef curPkd = viableKinds[i];
+                    if (!curPkd.HasModExtension<DefModExt_PawnKindRaces>())
                     {
-                        ThingDefCountClass weightedRace = new ThingDefCountClass(rsd.races[j], rsd.weight);
-                        modExt.altRaces.Add(weightedRace);
+                        if (curPkd.modExtensions.NullOrEmpty())
+                        {
+                            curPkd.modExtensions = new List<DefModExtension>();
+                        }
+                        curPkd.modExtensions.Add(new DefModExt_PawnKindRaces());
                     }
+                    for (int j = 0; j < rsd.races.Count(); j++)
+                    {
+                        DefModExt_PawnKindRaces modExt = curPkd.GetModExtension<DefModExt_PawnKindRaces>();
+                        if (modExt.altRaces.NullOrEmpty())
+                        {
+                            modExt.altRaces = new List<WeightedRaceChoice>();
+                        }
+                        if (!modExt.altRaces.Any(ar => ar.race == rsd.races[j]))
+                        {
+                            WeightedRaceChoice weightedRace = new WeightedRaceChoice(rsd.races[j], rsd.weight);
+                            modExt.altRaces.Add(weightedRace);
+                            LogUtil.LogDebug($"- {weightedRace.race} : {weightedRace.weight}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Warning($"Exception caught in {viableKinds[i].defName} while trying to distribute races among pawnKinds.\n\n{ex}");
                 }
             }
         }

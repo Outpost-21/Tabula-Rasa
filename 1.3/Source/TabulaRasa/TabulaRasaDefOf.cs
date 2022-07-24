@@ -24,7 +24,6 @@ namespace TabulaRasa
         public static JobDef TabulaRasa_RechargeFromSocket;
 
         public static HediffDef TabulaRasa_EmergencyPower;
-        public static HediffDef TabulaRasa_ProtoBodypart;
 
         public static StatDef TabulaRasa_EnergyMultiplier;
 

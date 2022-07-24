@@ -11,8 +11,6 @@ namespace TabulaRasa
 {
     public class TabulaRasaSettings : ModSettings
     {
-        public bool verboseLogging = false;
-
         // UpdateListings
         public bool modUpdates = true;
         public List<string> markedAsSeen = new List<String>();

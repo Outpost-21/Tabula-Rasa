@@ -69,9 +69,9 @@ namespace TabulaRasa
             {
                 if (!modExt.altRaces.NullOrEmpty())
                 {
-                    modExt.altRaces.Add(new ThingDefCountClass(pawnkind.race, 100));
-                    Func<ThingDefCountClass, float> selector = (ThingDefCountClass x) => x.count;
-                    return modExt.altRaces.RandomElementByWeight(selector).thingDef;
+                    modExt.altRaces.Add(new WeightedRaceChoice(pawnkind.race, 100));
+                    Func<WeightedRaceChoice, float> selector = (WeightedRaceChoice x) => x.weight;
+                    return modExt.altRaces.RandomElementByWeight(selector).race;
                 }
             }
             return result;

@@ -75,6 +75,7 @@
     <Compile Include="Comps\Comp_TraitsOverTime.cs" />
     <Compile Include="Comps\Comp_Hibernation.cs" />
     <Compile Include="Comps\Comp_EnergySource.cs" />
+    <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="ModExtensions\DefModExt_ExtraStrings.cs" />
     <Compile Include="Harmony\Patch_Pawn_HealthTracker_AddHediff.cs" />

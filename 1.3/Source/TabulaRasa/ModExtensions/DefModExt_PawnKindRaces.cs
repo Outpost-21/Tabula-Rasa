@@ -15,7 +15,7 @@ namespace TabulaRasa
         /// Add a chance for the pawnKind to be a different race!
         /// Finally a balanced way to integrate into an existing faction with minimal effort!
         /// </summary>
-        public List<ThingDefCountClass> altRaces = new List<ThingDefCountClass>();
+        public List<WeightedRaceChoice> altRaces = new List<WeightedRaceChoice>();
 
     }
 }
