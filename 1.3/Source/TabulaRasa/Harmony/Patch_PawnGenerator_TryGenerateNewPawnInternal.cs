@@ -69,7 +69,7 @@ namespace TabulaRasa
             {
                 if (!modExt.altRaces.NullOrEmpty())
                 {
-                    modExt.altRaces.Add(new WeightedRaceChoice(pawnkind.race, 100));
+                    modExt.altRaces.Add(new WeightedRaceChoice(pawnkind.race, 100f));
                     Func<WeightedRaceChoice, float> selector = (WeightedRaceChoice x) => x.weight;
                     return modExt.altRaces.RandomElementByWeight(selector).race;
                 }

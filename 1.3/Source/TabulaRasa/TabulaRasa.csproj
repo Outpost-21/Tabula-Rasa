@@ -70,6 +70,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building_ThingProducer.cs" />
+    <Compile Include="Buildings\Building_TurretGunSmart.cs" />
+    <Compile Include="Comps\CompProperties_ExtraGraphics.cs" />
+    <Compile Include="Comps\CompProperties_UseHealthPack.cs" />
+    <Compile Include="Comps\CompProperties_AutoResearch.cs" />
     <Compile Include="Comps\CompProperties_AlienBodyCorrection.cs" />
     <Compile Include="Comps\CompProperties_IdeoIconOverlay.cs" />
     <Compile Include="Comps\CompProperties_EnergySource.cs" />
@@ -79,11 +84,46 @@
     <Compile Include="Comps\Comp_TraitsOverTime.cs" />
     <Compile Include="Comps\Comp_Hibernation.cs" />
     <Compile Include="Comps\Comp_EnergySource.cs" />
+    <Compile Include="Comps\Comp_AutoResearch.cs" />
+    <Compile Include="Comps\Comp_UseHealthPack.cs" />
+    <Compile Include="Comps\Comp_ExtraGraphics.cs" />
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
+    <Compile Include="Data\ExtraGraphicsDetails.cs" />
+    <Compile Include="Harmony\Patch_CompSchedule_recalculateAllowed.cs" />
+    <Compile Include="Harmony\Patch_Caravan_NightResting.cs" />
+    <Compile Include="Harmony\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
+    <Compile Include="Harmony\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
+    <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
+    <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />
+    <Compile Include="Harmony\Patch_TendUtility_DoTend.cs" />
+    <Compile Include="ModExtensions\DefModExt_Fireproof.cs" />
+    <Compile Include="Harmony\Patch_Thing_TakeDamage.cs" />
+    <Compile Include="Harmony\Patch_ResearchProjectDef_CanBeResearchedAt.cs" />
+    <Compile Include="ModExtensions\DefModExt_ResearchBenchSubstitutes.cs" />
+    <Compile Include="Harmony\Patch_HealthAIUtility_ShouldEverReceiveMedicalCareFromPlayer.cs" />
+    <Compile Include="Harmony\Patch_MeditationUtility_CanMeditateNow.cs" />
+    <Compile Include="Harmony\Patch_Toils_Tend_FinalizeTend.cs" />
+    <Compile Include="Harmony\Patch_SkillRecord_Learn.cs" />
+    <Compile Include="Harmony\Patch_StunHandler_AffectedByEMP.cs" />
+    <Compile Include="Harmony\Patch_JobDriver_Vomit_MakeNewToils.cs" />
+    <Compile Include="Harmony\Patch_InspirationHandler_InspirationHandlerTick.cs" />
+    <Compile Include="Harmony\Patch_PawnDiedOrDownedThoughtsUtility.cs" />
+    <Compile Include="Harmony\Patch_InteractionUtility_CanReceiveInteraction.cs" />
+    <Compile Include="Harmony\Patch_InteractionUtility_CanInitiateInteraction.cs" />
+    <Compile Include="Harmony\Patch_Pawn_InteractionsTracker_CanInteractNowWith.cs" />
+    <Compile Include="Harmony\Patch_Pawn_InteractionsTracker_SocialFightChance.cs" />
+    <Compile Include="Harmony\Patch_SkillRecord_Interval.cs" />
+    <Compile Include="ModExtensions\DefModExt_AutoHealProps.cs" />
+    <Compile Include="Hediffs\Hediff_GrowingPart.cs" />
+    <Compile Include="Hediffs\Hediff_Removable.cs" />
+    <Compile Include="ModExtensions\DefModExt_BasicConversion.cs" />
+    <Compile Include="Hediffs\Hediff_BasicConversion.cs" />
+    <Compile Include="ModExtensions\DefModExt_ThingProducer.cs" />
     <Compile Include="Hediffs\HediffGiver_Racial.cs" />
     <Compile Include="Hediffs\HediffCompProperties_TooltipDescription.cs" />
     <Compile Include="Hediffs\HediffComp_TooltipDescription.cs" />
+    <Compile Include="Jobs\JobDriver_TakeFromProducer.cs" />
     <Compile Include="ModExtensions\DefModExt_ExtraStrings.cs" />
     <Compile Include="Harmony\Patch_Pawn_HealthTracker_AddHediff.cs" />
     <Compile Include="Hediffs\HediffCompProperties_AutoHeal.cs" />
@@ -107,6 +147,7 @@
     <Compile Include="Data\RaceApparelData.cs" />
     <Compile Include="ModExtensions\DefModExt_SelfPoweredDoor.cs" />
     <Compile Include="Needs\Need_Energy.cs" />
+    <Compile Include="Utility\OnDemandUtil.cs" />
     <Compile Include="PatchOperations\PatchOperation_ReplaceCostThing.cs" />
     <Compile Include="Defs\RaceSpawningDef.cs" />
     <Compile Include="Utility\ArtificialUtil.cs" />

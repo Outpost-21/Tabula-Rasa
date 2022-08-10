@@ -14,6 +14,8 @@ namespace TabulaRasa
 	{
 		public List<string> mods;
 
+		public bool requireAll = false;
+
 		public PatchOperation match;
 
 		public PatchOperation nomatch;
@@ -21,10 +23,25 @@ namespace TabulaRasa
 		public override bool ApplyWorker(XmlDocument xml)
 		{
 			bool flag = false;
-			if (ModLister.AnyFromListActive(mods))
+			if (!requireAll && ModLister.AnyFromListActive(mods))
 			{
 				flag = true;
 			}
+            else
+            {
+				int count = 0;
+				foreach (string mod in mods)
+                {
+                    if (ModLister.GetActiveModWithIdentifier(mod) != null)
+                    {
+						count++;
+                    }
+                }
+				if(count >= mods.Count)
+                {
+					flag = true;
+                }
+            }
 
 			if (flag)
 			{

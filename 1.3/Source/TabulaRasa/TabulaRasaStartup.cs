@@ -18,6 +18,35 @@ namespace TabulaRasa
         {
             FillLinkablesAutomatically();
             FillRaceAlternatesAutomatically();
+            DisableCorpseRottingAsNeeded();
+        }
+
+        public static void DisableCorpseRottingAsNeeded()
+        {
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs)
+            {
+                DefModExt_ArtificialPawn modExt = thingDef.GetModExtension<DefModExt_ArtificialPawn>();
+                if (modExt != null)
+                {
+                    ThingDef corpseDef = thingDef?.race?.corpseDef;
+                    if (corpseDef != null)
+                    {
+                        if (!modExt.corpseRots)
+                        {
+                            corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_Rottable);
+                            corpseDef.comps.RemoveAll(compProperties => compProperties is CompProperties_SpawnerFilth);
+                        }
+                        if (!modExt.corpseEdible)
+                        {
+                            if (corpseDef.modExtensions == null)
+                            {
+                                corpseDef.modExtensions = new List<DefModExtension>();
+                            }
+                            corpseDef.modExtensions.Add(new DefModExt_ArtificialPawn() { corpseEdible = false });
+                        }
+                    }
+                }
+            }
         }
 
         public static void FillRaceAlternatesAutomatically()

@@ -17,6 +17,9 @@ namespace TabulaRasa
             DefOfHelper.EnsureInitializedInCtor(typeof(TabulaRasaDefOf));
         }
 
+        public static NeedDef TabulaRasa_EnergyNeed;
+
+        public static JobDef TabulaRasa_TakeFromProducer;
         public static JobDef TabulaRasa_UseTeleporter;
         public static JobDef TabulaRasa_UseRecall;
         public static JobDef TabulaRasa_Hibernate;
@@ -24,6 +27,7 @@ namespace TabulaRasa
         public static JobDef TabulaRasa_RechargeFromSocket;
 
         public static HediffDef TabulaRasa_EmergencyPower;
+        public static HediffDef TabulaRasa_RemovableHediff;
 
         public static StatDef TabulaRasa_EnergyMultiplier;
 
