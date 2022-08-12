@@ -19,7 +19,7 @@ namespace TabulaRasa
         public static bool Prefix(ref List<Pawn> pawns, List<ThingDefCount> extraFood, int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
         {
             List<Pawn> list = new List<Pawn>(pawns);
-            list.RemoveAll((Pawn pawn) => pawn.RaceProps.EatsFood);
+            list.RemoveAll((Pawn pawn) => !pawn.RaceProps.EatsFood);
             pawns = list;
             return true;
         }
