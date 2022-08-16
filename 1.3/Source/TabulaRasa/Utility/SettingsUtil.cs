@@ -104,6 +104,48 @@ namespace TabulaRasa
 			GUI.color = Color.white;
 			listing.Gap(6f);
 		}
+		public static void SettingsDropdown(this Listing_Standard listing, string name, string explanation, ref TabulaRasaSettingsPage value, float width)
+		{
+			float curHeight = listing.CurHeight;
+			Rect rect = listing.GetRect(Text.LineHeight + listing.verticalSpacing);
+			Text.Font = GameFont.Small;
+			GUI.color = Color.white;
+			TextAnchor anchor = Text.Anchor;
+			Text.Anchor = TextAnchor.MiddleLeft;
+			Widgets.Label(rect, name);
+			Text.Anchor = TextAnchor.MiddleRight;
+
+			Rect rect2 = new Rect(width - 150f, 0f, 150f, 29f);
+			if (Widgets.ButtonText(rect2, value.ToString().Replace("_", " "), true, true, true))
+			{
+				List<FloatMenuOption> list = new List<FloatMenuOption>();
+				List<TabulaRasaSettingsPage> enumValues = Enum.GetValues(typeof(TabulaRasaSettingsPage)).Cast<TabulaRasaSettingsPage>().ToList();
+				foreach (TabulaRasaSettingsPage enumValue in enumValues)
+				{
+					list.Add(new FloatMenuOption(enumValue.ToString().Replace("_", " "), delegate ()
+					{
+						TabulaRasaMod.mod.currentPage = enumValue;
+					}));
+				}
+
+				Find.WindowStack.Add(new FloatMenu(list));
+			}
+
+			Text.Anchor = anchor;
+
+			Text.Font = GameFont.Tiny;
+			listing.ColumnWidth -= 34f;
+			GUI.color = Color.gray;
+			listing.Label(explanation);
+			listing.ColumnWidth += 34f;
+			Text.Font = GameFont.Small;
+
+			rect = listing.GetRect(0f);
+			rect.height = listing.CurHeight - curHeight;
+			rect.y -= rect.height;
+			GUI.color = Color.white;
+			listing.Gap(6f);
+		}
 	}
 
 	public static class EnhancedListingStandard

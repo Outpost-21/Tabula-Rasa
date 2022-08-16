@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_ThingProducer.cs" />
     <Compile Include="Buildings\Building_TurretGunSmart.cs" />
+    <Compile Include="Comps\CompProperties_HologramProjection.cs" />
     <Compile Include="Comps\CompProperties_ExtraGraphics.cs" />
     <Compile Include="Comps\CompProperties_UseHealthPack.cs" />
     <Compile Include="Comps\CompProperties_AutoResearch.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Comps\Comp_AutoResearch.cs" />
     <Compile Include="Comps\Comp_UseHealthPack.cs" />
     <Compile Include="Comps\Comp_ExtraGraphics.cs" />
+    <Compile Include="Comps\Comp_HologramProjection.cs" />
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
@@ -94,6 +96,9 @@
     <Compile Include="Harmony\Patch_Caravan_NightResting.cs" />
     <Compile Include="Harmony\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
     <Compile Include="Harmony\Patch_Pawn_NeedsTracker_ShouldHaveNeed.cs" />
+    <Compile Include="Defs\HologramDef.cs" />
+    <Compile Include="Data\HologramLayer.cs" />
+    <Compile Include="UI\ITab_Hologram.cs" />
     <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
     <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />
     <Compile Include="Harmony\Patch_TendUtility_DoTend.cs" />

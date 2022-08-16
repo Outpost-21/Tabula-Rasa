@@ -59,19 +59,22 @@ namespace TabulaRasa
         {
             ThingDef result = pawnkind.race;
 
-            DefModExt_PawnKindRaces modExt = null;
-            if (pawnkind.HasModExtension<DefModExt_PawnKindRaces>())
+            if(pawnkind != PawnKindDefOf.Refugee && pawnkind != PawnKindDefOf.SpaceRefugee && (pawnkind.race == ThingDefOf.Human || !TabulaRasaMod.settings.onlyReplaceHumans))
             {
-                modExt = pawnkind.GetModExtension<DefModExt_PawnKindRaces>();
-            }
-
-            if (modExt != null)
-            {
-                if (!modExt.altRaces.NullOrEmpty())
+                DefModExt_PawnKindRaces modExt = null;
+                if (pawnkind.HasModExtension<DefModExt_PawnKindRaces>())
                 {
-                    modExt.altRaces.Add(new WeightedRaceChoice(pawnkind.race, 100f));
-                    Func<WeightedRaceChoice, float> selector = (WeightedRaceChoice x) => x.weight;
-                    return modExt.altRaces.RandomElementByWeight(selector).race;
+                    modExt = pawnkind.GetModExtension<DefModExt_PawnKindRaces>();
+                }
+
+                if (modExt != null)
+                {
+                    if (!modExt.altRaces.NullOrEmpty())
+                    {
+                        modExt.altRaces.Add(new WeightedRaceChoice(pawnkind.race, 100f));
+                        Func<WeightedRaceChoice, float> selector = (WeightedRaceChoice x) => x.weight;
+                        return modExt.altRaces.RandomElementByWeight(selector).race;
+                    }
                 }
             }
             return result;

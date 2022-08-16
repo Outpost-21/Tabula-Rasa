@@ -11,6 +11,11 @@ namespace TabulaRasa
 {
     public class TabulaRasaSettings : ModSettings
     {
+        // RaceSpawning shit
+        public bool onlyReplaceHumans = true;
+        public Dictionary<string, bool> raceSpawningSettings = new Dictionary<string, bool>();
+        public Dictionary<string, float> raceSpawningWeights = new Dictionary<string, float>();
+
         // UpdateListings
         public bool modUpdates = true;
         public List<string> markedAsSeen = new List<String>();
@@ -21,6 +26,8 @@ namespace TabulaRasa
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Collections.Look(ref raceSpawningSettings, "raceSpawningSettings");
+            Scribe_Collections.Look(ref raceSpawningWeights, "raceSpawningWeights");
 
             // UpdateListings
             Scribe_Values.Look(ref modUpdates, "modUpdates", true);

@@ -55,21 +55,53 @@ namespace TabulaRasa
             {
                 if (CheckRaceSpawningDefForFlaws(rsd))
                 {
-                    DistributeRaceAmongFactionKinds(rsd);
+                    CheckIfSettingsExistAndFix(rsd);
+                    if (DealWithRaceSpawningSettings(rsd))
+                    {
+                        DistributeRaceAmongFactionKinds(rsd);
+                    }
                 }
             }
         }
 
+        public static void CheckIfSettingsExistAndFix(RaceSpawningDef rsd)
+        {
+            if (TabulaRasaMod.settings.raceSpawningSettings.NullOrEmpty())
+            {
+                TabulaRasaMod.settings.raceSpawningSettings = new Dictionary<string, bool>();
+            }
+            if (!TabulaRasaMod.settings.raceSpawningSettings.ContainsKey(rsd.defName))
+            {
+                TabulaRasaMod.settings.raceSpawningSettings.Add(rsd.defName, true);
+            }
+
+            if (TabulaRasaMod.settings.raceSpawningWeights.NullOrEmpty())
+            {
+                TabulaRasaMod.settings.raceSpawningWeights = new Dictionary<string, float>();
+            }
+            if (!TabulaRasaMod.settings.raceSpawningWeights.ContainsKey(rsd.defName))
+            {
+                TabulaRasaMod.settings.raceSpawningWeights.Add(rsd.defName, rsd.weight);
+            }
+        }
+
+        public static bool DealWithRaceSpawningSettings(RaceSpawningDef rsd)
+        {
+            bool enabled = true;
+            if(TabulaRasaMod.settings.raceSpawningSettings.ContainsKey(rsd.defName))
+            {
+                enabled = TabulaRasaMod.settings.raceSpawningSettings.TryGetValue(rsd.defName);
+            }
+            if (TabulaRasaMod.settings.raceSpawningWeights.ContainsKey(rsd.defName))
+            {
+                rsd.weight = TabulaRasaMod.settings.raceSpawningWeights.TryGetValue(rsd.defName);
+            }
+            return enabled;
+        }
+
         public static void DistributeRaceAmongFactionKinds(RaceSpawningDef rsd)
         {
-            List<PawnKindDef> viableKinds = new List<PawnKindDef>();
-            foreach(PawnKindDef pkd in DefDatabase<PawnKindDef>.AllDefs.Where(pk => pk.race.race.Humanlike && pk.defaultFactionType != null))
-            {
-                if(rsd.factions.Contains(pkd.defaultFactionType))
-                {
-                    viableKinds.Add(pkd);
-                }
-            }
+            List<PawnKindDef> viableKinds = rsd.pawnKinds;
 
             for (int i = 0; i < viableKinds.Count(); i++)
             {
@@ -102,7 +134,7 @@ namespace TabulaRasa
                 }
                 catch (Exception ex)
                 {
-                    Log.Warning($"Exception caught in {viableKinds[i].defName} while trying to distribute races among pawnKinds.\n\n{ex}");
+                    LogUtil.LogWarning($"Exception caught in {viableKinds[i].defName} while trying to distribute races among pawnKinds.\n\n{ex}");
                 }
             }
         }
@@ -114,7 +146,7 @@ namespace TabulaRasa
                 LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
                 return false;
             }
-            if (rsd.factions.NullOrEmpty())
+            if (rsd.pawnKinds.NullOrEmpty())
             {
                 LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
                 return false;
