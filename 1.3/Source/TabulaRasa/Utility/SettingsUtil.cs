@@ -313,6 +313,22 @@ namespace TabulaRasa
 			GUI.color = Color.white;
 			Widgets.Label(GenUI.LeftPartPixels(rect, rect.width - num2), label);
 		}
+		public static void AddHoloColorPickerButton(this Listing_Standard listing_Standard, string label, Color color, Comp_HologramProjection comp, int layer, string buttonText = "Change")
+		{
+			listing_Standard.Gap(EnhancedListingStandard.Gap);
+			Rect rect = listing_Standard.GetRect(null);
+			float num = Text.CalcSize(buttonText).x + 10f;
+			float num2 = num + 5f + rect.height;
+			Rect rect2 = GenUI.RightPartPixels(rect, num + 5f + rect.height);
+			if (Widgets.ButtonText(GenUI.LeftPartPixels(rect2, num), buttonText, true, false, true))
+			{
+				Find.WindowStack.Add(new Win_HologramColorPicker(color, comp, layer, null));
+			}
+			GUI.color = color;
+			GUI.DrawTexture(GenUI.RightPartPixels(rect2, rect2.height), BaseContent.WhiteTex);
+			GUI.color = Color.white;
+			Widgets.Label(GenUI.LeftPartPixels(rect, rect.width - num2), label);
+		}
 
 		public static void AddColorPickerButton(this Listing_Standard listing_Standard, string label, Color color, string fieldName, object colorContainer, string buttonText = "Change")
 		{
@@ -388,7 +404,7 @@ namespace TabulaRasa
 		}
 	}
 
-	public class Dialog_ColourPicker : Verse.Window
+	public class Dialog_ColourPicker : Window
 	{
 		private Dialog_ColourPicker.Controls _activeControl = Dialog_ColourPicker.Controls.none;
 		private Texture2D _colourPickerBG;

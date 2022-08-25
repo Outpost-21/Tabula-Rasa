@@ -13,10 +13,10 @@ namespace TabulaRasa
     {
         public string texPath;
 
-        public bool canChangeColor = false;
+        public bool canChangeColor = true;
 
         public Color? defaultColor;
 
-        public Material Hologram => MaterialPool.MatFrom(texPath, ShaderDatabase.MoteGlow);
+        public Material Hologram => MaterialPool.MatFrom(texPath, ShaderDatabase.TransparentPostLight);
     }
 }

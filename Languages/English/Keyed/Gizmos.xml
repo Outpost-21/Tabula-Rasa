@@ -6,4 +6,7 @@
 	<O21_ChangeGraphic>Set Graphic</O21_ChangeGraphic>
 	<O21_ChangeGraphicDesc>Provides a full list of all available alternative graphics to choose from.</O21_ChangeGraphicDesc>
 
+	<TabulaRasa.SubCatLabel>Subcategory...</TabulaRasa.SubCatLabel>
+	<TabulaRasa.SubCatDesc>Selecting a subcategory will narrow down the buildable options to only those within the subcategory.</TabulaRasa.SubCatDesc>
+
 </LanguageData>

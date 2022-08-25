@@ -43,10 +43,10 @@ namespace TabulaRasa
                 }
                 return options;
             };
-            DrawRecipeCard(rect, hologramOptionsMaker);
+            DrawInformation(rect, hologramOptionsMaker);
         }
 
-        public void DrawRecipeCard(Rect rect, Func<List<FloatMenuOption>> hologramOptionsMaker)
+        public void DrawInformation(Rect rect, Func<List<FloatMenuOption>> hologramOptionsMaker)
         {
             GUI.BeginGroup(rect);
             Text.Font = GameFont.Small;
@@ -56,18 +56,27 @@ namespace TabulaRasa
                 Find.WindowStack.Add(new FloatMenu(hologramOptionsMaker()));
             }
             HologramDef holoDef = HoloComp.holoDef;
+            Rect rect3 = new Rect(0f, 45f, rect.width, 260f);
+            GUI.BeginGroup(rect3);
+            Rect rect4 = new Rect(4f, 4f, 128f, 128f);
+            for (int i = 0; i < holoDef.hologramLayers.Count(); i++)
             {
-                Rect rect3 = new Rect(0f, 45f, rect.width, 260f);
-                GUI.BeginGroup(rect3);
-                Rect rectInfo = new Rect(136f, 4f, rect3.width - 128f, 260f);
-                Widgets.Label(rectInfo, holoDef.LabelCap);
-                Rect rect4 = new Rect(4f, 4f, 128f, 128f);
-                for (int i = 0; i < holoDef.hologramLayers.Count(); i++)
-                {
-                    GUI.DrawTexture(rect4, ContentFinder<Texture2D>.Get(holoDef.hologramLayers[i].texPath, true));
-                }
-                GUI.EndGroup();
+                GUI.DrawTexture(rect4, ContentFinder<Texture2D>.Get(holoDef.hologramLayers[i].texPath, true), ScaleMode.ScaleToFit, true, 0f, HoloComp.hologramColors[i], 0f, 0f);
             }
+            Rect rectInfo = new Rect(136f, 4f, rect3.width - 128f, 260f);
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(rectInfo);
+            listing.Label($"Current Holo: {holoDef.LabelCap}");
+            listing.GapLine();
+            for (int i = 0; i < holoDef.hologramLayers.Count(); i++)
+            {
+                if (holoDef.hologramLayers[i].canChangeColor)
+                {
+                    listing.AddHoloColorPickerButton($"Layer {i}", HoloComp.hologramColors[i], HoloComp, i);
+                }
+            }
+            listing.End();
+            GUI.EndGroup();
             GUI.EndGroup();
         }
     }

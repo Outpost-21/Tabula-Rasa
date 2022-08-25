@@ -25,6 +25,6 @@ namespace TabulaRasa
             compClass = typeof(Comp_HologramProjection);
         }
 
-        public Material Holobeam => MaterialPool.MatFrom(holobeam, ShaderDatabase.MoteGlow);
+        public Material Holobeam => MaterialPool.MatFrom(holobeam, ShaderDatabase.TransparentPostLight);
     }
 }
