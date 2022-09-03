@@ -92,9 +92,13 @@
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
-    <Compile Include="DesignatorSubCategoryDef.cs" />
-    <Compile Include="Designator_SubCategory.cs" />
-    <Compile Include="WorldComp_ArchitectSubCategory.cs" />
+    <Compile Include="Defs\DesignatorSubCategoryDef.cs" />
+    <Compile Include="Harmony\Patch_Designator_Build_Visible.cs" />
+    <Compile Include="Harmony\Patch_WorkGiver_Warden_DeliverFood_JobOnThing.cs" />
+    <Compile Include="Harmony\Patch_WorkGiver_Warden_Feed_JobOnThing.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_SubCategoryBuildingOnly.cs" />
+    <Compile Include="UI\Designator_SubCategory.cs" />
+    <Compile Include="WorldComps\WorldComp_ArchitectSubCategory.cs" />
     <Compile Include="ModExtensions\DefModExt_CustomMeteoriteStrike.cs" />
     <Compile Include="Harmony\Patch_CompSchedule_recalculateAllowed.cs" />
     <Compile Include="Harmony\Patch_Caravan_NightResting.cs" />
@@ -103,7 +107,7 @@
     <Compile Include="Defs\HologramDef.cs" />
     <Compile Include="Data\HologramLayer.cs" />
     <Compile Include="IncidentWorkers\IncidentWorker_CustomMeteoriteStrike.cs" />
-    <Compile Include="PlaceWorker_SubCategoryBuilding.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_SubCategoryBuilding.cs" />
     <Compile Include="UI\ITab_Hologram.cs" />
     <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
     <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />

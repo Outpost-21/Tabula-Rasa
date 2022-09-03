@@ -63,6 +63,7 @@ namespace TabulaRasa
 			List<FloatMenuOption> options = new List<FloatMenuOption>();
 			options.Add(new FloatMenuOption("None".Translate(), delegate { selAction(null); }, MenuOptionPriority.High));
 			List<DesignatorSubCategoryDef> subCatsAvailable = DefDatabase<DesignatorSubCategoryDef>.AllDefs.Where(sc => sc.designationCategory == CurrentCategory).ToList();
+			subCatsAvailable.OrderBy(c => c.LabelCap);
             if (!subCatsAvailable.NullOrEmpty())
 			{
 				foreach (DesignatorSubCategoryDef subCat in subCatsAvailable)
