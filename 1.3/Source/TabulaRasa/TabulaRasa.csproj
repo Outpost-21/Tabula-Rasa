@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_ThingProducer.cs" />
     <Compile Include="Buildings\Building_TurretGunSmart.cs" />
+    <Compile Include="Buildings\Building_RefundOnDeconstruct.cs" />
+    <Compile Include="Comps\CompProperties_AdvancedHatcher.cs" />
     <Compile Include="Comps\CompProperties_HologramProjection.cs" />
     <Compile Include="Comps\CompProperties_ExtraGraphics.cs" />
     <Compile Include="Comps\CompProperties_UseHealthPack.cs" />
@@ -89,14 +91,24 @@
     <Compile Include="Comps\Comp_UseHealthPack.cs" />
     <Compile Include="Comps\Comp_ExtraGraphics.cs" />
     <Compile Include="Comps\Comp_HologramProjection.cs" />
+    <Compile Include="Comps\Comp_AdvancedHatcher.cs" />
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
+    <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
+    <Compile Include="ModExtensions\DefModExt_IntelligentAnimal.cs" />
+    <Compile Include="Jobs\JobGiver_IntelligentAnimal.cs" />
+    <Compile Include="ModExtensions\DefModExt_RaceProperties.cs" />
     <Compile Include="Defs\DesignatorSubCategoryDef.cs" />
     <Compile Include="Harmony\Patch_Designator_Build_Visible.cs" />
+    <Compile Include="Harmony\Patch_HediffComp_Infecter_CheckMakeInfection.cs" />
+    <Compile Include="Harmony\Patch_Pawn_TrainingTrackerTickRare.cs" />
+    <Compile Include="Harmony\Patch_IncidentWorker_Disease_PotentialVictims.cs" />
     <Compile Include="Harmony\Patch_WorkGiver_Warden_DeliverFood_JobOnThing.cs" />
     <Compile Include="Harmony\Patch_WorkGiver_Warden_Feed_JobOnThing.cs" />
+    <Compile Include="Data\Pawn_IntelligentAnimal.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_SubCategoryBuildingOnly.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalIntelligentAnimal.cs" />
     <Compile Include="UI\Designator_SubCategory.cs" />
     <Compile Include="WorldComps\WorldComp_ArchitectSubCategory.cs" />
     <Compile Include="ModExtensions\DefModExt_CustomMeteoriteStrike.cs" />
@@ -231,6 +243,7 @@
     <Compile Include="TabulaRasaMod.cs" />
     <Compile Include="TabulaRasaSettings.cs" />
     <Compile Include="WorldComps\WorldComp_EnergyNeed.cs" />
+    <Compile Include="WorldComps\WorldComp_Blueprints.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

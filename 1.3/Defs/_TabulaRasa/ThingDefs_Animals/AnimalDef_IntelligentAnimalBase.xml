@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<ThingDef ParentName="AnimalThingBase" Name="IntelligentAnimalBase" Abstract="True">
+		<thingClass>TabulaRasa.Pawn_IntelligentAnimal</thingClass>
+		<race>
+			<!-- <trainability>TabulaRasa_Humanlike</trainability> -->
+			<trainability>Advanced</trainability>
+		</race>
+		<inspectorTabs Inherit="False">
+			<li>ITab_Pawn_Health</li>
+			<li>ITab_Pawn_Needs</li>
+			<li>ITab_Pawn_Training</li>
+			<li>ITab_Pawn_Social</li>
+			<li>ITab_Pawn_Guest</li>
+			<li>ITab_Pawn_Prisoner</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">ITab_Pawn_Slave</li>
+			<li>ITab_Pawn_FormingCaravan</li>
+			<li>ITab_Pawn_Gear</li>
+			<li>ITab_Pawn_Log</li>
+		</inspectorTabs>
+	</ThingDef>
+
+</Defs>

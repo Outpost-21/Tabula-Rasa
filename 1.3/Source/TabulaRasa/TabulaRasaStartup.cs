@@ -16,9 +16,17 @@ namespace TabulaRasa
     {
         static TabulaRasaStartup()
         {
+            RunCheckForIntelligentPawns();
             FillLinkablesAutomatically();
             FillRaceAlternatesAutomatically();
             DisableCorpseRottingAsNeeded();
+        }
+
+        public static void RunCheckForIntelligentPawns()
+        {
+            if (DefDatabase<ThingDef>.AllDefs.Any(p => p.thingClass == typeof(Pawn_IntelligentAnimal)))
+            {
+            }
         }
 
         public static void DisableCorpseRottingAsNeeded()
