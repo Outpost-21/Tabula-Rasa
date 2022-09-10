@@ -4,7 +4,6 @@
 	<ThingDef ParentName="AnimalThingBase" Name="IntelligentAnimalBase" Abstract="True">
 		<thingClass>TabulaRasa.Pawn_IntelligentAnimal</thingClass>
 		<race>
-			<!-- <trainability>TabulaRasa_Humanlike</trainability> -->
 			<trainability>Advanced</trainability>
 		</race>
 		<inspectorTabs Inherit="False">

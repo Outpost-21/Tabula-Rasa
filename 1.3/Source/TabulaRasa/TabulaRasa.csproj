@@ -73,6 +73,7 @@
     <Compile Include="Buildings\Building_ThingProducer.cs" />
     <Compile Include="Buildings\Building_TurretGunSmart.cs" />
     <Compile Include="Buildings\Building_RefundOnDeconstruct.cs" />
+    <Compile Include="Comps\CompProprties_PawnSpawner.cs" />
     <Compile Include="Comps\CompProperties_AdvancedHatcher.cs" />
     <Compile Include="Comps\CompProperties_HologramProjection.cs" />
     <Compile Include="Comps\CompProperties_ExtraGraphics.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Comps\Comp_ExtraGraphics.cs" />
     <Compile Include="Comps\Comp_HologramProjection.cs" />
     <Compile Include="Comps\Comp_AdvancedHatcher.cs" />
+    <Compile Include="Comps\Comp_PawnSpawner.cs" />
     <Compile Include="Data\WeightedRaceChoice.cs" />
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
