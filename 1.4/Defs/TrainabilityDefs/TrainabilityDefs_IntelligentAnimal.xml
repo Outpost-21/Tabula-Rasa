@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Note: You cannot reorder elements in this without destroying saved trainability data; see DefMap<>.ExposeData(). -->
+
+	<!-- <TrainabilityDef>
+		<defName>TabulaRasa_Humanlike</defName>
+		<label>humanlike</label>
+		<intelligenceOrder>40</intelligenceOrder>
+	</TrainabilityDef>
+
+	<TrainableDef Abstract="True" Name="TabulaRasaTrainableBase">
+		<icon>Toolbox/UI/Trainables/Haul</icon>
+		<difficulty>400</difficulty>
+		<requiredTrainability>TabulaRasa_Humanlike</requiredTrainability>
+		<steps>3</steps>
+		<prerequisites>
+			<li>Obedience</li>
+		</prerequisites>
+		<defaultTrainable>false</defaultTrainable>
+		<tags>
+			<li>AllHumanlikeWork</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Clean</defName>
+		<label>clean</label>
+		<description>This pawn will clean areas.</description>
+		<icon>Toolbox/UI/Trainables/Clean</icon>
+		<listPriority>510</listPriority>
+		<tags>
+			<li>HumanlikeCleaning</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Construction</defName>
+		<label>construct</label>
+		<description>This pawn construct and repair buildings.</description>
+		<icon>Toolbox/UI/Trainables/Construction</icon>
+		<listPriority>560</listPriority>
+		<tags>
+			<li>HumanlikeConstruction</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Cooking</defName>
+		<label>cook</label>
+		<description>This pawn will prepare meals and butcher meat.</description>
+		<icon>Toolbox/UI/Trainables/Cooking</icon>
+		<listPriority>540</listPriority>
+		<tags>
+			<li>HumanlikeCooking</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Crafting</defName>
+		<label>craft</label>
+		<description>This pawn will do general low-skilled labor at work stations. This includes stonecutting, smelting, and more.</description>
+		<icon>Toolbox/UI/Trainables/Crafting</icon>
+		<listPriority>530</listPriority>
+		<tags>
+			<li>HumanlikeCrafting</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Firefighter</defName>
+		<label>firefight</label>
+		<description>This pawn will help put out fires.</description>
+		<icon>Toolbox/UI/Trainables/Firefighting</icon>
+		<listPriority>590</listPriority>
+		<tags>
+			<li>HumanlikeFirefighter</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Mining</defName>
+		<label>mine</label>
+		<description>This pawn will mine any designated rocks.</description>
+		<icon>Toolbox/UI/Trainables/Mining</icon>
+		<listPriority>570</listPriority>
+		<tags>
+			<li>HumanlikeMining</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Plants</defName>
+		<label>plants</label>
+		<description>This pawn will plant seeds, harvest crops, forage and cut plants.</description>
+		<icon>Toolbox/UI/Trainables/Plants</icon>
+		<difficulty>550</difficulty>
+		<tags>
+			<li>HumanlikePlants</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Haul</defName>
+		<label>haul</label>
+		<description>This pawn will haul items from time to time.</description>
+		<icon>Toolbox/UI/Trainables/Haul</icon>
+		<listPriority>520</listPriority>
+		<tags>
+			<li>HumanlikeHaul</li>
+		</tags>
+	</TrainableDef>
+
+	<TrainableDef ParentName="TabulaRasaTrainableBase">
+		<defName>TabulaRasa_Research</defName>
+		<label>research</label>
+		<description>This pawn will perform research work.</description>
+		<icon>Toolbox/UI/Trainables/Research</icon>
+		<listPriority>500</listPriority>
+		<tags>
+			<li>HumanlikeResearch</li>
+		</tags>
+	</TrainableDef> -->
+
+</Defs>

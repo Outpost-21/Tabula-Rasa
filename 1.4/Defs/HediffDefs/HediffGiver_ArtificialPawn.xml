@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<HediffGiverSetDef>
+		<defName>TabulaRasa_ArtificialPawn</defName>
+		<hediffGivers>
+			<li Class="HediffGiver_Bleeding">
+				<hediff>TabulaRasa_CoolantLoss</hediff>
+			</li>
+		</hediffGivers>
+	</HediffGiverSetDef>
+
+</Defs>

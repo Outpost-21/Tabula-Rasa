@@ -5,4 +5,9 @@
 		<li>1.3</li>
 		<li IfModActive="jaxe.rimhud">Compatibility/1.3/RimHUD</li>
 	</v1.3>
+	<v1.4>
+		<li>/</li>
+		<li>1.4</li>
+		<!-- <li IfModActive="jaxe.rimhud">Compatibility/1.4/RimHUD</li> -->
+	</v1.4>
 </loadFolders>

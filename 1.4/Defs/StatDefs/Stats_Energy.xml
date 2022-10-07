@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<StatDef>
+		<defName>TabulaRasa_EnergyMultiplier</defName>
+		<label>energy rate multiplier</label>
+		<description>A multiplier on how quickly a pawn loses energy.</description>
+		<category>BasicsPawn</category>
+		<defaultBaseValue>1.0</defaultBaseValue>
+		<toStringStyle>PercentZero</toStringStyle>
+		<showOnAnimals>false</showOnAnimals>
+		<hideAtValue>1</hideAtValue>
+		<minValue>0</minValue>
+		<displayPriorityInCategory>2500</displayPriorityInCategory>
+		<scenarioRandomizable>true</scenarioRandomizable>
+		<parts>
+			<li Class="StatPart_ApparelStatOffset">
+				<apparelStat>TabulaRasa_EnergyOffset</apparelStat>
+				<includeWeapon>true</includeWeapon>
+			</li>
+		</parts>
+	</StatDef>
+
+	<StatDef>
+		<defName>TabulaRasa_EnergyOffset</defName>
+		<label>energy rate offset</label>
+		<description>An offset applied to the user's energy use rate.</description>
+		<category>Basics</category>
+		<defaultBaseValue>0</defaultBaseValue>
+		<toStringStyle>PercentZero</toStringStyle>
+		<showOnAnimals>false</showOnAnimals>
+		<displayPriorityInCategory>3500</displayPriorityInCategory>
+		<showIfUndefined>false</showIfUndefined>
+		<showOnPawns>false</showOnPawns>
+		<parts>
+			<li Class="StatPart_Quality">
+				<factorAwful>0.5</factorAwful>
+				<factorPoor>0.66</factorPoor>
+				<factorNormal>0.83</factorNormal>
+				<factorGood>1.0</factorGood>
+				<factorExcellent>1.16</factorExcellent>
+				<factorMasterwork>1.32</factorMasterwork>
+				<factorLegendary>1.5</factorLegendary>
+				<applyToNegativeValues>true</applyToNegativeValues>
+			</li>
+		</parts>
+	</StatDef>
+
+</Defs>

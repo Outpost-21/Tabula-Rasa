@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThinkTreeDef>
+		<defName>TabulaRasa_IntelligentAnimal</defName>
+		<insertTag>Animal_PreWander</insertTag>
+		<insertPriority>1</insertPriority>
+		<thinkRoot Class="ThinkNode_ConditionalHasFaction">
+			<subNodes>
+				<li Class="TabulaRasa.ThinkNode_ConditionalIntelligentAnimal">
+					<subNodes>
+						<li Class="ThinkNode_ConditionalTrainableCompleted">
+							<trainable>Obedience</trainable>
+							<subNodes>
+								<li Class="ThinkNode_Tagger">
+									<tagToGive>TrainedAnimalBehavior</tagToGive>
+									<subNodes>
+										<li Class="TabulaRasa.JobGiver_IntelligentAnimal" />
+									</subNodes>
+								</li>
+							</subNodes>
+						</li>
+					</subNodes>
+				</li>
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+
+</Defs>
