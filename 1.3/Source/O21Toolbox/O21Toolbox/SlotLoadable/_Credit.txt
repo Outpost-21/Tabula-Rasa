@@ -1,2 +1,0 @@
-﻿The SlotLoadable comp originates from JecsTools, due to the time it took for JecsTools to update to 1.1, and then 1.2 (at no fault of Jecrell, life is more important),
-I decided to incorporate the comp into the Toolbox and maintain it myself for future updates where the delay would then be only my own fault, as well as making changes I wish to make to it.

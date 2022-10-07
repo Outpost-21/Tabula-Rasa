@@ -1,2 +1,0 @@
-﻿Credit goes to AUTOMATIC for this code, it was originally in Rimlaser, all I've done is make the colours fully custom 
-to the gun and removed the quality based colouring. The ability to change the colour prism in-game is also removed.
