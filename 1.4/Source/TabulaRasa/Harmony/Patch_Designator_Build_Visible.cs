@@ -22,19 +22,21 @@ namespace TabulaRasa
 			if (modExt != null)
 			{
 				DesignationCategoryDef currentCategory = Find.WindowStack.WindowOfType<MainTabWindow_Architect>()?.selectedDesPanel?.def ?? null;
-				if (currentCategory == null)
+				if (currentCategory != null)
 				{
-					if (modExt.showOnlyInCategory)
+					if (!WorldComp_ArchitectSubCategory.SelectedSubCategory.ContainsKey(currentCategory) || WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] == null)
+					{
+						if (modExt.showOnlyInCategory)
+						{
+							__result = false;
+							return false;
+						}
+					}
+					else if (WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] != modExt.subCategory)
 					{
 						__result = false;
 						return false;
 					}
-					return true;
-				}
-				if (WorldComp_ArchitectSubCategory.SelectedSubCategory.ContainsKey(currentCategory) && WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] != modExt.subCategory)
-				{
-					__result = false;
-					return false;
 				}
 			}
 			return true;

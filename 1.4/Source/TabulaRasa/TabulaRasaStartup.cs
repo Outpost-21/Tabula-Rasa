@@ -24,6 +24,26 @@ namespace TabulaRasa
             {
                 FixRoyaltyBullshit();
             }
+            EnableNeededSubCategories();
+        }
+
+        public static void EnableNeededSubCategories()
+        {
+            foreach(ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
+            {
+                DefModExt_SubCategoryBuilding modExt = def.GetModExtension<DefModExt_SubCategoryBuilding>();
+                if(modExt != null)
+                {
+                    if(modExt.subCategory == null)
+                    {
+                        LogUtil.LogError($"{def.defName} has a misconfigured DefModExt_SubCategoryBuilding, subCategory MUST be assigned.");
+                    }
+                    else
+                    {
+                        modExt.subCategory.enabled = true;
+                    }
+                }
+            }
         }
 
         public static void FixRoyaltyBullshit()

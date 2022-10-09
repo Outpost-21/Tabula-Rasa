@@ -12,7 +12,7 @@ namespace TabulaRasa
     public class DesignatorSubCategoryDef : Def
     {
         public DesignationCategoryDef designationCategory;
-        public List<ThingDef> buildings = new List<ThingDef>();
+        public bool enabled = false;
         public string iconPath;
 
         public Texture2D Icon => ContentFinder<Texture2D>.Get((!iconPath.NullOrEmpty()) ? iconPath : BaseContent.BadTexPath);

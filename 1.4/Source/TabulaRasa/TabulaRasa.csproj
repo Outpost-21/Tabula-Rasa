@@ -107,7 +107,7 @@
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
     <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
-    <Compile Include="DefModExt_SubCategoryBuilding.cs" />
+    <Compile Include="ModExtensions\DefModExt_SubCategoryBuilding.cs" />
     <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
     <Compile Include="UI\Dialog_NameThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />
@@ -133,7 +133,6 @@
     <Compile Include="Harmony\Patch_WorkGiver_Warden_DeliverFood_JobOnThing.cs" />
     <Compile Include="Harmony\Patch_WorkGiver_Warden_Feed_JobOnThing.cs" />
     <Compile Include="Data\Pawn_IntelligentAnimal.cs" />
-    <None Include="PlaceWorkers\PlaceWorker_SubCategoryBuildingOnly.cs" />
     <Compile Include="AI\ThinkNode_ConditionalIntelligentAnimal.cs" />
     <Compile Include="ModExtensions\DefModExt_GrownBuilding.cs" />
     <Compile Include="Plants\Plant_GrownBuilding.cs" />
@@ -147,7 +146,6 @@
     <Compile Include="Defs\HologramDef.cs" />
     <Compile Include="Data\HologramLayer.cs" />
     <Compile Include="IncidentWorkers\IncidentWorker_CustomMeteoriteStrike.cs" />
-    <None Include="PlaceWorkers\PlaceWorker_SubCategoryBuilding.cs" />
     <Compile Include="UI\ITab_Hologram.cs" />
     <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
     <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />
