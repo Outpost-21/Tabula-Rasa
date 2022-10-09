@@ -68,17 +68,14 @@ namespace TabulaRasa
 			{
 				foreach (DesignatorSubCategoryDef subCat in subCatsAvailable)
 				{
-                    if (!subCat.buildings.NullOrEmpty())
+					if(!subCat.iconPath.NullOrEmpty())
                     {
-						if(!subCat.iconPath.NullOrEmpty())
-                        {
-							options.Add(new FloatMenuOption(subCat.LabelCap, delegate { selAction(subCat); }, subCat.Icon, Color.white));
-						}
-                        else
-                        {
-							options.Add(new FloatMenuOption(subCat.LabelCap, delegate { selAction(subCat); }));
-						}
-                    }
+						options.Add(new FloatMenuOption(subCat.LabelCap, delegate { selAction(subCat); }, subCat.Icon, Color.white));
+					}
+                    else
+                    {
+						options.Add(new FloatMenuOption(subCat.LabelCap, delegate { selAction(subCat); }));
+					}
 				}
 			}
 			Find.WindowStack.Add(new FloatMenu(options));

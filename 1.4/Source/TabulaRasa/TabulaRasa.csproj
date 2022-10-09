@@ -37,7 +37,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp_public_1.4">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp_public_1.4.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp_public_1.4.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,7 +49,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
@@ -57,15 +57,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -107,6 +107,7 @@
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
     <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
+    <Compile Include="DefModExt_SubCategoryBuilding.cs" />
     <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
     <Compile Include="UI\Dialog_NameThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />
@@ -132,7 +133,7 @@
     <Compile Include="Harmony\Patch_WorkGiver_Warden_DeliverFood_JobOnThing.cs" />
     <Compile Include="Harmony\Patch_WorkGiver_Warden_Feed_JobOnThing.cs" />
     <Compile Include="Data\Pawn_IntelligentAnimal.cs" />
-    <Compile Include="PlaceWorkers\PlaceWorker_SubCategoryBuildingOnly.cs" />
+    <None Include="PlaceWorkers\PlaceWorker_SubCategoryBuildingOnly.cs" />
     <Compile Include="AI\ThinkNode_ConditionalIntelligentAnimal.cs" />
     <Compile Include="ModExtensions\DefModExt_GrownBuilding.cs" />
     <Compile Include="Plants\Plant_GrownBuilding.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="Defs\HologramDef.cs" />
     <Compile Include="Data\HologramLayer.cs" />
     <Compile Include="IncidentWorkers\IncidentWorker_CustomMeteoriteStrike.cs" />
-    <Compile Include="PlaceWorkers\PlaceWorker_SubCategoryBuilding.cs" />
+    <None Include="PlaceWorkers\PlaceWorker_SubCategoryBuilding.cs" />
     <Compile Include="UI\ITab_Hologram.cs" />
     <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
     <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />

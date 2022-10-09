@@ -14,30 +14,55 @@ namespace TabulaRasa
 {
     [HarmonyPatch(typeof(Designator_Build), "Visible", MethodType.Getter)]
     public static class Patch_Designator_Build_Visible
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref Designator_Build __instance, ref bool __result)
+	{
+		[HarmonyPrefix]
+		public static bool Prefix(ref Designator_Build __instance, ref bool __result)
 		{
-			if (__instance.entDef.PlaceWorkers != null)
+			DefModExt_SubCategoryBuilding modExt = __instance.entDef.GetModExtension<DefModExt_SubCategoryBuilding>();
+			if (modExt != null)
 			{
-				foreach (PlaceWorker placeWorker in __instance.entDef.PlaceWorkers)
+				DesignationCategoryDef currentCategory = Find.WindowStack.WindowOfType<MainTabWindow_Architect>()?.selectedDesPanel?.def ?? null;
+				if (currentCategory == null)
 				{
-					PlaceWorker_SubCategoryBuilding subCat = placeWorker as PlaceWorker_SubCategoryBuilding;
-					if(subCat != null && !subCat.IsBuildDesignatorVisible(__instance.entDef))
-                    {
-						__result = false;
-						return false;
-                    }
-
-					PlaceWorker_SubCategoryBuildingOnly subCatOnly = placeWorker as PlaceWorker_SubCategoryBuildingOnly;
-					if (subCatOnly != null && !subCatOnly.IsBuildDesignatorVisible(__instance.entDef))
+					if (modExt.showOnlyInCategory)
 					{
 						__result = false;
 						return false;
 					}
+					return true;
+				}
+				if (WorldComp_ArchitectSubCategory.SelectedSubCategory.ContainsKey(currentCategory) && WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] != modExt.subCategory)
+				{
+					__result = false;
+					return false;
 				}
 			}
 			return true;
-        }
+		}
+
+		//[HarmonyPrefix]
+		//public static bool Prefix(ref Designator_Build __instance, ref bool __result)
+		//{
+		//	if (__instance.entDef.PlaceWorkers != null)
+		//	{
+		//		foreach (PlaceWorker placeWorker in __instance.entDef.PlaceWorkers)
+		//		{
+		//			PlaceWorker_SubCategoryBuilding subCat = placeWorker as PlaceWorker_SubCategoryBuilding;
+		//			if(subCat != null && !subCat.IsBuildDesignatorVisible(__instance.entDef))
+		//			{
+		//				__result = false;
+		//				return false;
+		//			}
+
+		//			PlaceWorker_SubCategoryBuildingOnly subCatOnly = placeWorker as PlaceWorker_SubCategoryBuildingOnly;
+		//			if (subCatOnly != null && !subCatOnly.IsBuildDesignatorVisible(__instance.entDef))
+		//			{
+		//				__result = false;
+		//				return false;
+		//			}
+		//		}
+		//	}
+		//	return true;
+		//}
     }
 }

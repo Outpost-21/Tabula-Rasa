@@ -39,8 +39,8 @@ namespace TabulaRasa
                 File.WriteAllText(VersionDir, CurrentVersion);
             }
 
-            Harmony harmony = new Harmony("Neronix17.TabulaRasa.RimWorld");
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            Harmony harmonyTR = new Harmony("Neronix17.TabulaRasa.RimWorld");
+            harmonyTR.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         public override string SettingsCategory() => "Tabula Rasa";
