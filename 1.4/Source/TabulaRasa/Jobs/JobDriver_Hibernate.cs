@@ -11,7 +11,7 @@ using Verse.AI;
 namespace TabulaRasa
 {
     /// <summary>
-    /// Makes the pawn hibernate at a spot. Doing nothing but keeps their Energy need from draining.
+    /// Makes the pawn hibernate at a spot. Doing nothing but keep their Energy need from draining.
     /// </summary>
     public class JobDriver_Hibernate : JobDriver
     {

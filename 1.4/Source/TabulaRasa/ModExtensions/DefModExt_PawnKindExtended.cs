@@ -42,8 +42,30 @@ namespace TabulaRasa
         /// </summary>
         public bool randomAdditionalHediff = false;
 
+        /// <summary>
+        /// Removes any chronic illnesses if generated.
+        /// </summary>
         public bool clearChronicIllness = false;
+
+        /// <summary>
+        /// Clears any addictions generated.
+        /// </summary>
         public bool clearAddictions = false;
+
+        /// <summary>
+        /// Restores any destroyed body parts if necessary.
+        /// </summary>
         public bool replaceMissingParts = false;
+
+        /// <summary>
+        /// Adds a selection of genes from a group selected based on commonality.
+        /// Basically allows minor gene modding without full xenotypes for specific pawnKinds.
+        /// </summary>
+        public List<GeneGroup> geneGroups = new List<GeneGroup>();
+
+        /// <summary>
+        /// Chance for a geneGroup to be added at all if any are available.
+        /// </summary>
+        public float geneGroupChance = 1f;
     }
 }
