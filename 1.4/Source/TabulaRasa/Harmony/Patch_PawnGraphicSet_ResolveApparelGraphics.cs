@@ -17,7 +17,7 @@ namespace TabulaRasa
         [HarmonyPrefix]
         public static void Prefix(PawnGraphicSet __instance)
         {
-            Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.nextRaceDefName = __instance.pawn?.def == ThingDefOf.Human ? null : __instance.pawn?.def.defName;
+            Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.curHeadTypeDef = __instance.pawn?.story?.headType?.defName ?? null;
         }
     }
 }

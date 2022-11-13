@@ -200,10 +200,10 @@
     <Compile Include="Data\ConditionType.cs" />
     <Compile Include="Data\FloatMenuPatch.cs" />
     <Compile Include="Harmony\Patch_PawnGraphicSet_ResolveApparelGraphics.cs" />
-    <Compile Include="ModExtensions\DefModExt_RaceApparel.cs" />
+    <Compile Include="ModExtensions\DefModExt_ApparelAlts.cs" />
     <Compile Include="Harmony\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
     <Compile Include="Data\TraitEntryAdvanced.cs" />
-    <Compile Include="Data\RaceApparelData.cs" />
+    <Compile Include="Data\ApparelAlts.cs" />
     <Compile Include="ModExtensions\DefModExt_SelfPoweredDoor.cs" />
     <Compile Include="Needs\Need_Energy.cs" />
     <Compile Include="UI\Win_HologramColorPicker.cs" />

@@ -82,7 +82,7 @@ namespace TabulaRasa
             listingStandard.CheckboxLabeled("Special Occasions", ref settings.specialOccasions, "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.");
             if (ModLister.RoyaltyInstalled)
             {
-                listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually because Ludeon fucked up is bullshit and I'm sick of it.");
+                listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
             }
         }
 
@@ -91,11 +91,11 @@ namespace TabulaRasa
             List<RaceSpawningDef> allSpawnDefs = DefDatabase<RaceSpawningDef>.AllDefs.Where(rsd => TabulaRasaStartup.CheckRaceSpawningDefForFlaws(rsd)).ToList();
             if (allSpawnDefs.NullOrEmpty())
             {
-                listingStandard.Note("No races using this system are loaded!", GameFont.Tiny);
+                listingStandard.Note("No races using this system are loaded! Only races using Humanoid Alien Races are handled by this!", GameFont.Tiny);
             }
             else
             {
-                listingStandard.Note("Weight of Humans is 100, each additional race skews the balance so you have to decide for yourself how common they are. This list does not cover Xenotypes, those are handled very differently.", GameFont.Tiny);
+                listingStandard.Note("Weight of Humans is 100, each additional race skews the balance so you have to decide for yourself how common they are. This list does not cover Xenotypes, those are handled very differently. Race missing from the list? This only supports Humanoid Alien Races and must be set up in the mod to be handled by it.", GameFont.Tiny);
             }
             for (int i = 0; i < allSpawnDefs.Count; i++)
             {
