@@ -23,7 +23,7 @@ namespace TabulaRasa
                 Shader shader = ((!dessicated) ? ShaderUtility.GetSkinShader(skinColorOverriden) : ShaderDatabase.Cutout);
                 if (!modExt.useSkinShader)
                 {
-                    shader = modExt.shader ?? ShaderDatabase.Cutout;
+                    shader = modExt.shaderType?.Shader ?? ShaderDatabase.Cutout;
                 }
                 for (int i = 0; i < __instance.graphics.Count; i++)
                 {

@@ -16,6 +16,10 @@ namespace TabulaRasa
         /// </summary>
         public bool useSkinShader = true;
 
-        public Shader shader;
+        /// <summary>
+        /// If Skin Shader is disabled, then this can be set so it uses a shader intended.
+        /// If this isn't set but useSkinShader is false, it'll default to Cutout.
+        /// </summary>
+        public ShaderTypeDef shaderType;
     }
 }
