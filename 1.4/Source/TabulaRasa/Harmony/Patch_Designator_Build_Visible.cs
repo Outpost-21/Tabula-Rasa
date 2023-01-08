@@ -22,49 +22,27 @@ namespace TabulaRasa
 			if (modExt != null)
 			{
 				DesignationCategoryDef currentCategory = Find.WindowStack.WindowOfType<MainTabWindow_Architect>()?.selectedDesPanel?.def ?? null;
-				if (currentCategory != null)
+				if (currentCategory != null && currentCategory.specialDesignatorClasses.Contains(typeof(Designator_SubCategory)))
 				{
-					if (!WorldComp_ArchitectSubCategory.SelectedSubCategory.ContainsKey(currentCategory) || WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] == null)
-					{
-						if (modExt.showOnlyInCategory)
+					if(modExt.subCategory != null && currentCategory == modExt.subCategory.designationCategory)
+                    {
+						if (!WorldComp_ArchitectSubCategory.SelectedSubCategory.ContainsKey(currentCategory) || WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] == null)
+						{
+							if (modExt.showOnlyInCategory)
+							{
+								__result = false;
+								return false;
+							}
+						}
+						else if (WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] != modExt.subCategory)
 						{
 							__result = false;
 							return false;
 						}
 					}
-					else if (WorldComp_ArchitectSubCategory.SelectedSubCategory[currentCategory] != modExt.subCategory)
-					{
-						__result = false;
-						return false;
-					}
 				}
 			}
 			return true;
 		}
-
-		//[HarmonyPrefix]
-		//public static bool Prefix(ref Designator_Build __instance, ref bool __result)
-		//{
-		//	if (__instance.entDef.PlaceWorkers != null)
-		//	{
-		//		foreach (PlaceWorker placeWorker in __instance.entDef.PlaceWorkers)
-		//		{
-		//			PlaceWorker_SubCategoryBuilding subCat = placeWorker as PlaceWorker_SubCategoryBuilding;
-		//			if(subCat != null && !subCat.IsBuildDesignatorVisible(__instance.entDef))
-		//			{
-		//				__result = false;
-		//				return false;
-		//			}
-
-		//			PlaceWorker_SubCategoryBuildingOnly subCatOnly = placeWorker as PlaceWorker_SubCategoryBuildingOnly;
-		//			if (subCatOnly != null && !subCatOnly.IsBuildDesignatorVisible(__instance.entDef))
-		//			{
-		//				__result = false;
-		//				return false;
-		//			}
-		//		}
-		//	}
-		//	return true;
-		//}
     }
 }

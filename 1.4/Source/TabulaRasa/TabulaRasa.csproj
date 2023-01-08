@@ -107,6 +107,8 @@
     <Compile Include="Data\EnergyCategory.cs" />
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
     <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
+    <Compile Include="Defs\ExtendedApparelDef.cs" />
+    <Compile Include="Harmony\Patch_MassUtility_Capacity.cs" />
     <Compile Include="ModExtensions\DefModExt_HeadTypeStuff.cs" />
     <Compile Include="Harmony\Patch_HeadTypeDef_GetGraphic.cs" />
     <Compile Include="ModExtensions\DefModExt_GeneEffecter.cs" />
