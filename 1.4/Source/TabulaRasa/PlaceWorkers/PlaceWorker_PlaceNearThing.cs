@@ -15,6 +15,8 @@ namespace TabulaRasa
 
         public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
         {
+            buildingsInRange.Clear();
+
             DefModExt_PlaceNearThing modExt = checkingDef.GetModExtension<DefModExt_PlaceNearThing>();
             if (modExt != null)
             {

@@ -23,6 +23,8 @@ namespace TabulaRasa
         public bool specialOccasions = true;
         public bool preventEmpireHostility = true;
 
+        public bool showXenotypeEditorMenu = true;
+
         public override void ExposeData()
         {
             base.ExposeData();

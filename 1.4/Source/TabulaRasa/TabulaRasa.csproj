@@ -108,6 +108,7 @@
     <Compile Include="Data\ExtraGraphicsDetails.cs" />
     <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
     <Compile Include="Defs\ExtendedApparelDef.cs" />
+    <Compile Include="Harmony\Patch_DebugWindowsOpener_DrawButtons.cs" />
     <Compile Include="Harmony\Patch_MassUtility_Capacity.cs" />
     <Compile Include="ModExtensions\DefModExt_HeadTypeStuff.cs" />
     <Compile Include="Harmony\Patch_HeadTypeDef_GetGraphic.cs" />
@@ -122,6 +123,8 @@
     <Compile Include="Harmony\Patch_Bill_PawnAllowedToStartAnew.cs" />
     <Compile Include="ModExtensions\DefModExt_SubCategoryBuilding.cs" />
     <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
+    <Compile Include="Patch_GeneCategoryDef_ConfigErrors.cs" />
+    <Compile Include="TexTabulaRasa.cs" />
     <Compile Include="UI\Dialog_NameThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceOnThing.cs" />

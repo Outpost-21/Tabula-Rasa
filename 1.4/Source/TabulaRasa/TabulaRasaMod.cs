@@ -84,6 +84,10 @@ namespace TabulaRasa
             {
                 listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
             }
+            if (ModLister.BiotechInstalled)
+            {
+                listingStandard.CheckboxLabeled("Show Xenotype Editor Debug Option", ref settings.showXenotypeEditorMenu, "If Enabled, an icon will be displayed at the top of the screen along with other DevMode icons as long as DevMode is enabled, allowing access to the Xenotype editor from places other than the starter pawn loadout screen.");
+            }
         }
 
         public void DoSettings_RaceSpawning(Listing_Standard listingStandard)
