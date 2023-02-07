@@ -28,6 +28,7 @@ namespace TabulaRasa
                         return;
                     }
                 }
+
                 // Try and get modExt
                 DefModExt_ResearchBenchSubstitutes modExt = bench.def.GetModExtension<DefModExt_ResearchBenchSubstitutes>();
                 if (modExt != null)
@@ -50,6 +51,13 @@ namespace TabulaRasa
                         }
                         __result = hasFacilities;
                     }
+
+                    // If techLevel is set, limit research based on that.
+                    // Only attempt if the project is normally researchable currently.
+                    //if(__result && modExt.techLevel != TechLevel.Undefined)
+                    //{
+                    //    __result = modExt.techLevel == __instance.techLevel;
+                    //}
                 }
             }
         }

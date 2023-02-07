@@ -14,5 +14,11 @@ namespace TabulaRasa
         public int spreadsMoreSettlements;
 
         public RulePackDef nameMaker;
+
+        public bool acceptsGifts = true;
+
+        public IntRange? acceptsGiftRange;
+
+        public List<FactionDef> hatedFactions = new List<FactionDef>();
     }
 }

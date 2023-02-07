@@ -62,7 +62,7 @@ namespace TabulaRasa
 
 		public void ResetDissolveTimer()
         {
-			nextDissolveTick = modExt.dissolveTicks;
+			nextDissolveTick = Find.TickManager.TicksGame + modExt.dissolveTicks;
         }
 
         public override bool Accepts(Thing thing)
@@ -93,7 +93,13 @@ namespace TabulaRasa
 			return true;
 		}
 
-		public override string GetInspectString()
+        public override void Notify_CorpseBuried(Pawn worker)
+        {
+            base.Notify_CorpseBuried(worker);
+			ResetDissolveTimer();
+		}
+
+        public override string GetInspectString()
 		{
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.Append(InspectStringPartsFromComps());

@@ -11,6 +11,8 @@ namespace TabulaRasa
 {
     public class DefModExt_ResearchBenchSubstitutes : DefModExtension
     {
+        public TechLevel techLevel = TechLevel.Undefined;
+
         public List<ThingDef> actLikeResearchBench = new List<ThingDef>();
 
         public List<ThingDef> actLikeResearchFacility = new List<ThingDef>();

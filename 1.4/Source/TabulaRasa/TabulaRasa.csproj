@@ -70,6 +70,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Harmony\Patch_FactionGiftUtility_OfferGiftsCommand.cs" />
+    <Compile Include="ModExtensions\DefModExt_OutputFromEdible.cs" />
+    <Compile Include="Harmony\Patch_Thing_Ingested.cs" />
     <Compile Include="Buildings\Building_GraveAdv.cs" />
     <Compile Include="Buildings\Building_ThingProducer.cs" />
     <Compile Include="Buildings\Building_TurretGunSmart.cs" />
@@ -123,8 +126,8 @@
     <Compile Include="Harmony\Patch_Bill_PawnAllowedToStartAnew.cs" />
     <Compile Include="ModExtensions\DefModExt_SubCategoryBuilding.cs" />
     <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
-    <Compile Include="Patch_GeneCategoryDef_ConfigErrors.cs" />
-    <Compile Include="TexTabulaRasa.cs" />
+    <Compile Include="Harmony\Patch_GeneCategoryDef_ConfigErrors.cs" />
+    <Compile Include="Utility\TexTabulaRasa.cs" />
     <Compile Include="UI\Dialog_NameThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceOnThing.cs" />
