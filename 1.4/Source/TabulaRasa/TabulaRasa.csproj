@@ -71,6 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Harmony\Patch_FactionGiftUtility_OfferGiftsCommand.cs" />
+    <Compile Include="Comps\CompProperties_Shield.cs" />
+    <Compile Include="Comps\Comp_Shield.cs" />
+    <Compile Include="Harmony\Patch_Skyfaller_Tick.cs" />
+    <Compile Include="Harmony\Patch_Projectile_CheckForFreeInterceptBetween.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_ShowShieldRadius.cs" />
+    <Compile Include="UI\Gizmo_ShieldStatus.cs" />
+    <Compile Include="MapComps\MapComp_ShieldList.cs" />
     <Compile Include="ModExtensions\DefModExt_OutputFromEdible.cs" />
     <Compile Include="Harmony\Patch_Thing_Ingested.cs" />
     <Compile Include="Buildings\Building_GraveAdv.cs" />
@@ -127,6 +134,9 @@
     <Compile Include="ModExtensions\DefModExt_SubCategoryBuilding.cs" />
     <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
     <Compile Include="Harmony\Patch_GeneCategoryDef_ConfigErrors.cs" />
+    <Compile Include="UI\Popup_ColourPicker.cs" />
+    <Compile Include="UI\Popup_IntSlider.cs" />
+    <Compile Include="Utility\PosUtil.cs" />
     <Compile Include="Utility\TexTabulaRasa.cs" />
     <Compile Include="UI\Dialog_NameThing.cs" />
     <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />

@@ -24,7 +24,7 @@ namespace TabulaRasa
         public static HediffDef TabulaRasa_RemovableHediff;
 
         /// <summary>
-        /// TBR: To Be Removed
+        /// To Be Removed
         /// Now shifted to the standalone Asimov. Cannot fully remove till next major update.
         /// </summary>
         public static NeedDef TabulaRasa_EnergyNeed;

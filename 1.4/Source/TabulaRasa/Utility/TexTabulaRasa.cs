@@ -12,6 +12,6 @@ namespace TabulaRasa
     [StaticConstructorOnStartup]
     public static class TexTabulaRasa
     {
-        public static readonly Texture2D DebugXenotypeEditor = ContentFinder<Texture2D>.Get("UI/Icons/Xenotypes/Impid");
+        public static readonly Texture2D DebugXenotypeEditor = ContentFinder<Texture2D>.Get("TabulaRasa/UI/XenotypeEditor");
     }
 }
