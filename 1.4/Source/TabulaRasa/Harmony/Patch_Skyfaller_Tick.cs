@@ -28,12 +28,14 @@ namespace TabulaRasa
                     {
                         if (list[i].TryGetComp<Comp_Shield>().CheckIntercept(__instance))
                         {
-                            SoundDef impactSound = DefDatabase<SoundDef>.GetNamed("Explosion_EMP");
+                            SoundDef impactSound = SoundDefOf.EnergyShield_AbsorbDamage;
                             impactSound.PlayOneShot(new TargetInfo(__instance.Position, __instance.Map, false));
                             foreach (IntVec3 cell in __instance.OccupiedRect().ToList())
                             {
-                                FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("ElectricalSpark"));
-                                FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("PsycastPsychicEffect"));
+                                FleckMaker.ThrowHeatGlow(cell, __instance.Map, 1f);
+                                FleckMaker.ThrowLightningGlow(cell.ToVector3Shifted(), __instance.Map, 1f);
+                                FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("ElectricalSpark"), 2f);
+                                FleckMaker.Static(cell, __instance.Map, DefDatabase<FleckDef>.GetNamed("PsycastPsychicEffect"), 2f);
                             }
                             __instance.Destroy(DestroyMode.KillFinalize);
                             return false;

@@ -42,12 +42,13 @@ namespace TabulaRasa
 		private CompPowerTrader cachedPowerComp;
 		private CompFlickable cachedFlickableComp;
 		private CompHeatPusher cachedHeatComp;
+		private CompRefuelable cachedFuelComp;
 
 		public float lastTempChange;
 
 		public Color currentColor;
 
-		public virtual bool Active => !overloaded && (PowerTrader == null || PowerTrader.PowerOn) && (Flicker == null || Flicker.SwitchIsOn);
+		public virtual bool Active => !overloaded && (PowerTrader == null || PowerTrader.PowerOn) && (FuelComp == null || FuelComp.HasFuel) && (Flicker == null || Flicker.SwitchIsOn);
 
 		public Vector3 CurShieldPosition => new IntVec3(parent.Position.x + shieldOffsetX, parent.Position.y, parent.Position.z + shieldOffsetY).ToVector3Shifted();
 
@@ -63,13 +64,15 @@ namespace TabulaRasa
 
 		public float ScaleDamageFactor => Mathf.Lerp(0.5f, 2.0f, GetShieldScalePercentage);
 
-		public float GetShieldScalePercentage => Props.shieldCanBeScaled ? ((curShieldRadius - Props.shieldScaleLimits.min) / (Props.shieldScaleLimits.max - Props.shieldScaleLimits.min)) : 1f;
+		public float GetShieldScalePercentage => Props.shieldCanBeScaled ? Mathf.InverseLerp(Props.shieldScaleLimits.min, Props.shieldScaleLimits.max, curShieldRadius) : 1f;
 
 		public CompPowerTrader PowerTrader { get { if (cachedPowerComp == null) { cachedPowerComp = parent.GetComp<CompPowerTrader>(); } return cachedPowerComp; } }
 
 		public CompFlickable Flicker { get { if (cachedFlickableComp == null) { cachedFlickableComp = parent.GetComp<CompFlickable>(); } return cachedFlickableComp; } }
 
 		public CompHeatPusher HeatComp { get { if (cachedHeatComp == null) { cachedHeatComp = parent.GetComp<CompHeatPusher>(); } return cachedHeatComp; } }
+
+		public CompRefuelable FuelComp { get { if (cachedFuelComp == null) { cachedFuelComp = parent.GetComp<CompRefuelable>(); } return cachedFuelComp; } }
 
 		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
@@ -97,12 +100,83 @@ namespace TabulaRasa
 
 		public bool CheckIntercept(Skyfaller skyfaller)
 		{
-			if (!skyfaller?.GetDirectlyHeldThings()?.Any(ht => ht.Faction == Faction.OfPlayer) ?? true)
-			{
-				if (Active && Props.podBlocker)
-				{
-					if (skyfaller.Position.DistanceTo(CurShieldPosition.ToIntVec3()) <= curShieldRadius) { return true; }
+			return HoldsAnyHostiles(skyfaller) && ShouldBeBlocked(skyfaller);
+		}
+
+		public bool HoldsAnyHostiles(Skyfaller skyfaller)
+		{
+			foreach(Thing thing in skyfaller.GetDirectlyHeldThings())
+            {
+				if(thing is Pawn pawn)
+                {
+                    if (pawn.HostileTo(Faction.OfPlayer))
+                    {
+                        if (pawn.IsSlaveOfColony || pawn.IsPrisonerOfColony)
+                        {
+							continue;
+                        }
+                        else
+                        {
+							return true;
+                        }
+                    }
 				}
+				if (thing is Building building)
+				{
+					if (building.HostileTo(Faction.OfPlayer) || building.Faction == Faction.OfMechanoids)
+					{
+						return true;
+                    }
+                }
+				if (thing is ActiveDropPod pod)
+				{
+                    if (HoldsAnyHostiles(pod))
+                    {
+						return true;
+                    }
+				}
+			}
+			return false;
+		}
+
+		public bool HoldsAnyHostiles(ActiveDropPod pod)
+		{
+			if(pod.Faction?.HostileTo(Faction.OfPlayer) ?? false)
+            {
+				return true;
+            }
+			foreach (Thing thing in pod.contents.innerContainer)
+			{
+				if (thing is Pawn pawn)
+				{
+					if (pawn.HostileTo(Faction.OfPlayer))
+					{
+						if (pawn.IsSlaveOfColony || pawn.IsPrisonerOfColony)
+						{
+							continue;
+						}
+						else
+						{
+							return true;
+						}
+					}
+					if (thing is Building building)
+					{
+						if (building.HostileTo(Faction.OfPlayer) || building.Faction == Faction.OfMechanoids)
+						{
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		public bool ShouldBeBlocked(Skyfaller skyfaller)
+		{
+			if (Active && Props.podBlocker)
+			{
+				if (skyfaller.Position.DistanceTo(CurShieldPosition.ToIntVec3()) <= curShieldRadius) { return true; }
 			}
 			return false;
 		}
@@ -253,7 +327,7 @@ namespace TabulaRasa
 		{
 			if (Active)
 			{
-				PowerTrader.PowerOutput = Props.powerUsageRange.LerpThroughRange(GetShieldScalePercentage);
+				PowerTrader.PowerOutput = Mathf.Lerp(Props.powerUsageRange.min, Props.powerUsageRange.max, GetShieldScalePercentage);
 			}
 			else
 			{
@@ -264,7 +338,7 @@ namespace TabulaRasa
 
 		public override void CompTick()
 		{
-			if (PowerTrader == null || PowerTrader.PowerOn)
+			if (Active)
 			{
 				if (this.ReactivatedThisTick && this.Props.reactivateEffect != null)
 				{
@@ -307,7 +381,7 @@ namespace TabulaRasa
 		{
 			if (Active)
 			{
-				HeatComp.Props.heatPerSecond = Props.heatGenRange.LerpThroughRange(CurStressLevel);
+				HeatComp.Props.heatPerSecond = Mathf.Lerp(Props.heatGenRange.min, Props.heatGenRange.max, CurStressLevel);
 			}
 			else
 			{
@@ -324,7 +398,7 @@ namespace TabulaRasa
 			if (currentAlpha > 0f)
 			{
 				Color value;
-				if (this.Active || !Find.Selector.IsSelected(this.parent))
+				if (Active || !Find.Selector.IsSelected(parent))
 				{
 					value = currentColor;
 				}
