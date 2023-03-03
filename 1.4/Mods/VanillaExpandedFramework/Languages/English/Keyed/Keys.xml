@@ -1,0 +1,57 @@
+<LanguageData>
+	<ART.Fulfils>Generates {0} per second.</ART.Fulfils>
+	<ART.CannotWear>Cannot wear {0}</ART.CannotWear>
+	<ART.DrinkWarning>(will make pawn sick due to conflicting resource)</ART.DrinkWarning>
+	<FE.FusionReactorGainedTitle>Fusion energy detected</FE.FusionReactorGainedTitle>
+	<FE.FusionReactorGainedMessage>{PAWN_nameDef} has just acquired a fusion energy source and may now use specialized modules and powered equipment. These items may be created on the fabrication bench after researching fusion technology.</FE.FusionReactorGainedMessage>
+	
+	<ART.ManaHediffGainedTitle>{PAWN_nameDef} gained {RESOURCE_label}</ART.ManaHediffGainedTitle>
+	<ART.ManaHediffGainedText>{PAWN_nameDef} gained {RESOURCE_label}</ART.ManaHediffGainedText>
+	<ART.ManaPotionHediffPoisonMessage>{PAWN_nameDef} drank {INGESTED_label}</ART.ManaPotionHediffPoisonMessage>
+	
+	<ART.FusionReactorOverCapacityReason>{PAWN_nameDef} has insufficient max energy, {THING_label} has been removed.</ART.FusionReactorOverCapacityReason>
+	
+	<ART.TabResource>Resource</ART.TabResource>
+	<ART.NeedThreshold>When the resource is below the bottom value, pawns will try to restore it to the upper value if able.</ART.NeedThreshold>
+	<ART.ActiveSeekSatisfy>Active Seek Satisfy</ART.ActiveSeekSatisfy>
+	<ART.MissingHediff>Missing hediff</ART.MissingHediff>
+	
+	<ART.StoredAmount>Stored amount: {0}/{1}</ART.StoredAmount>
+	<ART.StoredAmountCharged>Stored amount: {0}/{1} (charging)</ART.StoredAmountCharged>
+	<ART.Stored>stored</ART.Stored>
+	<ART.WillBeDisabledIfMissingResource>Will be disabled if {0} resource is missing.</ART.WillBeDisabledIfMissingResource>
+	<ART.RequiresResource>Requires {0} resource.</ART.RequiresResource>
+	<ART.RequiresMinimumResource>Requires minimum {0} of {1} resource.</ART.RequiresMinimumResource>
+	<ART.WillBeDisabledWhenResourceAbove>Will be disabled if {0} is above {1}.</ART.WillBeDisabledWhenResourceAbove>
+	<ART.ConsumesPerUse>Consumes {0} of {1} per use.</ART.ConsumesPerUse>
+	<ART.Reserve>(R): </ART.Reserve>
+	<ART.Make_KibbleInfused>{WORKER_nameDef} made {1}.</ART.Make_KibbleInfused>
+	<ART.Make_KibbleInfusedTitle>Infused crafting: {1}.</ART.Make_KibbleInfusedTitle>
+	<ART.ConsumesOnComplete>Consumes {0} of {1} on complete.</ART.ConsumesOnComplete>
+	<ART.ConsumesPerSecond>Consumes {0} of {1} per second.</ART.ConsumesPerSecond>
+	<ART.NoResource>{PAWN_nameDef} has no {1} resource</ART.NoResource>
+	<ART.CannotUse>{PAWN_nameDef} cannot use {1}: {2}</ART.CannotUse>
+	<ART.MinimumResourcePerUse>Minimum {0} of {1} per use</ART.MinimumResourcePerUse>
+	<ART.ResourcePerUse>{0} of {1} per use</ART.ResourcePerUse>
+	<ART.ResourcePerSecond>Refills {1} of {0} per second</ART.ResourcePerSecond>
+	<ART.MaxResourceCapacityOffset>Max {0} capacity offset: {1}</ART.MaxResourceCapacityOffset>
+	<ART.IsBattery>Is battery</ART.IsBattery>
+	<ART.MaxResourceStorageAmount>Max {1} of {0} storage amount</ART.MaxResourceStorageAmount>
+	<ART.WillBeActiveIn>Will be active in {0}</ART.WillBeActiveIn>
+	<ART.NotEnoughResource>Not enough resource</ART.NotEnoughResource>
+	<FE.CannotUseMissingFusionReactor>{PAWN_nameDef} cannot use {1}: {2}</FE.CannotUseMissingFusionReactor>
+	<ART.NativeCapacity>Native capacity: {0}</ART.NativeCapacity>
+	<ART.CapacityAdjuster>Capacity adjuster: {0} - {1}</ART.CapacityAdjuster>
+	<ART.CapacityAmplifier>Capacity amplifier: {0} - {1}</ART.CapacityAmplifier>
+	<ART.Class>Class</ART.Class>
+	<ART.AbilityPointsAvailable>Available ability points: {0}</ART.AbilityPointsAvailable>
+	<ART.NotUnlocked>Not unlocked</ART.NotUnlocked>
+	<ART.Level>Level: {0}</ART.Level>
+	<ART.Mastered>Mastered</ART.Mastered>
+	<ART.CurrentXP>XP {0} / {1}</ART.CurrentXP>
+	<ART.PawnLevelUp>{PAWN_nameDef} reached a new level.</ART.PawnLevelUp>
+	<ART.AbilityLevel>Level {0} / {1}</ART.AbilityLevel>
+	<ART.Experience>Experience progress: </ART.Experience>
+	<ART.ClassName>Class: {0}</ART.ClassName>
+	<ART.MarketValuePerLevel>Level {0} of {1}: +{2}</ART.MarketValuePerLevel>
+</LanguageData>

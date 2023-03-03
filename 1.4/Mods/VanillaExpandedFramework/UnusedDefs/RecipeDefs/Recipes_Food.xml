@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingDef ParentName="OrganicProductBase">
+    <defName>InfusedKibble</defName>
+    <label>infused kibble</label>
+    <description>Animal feed made from mixed meat and plant sources. Humans can eat it, but they really, really don't like it.</description>
+    <thingCategories>
+      <li>Foods</li>
+    </thingCategories>
+    <graphicData>
+      <texPath>Things/Item/Resource/Kibble</texPath>
+    </graphicData>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <statBases>
+      <MarketValue>1.1</MarketValue>
+      <Mass>0.015</Mass>
+      <Nutrition>0.05</Nutrition>
+      <FoodPoisonChanceFixedHuman>0.02</FoodPoisonChanceFixedHuman>
+    </statBases>
+    <ingestible>
+      <foodType>Kibble</foodType>
+      <preferability>RawBad</preferability>
+      <tasteThought>AteKibble</tasteThought>
+      <optimalityOffsetHumanlikes>-30</optimalityOffsetHumanlikes>
+      <optimalityOffsetFeedingAnimals>15</optimalityOffsetFeedingAnimals>
+      <ingestEffect>EatVegetarian</ingestEffect>
+      <ingestSound>RawVegetable_Eat</ingestSound>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Ingredients">
+        <performMergeCompatibilityChecks>false</performMergeCompatibilityChecks>
+        <noIngredientsFoodKind>Meat</noIngredientsFoodKind>
+      </li>
+    </comps>
+    <allowedArchonexusCount>200</allowedArchonexusCount>
+  </ThingDef>
+  
+	<RecipeDef>
+		<defName>ART_Make_Kibble</defName>
+		<label>ART make kibble</label>
+		<description>Make animal kibble by combining raw meat and plants.</description>
+		<jobString>Making kibble.</jobString>
+		<workAmount>450</workAmount>
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<products>
+			<Kibble>50</Kibble>
+		</products>
+		<workSkill>Cooking</workSkill>
+		<modExtensions>
+			<li Class="ART.RecipeResourceIngredients">
+				<recourseCostList>
+					<FE_FusionReactor>10</FE_FusionReactor>
+				</recourseCostList>
+			</li>
+			<li Class="ART.RecipeOutcomes">
+				<recipeOutcomes>
+					<li>
+						<costs>
+							<FE_FusionReactor>10</FE_FusionReactor>
+						</costs>
+						<products>
+							<InfusedKibble>50</InfusedKibble>
+						</products>
+						<topLeftMessageSuccessKey>ART.Make_KibbleInfused</topLeftMessageSuccessKey>
+						<letterTitleSuccessKey>ART.Make_KibbleInfusedTitle</letterTitleSuccessKey>
+						<letterDescriptionSuccessKey>ART.Make_KibbleInfused</letterDescriptionSuccessKey>
+						<soundDef>BuildingDestroyed_Metal_Medium</soundDef>
+					</li>
+				</recipeOutcomes>
+			</li>
+		</modExtensions>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>ART_Make_Pemmican</defName>
+		<label>ART make pemmican</label>
+		<description>Make pemmican, a preserved combination of meat and plant food. It doesn't taste amazing, but lasts a long time without refrigeration.</description>
+		<jobString>Making pemmican.</jobString>
+		<workAmount>700</workAmount>
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<products>
+			<Pemmican>16</Pemmican>
+		</products>
+		<workSkill>Cooking</workSkill>
+		<modExtensions>
+			<li Class="ART.RecipeResourceIngredients">
+				<recourseCostList>
+					<FE_FusionReactor>50</FE_FusionReactor>
+				</recourseCostList>
+			</li>
+		</modExtensions>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>ART_Make_PemmicanBulk</defName>
+		<label>ART make pemmican x4</label>
+		<description>Make bulk pemmican, a preserved combination of meat and plant food. It doesn't taste amazing, but lasts a long time without refrigeration.</description>
+		<jobString>Making bulk pemmican.</jobString>
+		<workAmount>80</workAmount>
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<products>
+			<Pemmican>64</Pemmican>
+		</products>
+		<workSkill>Cooking</workSkill>
+		<modExtensions>
+			<li Class="ART.RecipeResourceIngredients">
+				<recourseCostList>
+					<FE_FusionReactor>150</FE_FusionReactor>
+				</recourseCostList>
+			</li>
+		</modExtensions>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>ART_Convert_PemmicanBulk</defName>
+		<label>ART convert pemmican x4</label>
+		<description>Make bulk pemmican, a preserved combination of meat and plant food. It doesn't taste amazing, but lasts a long time without refrigeration.</description>
+		<jobString>Making bulk pemmican.</jobString>
+		<workAmount>80</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Pemmican</li>
+					</thingDefs>
+				</filter>
+				<count>64</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Pemmican</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>Pemmican</li>
+			</thingDefs>
+		</defaultIngredientFilter>
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<workSkill>Cooking</workSkill>
+		<modExtensions>
+			<li Class="ART.RecipeResourceIngredients">
+				<recourseCostList>
+					<FE_FusionReactor>-150</FE_FusionReactor>
+				</recourseCostList>
+			</li>
+		</modExtensions>
+	</RecipeDef>
+</Defs>

@@ -1,0 +1,181 @@
+<Defs>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>FE_ShieldAmplifier</defName>
+		<label>shield amplifier</label>
+		<description>An advanced dynamo aparatus designed to augment and accelerate the standard functions of absorption shields. Increased the maximum capacity and regeneration rate of absorption shields.</description>
+		<graphicData>
+			<texPath>Things/Building/Special/PsychicEmanator</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2, 2)</drawSize>
+			<shadowData>
+				<volume>(0.3, 0.6, 0.3)</volume>
+				<offset>(0.0, 0.0, -0.1)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0,0.75,1.0,0.5)</rect>
+			</damageData>
+		</graphicData>
+		<uiIconScale>0.85</uiIconScale>
+		<thingCategories>
+			<li>BuildingsSpecial</li>
+		</thingCategories>
+		<costList>
+			<Plasteel>50</Plasteel>
+			<Uranium>20</Uranium>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_AdjustHediffsArea">
+				<stackEffects>true</stackEffects>
+				<stackMax>2</stackMax>
+				<resourceSettings>
+					<li>
+						<hediff>FE_AbsorptionBarrier</hediff>
+						<resourcePerSecond>1</resourcePerSecond>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<removeOutsideArea>false</removeOutsideArea>
+						<maxResourceCapacityOffset>50</maxResourceCapacityOffset>
+						<effectRadius>6.9</effectRadius> 
+						<worksThroughWalls>false</worksThroughWalls>
+						<affectsAllies>true</affectsAllies>
+						<affectsEnemies>false</affectsEnemies>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>750</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelConsumptionRate>40.0</fuelConsumptionRate>
+				<fuelCapacity>20</fuelCapacity>
+				<initialFuelPercent>1</initialFuelPercent>
+				<fuelFilter>
+					<thingDefs>
+						<li>Uranium</li>
+					</thingDefs>
+				</fuelFilter>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>7</glowRadius>
+				<glowColor>(25,225,180,0)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>8</heatPerSecond>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<placeWorkers>
+			<li>ART.PlaceWorker_ShowHediffAreaRadius</li>
+		</placeWorkers>
+		<altitudeLayer>Building</altitudeLayer>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+		</building>
+		<statBases>
+			<MarketValue>1300</MarketValue>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>0</Beauty>
+			<Mass>15</Mass>
+			<WorkToBuild>2000</WorkToBuild>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+		<fillPercent>0.2</fillPercent>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<pathCost>30</pathCost>
+		<passability>PassThroughOnly</passability>
+		<rotatable>false</rotatable>
+		<canOverlapZones>false</canOverlapZones>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<tradeability>Sellable</tradeability>
+		<researchPrerequisites>
+			<li>FE_FusionTechnology</li>
+		</researchPrerequisites>
+		<designationCategory>Security</designationCategory>
+		<tickerType>Normal</tickerType>
+		<tradeTags>
+			<li>ExoticBuilding</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef ParentName="FurnitureWithQualityBase">
+		<defName>FE_FusionCharger</defName>
+		<label>fusion recharging station</label>
+		<description>A mechanical shelf that can refill an empty makeshift hardsuit's power core. The process takes some time and uses a substantial amount of power.</description>
+		<thingClass>Building_Storage</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Shelf</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,2)</drawSize>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<pathCost>50</pathCost>
+		<costList>
+			<Plasteel>40</Plasteel>
+			<Uranium>20</Uranium>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Mass>8</Mass>
+			<WorkToBuild>6000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Beauty>0.5</Beauty>
+		</statBases>
+		<size>(2,1)</size>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<building>
+			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<thingDefs>
+						<li>FE_MakeshiftHardsuit</li>
+					</thingDefs>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<designationHotKey>Misc12</designationHotKey>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<surfaceType>Item</surfaceType>
+		<canOverlapZones>false</canOverlapZones>
+		<researchPrerequisites>
+			<li>FE_FusionTechnology</li>
+		</researchPrerequisites>
+		<comps>
+			<li Class="ART.CompProperties_BuildingStorageAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<resourcePerSecond>1</resourcePerSecond>
+						<unforbidWhenFull>true</unforbidWhenFull>
+						<forbidItemsWhenCharging>true</forbidItemsWhenCharging>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>850</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<tickerType>Normal</tickerType>
+	</ThingDef>
+
+
+</Defs>

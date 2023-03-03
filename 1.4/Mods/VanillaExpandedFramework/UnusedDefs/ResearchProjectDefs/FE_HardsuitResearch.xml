@@ -1,0 +1,23 @@
+<Defs>
+
+	<ResearchProjectDef>
+		<defName>FE_FusionTechnology</defName>
+		<label>fusion technology</label>
+		<description>Allows the construction of miniature fusion reactors inside of utility hardsuits and the various modules and weapon systems designed to integrate with the prototype hardsuit.</description>
+		<baseCost>6000</baseCost>
+		<techLevel>Spacer</techLevel>
+		<prerequisites>
+			<li>ReconArmor</li>
+		</prerequisites>
+		<hiddenPrerequisites>
+			<li>ComplexClothing</li>
+		</hiddenPrerequisites>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+		<researchViewX>16.00</researchViewX>
+		<researchViewY>0.50</researchViewY>
+	</ResearchProjectDef>
+
+</Defs>

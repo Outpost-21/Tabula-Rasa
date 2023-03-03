@@ -8,6 +8,6 @@
 	<v1.4>
 		<li>/</li>
 		<li>1.4</li>
-		<!-- <li IfModActive="jaxe.rimhud">Compatibility/1.4/RimHUD</li> -->
+		<li IfModActive="OskarPotocki.VanillaFactionsExpanded.Core">1.4/Mods/VanillaExpandedFramework</li>
 	</v1.4>
 </loadFolders>

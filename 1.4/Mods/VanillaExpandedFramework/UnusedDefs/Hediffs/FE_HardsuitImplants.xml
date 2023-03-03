@@ -1,0 +1,297 @@
+<Defs>
+
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>FE_FusionHeartHediff</defName>
+		<label>internal fusion reactor</label>
+		<labelNoun>an internal fusion reactor</labelNoun>
+		<description>An installed internal fusion reactor. Can aggressively discharge available reactor energy as a last resort</description>
+		<descriptionHyperlinks>
+			<ThingDef>FE_FusionHeartThing</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>FE_FusionHeartThing</spawnThingOnRemoved>
+		<comps>
+			<li Class="ART.HediffCompProperties_AdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<resourcePerSecond>1</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<maxResourceCapacityOffset>50</maxResourceCapacityOffset>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="ART.HediffCompProperties_ChargeResource"/>
+			<li Class="MVCF.Comps.HediffCompProperties_ExtendedVerbGiver">
+				<verbs>
+					<li Class="ART.VerbResourceProps">
+						<resourceSettings>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerUse>-25</resourcePerUse>
+								<disableIfMissingHediff>false</disableIfMissingHediff>
+								<disableReason>Not enough energy</disableReason>
+								<postUseDelay>600</postUseDelay>
+								<minimumResourcePerUse>25</minimumResourcePerUse>
+							</li>
+						</resourceSettings>
+						<chargeSettings>
+							<li>
+								<hediffResource>FE_FusionReactor</hediffResource>
+								<minimumResourcePerUse>25</minimumResourcePerUse>
+								<resourcePerCharge>1</resourcePerCharge>
+								<damagePerCharge>0.25</damagePerCharge>
+								<damageScaling>Flat</damageScaling>
+							</li>
+						</chargeSettings>
+						<verbClass>Verb_Shoot</verbClass>
+						<label>discharge</label>
+						<hasStandardCommand>true</hasStandardCommand>
+						<defaultProjectile>FE_ReactorDischargeBullet</defaultProjectile>
+						<warmupTime>3</warmupTime>
+						<range>24.9</range>
+						<onlyManualCast>true</onlyManualCast>
+						<burstShotCount>1</burstShotCount>
+						<soundCast>Shot_Shotgun</soundCast>
+						<soundCastTail>GunTail_Medium</soundCastTail>
+						<muzzleFlashScale>9</muzzleFlashScale>
+						<accuracyTouch>1.7</accuracyTouch>
+						<accuracyShort>1.5</accuracyShort>
+						<accuracyMedium>1.45</accuracyMedium>
+						<accuracyLong>1.4</accuracyLong>
+						<defaultCooldownTime>1.5</defaultCooldownTime>
+					</li>
+				</verbs>
+				<verbProps>
+					<li>
+						<label>discharge</label>
+						<description>Discharges all available fusion energy through the reactor exhaust port.</description>
+						<draw>false</draw>
+						<canBeToggled>true</canBeToggled>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.35</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>FE_ReactorDischargeBullet</defName>
+		<label>reactor discharge</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Shotgun</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(30,220, 220)</color>
+		</graphicData>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<stoppingPower>5</stoppingPower>
+			<armorPenetrationBase>2.0</armorPenetrationBase>
+			<speed>110</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BodyPartBionicBase">
+		<defName>FE_FusionHeartThing</defName>
+		<label>internal fusion reactor</label>
+		<description>An internal fusion reactor designed to replace a human heart. It powers not only the body, but also provides a limited source of fusion energy as well, allowing for an uplink with limited amounts of fusion modules.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>FE_InstallFusionHeart</RecipeDef>
+		</descriptionHyperlinks>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<Uranium>15</Uranium>
+			<ComponentSpacer>4</ComponentSpacer>
+		</costList>
+		<recipeMaker Inherit="false">
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Smith</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>8</Crafting>
+			</skillRequirements>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<recipeUsers>
+				<li>FabricationBench</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartArtificialBase">
+		<defName>FE_InstallFusionHeart</defName>
+		<label>install internal fusion reactor</label>
+		<description>Install an internal fusion reactor.</description>
+		<descriptionHyperlinks>
+			<ThingDef>FE_FusionHeartThing</ThingDef>
+			<HediffDef>FE_FusionHeartHediff</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing internal fusion reactor.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FE_FusionHeartThing</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>FE_FusionHeartThing</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Heart</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>FE_FusionHeartHediff</addsHediff>
+	</RecipeDef>
+
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>FE_FusionArmHediff</defName>
+		<label>fusion arm</label>
+		<labelNoun>a fusion arm</labelNoun>
+		<description>An installed fusion arm.</description>
+		<descriptionHyperlinks>
+			<ThingDef>FE_FusionArmThing</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="ART.HediffCompProperties_ChargeResource"/>
+			<li Class="MVCF.Comps.HediffCompProperties_ExtendedVerbGiver">
+				<verbs>
+					<li Class="ART.VerbResourceProps">
+						<resourceSettings>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerUse>-25</resourcePerUse>
+								<disableIfMissingHediff>true</disableIfMissingHediff>
+								<disableReason>Not enough energy</disableReason>
+								<postUseDelay>600</postUseDelay>
+								<minimumResourcePerUse>25</minimumResourcePerUse>
+							</li>
+						</resourceSettings>
+						<targetResourceSettings>
+							<li>
+								<hediff>FE_FusionSurge</hediff>
+								<resourcePerUse>1</resourcePerUse>
+								<addHediffIfMissing>true</addHediffIfMissing>
+								<resetLifetimeTicks>true</resetLifetimeTicks>
+								<effectRadius>2.9</effectRadius>
+								<!--<worksThroughWalls>false</worksThroughWalls>
+								<affectsAllies>true</affectsAllies>
+								<affectsEnemies>false</affectsEnemies>-->
+							</li>
+						</targetResourceSettings>
+						<verbClass>ART.Verb_ResourceTarget</verbClass>
+						<label>surge</label>
+						<hasStandardCommand>true</hasStandardCommand>
+						<defaultProjectile>FE_StimInjectorBullet</defaultProjectile>
+						<warmupTime>1.5</warmupTime>
+						<range>24.9</range>
+						<onlyManualCast>true</onlyManualCast>
+						<burstShotCount>1</burstShotCount>
+						<soundCast>Message_PositiveEvent</soundCast>
+						<soundCastTail>GunTail_Medium</soundCastTail>
+						<muzzleFlashScale>9</muzzleFlashScale>
+						<accuracyTouch>1.7</accuracyTouch>
+						<accuracyShort>1.5</accuracyShort>
+						<accuracyMedium>1.45</accuracyMedium>
+						<accuracyLong>1.4</accuracyLong>
+						<defaultCooldownTime>1.5</defaultCooldownTime>
+					</li>
+				</verbs>
+				<verbProps>
+					<li>
+						<label>surge</label>
+						<description>Surges a target with energy.</description>
+						<draw>false</draw>
+						<canBeToggled>true</canBeToggled>
+					</li>
+				</verbProps>
+			</li>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li Class="ART.ToolResource">
+						<label>fist</label>
+						<capacities>
+							<li>Blunt</li>
+						</capacities>
+						<power>12</power>
+						<cooldownTime>2</cooldownTime>
+						<soundMeleeHit>MeleeHit_BionicPunch</soundMeleeHit>
+						<soundMeleeMiss>MeleeMiss_BionicPunch</soundMeleeMiss>
+						<resourceSettings>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerUse>4</resourcePerUse>
+								<disableIfMissingHediff>false</disableIfMissingHediff>
+								<disableReason>Insufficient energy.</disableReason>
+								<minimumResourcePerUse>0</minimumResourcePerUse>
+								<postUseDelay>0</postUseDelay>
+							</li>
+						</resourceSettings>
+					</li>
+				</tools>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>FE_FusionArmThing</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.35</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartArchotechBase">
+		<defName>FE_FusionArmThing</defName>
+		<label>fusion arm</label>
+		<description>An artifical arm that converts kinetic energy into small amounts of fusion energy, allowing physical attacks made with the arm to restore fusion energy with an active fusion reactor present.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallArchotechArm</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>2000</MarketValue>
+			<Mass>4</Mass>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartArtificialBase">
+		<defName>FE_InstallFusionArm</defName>
+		<label>install fusion arm</label>
+		<description>Install a fusion arm.</description>
+		<descriptionHyperlinks>
+			<ThingDef>FE_FusionArmThing</ThingDef>
+			<HediffDef>FE_FusionArmHediff</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing fusion arm.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FE_FusionArmThing</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>FE_FusionArmThing</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Shoulder</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>FE_FusionArmHediff</addsHediff>
+	</RecipeDef>
+
+</Defs>

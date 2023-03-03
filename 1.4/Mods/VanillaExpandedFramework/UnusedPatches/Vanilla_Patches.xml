@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+		
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef</xpath>
+				<value>
+					<li Class="ART.PawnKindExtension">
+						<hediffsOnGeneration>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<initialSeverity>50</initialSeverity>
+								<chance>0.5</chance>
+							</li>
+						</hediffsOnGeneration>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Campfire"]/recipes</xpath>
+				<value>
+					<li>ART_Make_Kibble</li>
+					<li>ART_Make_Pemmican</li>
+					<li>ART_Make_PemmicanBulk</li>
+					<li>ART_Convert_PemmicanBulk</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[thingClass="Building_WorkTable"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[thingClass="Building_WorkTable"]</xpath>
+					<value>
+						<comps/>
+					</value>
+				</nomatch>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[thingClass="Building_WorkTable"]/comps</xpath>
+				<value>
+					<li Class="ART.CompProperties_ThingInUse">
+						<useProperties>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<resourceOnComplete>-15</resourceOnComplete>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<defaultToggleState>true</defaultToggleState>
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<WorkTableWorkSpeedFactor>0.5</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>0.5</WorkTableEfficiencyFactor>
+								</statOffsets>
+								<statFactors>
+									<WorkTableWorkSpeedFactor>2</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>2</WorkTableEfficiencyFactor>
+								</statFactors>
+
+								<glowOnlyPowered>true</glowOnlyPowered>
+								<glowerOptions>
+									<glowRadius>10</glowRadius>
+									<glowColor>(52,87,13,0)</glowColor>
+									<overlightRadius>0</overlightRadius>
+								</glowerOptions>
+
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingFusionReactor</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle fusion reactor use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle fusion reactor use</toggleResourceDesc>
+								<increaseQuality>6</increaseQuality>
+								<increaseQualityCeiling>Legendary</increaseQualityCeiling>
+
+								<outputStatOffsets>
+									<Beauty>5</Beauty>
+								</outputStatOffsets>
+								<outputStatFactors>
+									<Beauty>2</Beauty>
+								</outputStatFactors>
+							</li>
+							<li>
+								<hediff>FE_StimHediff</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<resourceOnComplete>-15</resourceOnComplete>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<defaultToggleState>false</defaultToggleState>
+
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<WorkTableWorkSpeedFactor>0.5</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>0.5</WorkTableEfficiencyFactor>
+								</statOffsets>
+								<statFactors>
+									<WorkTableWorkSpeedFactor>2</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>2</WorkTableEfficiencyFactor>
+								</statFactors>
+
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingStim</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle stim use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle stim use</toggleResourceDesc>
+								<increaseQuality>6</increaseQuality>
+								<increaseQualityCeiling>Legendary</increaseQualityCeiling>
+
+								<outputStatOffsets>
+									<Beauty>5</Beauty>
+								</outputStatOffsets>
+								<outputStatFactors>
+									<Beauty>2</Beauty>
+								</outputStatFactors>
+							</li>
+						</useProperties>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[thingClass="Building_WorkTable_HeatPush"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[thingClass="Building_WorkTable_HeatPush"]</xpath>
+					<value>
+						<comps/>
+					</value>
+				</nomatch>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[thingClass="Building_WorkTable_HeatPush"]/comps</xpath>
+				<value>
+					<li Class="ART.CompProperties_ThingInUse">
+						<useProperties>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<resourceOnComplete>-15</resourceOnComplete>
+								<texPathToggledOn>Things/Building/Production/TableStoveElectric</texPathToggledOn>
+								<defaultToggleState>false</defaultToggleState>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<WorkTableWorkSpeedFactor>0.5</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>0.5</WorkTableEfficiencyFactor>
+								</statOffsets>
+								<statFactors>
+									<WorkTableWorkSpeedFactor>2</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>2</WorkTableEfficiencyFactor>
+								</statFactors>
+								<glowOnlyPowered>true</glowOnlyPowered>
+								<glowerOptions>
+									<glowRadius>10</glowRadius>
+									<glowColor>(52,87,13,0)</glowColor>
+									<overlightRadius>0</overlightRadius>
+								</glowerOptions>
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingFusionReactor</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle fusion reactor use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle fusion reactor use</toggleResourceDesc>
+								<increaseQuality>6</increaseQuality>
+								<increaseQualityCeiling>Legendary</increaseQualityCeiling>
+
+								<outputStatOffsets>
+									<Beauty>5</Beauty>
+								</outputStatOffsets>
+								<outputStatFactors>
+									<Beauty>2</Beauty>
+								</outputStatFactors>
+
+							</li>
+							<li>
+								<hediff>FE_StimHediff</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<resourceOnComplete>-15</resourceOnComplete>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<WorkTableWorkSpeedFactor>0.5</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>0.5</WorkTableEfficiencyFactor>
+								</statOffsets>
+								<statFactors>
+									<WorkTableWorkSpeedFactor>2</WorkTableWorkSpeedFactor>
+									<WorkTableEfficiencyFactor>2</WorkTableEfficiencyFactor>
+								</statFactors>
+
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingStim</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle stim use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle stim use</toggleResourceDesc>
+								<increaseQuality>6</increaseQuality>
+								<increaseQualityCeiling>Legendary</increaseQualityCeiling>
+
+								<outputStatOffsets>
+									<Beauty>5</Beauty>
+								</outputStatOffsets>
+								<outputStatFactors>
+									<Beauty>2</Beauty>
+								</outputStatFactors>
+							</li>
+						</useProperties>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[thingClass="Building_Bed"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[thingClass="Building_Bed"]</xpath>
+					<value>
+						<comps/>
+					</value>
+				</nomatch>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[thingClass="Building_Bed"]/comps</xpath>
+				<value>
+					<li Class="ART.CompProperties_ThingInUse">
+						<useProperties>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<defaultToggleState>false</defaultToggleState>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<BedRestEffectiveness>0.5</BedRestEffectiveness>
+								</statOffsets>
+								<statFactors>
+									<BedRestEffectiveness>2</BedRestEffectiveness>
+								</statFactors>
+
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingFusionReactor</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle fusion reactor use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle fusion reactor use</toggleResourceDesc>
+
+							</li>
+						</useProperties>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/ThingDef[thingClass="Building_Bed"]</xpath>
+				<value>
+					<li Class="ART.FacilityInProgress">
+						<useProperties>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<resourcePerSecond>-5</resourcePerSecond>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<!-- in case if you want to make resourcePerSecond to add resource amount. works only for positive resourcePerSecond fields -->
+								<qualityScalesResourcePerSecond>true</qualityScalesResourcePerSecond>
+								<!-- this will affect only resource consumption (ie masterwork furniture will drain the resource more) -->
+								<statOffsets>
+									<BedRestEffectiveness>0.5</BedRestEffectiveness>
+								</statOffsets>
+								<statFactors>
+									<BedRestEffectiveness>2</BedRestEffectiveness>
+								</statFactors>
+
+								<hediffRequired>true</hediffRequired>
+								<cannotUseMessageKey>FE.CannotUseMissingFusionReactor</cannotUseMessageKey>
+								<toggleResourceUse>true</toggleResourceUse>
+								<toggleResourceGizmoTexPath>UI/Designators/Cancel</toggleResourceGizmoTexPath>
+								<toggleResourceLabel>Toggle fusion reactor use</toggleResourceLabel>
+								<toggleResourceDesc>Toggle fusion reactor use</toggleResourceDesc>
+
+							</li>
+						</useProperties>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/ThingDef[thingClass="Building_Bed"]</xpath>
+				<value>
+					<li Class="ART.BuildingSpawnOptions">
+						<materialReplaces>
+							<li>
+								<floorDef>Soil</floorDef>
+								<replaceWithThingDef>DoubleBed</replaceWithThingDef>
+								<replaceWithStuffDef>Gold</replaceWithStuffDef>
+							</li>
+							<li>
+								<floorDef>Gravel</floorDef>
+								<replaceWithThingDef>Bed</replaceWithThingDef>
+								<replaceWithStuffDef>Plasteel</replaceWithStuffDef>
+							</li>
+						</materialReplaces>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/SkillDef[defName="Shooting"]</xpath>
+				<value>
+					<li Class="ART.SkillHediffGrantOptions">
+						<hediffGrantRequirements>
+							<li>
+								<minLevel>5</minLevel>
+								<minPassion>None</minPassion>
+								<hediff>Carcinoma</hediff>
+								<requiredSkills>
+									<li>
+										<skill>Melee</skill>
+										<minLevel>1</minLevel>
+										<minPassion>None</minPassion>
+									</li>
+									<li>
+										<skill>Construction</skill>
+										<minLevel>1</minLevel>
+										<minPassion>None</minPassion>
+									</li>
+								</requiredSkills>
+							</li>
+						</hediffGrantRequirements>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Plant_Healroot"]</xpath>
+				<value>
+					<comps>
+						<li Class="ART.CompProperties_ThingInUse">
+							<useProperties>
+								<li>
+									<hediff>FE_ToxicFumes</hediff>
+									<addHediffIfMissing>true</addHediffIfMissing>
+									<resourceOnSow>1</resourceOnSow>
+									<resourceOnHarvest>3</resourceOnHarvest>
+									<scaleWithGrowthRate>true</scaleWithGrowthRate>
+								</li>
+								<li>
+									<hediff>FE_FusionReactor</hediff>
+									<addHediffIfMissing>false</addHediffIfMissing>
+									<hediffRequired>true</hediffRequired>
+									<cannotUseMessageKey>FE.CannotUseMissingFusionReactor</cannotUseMessageKey>
+									<cannotSowMessageKey>ART.CannotUse</cannotSowMessageKey>
+									<cannotHarvestMessageKey>ART.CannotUse</cannotHarvestMessageKey>
+									<resourceOnSow>-2</resourceOnSow>
+									<resourceOnHarvest>-5</resourceOnHarvest>
+									<scaleWithGrowthRate>false</scaleWithGrowthRate>
+								</li>
+							</useProperties>
+						</li>
+					</comps>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Muffalo"]/comps</xpath>
+				<value>
+						<li Class="ART.CompProperties_ThingInUse">
+							<useProperties>
+								<li>
+									<hediff>FE_FusionReactor</hediff>
+									<addHediffIfMissing>false</addHediffIfMissing>
+									<hediffRequired>true</hediffRequired>
+									<resourceOnTaming>-2</resourceOnTaming>
+									<resourceOnTraining>-2</resourceOnTraining>
+									<resourceOnGather>-5</resourceOnGather>
+									<cannotTameMessageKey>ART.CannotUse</cannotTameMessageKey>
+									<cannotTrainMessageKey>ART.CannotUse</cannotTrainMessageKey>
+									<cannotGatherMessageKey>ART.CannotUse</cannotGatherMessageKey>
+								</li>
+								<li>
+									<hediff>FE_ToxicFumes</hediff>
+									<addHediffIfMissing>true</addHediffIfMissing>
+									<hediffRequired>false</hediffRequired>
+									<resourceOnTaming>2</resourceOnTaming>
+									<resourceOnTraining>2</resourceOnTraining>
+									<resourceOnGather>5</resourceOnGather>
+								</li>
+							</useProperties>
+						</li>
+				</value>
+			</li>
+			
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="LabradorRetriever"]</xpath>
+				<value>
+					<comps>
+						<li Class="ART.CompProperties_ThingInUse">
+							<useProperties>
+								<li>
+									<hediff>FE_FusionReactor</hediff>
+									<addHediffIfMissing>false</addHediffIfMissing>
+									<hediffRequired>true</hediffRequired>
+									<resourceOnTaming>-2</resourceOnTaming>
+									<resourceOnTraining>-2</resourceOnTraining>
+									<resourceOnGather>-5</resourceOnGather>
+									<cannotTameMessageKey>ART.CannotUse</cannotTameMessageKey>
+									<cannotTrainMessageKey>ART.CannotUse</cannotTrainMessageKey>
+									<cannotGatherMessageKey>ART.CannotUse</cannotGatherMessageKey>
+								</li>
+								<li>
+									<hediff>FE_ToxicFumes</hediff>
+									<addHediffIfMissing>true</addHediffIfMissing>
+									<hediffRequired>false</hediffRequired>
+									<resourceOnTaming>2</resourceOnTaming>
+									<resourceOnTraining>2</resourceOnTraining>
+									<resourceOnGather>5</resourceOnGather>
+								</li>
+							</useProperties>
+						</li>
+					</comps>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/ThingDef[defName="MineableSteel"]</xpath>
+				<value>
+					<li Class="ART.Extension_ThingInUse">
+						<useProperties>
+							<li>
+								<hediff>FE_ToxicFumes</hediff>
+								<addHediffIfMissing>true</addHediffIfMissing>
+								<resourceOnStrike>0.5</resourceOnStrike>
+							</li>
+							<li>
+								<hediff>FE_FusionReactor</hediff>
+								<addHediffIfMissing>false</addHediffIfMissing>
+								<hediffRequired>true</hediffRequired>
+								<resourceOnStrike>-2</resourceOnStrike>
+								<cannotMineMessageKey>ART.CannotUse</cannotMineMessageKey>
+							</li>
+						</useProperties>
+					</li>
+				</value>
+			</li>
+
+		</operations>
+	</Operation>
+</Patch>

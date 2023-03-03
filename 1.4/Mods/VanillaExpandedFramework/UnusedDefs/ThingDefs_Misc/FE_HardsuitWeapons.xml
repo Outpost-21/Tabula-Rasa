@@ -1,0 +1,678 @@
+<Defs>
+
+	<ThingDef ParentName="BaseHumanMakeableGun">
+		<defName>FE_RepulsorRifle</defName>
+		<label>repulsor rifle</label>
+		<description>An advanced assault rifle that requires a fusion hardsuit linkup in order to be used. The rounds fired from this weapon are charged with shield distrupting electrons, causing substantial damage to fusion based shields. Each round fired charges an internal repulsor array capacitor. Once it is fully charged, the capacitor can be discharged in a powerful repulsor burst, damaging all targets in a local area.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/AssaultRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Interact_Rifle</soundInteract>
+		<recipeMaker>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>55000</WorkToMake>
+			<Mass>4</Mass>
+			<AccuracyTouch>0.70</AccuracyTouch>
+			<AccuracyShort>0.79</AccuracyShort>
+			<AccuracyMedium>0.88</AccuracyMedium>
+			<AccuracyLong>0.72</AccuracyLong>
+			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+		</statBases>
+		<costList>
+			<Plasteel>60</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<tickerType>Normal</tickerType>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_RepulsorRifle</hediff>
+						<resourcePerUse>2</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Too much energy</disableReason>
+						<postUseDelay>1500</postUseDelay>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+					</li>
+					<li>
+						<hediff>FE_MarksmanOptics</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+						<postUseDelay>480</postUseDelay>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<label>FE_RepulsorNormal</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_Bullet_RepulsorRifle</defaultProjectile>
+				<warmupTime>1.0</warmupTime>
+				<range>38.9</range>
+				<burstShotCount>5</burstShotCount>
+				<ticksBetweenBurstShots>7</ticksBetweenBurstShots>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_RepulsorRifle</hediff>
+						<resourcePerUse>-20</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Not enough energy</disableReason>
+						<postUseDelay>0</postUseDelay>
+						<minimumResourcePerUse>20</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<label>FE_RepulsorBurst</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_Bullet_RepulsorBlast</defaultProjectile>
+				<warmupTime>1.0</warmupTime>
+				<range>38.9</range>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>11</muzzleFlashScale>
+			</li>
+		</verbs>
+		<tools>
+			<li>
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+			<li>
+				<label>barrel</label>
+				<capacities>
+					<li>Blunt</li>
+					<li>Poke</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+		</tools>
+		<weaponTags Inherit="False">
+			<li>FE_FusionWeapon</li>
+		</weaponTags>
+		<comps Inherit="False">
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+      			<li Class="CompProperties_Styleable"></li>
+			<li Class="CompProperties_Forbiddable"/>      
+			<li Class="MVCF.Comps.CompProperties_VerbProps">
+				<compClass>CompEquippable</compClass>
+				<verbProps>
+					<li>
+						<label>FE_RepulsorNormal</label>
+						<description>Fires normal repulsor rounds.</description>
+						<canBeToggled>false</canBeToggled>
+					</li>
+					<li>
+						<label>FE_RepulsorBurst</label>
+						<description>Fires a charge repulsor burst that requires repulsor energy stored in the array.</description>
+						<canBeToggled>true</canBeToggled>
+					</li>
+				</verbProps>
+			</li>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_RepulsorRifle</hediff>
+						<resourcePerSecond>-0.5</resourcePerSecond>
+						<qualityScalesResourcePerSecond>false</qualityScalesResourcePerSecond>
+						<maxResourceCapacityOffset>100</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>false</qualityScalesCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<removeHediffsOnDrop>
+							<li>FE_RepulsorRifle</li>
+						</removeHediffsOnDrop>
+					</li>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>false</qualityScalesCapacityOffset>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<cannotEquipReason>No available fusion connection.</cannotEquipReason>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReasonIncompatible>No available fusion connection.</cannotEquipReasonIncompatible>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="ART.ResourceOnActionExtension">
+				<resourcesOnAction>
+					<li>
+						<hediffApplied>FE_FusionReactor</hediffApplied>
+						<adjustResource>666</adjustResource>
+						<onSelf>False</onSelf>
+						<applyChance>1</applyChance>
+					</li>
+				</resourcesOnAction>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>FE_Bullet_RepulsorRifle</defName>
+		<label>repulsor rifle bullet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(254,58,58)</color>
+		</graphicData>
+		<projectile>
+			<damageDef>FE_RepulsorDamage</damageDef>
+			<damageAmountBase>4</damageAmountBase>
+			<speed>95</speed>
+		</projectile>
+	</ThingDef>
+
+	<DamageDef>
+		<defName>FE_RepulsorDamage</defName>
+		<label>bullet</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<deathMessage>{0} has been shot to death.</deathMessage>
+		<hediff>Gunshot</hediff>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Bullet</impactSoundType>
+		<armorCategory>Sharp</armorCategory>
+		<overkillPctToDestroyPart>0~0.7</overkillPctToDestroyPart>
+		<isRanged>true</isRanged>
+		<makesAnimalsFlee>true</makesAnimalsFlee>
+		<modExtensions>
+			<li Class="ART.EffectOnImpact">
+				<resourceEffects>
+					<li>
+						<hediff>FE_AbsorptionBarrier</hediff>
+						<adjustTargetResource>-10</adjustTargetResource>
+						<delayTargetOnDamage>2400</delayTargetOnDamage>
+					</li>
+					<li>
+						<hediff>FE_ShieldInjector</hediff>
+						<adjustTargetResource>-10</adjustTargetResource>
+						<delayTargetOnDamage>2400</delayTargetOnDamage>
+					</li>
+				</resourceEffects>
+
+			</li>
+		</modExtensions>
+	</DamageDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>FE_Bullet_RepulsorBlast</defName>
+		<label>repulsor blast</label>
+		<graphicData>
+			<texPath>Things/Projectile/LauncherShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+			<color>(254,58,58)</color>
+		</graphicData>
+		<projectile>
+			<speed>80</speed>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>35</damageAmountBase>
+			<arcHeightFactor>0.2</arcHeightFactor>
+			<shadowSize>0.6</shadowSize>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseHumanMakeableGun">
+		<defName>FE_PoweredLMG</defName>
+		<label>Powered LMG</label>
+		<description>An advanced light machinegun that can only be fired while wearing a Fusion Hardsuit. The onboard munitions fabricator generates ammunition using trace metalic content around the array and it consumes available energy whenever used. Due to the advanced design, this model is far more accurate than a standard LMG, more deadly, but is restrited by available energy.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/LMG</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Interact_Rifle</soundInteract>
+		<recipeMaker>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>6</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>64000</WorkToMake>
+			<Mass>11.5</Mass>
+			<AccuracyTouch>0.60</AccuracyTouch>
+			<AccuracyShort>0.68</AccuracyShort>
+			<AccuracyMedium>0.55</AccuracyMedium>
+			<AccuracyLong>0.46</AccuracyLong>
+			<RangedWeapon_Cooldown>0.05</RangedWeapon_Cooldown>
+		</statBases>
+		<costList>
+			<Plasteel>75</Plasteel>
+			<ComponentSpacer>5</ComponentSpacer>
+		</costList>
+		<tickerType>Normal</tickerType>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<resourcePerUse>-1.2</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Insufficient energy.</disableReason>
+						<minimumResourcePerUse>1.2</minimumResourcePerUse>
+						<postUseDelay>90</postUseDelay>
+					</li>
+					<li>
+						<hediff>FE_MarksmanOptics</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+						<postUseDelay>480</postUseDelay>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<label>powered lmg</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_Bullet_PoweredLMG</defaultProjectile>
+				<warmupTime>0.05</warmupTime>
+				<range>32.9</range>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_Minigun</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+		</verbs>
+		<weaponTags>
+			<li>FE_FusionWeapon</li>
+		</weaponTags>
+		<tools>
+			<li Class="ART.ToolResource">
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+			<li>
+				<label>barrel</label>
+				<capacities>
+					<li>Blunt</li>
+					<li>Poke</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+		</tools>
+		<comps>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs"> 
+				<resourceSettings>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>false</qualityScalesCapacityOffset>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<cannotEquipReason>No available fusion connection.</cannotEquipReason>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReasonIncompatible>No available fusion connection.</cannotEquipReasonIncompatible>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>FE_Bullet_PoweredLMG</defName>
+		<label>Powered LMG bullet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(58, 200, 254)</color>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>8</damageAmountBase>
+			<stoppingPower>1.5</stoppingPower>
+			<speed>86</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="MeleeWeaponUltratech">
+		<defName>FE_FusionCutter</defName>
+		<label>fusion cutter</label>
+		<description>An advanced metal blade that can safely channel excess fusion energy for use as a weapon. Each blow of the blade slightly drains any available fusion energy, but provides a devastating effect in exchange. It is lightweight and very quick to use.</description>
+		<soundInteract>Interact_PlasmaSword</soundInteract>
+		<meleeHitSound>MeleeHit_PlasmaSword</meleeHitSound>
+		<equippedAngleOffset>-65</equippedAngleOffset>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponMelee/PlasmaSword</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(24,244,200)</color>
+		</graphicData>
+		<tools>
+			<li Class="ART.ToolResource">
+				<label>handle</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>2</cooldownTime>
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Insufficient energy.</disableReason>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+						<postUseDelay>300</postUseDelay>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="ART.ToolResource">
+				<label>point</label>
+				<capacities>
+					<li>Stab</li>
+				</capacities>
+				<power>21</power>
+				<cooldownTime>2.0</cooldownTime>
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Insufficient energy.</disableReason>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+						<postUseDelay>300</postUseDelay>
+					</li>
+				</resourceSettings>
+				<extraMeleeDamages>
+					<li>
+						<def>Flame</def>
+						<amount>10</amount>
+						<chance>0.5</chance>
+					</li>
+				</extraMeleeDamages>
+			</li>
+			<li Class="ART.ToolResource">
+				<label>edge</label>
+				<capacities>
+					<li>Cut</li>
+				</capacities>
+				<power>21</power>
+				<cooldownTime>2.0</cooldownTime>
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Insufficient energy.</disableReason>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+						<postUseDelay>300</postUseDelay>
+					</li>
+				</resourceSettings>
+				<extraMeleeDamages>
+					<li>
+						<def>Flame</def>
+						<amount>10</amount>
+						<chance>0.5</chance>
+					</li>
+				</extraMeleeDamages>
+			</li>
+		</tools>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerUse>-5</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Insufficient charge.</disableReason>
+						<minimumResourcePerUse>5</minimumResourcePerUse>
+						<postUseDelay>0</postUseDelay>
+					</li>
+				</resourceSettings>
+				<targetResourceSettings>
+					<li>
+						<hediff>FE_FusionSurge</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<resetLifetimeTicks>true</resetLifetimeTicks>
+						<effectRadius>4.9</effectRadius>
+						<!--<worksThroughWalls>false</worksThroughWalls>
+						<affectsAllies>true</affectsAllies>
+						<affectsEnemies>false</affectsEnemies> -->
+					</li>
+				</targetResourceSettings>
+				<verbClass>ART.Verb_ResourceSelf</verbClass>
+				<label>in-fusion surge</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<violent>false</violent>
+				<soundCast>Message_PositiveEvent</soundCast>
+				<!--<nonInterruptingSelfCast>true</nonInterruptingSelfCast>-->
+				<warmupTime>1.5</warmupTime>
+				<onlyManualCast>True</onlyManualCast>
+				<range>4.9</range>
+				<drawHighlightWithLineOfSight>true</drawHighlightWithLineOfSight>
+				<defaultCooldownTime>1.0</defaultCooldownTime>
+				<defaultProjectile>FE_StimInjectorBullet</defaultProjectile>
+				<targetable>false</targetable>
+				<targetParams>
+					<canTargetSelf>true</canTargetSelf>
+				</targetParams>
+			</li>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerUse>-5</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Insufficient charge.</disableReason>
+						<minimumResourcePerUse>5</minimumResourcePerUse>
+						<postUseDelay>0</postUseDelay>
+					</li>
+				</resourceSettings>
+				<targetResourceSettings>
+					<li>
+						<hediff>FE_FusionSurge</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<resetLifetimeTicks>true</resetLifetimeTicks>
+						<effectRadius>2.9</effectRadius>
+						<!-- <worksThroughWalls>false</worksThroughWalls>
+						<affectsAllies>true</affectsAllies>
+						<affectsEnemies>false</affectsEnemies> -->
+					</li>
+				</targetResourceSettings>
+				<verbClass>ART.Verb_ResourceTarget</verbClass>
+				<label>ex-fusion surge</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<violent>false</violent>
+				<soundCast>Message_PositiveEvent</soundCast>
+				<!--<nonInterruptingSelfCast>true</nonInterruptingSelfCast>-->
+				<warmupTime>1.5</warmupTime>
+				<onlyManualCast>True</onlyManualCast>
+				<range>14.9</range>
+				<defaultCooldownTime>1.0</defaultCooldownTime>
+				<defaultProjectile>FE_StimInjectorBullet</defaultProjectile>
+				<targetParams>
+					<onlyTargetColonists>true</onlyTargetColonists>
+					<canTargetLocations>true</canTargetLocations>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetAnimals>false</canTargetAnimals>
+					<canTargetMechs>false</canTargetMechs>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps Inherit="False">
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>      
+			<li Class="MVCF.Comps.CompProperties_VerbProps">
+				<compClass>CompEquippable</compClass>
+				<verbProps>
+					<li>
+						<label>in-fusion surge</label>
+						<description>Temporarily supercharges all nearby allies.</description>
+						<canBeToggled>false</canBeToggled>
+					</li>
+					<li>
+						<label>ex-fusion surge</label>
+						<description>Temporarily supercharges all nearby allies at a target location.</description>
+						<canBeToggled>false</canBeToggled>
+					</li>
+				</verbProps>
+			</li>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_CutterCharge</hediff>
+						<resourcePerSecond>0</resourcePerSecond>
+						<qualityScalesResourcePerSecond>false</qualityScalesResourcePerSecond>
+						<maxResourceCapacityOffset>5</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>false</qualityScalesCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<maxResourceCapacityOffset>-15</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>false</qualityScalesCapacityOffset>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<cannotEquipReason>No available fusion connection.</cannotEquipReason>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReasonIncompatible>No available fusion connection.</cannotEquipReasonIncompatible>
+					</li>
+
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseHumanMakeableGun">
+		<defName>FE_DisposablePulseRifle</defName>
+		<label>Pulse Rifle</label>
+		<description>A spacer pulse rifle that contains an independent battery. Incredibly cheap to manufacture, however the weapon will be rendered completely useless once it runs out of energy, literally disintegrating whenever it's internal battery is empty. Regardless, it is accurate, powerful, and does not require any external power.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Interact_Rifle</soundInteract>
+		<recipeMaker>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>6</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>18000</WorkToMake>
+			<Mass>2.5</Mass>
+			<AccuracyTouch>0.80</AccuracyTouch>
+			<AccuracyShort>0.88</AccuracyShort>
+			<AccuracyMedium>0.95</AccuracyMedium>
+			<AccuracyLong>0.86</AccuracyLong>
+			<RangedWeapon_Cooldown>2.25</RangedWeapon_Cooldown>
+		</statBases>
+		<costList>
+			<Plasteel>40</Plasteel>
+			<ComponentSpacer>1</ComponentSpacer>
+			<Uranium>25</Uranium>
+		</costList>
+		<tickerType>Normal</tickerType>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_PulseBattery</hediff>
+						<resourcePerUse>-1.0</resourcePerUse>
+						<disableIfMissingHediff>false</disableIfMissingHediff>
+						<disableReason>Insufficient energy.</disableReason>
+						<minimumResourcePerUse>0</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<label>pulse rifle</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_Bullet_PoweredLMG</defaultProjectile>
+				<warmupTime>1.75</warmupTime>
+				<range>37.9</range>
+				<burstShotCount>4</burstShotCount>
+				<soundCast>Shot_Minigun</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+		</verbs>
+		<weaponTags>
+			<li>FE_FusionWeapon</li>
+		</weaponTags>
+		<tools>
+			<li Class="ART.ToolResource">
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+			<li>
+				<label>barrel</label>
+				<capacities>
+					<li>Blunt</li>
+					<li>Poke</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+		</tools>
+		<comps>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs"> 
+				<resourceSettings>
+					<li>
+						<hediff>FE_PulseBattery</hediff>
+						<maxResourceCapacityOffset>200</maxResourceCapacityOffset>
+						<qualityScalesCapacityOffset>true</qualityScalesCapacityOffset>
+						<disallowEquipIfHediffMissing>false</disallowEquipIfHediffMissing>
+						<!-- <keepResourceAmount>true</keepResourceAmount>
+						<initialResourceAmount>true</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+						<showBar>true</showBar> -->
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>FE_Bullet_PulseRifle</defName>
+		<label>pulse rifle bullet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(58, 254, 158)</color>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>9</damageAmountBase>
+			<stoppingPower>0.5</stoppingPower>
+			<speed>96</speed>
+		</projectile>
+	</ThingDef>
+
+
+</Defs>

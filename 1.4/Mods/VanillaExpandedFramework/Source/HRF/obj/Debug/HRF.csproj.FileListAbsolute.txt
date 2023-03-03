@@ -1,0 +1,4 @@
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Mods\VanillaExpandedFramework\Source\HRF\obj\Debug\HRF.csproj.AssemblyReference.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Mods\VanillaExpandedFramework\Source\HRF\obj\Debug\HRF.csproj.CoreCompileInputs.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Mods\VanillaExpandedFramework\Assemblies\HRF.dll
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Mods\VanillaExpandedFramework\Source\HRF\obj\Debug\HRF.dll

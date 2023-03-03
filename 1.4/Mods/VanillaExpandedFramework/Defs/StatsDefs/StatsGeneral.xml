@@ -1,0 +1,32 @@
+<Defs>
+
+	<StatDef>
+		<defName>HRF_StuffDamageFactor</defName>
+		<label>stuff damage factor</label>
+		<description>stuff damage factor.</description>
+		<category>Basics</category>
+		<displayPriorityInCategory>10</displayPriorityInCategory>
+		<toStringStyle>FloatTwo</toStringStyle>
+		<defaultBaseValue>1</defaultBaseValue>
+	</StatDef>
+	
+	<StatDef>
+		<defName>HRF_CaravanSpeedFactor</defName>
+		<label>caravan speed factor</label>
+		<description>caravan speed factor.</description>
+		<category>BasicsPawn</category>
+		<displayPriorityInCategory>10</displayPriorityInCategory>
+		<toStringStyle>FloatTwo</toStringStyle>
+		<defaultBaseValue>1</defaultBaseValue>
+	</StatDef>
+	
+	<StatDef>
+		<defName>HRF_CaravanDifficultyFactor</defName>
+		<label>caravan difficulty factor</label>
+		<description>caravan difficulty factor.</description>
+		<category>BasicsPawn</category>
+		<displayPriorityInCategory>10</displayPriorityInCategory>
+		<toStringStyle>FloatTwo</toStringStyle>
+		<defaultBaseValue>1</defaultBaseValue>
+	</StatDef>
+</Defs>

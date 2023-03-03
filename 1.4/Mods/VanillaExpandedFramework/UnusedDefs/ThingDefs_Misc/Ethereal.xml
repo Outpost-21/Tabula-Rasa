@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>Extinguishing</defName>
+    <label>extinguishing</label>
+    <thingClass>FraudeconCode.Extinguishing</thingClass>
+    <tickerType>Normal</tickerType>
+  </ThingDef>
+
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>Graveblossom</defName>
+    <label>graveblossom</label>
+    <thingClass>FraudeconCode.Graveblossom</thingClass>
+    <drawerType>MapMeshOnly</drawerType>
+    <tickerType>Long</tickerType>
+    <graphicData>
+      <texPath>Things/Apparel/BlastVest/BlastVest</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPlant</shaderType>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="PawnFlyerBase">
+    <defName>PulledPawn</defName>
+    <thingClass>FraudeconCode.PulledPawn</thingClass>
+    <pawnFlyer>
+    </pawnFlyer>
+  </ThingDef>
+
+  <ThingDef ParentName="PawnFlyerBase">
+    <defName>ChargingPawn</defName>
+    <thingClass>FraudeconCode.ChargingPawn</thingClass>
+    <pawnFlyer>
+    </pawnFlyer>
+  </ThingDef>
+  
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>Puller</defName>
+    <label>puller</label>
+    <thingClass>FraudeconCode.Puller</thingClass>
+    <tickerType>Normal</tickerType>
+  </ThingDef>
+
+  <ThingDef ParentName="PawnFlyerBase">
+    <defName>SpinnedPawn</defName>
+    <thingClass>FraudeconCode.PawnSpinner</thingClass>
+    <pawnFlyer>
+    </pawnFlyer>
+  </ThingDef>
+
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>TeleportMarker</defName>
+    <label>teleport marker</label>
+    <thingClass>FraudeconCode.TeleMarker</thingClass>
+    <tickerType>Normal</tickerType>
+  </ThingDef>
+
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>RemovalTracker</defName>
+    <label>removal tracker</label>
+    <thingClass>FraudeconCode.RemovalTracker</thingClass>
+    <tickerType>Normal</tickerType>
+  </ThingDef>
+
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>TerminusChain</defName>
+    <label>terminus chain</label>
+    <thingClass>FraudeconCode.TerminusChain</thingClass>
+    <drawerType>RealtimeOnly</drawerType>
+    <tickerType>Normal</tickerType>
+  </ThingDef>
+
+  <ThingDef ParentName="SkyfallerBase">
+    <defName>MeteorIncoming</defName>
+    <label>meteor (incoming)</label>
+    <size>(2, 2)</size>
+    <thingClass>FraudeconCode.MeteorIncoming</thingClass>
+    <graphicData>
+      <texPath>Things/Skyfaller/Meteorite</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(10, 10)</drawSize>
+    </graphicData>
+    <skyfaller>
+      <shadowSize>(3, 3)</shadowSize>
+      <explosionRadius>4</explosionRadius>
+      <explosionDamage>Bomb</explosionDamage>
+      <rotateGraphicTowardsDirection>true</rotateGraphicTowardsDirection>
+      <speed>1.2</speed>
+    </skyfaller>
+  </ThingDef>
+</Defs>

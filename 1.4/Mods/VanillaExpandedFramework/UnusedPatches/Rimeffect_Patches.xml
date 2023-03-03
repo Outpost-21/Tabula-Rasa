@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<!--
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Rim-Effect: Core</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/VFECore.Abilities.AbilityDef[defName="RE_Biotic_Throw"]</xpath>
+					<value>
+						<li Class="ART.AbilityResourceProps">
+							<resourceSettings>
+								<li>
+									<hediff>FE_FusionReactor</hediff>
+									<resourcePerUse>-30</resourcePerUse>
+									<disableIfMissingHediff>false</disableIfMissingHediff>
+									<disableReason>Insufficient energy.</disableReason>
+									<minimumResourcePerUse>30</minimumResourcePerUse>
+									<postUseDelay>300</postUseDelay>
+									<requiredForUse>true</requiredForUse>
+								</li>
+							</resourceSettings>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	-->
+</Patch>

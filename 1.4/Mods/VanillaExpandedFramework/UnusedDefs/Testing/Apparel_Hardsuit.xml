@@ -1,0 +1,2247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Defs>
+
+	<ThingDef ParentName="ArmorSmithableBase">
+		<defName>FE_MedievalHardsuit</defName>
+		<label>boilerplate</label>
+		<description>A revolutionary combination of engineering and medieval technology. This steam-powered boilerplate suit uses steam to move the suit and power modules. It is incredibly heavy without steam powering the apparatus, however when sufficiently powered, it feels less heavy than plate armor./n/nDevices will be inactive and movement will be greatly reduced when steam is not available./n/nModules Accepted:/n/nHead/nBody/nArm/nCore/nBack/nLeg</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/PlateArmor/PlateArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Mass>20.0</Mass>
+			<WorkToMake>36000</WorkToMake>
+			<Flammability>0.2</Flammability>
+			<EquipDelay>15</EquipDelay>
+			<ArmorRating_Sharp>0.24</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.13</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.15</ArmorRating_Heat>
+			<Insulation_Cold>4</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>	
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.8</MoveSpeed>
+		</equippedStatOffsets>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<costList>
+			<Steel>150</Steel>
+			<Silver>100</Silver>
+			<Gold>10</Gold>
+		</costList>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedMetallicTechArmor</unfinishedThingDef>
+			<!-- 			<researchPrerequisite>FE_MedievalHardsuit</researchPrerequisite>
+ -->
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Smith</soundWorking>
+			<useIngredientsForColor>false</useIngredientsForColor>
+		</recipeMaker>
+		<thingCategories>
+			<li>FE_Hardsuits</li>
+		</thingCategories>
+		<apparel>
+			<scoreOffset>4</scoreOffset>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/PlateArmor/PlateArmor</wornGraphicPath>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>true</careIfDamaged>
+			<wearPerDay>0</wearPerDay>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Middle</li>
+			</layers>
+			<tags>
+				<li>FE_MedievalHardsuit</li>
+			</tags>
+		</apparel>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<resourcePerSecond>1</resourcePerSecond>
+						<maxResourceCapacityOffset>1</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>		
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- 	<ThingDef ParentName="AppparelBase">
+		<defName>FE_IndustrialHardsuit</defName>
+		<label>hardsuit</label>
+		<description>A sturdy exoframe designed to augment physical capabilities. Also posseses module hardpoints to extend functionality./n/nThe frame can be manually moved without any fuel, however it is very difficult to do so./n/nModules Accepted:/n/nHead/nBody/nArm/nCore/nBack/nLeg</description>
+		<graphicData>
+			<texPath>Things/Apparel/Hardsuit/Exoframe</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<techLevel>Industrial</techLevel>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Mass>12.0</Mass>
+			<WorkToMake>48000</WorkToMake>
+			<Flammability>0.1</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<WorkSpeedGlobal>0.1</WorkSpeedGlobal>
+			<MoveSpeed>-0.4</MoveSpeed>
+		</equippedStatOffsets>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<Steel>100</Steel>
+			<Gold>20</Gold>
+		</costList>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>FE_IndustrialHardsuit</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<useIngredientsForColor>false</useIngredientsForColor>
+		</recipeMaker>
+		<thingCategories>
+			<li>FE_Hardsuits</li>
+		</thingCategories>
+		<apparel>
+			<scoreOffset>4</scoreOffset>
+			<wornGraphicPath>Things/Apparel/Hardsuit/Exoframe</wornGraphicPath>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>true</careIfDamaged>
+			<wearPerDay>0</wearPerDay>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Middle</li>
+			</layers>
+			<tags>
+				<li>FE_SpacerHardsuit</li>
+			</tags>
+		</apparel>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_ExoframeHediff</hediff>
+						<resourcePerSecond>0</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>		
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+ -->
+	<!-- 	<ThingDef ParentName="ArmorMachineableBase">
+		<defName>FE_SpacerHardsuit</defName>
+		<label>hardsuit</label>
+		<description>An advanced structural hardsuit designed to augment the body with automated servos, hardpoints, and stabilization arrays. It contains slots for various hardsuit modules, allowing full customization of one's loadout./n/nWhile the hardsuuit has it's own internal power source for locomotion, all hardsuit modules are inactive without a dedicated power source. The hardsuit will prevent them from weighing the user down if power is lost./n/nModules Accepted:/n/nHead/nBody/nArm/nCore/nBack/nLeg</description>
+		<graphicData>
+			<texPath>Things/Apparel/Hardsuit/Hardsuit</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<techLevel>Spacer</techLevel>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<Mass>5.0</Mass>
+			<WorkToMake>70000</WorkToMake>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>8</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<WorkSpeedGlobal>0.1</WorkSpeedGlobal>
+			<MoveSpeed>0.2</MoveSpeed>
+		</equippedStatOffsets>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<costList>
+			<ComponentSpacer>4</ComponentSpacer>
+			<Plasteel>100</Plasteel>
+			<Uranium>20</Uranium>
+			<Gold>50</Gold>
+		</costList>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>FE_SpacerHardsuit</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>8</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<useIngredientsForColor>false</useIngredientsForColor>
+		</recipeMaker>
+		<thingCategories>
+			<li>FE_Hardsuits</li>
+		</thingCategories>
+		<apparel>
+			<scoreOffset>4</scoreOffset>
+			<wornGraphicPath>Things/Apparel/Hardsuit/Hardsuit</wornGraphicPath>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>true</careIfDamaged>
+			<wearPerDay>0</wearPerDay>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Middle</li>
+			</layers>
+			<tags>
+				<li>FE_SpacerHardsuit</li>
+			</tags>
+		</apparel>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_HardsuitHediff</hediff>
+						<resourcePerSecond>0</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>		
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+ -->
+	<ThingDef Name="FE_MedievalModuleBase" ParentName="ApparelNoQualityBase" Abstract="True">
+		<tickerType>Normal</tickerType>
+		<recipeMaker>
+			<!-- 			<researchPrerequisite>FE_MedievalHardsuit</researchPrerequisite>
+ -->
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Smith</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<recipeUsers>
+				<li>ElectricSmithy</li>
+				<li>FueledSmithy</li>
+			</recipeUsers>
+			<defaultIngredientFilter>
+				<categories>
+					<li>Root</li>
+				</categories>
+				<disallowedThingDefs>
+					<li>Gold</li>
+					<li>Silver</li>
+					<li>Plasteel</li>
+					<li>Jade</li>
+					<li>Uranium</li>
+				</disallowedThingDefs>
+			</defaultIngredientFilter>
+		</recipeMaker>
+		<techLevel>Medieval</techLevel>			
+		<thingCategories>
+			<li>FE_ModulesMedieval</li>
+		</thingCategories>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="FE_MedievalModuleBaseRecipe" ParentName="ApparelNoQualityBase" Abstract="True">
+		<tickerType>Normal</tickerType>
+		<techLevel>Medieval</techLevel>			
+		<thingCategories>
+			<li>FE_ModulesMedieval</li>
+		</thingCategories>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="FE_IndustrialModuleBase" ParentName="ApparelNoQualityBase" Abstract="True">
+		<tickerType>Normal</tickerType>
+		<recipeMaker>
+			<researchPrerequisite>FE_IndustrialHardsuit</researchPrerequisite>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<techLevel>Industrial</techLevel>			
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<recipeUsers>
+				<li>TableMachining</li>
+			</recipeUsers>
+			<thingCategories>
+				<li>FE_ModulesIndustrial</li>
+			</thingCategories>
+			<defaultIngredientFilter>
+				<categories>
+					<li>Root</li>
+				</categories>
+				<disallowedThingDefs>
+					<li>Gold</li>
+					<li>Silver</li>
+					<li>Plasteel</li>
+					<li>Jade</li>
+					<li>Uranium</li>
+				</disallowedThingDefs>
+			</defaultIngredientFilter>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>9</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="FE_SpacerModuleBase" ParentName="ApparelNoQualityBase" Abstract="True">
+		<tickerType>Normal</tickerType>
+		<recipeMaker>
+			<researchPrerequisite>FE_SpacerHardsuit</researchPrerequisite>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<techLevel>Spacer</techLevel>			
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>8</Crafting>
+			</skillRequirements>
+			<recipeUsers>
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<thingCategories>
+				<li>FE_ModulesSpacer</li>
+			</thingCategories>
+			<defaultIngredientFilter>
+				<categories>
+					<li>Root</li>
+				</categories>
+				<disallowedThingDefs>
+					<li>Gold</li>
+					<li>Silver</li>
+					<li>Plasteel</li>
+					<li>Jade</li>
+					<li>Uranium</li>
+				</disallowedThingDefs>
+			</defaultIngredientFilter>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>6</EquipDelay>
+		</statBases>
+		<comps Inherit="False">
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBaseRecipe">
+		<defName>FE_FlashfirePack</defName>
+		<label>module (generator) - flashfire pack</label>
+		<description>A pack of wood, meat, and haygrass designed to quickly burn at a high temperature./n/nProduces 10 steam per second, burns 2 units per second until used up./n/nWhen used up, this module is automatically discarded.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/CoreModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_Generator</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_FuelPackHediff</hediff>
+						<resourcePerSecond>-2</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<maxResourceStorageAmount>1000</maxResourceStorageAmount>
+						<initialResourceAmount>1000</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>10</resourcePerSecond>
+						<addHediffIfMissing>false</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<RecipeDef>
+		<defName>FE_MakeFlashfirePack</defName>
+		<label>make flashfire pack</label>
+		<description>Make a flashfire pack out of haygrass, wood, and meat.</description>
+		<jobString>Making flashfire pack.</jobString>
+		<workAmount>600</workAmount>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<effectWorking>Smith</effectWorking>
+		<soundWorking>Recipe_Smith</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Hay</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<products>
+			<FE_FlashfirePack>1</FE_FlashfirePack>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<thingDefs>
+				<li>Hay</li>
+				<li>WoodLog</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<workSkill>Crafting</workSkill>
+	</RecipeDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBaseRecipe">
+		<defName>FE_EverburnPack</defName>
+		<label>module (generator) - everburn pack</label>
+		<description>A pack of wood, meat, and cloth designed to slowly burn at a low temperature./n/nProduces 2 steam per second, burns 0.5 units per second until used up./n/nWhen used up, this module is automatically discarded.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/CoreModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_Generator</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_FuelPackHediff</hediff>
+						<resourcePerSecond>-0.5</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<maxResourceStorageAmount>1000</maxResourceStorageAmount>
+						<initialResourceAmount>1000</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>2</resourcePerSecond>
+						<addHediffIfMissing>false</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<RecipeDef>
+		<defName>FE_MakeEverburnPack</defName>
+		<label>make everburn pack</label>
+		<description>Make an everburn pack out of cloth, wood, and meat.</description>
+		<jobString>Making everburn pack.</jobString>
+		<workAmount>600</workAmount>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<effectWorking>Smith</effectWorking>
+		<soundWorking>Recipe_Smith</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<products>
+			<FE_EverburnPack>1</FE_EverburnPack>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<thingDefs>
+				<li>Cloth</li>
+				<li>WoodLog</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<workSkill>Crafting</workSkill>
+	</RecipeDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBaseRecipe">
+		<defName>FE_SteadyflamePack</defName>
+		<label>module (generator) - steadyflame pack</label>
+		<description>A pack of wood, cloth, and haygrass designed to burn at a moderate temperature./n/nProduces 5 steam per second, burns 1 unit per second until used up./n/nWhen used up, this module is automatically discarded.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/CoreModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_Generator</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_FuelPackHediff</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<maxResourceStorageAmount>1000</maxResourceStorageAmount>
+						<initialResourceAmount>1000</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>5</resourcePerSecond>
+						<addHediffIfMissing>false</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<RecipeDef>
+		<defName>FE_MakeSteadyflamePack</defName>
+		<label>make steadyflame pack</label>
+		<description>Make a steadyflame pack out of haygrass, wood, and cloth.</description>
+		<jobString>Making steadyflame pack.</jobString>
+		<workAmount>600</workAmount>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<effectWorking>Smith</effectWorking>
+		<soundWorking>Recipe_Smith</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Hay</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<products>
+			<FE_SteadyflamePack>1</FE_SteadyflamePack>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+				<li>Hay</li>
+				<li>WoodLog</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<workSkill>Crafting</workSkill>
+	</RecipeDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_SteamBlaster</defName>
+		<label>module (arm) - steam blaster</label>
+		<description>A specialized vent system that allows stored up steam energy to be discharged in a damaging cloud of piping hot steam, burning any targets caught in its wake./n/nConsumes 100 steam per use.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/ArmModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_ArmSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>40</Steel>
+		</costList>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerUse>-100</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Not enough steam.</disableReason>
+						<minimumResourcePerUse>99.9</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<label>steamblast</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_ChargeBurstBullet</defaultProjectile>
+				<warmupTime>1.5</warmupTime>
+				<defaultCooldownTime>1.5</defaultCooldownTime>
+				<violent>true</violent>
+				<range>9.9</range>
+				<minRange>2.0</minRange>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
+<!-- 				<forcedMissRadius>2</forcedMissRadius>
+ -->				<targetParams>
+					<canTargetPawns>true</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetLocations>true</canTargetLocations>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+
+			</li>
+			<li Class="MVCF.Comps.CompProperties_VerbGiver">
+				<verbProps>
+					<li>
+						<label>steamblast</label>
+						<visualLabel>steam blast</visualLabel>
+						<description>Fires a burst of steam in the targetted direction, burning targets in its effect./n/nUses 100 steam.</description>
+						<canBeToggled>true</canBeToggled>
+						<draw>false</draw>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_NetLauncher</defName>
+		<label>module (arm) - net launcher</label>
+		<description>A contraption pre-loaded with 5 thick nets. The nets can be launched using steam to dramatically slow down a target caught in the effect./n/nOnce all nets are used, the module is discarded./n/nConsumes 20 steam per use.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/ArmModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_ArmSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Cloth>25</Cloth>
+		</costList>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerUse>-20</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Not enough steam.</disableReason>
+						<minimumResourcePerUse>19.9</minimumResourcePerUse>
+					</li>
+					<li>
+						<hediff>FE_NetLauncherHediff</hediff>
+						<resourcePerUse>-1</resourcePerUse>
+						<minimumResourcePerUse>0.99</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<targetResourceSettings>
+					<li>
+						<hediff>FE_NetHediff</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<resetLifetimeTicks>true</resetLifetimeTicks>
+						<effectRadius>1.9</effectRadius>
+					</li>
+				</targetResourceSettings>
+				<verbClass>ART.Verb_ResourceTarget</verbClass>
+				<label>netlauncher</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_ChargeBurstBullet</defaultProjectile>
+				<warmupTime>0.5</warmupTime>
+				<violent>true</violent>
+				<range>14.9</range>
+				<defaultCooldownTime>1.5</defaultCooldownTime>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
+				<targetParams>
+					<canTargetPawns>true</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetLocations>false</canTargetLocations>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_NetLauncherHediff</hediff>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>false</disallowEquipIfHediffMissing>
+						<maxResourceStorageAmount>5</maxResourceStorageAmount>
+						<initialResourceAmount>5</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+					</li>
+				</resourceSettings>
+
+			</li>
+			<li Class="MVCF.Comps.CompProperties_VerbGiver">
+				<verbProps>
+					<li>
+						<label>netlauncher</label>
+						<visualLabel>launch net</visualLabel>
+						<description>Launches a cloth net at the target, slowing them down./n/nUses 20 steam.</description>
+						<canBeToggled>true</canBeToggled>
+						<draw>false</draw>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_PoulticeDispenser</defName>
+		<label>module (arm) - poultice dispenser</label>
+		<description>A container of mashed up healroot that can be used to tend wounds quickly or apply the compound at range./n/nOnce all charges are used, the module is discarded./n/nConsumes 10 steam per use.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/ArmModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_ArmSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Cloth>25</Cloth>
+		</costList>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerUse>-10</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Not enough steam.</disableReason>
+						<minimumResourcePerUse>9.9</minimumResourcePerUse>
+					</li>
+					<li>
+						<hediff>FE_PoulticeDispenserHediff</hediff>
+						<resourcePerUse>-1</resourcePerUse>
+						<minimumResourcePerUse>0.99</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<targetResourceSettings>
+					<li>
+						<hediff>FE_PoulticeDispenserEffect</hediff>
+						<resourcePerUse>1</resourcePerUse>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<resetLifetimeTicks>true</resetLifetimeTicks>
+						<effectRadius>0</effectRadius>
+					</li>
+				</targetResourceSettings>
+				<verbClass>ART.Verb_ResourceTarget</verbClass>
+				<label>poulticedispenser</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_ChargeBurstBullet</defaultProjectile>
+				<warmupTime>0.75</warmupTime>
+				<onlyManualCast>true</onlyManualCast>
+				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<violent>false</violent>
+				<range>24.9</range>
+				<defaultCooldownTime>1.0</defaultCooldownTime>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
+				<targetParams>
+					<canTargetPawns>true</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetLocations>false</canTargetLocations>
+					<neverTargetHostileFaction>true</neverTargetHostileFaction>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_PoulticeDispenserHediff</hediff>
+						<addHediffIfMissing>true</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>false</disallowEquipIfHediffMissing>
+						<maxResourceStorageAmount>20</maxResourceStorageAmount>
+						<initialResourceAmount>20</initialResourceAmount>
+						<destroyWhenEmpty>true</destroyWhenEmpty>
+					</li>
+				</resourceSettings>
+
+			</li>
+			<li Class="MVCF.Comps.CompProperties_VerbGiver">
+				<verbProps>
+					<li>
+						<label>poulticedispenser</label>
+						<visualLabel>dispense poultice</visualLabel>
+						<description>Fires a glob of mashed up healroot at the target./n/nUses 10 steam.</description>
+						<canBeToggled>true</canBeToggled>
+						<draw>false</draw>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_ReaperRazor</defName>
+		<label>module (arm) - reaper razor</label>
+		<description>A large scissors-like device mounted on the arm. Increases plant tend speed and can be engaged to instantly cut a small area of plants./n/nConsumes 60 steam per use.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/ArmModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<PlantWorkSpeed>0.2</PlantWorkSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_ArmSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Cloth>25</Cloth>
+		</costList>
+		<verbs>
+			<li Class="FraudeconCode.VerbProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerUse>-60</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Not enough steam.</disableReason>
+						<minimumResourcePerUse>59.9</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<verbClass>FraudeconCode.Verb_Harvest</verbClass>
+				<label>reaperrazor</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<warmupTime>1.0</warmupTime>
+				<violent>false</violent>
+				<range>4.9</range>
+				<effectRadius>4.9</effectRadius>
+				<defaultCooldownTime>1.0</defaultCooldownTime>
+				<burstShotCount>1</burstShotCount>
+				<onlyManualCast>true</onlyManualCast>
+				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
+				<targetParams>
+					<canTargetPawns>false</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetLocations>true</canTargetLocations>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="MVCF.Comps.CompProperties_VerbGiver">
+				<verbProps>
+					<li>
+						<label>reaperrazor</label>
+						<visualLabel>reap plants</visualLabel>
+						<description>Deploys the massive scissors to instantly cut down plants in the effect./n/nUses 60 steam.</description>
+						<canBeToggled>true</canBeToggled>
+						<draw>false</draw>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_PressurePistons</defName>
+		<label>module (leg) - pressure pistons</label>
+		<description>A set of pneumatic pistons attached to the legs of the boilerplate. The offset the standard movement penalty of the boilerplate, allowing a pawn to move uninhibited while steam is present./n/nConsumes 0.25 steam per second.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/LegModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_LegSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>40</Steel>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_PressurePistonsHediff</hediff>
+						<resourcePerSecond>1</resourcePerSecond>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_JetstreamBound</defName>
+		<label>module (leg) - jetstream bound</label>
+		<description>A set of vents and pressure chambers lined along the legs, allowing for the pooling and release of a massive amount of steam capable of propelling a pawn a short distance./n/nConsumes 200 steam per use.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/LegModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_LegSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Cloth>25</Cloth>
+		</costList>
+		<verbs>
+			<li Class="FraudeconCode.VerbProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerUse>-200</resourcePerUse>
+						<disableIfMissingHediff>true</disableIfMissingHediff>
+						<disableReason>Not enough steam.</disableReason>
+						<minimumResourcePerUse>199.9</minimumResourcePerUse>
+					</li>
+				</resourceSettings>
+				<verbClass>MVCF.Verbs.Verb_Jump</verbClass>
+				<label>jetstreamjump</label>
+				<hasStandardCommand>true</hasStandardCommand>
+				<onlyManualCast>true</onlyManualCast>
+				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<warmupTime>1.0</warmupTime>
+				<warmupEffecter>JumpWarmupEffect</warmupEffecter>
+				<violent>false</violent>
+				<requireLineOfSight>false</requireLineOfSight>
+				<range>7.9</range>
+				<defaultCooldownTime>1.0</defaultCooldownTime>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Shot_AssaultRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
+				<targetParams>
+					<canTargetPawns>false</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+					<canTargetLocations>true</canTargetLocations>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="MVCF.Comps.CompProperties_VerbGiver">
+				<verbProps>
+					<li>
+						<label>jetstreamjump</label>
+						<visualLabel>jump</visualLabel>
+						<description>Vents the stored steam and propels the pawn at the target location./n/nUses 200 steam.</description>
+						<canBeToggled>true</canBeToggled>
+						<draw>false</draw>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_AuxilliaryTanks</defName>
+		<label>module (leg) - auxilliary tanks</label>
+		<description>Adds two additional storage tanks to the boilerplate, above each leg. The tanks slow the boilerplate down slightly./n/nAdds 400 steam capacity. Lowers movement by 0.4.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/LegModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.4</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_LegSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>40</Steel>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<maxResourceCapacityOffset>400</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_RedirectionArray</defName>
+		<label>module (body) - redirection array</label>
+		<description>Armor plates with interlaid steam piping throughout, serves as an insulating buffer versus temperature effects./n/nDrains 0.1 steam per second while worn.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BodyModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<ArmorRating_Sharp>0.54</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.33</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.75</ArmorRating_Heat>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Shell</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>20</Steel>
+			<Silver>50</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_RedirectionArrayHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_SteelPlates</defName>
+		<label>module (body) - steel plates</label>
+		<description>Reinforced steel armor plates attached to the boilerplate, provides exceptional sharp resistance to the user at no steam cost.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BodyModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<ArmorRating_Sharp>0.94</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.43</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.35</ArmorRating_Heat>
+			<Insulation_Cold>6</Insulation_Cold>
+			<Insulation_Heat>6</Insulation_Heat>	
+<DeteriorationRate>0</DeteriorationRate>			
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Shell</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>40</Steel>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_StuffedPadding</defName>
+		<label>module (body) - stuffed padding</label>
+		<description>Steel frames with cloth padding added in the middle to soften blunt blows. Largely ineffective against bladed weapons but surprisingly effective against blunt weapons. Moderately insulates the wearer.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BodyModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<ArmorRating_Sharp>0.14</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.94</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.55</ArmorRating_Heat>
+			<Insulation_Cold>20</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>	
+<DeteriorationRate>0</DeteriorationRate>			
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Neck</li>
+				<li>Torso</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Shell</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>20</Steel>
+			<Silver>50</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_SmallTank</defName>
+		<label>module (back) - small steam tank</label>
+		<description>A small steam tank mounted on the back of the boilerplate that stores generated steam. Small enough that it won't weigh down the suit./n/nProvides 300 steam capacity.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BackModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_BackSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Silver>30</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<maxResourceCapacityOffset>300</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_MediumTank</defName>
+		<label>module (back) - medium steam tank</label>
+		<description>A medium steam tank mounted on the back of the boilerplate that stores generated steam. Slightly weighs down the user but does not affect work speed./n/nProvides 500 steam capacity. Lowers movement by 0.2.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BackModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.2</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_BackSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>20</Steel>
+			<Silver>50</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<maxResourceCapacityOffset>500</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_LargeTank</defName>
+		<label>module (back) - large steam tank</label>
+		<description>A large steam tank mounted on the back of the boilerplate that stores generated steam. Weighs the suit down considerably and impacts work speed./n/nProvides 700 steam capacity. Lowers movement by 0.4 and workspeed by 10%.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/BackModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.4</MoveSpeed>
+			<WorkSpeedGlobal>-0.1</WorkSpeedGlobal>
+		</equippedStatOffsets>
+		<apparel>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>FE_BackSlot</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>30</Steel>
+			<Silver>70</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<maxResourceCapacityOffset>700</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_ZeroLens</defName>
+		<label>module (head) - zero-lens</label>
+		<description>A series of telescoping lenses that provide long range sight capabilities far beyond that of the naked eye. Improves ranged accuracy but lowers melee accuracy and drains steam passively./n/nDoes not provide any protection./n/nDrains 0.2 steam per second. Increases ranged accuracy by 5. Lowers melee accuracy by 10.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/HeadModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>UpperHead</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Overhead</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Silver>20</Silver>
+			<Gold>5</Gold>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_ZeroLensHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_ProtectiveMask</defName>
+		<label>module (head) - protective mask</label>
+		<description>A sealed mask that is reinforced with steam tubes, providing a higher degree of protection./n/nDoes not drain steam.</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/HeadModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<ArmorRating_Sharp>0.84</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.39</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.85</ArmorRating_Heat>
+			<Insulation_Cold>12</Insulation_Cold>
+			<Insulation_Heat>10</Insulation_Heat>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>FullHead</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Overhead</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>30</Steel>
+			<Silver>20</Silver>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FE_MedievalModuleBase">
+		<defName>FE_SaunaSallet</defName>
+		<label>module (head) - sauna sallet</label>
+		<description>A moderately protective helmet that has a special filter and venting system integrated. This produces a constant spray of soothing mist, reducing their mental break threshold while still providing some protection./n/nDrains 0.1 steam per second. Lowers mental break threshold by 10%</description>
+		<graphicData>
+			<texPath>Things/Hardsuit/HeadModule</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>12000</WorkToMake>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.0</Flammability>
+			<EquipDelay>12</EquipDelay>
+			<ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.29</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.14</ArmorRating_Heat>
+			<Insulation_Cold>4</Insulation_Cold>
+			<Insulation_Heat>2</Insulation_Heat>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<apparel>
+			<bodyPartGroups>
+				<li>UpperHead</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Overhead</li>
+			</layers>
+			<tags>
+				<li>FE_Boilerplate</li>
+			</tags>
+			<defaultOutfitTags>
+				<li>FE_Boilerplate</li>
+			</defaultOutfitTags>	
+		</apparel>
+		<costList>
+			<Steel>10</Steel>
+			<Silver>10</Silver>
+			<Gold>10</Gold>
+		</costList>
+		<comps>
+			<li Class="ART.CompProperties_ApparelAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SaunaSalletHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseWeaponNeolithic">
+		<defName>FE_SteamBow</defName>
+		<label>steambow</label>
+		<description>An oversized crossbow that uses steam to pressurize a pneumatic lever system, allowing ballista bolts to be loaded and fired. Requires steam to charge the device, does not drain steam while fully charged./n/nDrains 1 steam per second while charging.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/BowGreat</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<soundInteract>Bow_Large</soundInteract>
+		<costList>
+			<WoodLog>30</WoodLog>
+			<Steel>40</Steel>
+			<Silver>80</Silver>
+			<Gold>10</Gold>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<statBases>
+			<WorkToMake>22000</WorkToMake>
+			<Mass>8.0</Mass>
+			<AccuracyTouch>0.85</AccuracyTouch>
+			<AccuracyShort>0.95</AccuracyShort>
+			<AccuracyMedium>1.02</AccuracyMedium>
+			<AccuracyLong>0.80</AccuracyLong>
+			<RangedWeapon_Cooldown>3.2</RangedWeapon_Cooldown>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<weaponTags>
+			<li>FE_BoilerplateSteamBow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>Ranged</li>
+			<li>RangedHeavy</li>
+		</weaponClasses>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamBowHediff</hediff>
+						<resourcePerUse>10</resourcePerUse>
+						<disableReason>Insufficient steam.</disableReason>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_SteamBowArrow</defaultProjectile>
+				<warmupTime>2.3</warmupTime>
+				<violent>true</violent>
+				<range>36.9</range>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>Bow_Large</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+			</li>
+		</verbs>
+		<tools>
+			<li>
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>13</power>
+				<cooldownTime>2.3</cooldownTime>
+			</li>
+		</tools>
+		<recipeMaker>
+			<recipeUsers>
+				<li>FueledSmithy</li>
+				<li>ElectricSmithy</li>
+			</recipeUsers>
+			<!-- 			<researchPrerequisite>FE_SteamWeaponry</researchPrerequisite>
+ -->
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<comps>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_SteamBowHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseProjectileNeolithic">
+		<defName>FE_SteamBowArrow</defName>
+		<label>steambow arrow</label>
+		<graphicData>
+			<texPath>Things/Projectile/Arrow_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Arrow</damageDef>
+			<damageAmountBase>22</damageAmountBase>
+			<stoppingPower>2.5</stoppingPower>
+			<armorPenetrationBase>0.35</armorPenetrationBase>
+			<speed>89</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseWeaponNeolithic">
+		<defName>FE_HeatCleaver</defName>
+		<label>heat cleaver</label>
+		<description>A specially modified axe that is directly hooked up to a steam vent, allowing the edge to be red hot at almost all times due to the steam. Burns targets in addition to cutting them, and only requires additional steam to heat the blade back up./n/nDrains 1 steam per second while heating. Adds up to 8 burn damage per attack.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponMelee/Axe</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<soundInteract>Bow_Large</soundInteract>
+		<costList>
+			<Steel>40</Steel>
+			<Silver>50</Silver>
+			<Gold>5</Gold>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<statBases>
+			<WorkToMake>22000</WorkToMake>
+			<Mass>3.0</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<weaponTags>
+			<li>FE_BoilerplateHeatCleaver</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>Melee</li>
+		</weaponClasses>
+		<tools>
+			<li>
+				<label>handle</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>9</power>
+				<cooldownTime>2</cooldownTime>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+			<li>
+				<label>edge</label>
+				<capacities>
+					<li>Cut</li>
+				</capacities>
+				<power>20</power>
+				<cooldownTime>2.2</cooldownTime>
+				<chanceFactor>2</chanceFactor>
+			</li>
+		</tools>
+		<recipeMaker>
+			<recipeUsers>
+				<li>FueledSmithy</li>
+				<li>ElectricSmithy</li>
+			</recipeUsers>
+			<!-- 			<researchPrerequisite>FE_SteamWeaponry</researchPrerequisite>
+ -->
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<modExtensions>
+			<li Class="ART.ResourceOnActionExtension">
+				<resourcesOnAction>
+					<li>
+						<hediffApplied>FE_HeatCleaverHediff</hediffApplied>
+						<adjustResource>-0.1</adjustResource>
+						<onSelf>true</onSelf>
+						<applyChance>1</applyChance>
+					</li>
+				</resourcesOnAction>
+			</li>
+		</modExtensions>
+		<comps>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_HeatCleaverHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseWeaponNeolithic">
+		<defName>FE_StoneFlinger</defName>
+		<label>stone flinger</label>
+		<description>A crude device that fires pebbles and rocks using steam. Highly inaccurate but devastatinly powerful at close range. Requires steam to charge./n/nDrains 1 steam per second while charging.</description>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/BowGreat</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<soundInteract>Bow_Large</soundInteract>
+		<costList>
+			<Steel>50</Steel>
+			<Silver>60</Silver>
+			<Gold>15</Gold>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<statBases>
+			<WorkToMake>22000</WorkToMake>
+			<Mass>6.0</Mass>
+			<AccuracyTouch>0.75</AccuracyTouch>
+			<AccuracyShort>0.55</AccuracyShort>
+			<AccuracyMedium>0.2</AccuracyMedium>
+			<AccuracyLong>0.10</AccuracyLong>
+			<RangedWeapon_Cooldown>1.4</RangedWeapon_Cooldown>
+			<DeteriorationRate>0</DeteriorationRate>
+		</statBases>
+		<weaponTags>
+			<li>FE_BoilerplateStoneFlinger</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>Ranged</li>
+			<li>RangedHeavy</li>
+		</weaponClasses>
+		<verbs>
+			<li Class="ART.VerbResourceProps">
+				<resourceSettings>
+					<li>
+						<hediff>FE_StoneFlingerHediff</hediff>
+						<resourcePerUse>6</resourcePerUse>
+						<disableReason>Insufficient steam.</disableReason>
+					</li>
+				</resourceSettings>
+				<verbClass>Verb_Shoot</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>FE_StoneFlingerBullet</defaultProjectile>
+				<warmupTime>1.3</warmupTime>
+				<violent>true</violent>
+				<range>17.9</range>
+				<burstShotCount>6</burstShotCount>
+				<ticksBetweenBurstShots>1</ticksBetweenBurstShots>
+				<soundCast>Shot_MachinePistol</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+			</li>
+		</verbs>
+		<tools>
+			<li>
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>13</power>
+				<cooldownTime>2.3</cooldownTime>
+			</li>
+		</tools>
+		<recipeMaker>
+			<recipeUsers>
+				<li>FueledSmithy</li>
+				<li>ElectricSmithy</li>
+			</recipeUsers>
+			<!-- 			<researchPrerequisite>FE_SteamWeaponry</researchPrerequisite>
+ -->
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<comps>
+			<li Class="ART.CompProperties_WeaponAdjustHediffs">
+				<resourceSettings>
+					<li>
+						<hediff>FE_BoilerplateHediff</hediff>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<disallowEquipIfHediffMissing>true</disallowEquipIfHediffMissing>
+						<dropIfHediffMissing>true</dropIfHediffMissing>
+						<cannotEquipReason>Pawn not wearing boilerplate.</cannotEquipReason>
+					</li>
+					<li>
+						<hediff>FE_StoneFlingerHediff</hediff>
+						<maxResourceCapacityOffset>0</maxResourceCapacityOffset>
+						<addHediffIfMissing>true</addHediffIfMissing>
+					</li>
+				</resourceSettings>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseProjectileNeolithic">
+		<defName>FE_StoneFlingerBullet</defName>
+		<label>stoneflinger stone</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>6</damageAmountBase>
+			<stoppingPower>0.5</stoppingPower>
+			<armorPenetrationBase>0.12</armorPenetrationBase>
+			<speed>109</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingCategoryDef>
+		<defName>FE_Hardsuits</defName>
+		<label>hardsuits</label>
+		<parent>Apparel</parent>
+	</ThingCategoryDef>
+
+	<ThingCategoryDef>
+		<defName>FE_Modules</defName>
+		<label>hardsuit modules</label>
+		<parent>FE_Hardsuits</parent>
+	</ThingCategoryDef>
+
+	<ThingCategoryDef>
+		<defName>FE_ModulesMedieval</defName>
+		<label>medieval</label>
+		<parent>FE_Modules</parent>
+	</ThingCategoryDef>
+
+	<ThingCategoryDef>
+		<defName>FE_ModulesIndustrial</defName>
+		<label>industrial</label>
+		<parent>FE_Modules</parent>
+	</ThingCategoryDef>
+
+	<ThingCategoryDef>
+		<defName>FE_ModulesSpacer</defName>
+		<label>spacer</label>
+		<parent>FE_Modules</parent>
+	</ThingCategoryDef>
+
+	<ApparelLayerDef>
+		<defName>FE_ArmSlot</defName>
+		<label>arm slot</label>
+		<drawOrder>501</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>FE_LegSlot</defName>
+		<label>leg slot</label>
+		<drawOrder>502</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>FE_Generator</defName>
+		<label>generator</label>
+		<drawOrder>503</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>FE_BackSlot</defName>
+		<label>back slot</label>
+		<drawOrder>504</drawOrder>
+	</ApparelLayerDef>
+
+</Defs>

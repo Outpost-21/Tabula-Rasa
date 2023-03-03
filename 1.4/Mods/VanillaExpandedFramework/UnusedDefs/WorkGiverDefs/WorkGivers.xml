@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <WorkGiverDef>
+    <defName>ART_Maintaining</defName>
+    <label>maintain resource buildings</label>
+    <giverClass>ART.WorkGiver_MaintainResourceBuildings</giverClass>
+    <workType>Construction</workType>
+    <priorityInType>41</priorityInType>
+    <verb>maintain</verb>
+    <gerund>maintaining</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <nonColonistsCanDo>true</nonColonistsCanDo>
+  </WorkGiverDef>
+  
+  <JobDef>
+    <defName>ART_Maintain</defName>
+    <driverClass>ART.JobDriver_MaintainResourceBuilding</driverClass>
+    <reportString>maintaining TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+</Defs>

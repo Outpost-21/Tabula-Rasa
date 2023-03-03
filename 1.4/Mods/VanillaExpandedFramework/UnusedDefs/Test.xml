@@ -1,0 +1,13 @@
+<Defs>
+    <HediffDef>
+        <defName>Invincible</defName>
+        <label>invincible</label>
+        <description>a</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <comps>
+            <li>
+                <compClass>FraudeconCode.HediffComp_Indestructible</compClass>
+            </li>
+        </comps>
+    </HediffDef>
+</Defs>

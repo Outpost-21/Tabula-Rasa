@@ -1,0 +1,31 @@
+<Defs>
+<ApparelLayerDef>
+		<defName>FE_Core_Module</defName>
+		<label>core module</label>
+		<drawOrder>401</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>FE_Arm_Module</defName>
+		<label>arm module</label>
+		<drawOrder>402</drawOrder>
+	</ApparelLayerDef>
+	
+	<ApparelLayerDef>
+		<defName>FE_Leg_Module</defName>
+		<label>leg module</label>
+		<drawOrder>403</drawOrder>
+	</ApparelLayerDef>
+	
+	<ApparelLayerDef>
+		<defName>FE_Exo_Module</defName>
+		<label>exo module</label>
+		<drawOrder>404</drawOrder>
+	</ApparelLayerDef>
+	
+	<ApparelLayerDef>
+		<defName>FE_Back_Module</defName>
+		<label>back module</label>
+		<drawOrder>405</drawOrder>
+	</ApparelLayerDef>
+</Defs>

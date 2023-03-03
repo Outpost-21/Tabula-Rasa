@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>InfusedSteel</defName>
+    <label>infused steel</label>
+    <description>An iron-carbon metal alloy used for building a huge variety of structures, weapons, and machines.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Steel</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <statBases>
+      <MarketValue>1.9</MarketValue>
+      <Mass>0.5</Mass>
+      <StuffPower_Armor_Sharp>0.9</StuffPower_Armor_Sharp>
+      <StuffPower_Armor_Blunt>0.45</StuffPower_Armor_Blunt>
+      <StuffPower_Armor_Heat>0.60</StuffPower_Armor_Heat>
+      <StuffPower_Insulation_Cold>3</StuffPower_Insulation_Cold>
+      <StuffPower_Insulation_Heat>0</StuffPower_Insulation_Heat>
+      <SharpDamageMultiplier>1</SharpDamageMultiplier>
+      <BluntDamageMultiplier>1</BluntDamageMultiplier>
+    </statBases>
+    <useHitPoints>false</useHitPoints>
+    <healthAffectsPrice>false</healthAffectsPrice>
+    <slagDef>ChunkSlagSteel</slagDef>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+    <deepCommonality>4</deepCommonality>
+    <deepCountPerPortion>45</deepCountPerPortion>
+    <deepLumpSizeRange>20~30</deepLumpSizeRange>
+    <burnableByRecipe>false</burnableByRecipe>
+    <smeltable>true</smeltable>
+    <stuffProps>
+      <categories>
+        <li>Metallic</li>
+      </categories>
+      <appearance>Metal</appearance>
+      <commonality>1.00</commonality>
+      <constructEffect>ConstructMetal</constructEffect>
+      <color>(105,105,105)</color>
+      <soundImpactStuff>BulletImpact_Metal</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Metal_Sharp</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Metal_Blunt</soundMeleeHitBlunt>
+      <statFactors>
+        <MaxHitPoints>1</MaxHitPoints>
+        <Beauty>1</Beauty>
+        <Flammability>0.4</Flammability>
+      </statFactors>
+      <canSuggestUseDefaultStuff>true</canSuggestUseDefaultStuff>
+    </stuffProps>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <allowedArchonexusCount>80</allowedArchonexusCount>
+	<modExtensions>
+		<li Class="ART.StuffExtension">
+			<resourceSettings>
+				<li>
+					<hediff>FE_FusionReactor</hediff>
+					<resourceCapacityFactor>1.5</resourceCapacityFactor>
+					<resourcePerSecondFactor>2</resourcePerSecondFactor>
+					<resourceCapacityOffset>50</resourceCapacityOffset>
+					<resourcePerSecondOffset>1</resourcePerSecondOffset>
+				</li>
+			</resourceSettings>
+			<additionalDamages>
+				<li>
+					<damage>Burn</damage>
+					<amount>1~5.5</amount>
+					<damageMelee>true</damageMelee>
+					<damageRange>true</damageRange>
+				</li>
+			</additionalDamages>
+		</li>
+	</modExtensions>
+  </ThingDef>
+
+</Defs>

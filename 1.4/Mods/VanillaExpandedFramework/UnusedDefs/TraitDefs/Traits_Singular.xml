@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<TraitDef>
+		<defName>ART_PowerUser</defName>
+		<commonality>0.1</commonality>
+		<degreeDatas>
+			<li>
+				<label>power user</label>
+				<description>[PAWN_nameDef] is able to get the most out of technology, even to the point of subconsciously overclocking any fusion technology they handle.</description>
+			</li>
+		</degreeDatas>
+		<modExtensions>
+			<li Class="ART.TraitsAdjustHediff">
+				<resourceSettings>
+					<li>
+						<hediff>FE_FusionReactor</hediff>
+						<resourcePerSecond>0.5</resourcePerSecond>
+						<addHediffIfMissing>false</addHediffIfMissing>
+						<maxResourceCapacityOffset>25</maxResourceCapacityOffset>
+					</li>
+				</resourceSettings>
+			</li>
+		</modExtensions>
+	</TraitDef>
+
+</Defs>

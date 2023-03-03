@@ -1,0 +1,98 @@
+<Defs>
+
+	<ThingDef ParentName="DrugPillBase">
+		<defName>FE_ShieldInjector</defName> 
+		<label>limited shield injector</label>
+		<description>A single use mechanite shield injector that provides a limited shield around the user. The shield lasts for about a day before the mechanites lose their cohesion. This shield does not regenerate on its own and once depleted, vanishes.</description>
+		<graphicData>
+			<texPath>Things/Item/Special/MechSerumNeurotrainer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<recipeMaker>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<recipeUsers>
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<soundWorking>Recipe_Drug</soundWorking>
+		</recipeMaker>
+		<costList>
+			<ComponentIndustrial>1</ComponentIndustrial>
+			<Uranium>5</Uranium>
+		</costList>
+		<statBases>
+			<MarketValue>50</MarketValue>
+			<Mass>0.01</Mass>
+		</statBases>
+		<techLevel>Spacer</techLevel>
+		<minRewardCount>10</minRewardCount>
+		<ingestible>
+			<outcomeDoers>
+				<li Class="ART.IngestionOutcomeDoer_GiveHediffResource">
+					<hediffDef>FE_ShieldInjector</hediffDef>
+					<resourcePercent>1</resourcePercent>
+					<resourceAdjust>100</resourceAdjust>
+					<addHediffIfMissing>true</addHediffIfMissing>
+					<blacklistHediffsPreventAdd>
+					</blacklistHediffsPreventAdd>
+					<blacklistHediffPoison>
+					</blacklistHediffPoison>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+	</ThingDef>
+	
+		<ThingDef ParentName="DrugPillBase">
+		<defName>FE_FusionInjector</defName> 
+		<label>fusion injector</label>
+		<description>A single use mechanite shield injector that provides a limited shield around the user. The shield lasts for about a day before the mechanites lose their cohesion. This shield does not regenerate on its own and once depleted, vanishes.</description>
+		<graphicData>
+			<texPath>Things/Item/Special/MechSerumNeurotrainer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<recipeMaker>
+			<researchPrerequisite>FE_FusionTechnology</researchPrerequisite>
+			<recipeUsers>
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<soundWorking>Recipe_Drug</soundWorking>
+		</recipeMaker>
+		<costList>
+			<ComponentIndustrial>1</ComponentIndustrial>
+			<Uranium>5</Uranium>
+		</costList>
+		<statBases>
+			<MarketValue>50</MarketValue>
+			<Mass>0.01</Mass>
+		</statBases>
+		<techLevel>Spacer</techLevel>
+		<minRewardCount>10</minRewardCount>
+		<ingestible>
+			<outcomeDoers>
+				<li Class="ART.IngestionOutcomeDoer_GiveHediffResource">
+					<hediffDef>FE_FusionReactor</hediffDef>
+					<resourceAdjust>100</resourceAdjust>
+					<addHediffIfMissing>false</addHediffIfMissing>
+					<blacklistHediffsPreventAdd>
+					</blacklistHediffsPreventAdd>
+					<blacklistHediffPoison>
+					</blacklistHediffPoison>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+	</ThingDef>
+
+</Defs>

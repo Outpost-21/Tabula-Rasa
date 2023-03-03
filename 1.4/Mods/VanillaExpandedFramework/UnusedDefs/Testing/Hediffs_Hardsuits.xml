@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Defs>
+
+	<ART.HediffResourceDef>
+		<defName>FE_BoilerplateHediff</defName>
+		<label>boilerplate</label>
+		<description>A steamtech boilerplate, allows modules.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<hideResourceAmount>true</hideResourceAmount>
+		<tendable>false</tendable>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<sendLetterWhenGained>true</sendLetterWhenGained>
+		<letterType>PositiveEvent</letterType>
+		<letterTitleKey>FE.BoilerplateAcquireTitle</letterTitleKey>
+		<letterMessageKey>FE.BoilerplateAcquireMessage</letterMessageKey>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+				<label>present</label>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_FuelPackHediff</defName>
+		<label>fuel pack</label>
+		<description>A steamtech boilerplate steam source, generates steam.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<label>burning</label>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_SteamTank</defName>
+		<label>steam</label>
+		<description>Powers steamtech boilerplates.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.8, 0.8, 0.8)</defaultLabelColor>
+		<showResourceBar>true</showResourceBar>
+		<useAbsoluteSeverity>false</useAbsoluteSeverity>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>empty</label>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>0.01</minSeverity>
+				<resourceSettings>
+					<li>
+						<hediff>FE_PressurePistonsHediff</hediff>
+						<maxResourceCapacityOffset>1</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_SteamBowHediff</hediff>
+						<maxResourceCapacityOffset>10</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_HeatCleaverHediff</hediff>
+						<maxResourceCapacityOffset>4</maxResourceCapacityOffset>
+						<resourcePerSecond>0.2</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_StoneFlingerHediff</hediff>
+						<maxResourceCapacityOffset>6</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_RedirectionArrayHediff</hediff>
+						<maxResourceCapacityOffset>1</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_ZeroLensHediff</hediff>
+						<maxResourceCapacityOffset>1</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+					<li>
+						<hediff>FE_SaunaSalletHediff</hediff>
+						<maxResourceCapacityOffset>1</maxResourceCapacityOffset>
+						<resourcePerSecond>1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_NetLauncherHediff</defName>
+		<label>net launcher ammo</label>
+		<description>Contains cloth nets that can slow targets.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.8, 0.8, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<becomeVisible>true</becomeVisible>
+				<label>loaded</label>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_NetHediff</defName>
+		<label>net</label>
+		<description>Caught in a cloth net.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>true</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.8, 0.8, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<lifetimeTicks>1200</lifetimeTicks>
+		<stages>
+			<li>
+				<label>caught</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<setMax>0.2</setMax>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_PoulticeDispenserHediff</defName>
+		<label>poultice dispenser</label>
+		<description>Contains mashed up healroot which can heal wounds.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.2, 0.5, 0.2)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li Class="ART.HediffStageResource">
+				<tendProperties>
+					<statBases>
+						<MedicalPotency>0.8</MedicalPotency>
+						<MedicalQualityMax>0.8</MedicalQualityMax>
+					</statBases>
+					<resourceOnTend>1</resourceOnTend>
+				</tendProperties>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_PoulticeDispenserEffect</defName>
+		<label>glop</label>
+		<description>Gloopy healroot healing wounds.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.2, 0.5, 0.2)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<lifetimeTicks>301</lifetimeTicks>
+		<stages>
+			<li Class="ART.HediffStageResource">
+				<tendingProperties>
+					<tendCount>1</tendCount>
+					<tendQuality>0.4~0.6</tendQuality>
+					<ticksPerEffect>60</ticksPerEffect>
+					<affectConditions>false</affectConditions>
+					<tendOnApply>true</tendOnApply>
+				</tendingProperties>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_PressurePistonsHediff</defName>
+		<label>pistons</label>
+		<description>Pressurized tubes that improve movement.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>depressurized</label>
+			</li>
+			<li>
+				<minSeverity>1</minSeverity>
+				<label>pressurized</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.8</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_RedirectionArrayHediff</defName>
+		<label>steam redirection</label>
+		<description>Redirected steam that insulates the wearer.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.5, 0.2, 0.5)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>inactive</label>
+			</li>
+			<li>
+				<minSeverity>1</minSeverity>
+				<label>redirected</label>
+				<statOffsets>
+					<Insulation_Cold>30</Insulation_Cold>
+					<Insulation_Heat>24</Insulation_Heat>
+				</statOffsets>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_ZeroLensHediff</defName>
+		<label>zero-lens</label>
+		<description>Telescoping lenses that increase ranged accuracy, lower melee accuracy.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.7, 0.4, 0.7)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>disengaged</label>
+			</li>
+			<li>
+				<minSeverity>1</minSeverity>
+				<label>zoomed-in</label>
+				<statOffsets>
+					<ShootingAccuracyPawn>5</ShootingAccuracyPawn>
+					<MeleeHitChance>-10</MeleeHitChance>
+				</statOffsets>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_SaunaSalletHediff</defName>
+		<label>sauna sallet</label>
+		<description>Soothing mists that lower mental break threshold.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.7, 0.7, 0.7)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>dry</label>
+			</li>
+			<li>
+				<minSeverity>1</minSeverity>
+				<label>misting</label>
+				<statOffsets>
+					<MentalBreakThreshold>-10</MentalBreakThreshold>
+				</statOffsets>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_SteamBowHediff</defName>
+		<label>steambow</label>
+		<description>Steam used to launch ballista bolts.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.7, 0.7, 0.7)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>inactive</label>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>0.01</minSeverity>
+				<label>charging</label>
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>10</minSeverity>
+				<label>ready to fire</label>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_HeatCleaverHediff</defName>
+		<label>heat cleaver</label>
+		<description>Heat level of the heat cleaver.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.7, 0.2, 0.2)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>neutral</label>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>1</minSeverity>
+				<label>warm</label>
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+				<additionalDamages>
+					<li>
+						<damage>Burn</damage>
+						<amount>2</amount>
+						<damageMelee>true</damageMelee>
+						<damageRange>false</damageRange>
+					</li>
+				</additionalDamages>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>2</minSeverity>
+				<label>hot</label>
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+				<additionalDamages>
+					<li>
+						<damage>Burn</damage>
+						<amount>4</amount>
+						<damageMelee>true</damageMelee>
+						<damageRange>false</damageRange>
+					</li>
+				</additionalDamages>
+			</li>	
+			<li Class="ART.HediffStageResource">
+				<minSeverity>3</minSeverity>
+				<label>sizzling</label>
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+				<additionalDamages>
+					<li>
+						<damage>Burn</damage>
+						<amount>6</amount>
+						<damageMelee>true</damageMelee>
+						<damageRange>false</damageRange>
+					</li>
+				</additionalDamages>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>4</minSeverity>
+				<label>red-hot</label>
+				<additionalDamages>
+					<li>
+						<damage>Burn</damage>
+						<amount>8</amount>
+						<damageMelee>true</damageMelee>
+						<damageRange>false</damageRange>
+					</li>
+				</additionalDamages>
+			</li>		
+		</stages>
+	</ART.HediffResourceDef>
+
+	<ART.HediffResourceDef>
+		<defName>FE_StoneFlingerHediff</defName>
+		<label>stone flinger</label>
+		<description>Steam used to launch rocks and pebbles.</description>
+		<hediffClass>ART.HediffResource</hediffClass>
+		<keepWhenEmpty>true</keepWhenEmpty>
+		<isBad>false</isBad>
+		<tendable>false</tendable>
+		<hideResourceAmount>true</hideResourceAmount>
+		<maxResourceCapacity>0</maxResourceCapacity>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.7, 0.7, 0.7)</defaultLabelColor>
+		<showResourceBar>false</showResourceBar>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>inactive</label>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>0.01</minSeverity>
+				<label>charging</label>
+				<resourceSettings>
+					<li>
+						<hediff>FE_SteamTank</hediff>
+						<resourcePerSecond>-1</resourcePerSecond>
+					</li>
+				</resourceSettings>
+			</li>
+			<li Class="ART.HediffStageResource">
+				<minSeverity>6</minSeverity>
+				<label>ready to fire</label>
+			</li>
+		</stages>
+	</ART.HediffResourceDef>
+
+</Defs>
