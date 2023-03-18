@@ -16,13 +16,15 @@ namespace TabulaRasa
     {
         static TabulaRasaStartup()
         {
+            TabulaRasaSettings settings = TabulaRasaMod.settings;
+
             RunCheckForIntelligentPawns();
             FillLinkablesAutomatically();
             FillRaceAlternatesAutomatically();
             DisableCorpseRottingAsNeeded();
             if (ModLister.RoyaltyInstalled)
             {
-                FixRoyaltyBullshit();
+                FixRoyaltyBullshit(settings);
             }
             EnableNeededSubCategories();
         }
@@ -46,8 +48,20 @@ namespace TabulaRasa
             }
         }
 
-        public static void FixRoyaltyBullshit()
+        public static void FixRoyaltyBullshit(TabulaRasaSettings settings)
         {
+            if (settings.empireHostilityFixedFactions.NullOrEmpty())
+            {
+                settings.empireHostilityFixedFactions = new Dictionary<string, bool>();
+            }
+            foreach (FactionDef faction in DefDatabase<FactionDef>.AllDefs.Where(f => f.isPlayer))
+            {
+                if (!settings.empireHostilityFixedFactions.ContainsKey(faction.defName))
+                {
+                    settings.empireHostilityFixedFactions.Add(faction.defName, true);
+                }
+            }
+
             FactionDef empireDef = DefDatabase<FactionDef>.GetNamedSilentFail("Empire");
             if(empireDef != null)
             {

@@ -57,6 +57,7 @@ namespace TabulaRasa
 
         public bool podBlocker = true;
         public bool podBlockFriendlies = false;
+        public List<Type> skyfallerClassWhitelist = new List<Type>();
 
         public override void ResolveReferences(ThingDef parentDef)
         {

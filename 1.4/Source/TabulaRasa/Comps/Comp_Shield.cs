@@ -174,10 +174,8 @@ namespace TabulaRasa
 
 		public bool ShouldBeBlocked(Skyfaller skyfaller)
 		{
-			if (Active && Props.podBlocker)
-			{
-				if (skyfaller.Position.DistanceTo(CurShieldPosition.ToIntVec3()) <= curShieldRadius) { return true; }
-			}
+            if (!Props.skyfallerClassWhitelist.NullOrEmpty() && Props.skyfallerClassWhitelist.Contains(skyfaller.def.thingClass)) { return false; }
+			if (Active && Props.podBlocker) { if (skyfaller.Position.DistanceTo(CurShieldPosition.ToIntVec3()) <= curShieldRadius) { return true; } }
 			return false;
 		}
 
@@ -346,21 +344,10 @@ namespace TabulaRasa
 					effecter.Trigger(this.parent, TargetInfo.Invalid);
 					effecter.Cleanup();
 				}
-				if (overloaded)
+				UpdateStress(true);
+				if (CurStressLevel >= Props.shieldOverloadThreshold && Rand.Chance(Props.shieldOverloadChance * (1f - ((1f - CurStressLevel) * 10f))))
 				{
-					ticksToReset--;
-					if (ticksToReset <= 0)
-					{
-						overloaded = false;
-					}
-				}
-				else
-				{
-					UpdateStress(true);
-					if (CurStressLevel >= Props.shieldOverloadThreshold && Rand.Chance(Props.shieldOverloadChance * (1f - ((1f - CurStressLevel) * 10f))))
-					{
-						GenExplosion.DoExplosion(parent.OccupiedRect().ExpandedBy(Props.extraOverloadRange).RandomCell, parent.Map, 1.9f, DamageDefOf.EMP, null, -1, -1f, null, null, null, null, null, 0f, 1, null, false, null, 0f, 1, 0f, false, null, null);
-					}
+					GenExplosion.DoExplosion(parent.OccupiedRect().ExpandedBy(Props.extraOverloadRange).RandomCell, parent.Map, 1.9f, DamageDefOf.EMP, null, -1, -1f, null, null, null, null, null, 0f, 1, null, false, null, 0f, 1, 0f, false, null, null);
 				}
 			}
 
@@ -368,7 +355,15 @@ namespace TabulaRasa
 
 			if (PowerTrader != null)
 			{
-				UpdatePowerUsage();
+				UpdatePowerUsage(); 
+				if (overloaded && PowerTrader.PowerOn)
+				{
+					ticksToReset--;
+					if (ticksToReset <= 0)
+					{
+						overloaded = false;
+					}
+				}
 			}
 
 			if (HeatComp != null)

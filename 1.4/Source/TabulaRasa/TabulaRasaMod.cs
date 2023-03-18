@@ -75,18 +75,41 @@ namespace TabulaRasa
             {
                 DoSettings_RaceSpawning(listing);
             }
+            else if (currentPage == TabulaRasaSettingsPage.Empire_Hostility)
+            {
+                DoSettings_EmpireHostility(listing);
+            }
         }
 
         public void DoSettings_General(Listing_Standard listingStandard)
         {
             listingStandard.CheckboxLabeled("Special Occasions", ref settings.specialOccasions, "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.");
-            if (ModLister.RoyaltyInstalled)
-            {
-                listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
-            }
             if (ModLister.BiotechInstalled)
             {
                 listingStandard.CheckboxLabeled("Show Xenotype Editor Debug Option", ref settings.showXenotypeEditorMenu, "If Enabled, an icon will be displayed at the top of the screen along with other DevMode icons as long as DevMode is enabled, allowing access to the Xenotype editor from places other than the starter pawn loadout screen.");
+            }
+        }
+
+        public void DoSettings_EmpireHostility(Listing_Standard listingStandard)
+        {
+            if (ModLister.RoyaltyInstalled)
+            {
+                listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
+                if (settings.preventEmpireHostility)
+                {
+                    listingStandard.GapLine();
+                    listingStandard.Note("The following is a list of player faction defs, these can be toggled so they they are not affected by the faction hostility change in the case where a player faction is intended to be hostile towards them.");
+                    foreach(FactionDef faction in DefDatabase<FactionDef>.AllDefs.Where(f => f.isPlayer))
+                    {
+                        bool bufferBool = settings.empireHostilityFixedFactions[faction.defName];
+                        listingStandard.CheckboxLabeled(faction.LabelCap, ref bufferBool);
+                        settings.empireHostilityFixedFactions[faction.defName] = bufferBool;
+                    }
+                }
+            }
+            else
+            {
+                listingStandard.Note("You do not have Royalty enabled, options in this page would be useless to you.");
             }
         }
 
@@ -127,6 +150,7 @@ namespace TabulaRasa
     public enum TabulaRasaSettingsPage
     {
         General,
-        Race_Spawning
+        Race_Spawning,
+        Empire_Hostility
     }
 }

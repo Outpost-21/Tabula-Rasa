@@ -21,9 +21,11 @@ namespace TabulaRasa
         public List<string> markedAsSeen = new List<String>();
 
         public bool specialOccasions = true;
-        public bool preventEmpireHostility = true;
-
         public bool showXenotypeEditorMenu = true;
+
+        // Empire Hostility
+        public bool preventEmpireHostility = true;
+        public Dictionary<string, bool> empireHostilityFixedFactions = new Dictionary<string, bool>();
 
         public override void ExposeData()
         {
@@ -37,6 +39,10 @@ namespace TabulaRasa
 
             // Special PawnGroupMakers
             Scribe_Values.Look(ref specialOccasions, "specialPawnGroupMakers", true);
+
+            // Empire Hostility
+            Scribe_Values.Look(ref preventEmpireHostility, "preventEmpireHostility", true);
+            Scribe_Collections.Look(ref empireHostilityFixedFactions, "empireHostilityFixedFactions");
         }
 
         public bool IsValidSetting(string input)

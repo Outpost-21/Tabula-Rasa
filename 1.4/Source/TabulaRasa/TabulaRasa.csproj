@@ -83,13 +83,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Harmony\Patch_FactionGiftUtility_OfferGiftsCommand.cs" />
+    <None Include="Buildings\Building_NeedProvider.cs" />
     <Compile Include="Comps\CompProperties_RandomSounds.cs" />
     <Compile Include="Comps\CompProperties_Shield.cs" />
     <Compile Include="Comps\Comp_Shield.cs" />
     <Compile Include="Comps\Comp_RandomSounds.cs" />
+    <Compile Include="DamageWorkers\DamageWorker_AdvExt.cs" />
+    <Compile Include="ModExtensions\DefModExt_NeedProvider.cs" />
     <Compile Include="ModExtensions\DefModExt_EMPShielding.cs" />
     <Compile Include="Harmony\Patch_Skyfaller_Tick.cs" />
     <Compile Include="Harmony\Patch_Projectile_CheckForFreeInterceptBetween.cs" />
+    <Compile Include="ModExtensions\DefModExt_DamageAdv.cs" />
+    <Compile Include="Data\NeedProviderOption.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_PollutionExact.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Pollution.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_ShowShieldRadius.cs" />
     <Compile Include="UI\Gizmo_ShieldStatus.cs" />
     <Compile Include="MapComps\MapComp_ShieldList.cs" />
