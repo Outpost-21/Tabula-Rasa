@@ -143,8 +143,7 @@ namespace TabulaRasa
                 Texture2D bannerImage = ContentFinder<Texture2D>.Get(info.banner, false);
                 float pWidth = bannerImage?.width ?? 0;
                 float pHeight = bannerImage?.height ?? 0;
-                float imageWidth = ((float)pWidth / pHeight) * 40;
-                Rect bannerRect = new Rect((inRect.width - imageWidth) / 2, 0, imageWidth, 40);
+                Rect bannerRect = new Rect((inRect.width - pWidth) / 2, 0, pWidth, pHeight);
                 if (bannerImage != null)
                 {
                     GUI.DrawTexture(bannerRect, bannerImage);

@@ -22,7 +22,7 @@ namespace TabulaRasa
 
         public int currentWork;
 
-        public float secondsTillNext => this.producerProps.productionTime.TicksToSeconds();
+        public float secondsTillNext => producerProps.productionTime.TicksToSeconds();
 
         public override void ExposeData()
         {
@@ -38,9 +38,9 @@ namespace TabulaRasa
             base.SpawnSetup(map, respawningAfterLoad);
             powerComp = GetComp<CompPowerTrader>();
             producerProps = def.GetModExtension<DefModExt_ThingProducer>();
-            if (base.Faction != null && base.Faction.IsPlayer)
+            if (Faction != null && Faction.IsPlayer)
             {
-                this.contentsKnown = true;
+                contentsKnown = true;
             }
             currentWork = producerProps.productionTime;
         }
@@ -71,7 +71,7 @@ namespace TabulaRasa
         {
             get
             {
-                return this.storedThingCount > 0;
+                return storedThingCount > 0;
             }
         }
 
@@ -79,7 +79,7 @@ namespace TabulaRasa
         {
             get
             {
-                return (this.storedThingCount != 0) + this.producerProps.thingDef.label;
+                return (storedThingCount != 0) + producerProps.thingDef.label;
             }
         }
 
@@ -87,7 +87,7 @@ namespace TabulaRasa
         {
             if (!ReservationUtility.CanReserve(myPawn, this, 1))
             {
-                FloatMenuOption item2 = new FloatMenuOption("CannotUseReserved".Translate(), (Action)null, MenuOptionPriority.Default, (Action<Rect>)null, null, 0f, (Func<Rect, bool>)null, null);
+                FloatMenuOption item2 = new FloatMenuOption("CannotUseReserved".Translate(), null);
                 return new List<FloatMenuOption>
                 {
                     item2
@@ -95,28 +95,28 @@ namespace TabulaRasa
             }
             if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.OnCell, Danger.Some, false))
             {
-                FloatMenuOption item3 = new FloatMenuOption("CannotUseNoPath".Translate(), (Action)null, MenuOptionPriority.Default, (Action<Rect>)null, null, 0f, (Func<Rect, bool>)null, null);
+                FloatMenuOption item3 = new FloatMenuOption("CannotUseNoPath".Translate(), null);
                 return new List<FloatMenuOption>
                 {
                     item3
                 };
             }
-            if (this.storedThingCount <= 0)
+            if (storedThingCount <= 0)
             {
-                FloatMenuOption item3 = new FloatMenuOption("No available " + this.producerProps.thingDef.label, (Action)null, MenuOptionPriority.Default, (Action<Rect>)null, null, 0f, (Func<Rect, bool>)null, null);
+                FloatMenuOption item3 = new FloatMenuOption("No available " + producerProps.thingDef.label, null);
                 return new List<FloatMenuOption>
                 {
                     item3
                 };
             }
-            if (this.storedThingCount > 0)
+            if (storedThingCount > 0)
             {
-                FloatMenuOption item4 = new FloatMenuOption(this.producerProps.retrievalString, (Action)delegate
+                FloatMenuOption item4 = new FloatMenuOption(producerProps.retrievalString.Translate(producerProps.thingDef.label), delegate
                 {
                     Job val2 = new Job(TabulaRasaDefOf.TabulaRasa_TakeFromProducer, this);
                     ReservationUtility.Reserve(myPawn, this, val2);
                     myPawn.jobs.TryTakeOrderedJob(val2);
-                }, MenuOptionPriority.Default, (Action<Rect>)null, null, 0f, (Func<Rect, bool>)null, null);
+                });
                 return new List<FloatMenuOption>
                 {
                     item4
@@ -135,7 +135,7 @@ namespace TabulaRasa
             }
             else
             {
-                str = this.storedThingCount + "x " + this.producerProps.thingDef.label;
+                str = storedThingCount + "x " + producerProps.thingDef.label;
             }
             if (!text.NullOrEmpty())
             {
@@ -146,11 +146,11 @@ namespace TabulaRasa
 
         public void TakeItem(Pawn doer)
         {
-            if (this.storedThingCount > 0)
+            if (storedThingCount > 0)
             {
-                Thing thing = ThingMaker.MakeThing(this.producerProps.thingDef, null);
-                GenPlace.TryPlaceThing(thing, doer.Position, doer.Map, ThingPlaceMode.Near, null, null);
-                this.storedThingCount -= 1;
+                Thing thing = ThingMaker.MakeThing(producerProps.thingDef, null);
+                GenPlace.TryPlaceThing(thing, doer.Position, doer.Map, ThingPlaceMode.Near);
+                storedThingCount -= 1;
             }
         }
     }
