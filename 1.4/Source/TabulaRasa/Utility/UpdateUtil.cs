@@ -148,7 +148,7 @@ namespace TabulaRasa
                 {
                     GUI.DrawTexture(bannerRect, bannerImage);
                 }
-                curY += 56;
+                curY += (pHeight + 16);
             }
 
             Rect textRect = new Rect(0, curY, inRect.width, inRect.height);
