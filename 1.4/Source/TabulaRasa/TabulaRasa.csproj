@@ -82,14 +82,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="DefModExt_SpecialButchering.cs" />
+    <Compile Include="MapComps\MapComp_VisualOverlays.cs" />
+    <Compile Include="ModExtensions\DefModExt_Switcher.cs" />
+    <None Include="Genes\Gene_FemaleOnly.cs" />
+    <None Include="Genes\Gene_MaleOnly.cs" />
+    <None Include="Harmony\Patch_Pawn_GeneTracker_CheckForOverrides.cs" />
+    <None Include="Harmony\Patch_Gene_Active.cs" />
+    <Compile Include="Hediffs\Hediff_VisualOverlay.cs" />
+    <Compile Include="WorldComps\WorldComp_FactionWars.cs" />
     <None Include="Harmony\Patch_FactionGiftUtility_OfferGiftsCommand.cs" />
     <None Include="Buildings\Building_NeedProvider.cs" />
+    <Compile Include="Data\Allegiance.cs" />
+    <Compile Include="Defs\AllegianceDef.cs" />
     <Compile Include="Comps\CompProperties_RandomSounds.cs" />
     <Compile Include="Comps\CompProperties_Shield.cs" />
     <Compile Include="Comps\Comp_Shield.cs" />
     <Compile Include="Comps\Comp_RandomSounds.cs" />
     <Compile Include="DamageWorkers\DamageWorker_AdvExt.cs" />
-    <Compile Include="IngestionOutcomeDoer_GiveHediffAdv.cs" />
+    <Compile Include="IngestionOutcomeDoer\IngestionOutcomeDoer_GiveHediffAdv.cs" />
     <Compile Include="ModExtensions\DefModExt_NeedProvider.cs" />
     <Compile Include="ModExtensions\DefModExt_EMPShielding.cs" />
     <Compile Include="Harmony\Patch_Skyfaller_Tick.cs" />
@@ -324,8 +336,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IngestionOutcomeDoer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
