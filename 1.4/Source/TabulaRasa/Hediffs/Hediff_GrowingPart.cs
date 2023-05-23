@@ -41,7 +41,11 @@ namespace TabulaRasa
             base.PostRemoved();
             if(Severity >= 1f)
             {
-                HediffDef hediffDef = pawn.health.hediffSet.GetFirstHediffOfDef(def.GetModExtension<DefModExt_AutoHealProps>().autoHealHediff, false).def;
+                HediffDef hediffDef = pawn?.health?.hediffSet?.GetFirstHediffOfDef(def.GetModExtension<DefModExt_AutoHealProps>().autoHealHediff, false)?.def ?? null;
+                if(hediffDef == null)
+                {
+                    pawn.ReplaceHediffFromBodypart(Part, HediffDefOf.MissingBodyPart, TabulaRasaDefOf.TabulaRasa_RemovableHediff);
+                }
                 DefModExt_AutoHealProps modExt = hediffDef.GetModExtension<DefModExt_AutoHealProps>();
                 if (modExt != null && modExt.curedBodyPart != null)
                 {

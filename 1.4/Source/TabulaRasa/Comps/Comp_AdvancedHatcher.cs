@@ -88,7 +88,7 @@ namespace TabulaRasa
                 }
                 else
                 {
-                    LogUtil.LogError($"Failed to hatch egg of def: {parent.def.defName} due to no viable pawnKind or pawnKinds listed. Destroying item anyway to prevent further errors.");
+                    LogUtil.LogError($"Failed to hatch egg of def: {parent.def.defName} due to no viable pawnKind or pawnKinds listed. Destroying item to prevent further errors.");
                 }
                 parent.Destroy();
             }

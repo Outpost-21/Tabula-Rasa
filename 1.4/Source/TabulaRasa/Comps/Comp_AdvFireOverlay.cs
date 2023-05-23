@@ -20,6 +20,8 @@ namespace TabulaRasa
 
 		public List<Rot4> showList = new List<Rot4>();
 
+		public bool Powered => (compPower == null || compPower.PowerOn) && (compFlickable == null || compFlickable.SwitchIsOn) && (compFlickable == null || compFlickable.SwitchIsOn);
+
 		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
 			base.PostSpawnSetup(respawningAfterLoad);
@@ -41,31 +43,10 @@ namespace TabulaRasa
 			{
 				if (rot == parent.Rotation)
 				{
-					if (compPower != null)
+					if (Powered)
 					{
-						if (compPower.PowerOn)
-						{
-							DrawCall();
-						}
+						DrawCall();
 					}
-					else
-					{
-						if (refuelableComp != null)
-						{
-							if (refuelableComp.HasFuel && compFlickable.SwitchIsOn)
-							{
-								DrawCall();
-							}
-						}
-						else
-						{
-							if (compFlickable.SwitchIsOn)
-							{
-								DrawCall();
-							}
-						}
-					}
-					break;
 				}
 			}
 		}
