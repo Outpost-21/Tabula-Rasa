@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
-    <Compile Include="DefModExt_GeneRegeneration.cs" />
+    <Compile Include="ModExtensions\DefModExt_GeneRegeneration.cs" />
     <Compile Include="ModExtensions\DefModExt_SpecialButchering.cs" />
     <Compile Include="Genes\Gene_Regeneration.cs" />
     <Compile Include="MapComps\MapComp_VisualOverlays.cs" />

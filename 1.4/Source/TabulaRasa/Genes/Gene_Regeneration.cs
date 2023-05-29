@@ -11,9 +11,9 @@ namespace TabulaRasa
 {
     public class Gene_Regeneration : Gene
     {
-        public int ticksUntilNextHeal;
-        public int ticksUntilNextGrow;
-        public int ticksUntilNextCure;
+        public int ticksUntilNextHeal = -1;
+        public int ticksUntilNextGrow = -1;
+        public int ticksUntilNextCure = -1;
 
         public DefModExt_GeneRegeneration modExt;
 
@@ -32,30 +32,28 @@ namespace TabulaRasa
         public override void Tick()
         {
             base.Tick();
-            if (Current.Game.tickManager.TicksGame >= ticksUntilNextHeal)
+            if(ModExt != null)
             {
-                HealthUtil.TrySealWounds(pawn, ModExt.ignoreWhenHealing);
-                HealthUtil.SetNextTick(ticksUntilNextHeal, ModExt.healTicks);
+                if (Current.Game.tickManager.TicksGame >= ticksUntilNextHeal)
+                {
+                    HealthUtil.TrySealWounds(pawn, ModExt.ignoreWhenHealing);
+                    HealthUtil.SetNextTick(ticksUntilNextHeal, ModExt.healTicks);
+                }
+                if (Current.Game.tickManager.TicksGame >= ticksUntilNextGrow && ModExt.regrowParts)
+                {
+                    HealthUtil.TryRegrowBodyparts(pawn, ModExt.protoBodyPart);
+                    HealthUtil.SetNextTick(ticksUntilNextGrow, ModExt.growthTicks);
+                }
+                if (Current.Game.tickManager.TicksGame >= ticksUntilNextCure && ModExt.removeInfections)
+                {
+                    HealthUtil.TryCureInfections(pawn, ModExt.infectionsAllowed, ModExt.explicitRemovals);
+                    HealthUtil.SetNextTick(ticksUntilNextCure, ModExt.cureTicks);
+                }
             }
-            if (Current.Game.tickManager.TicksGame >= ticksUntilNextGrow && ModExt.regrowParts)
+            else
             {
-                HealthUtil.TryRegrowBodyparts(pawn, ModExt.protoBodyPart);
-                HealthUtil.SetNextTick(ticksUntilNextGrow, ModExt.growthTicks);
+                LogUtil.LogWarning($"GeneDef {def.defName} has a null DefModExt_GeneRegeneration so regeneration will not function properly.");
             }
-            if (Current.Game.tickManager.TicksGame >= ticksUntilNextCure && ModExt.removeInfections)
-            {
-                HealthUtil.TryCureInfections(pawn, ModExt.infectionsAllowed, ModExt.explicitRemovals);
-                HealthUtil.SetNextTick(ticksUntilNextCure, ModExt.cureTicks);
-            }
-        }
-
-        public override void PostAdd()
-        {
-            base.PostAdd();
-
-            HealthUtil.SetNextTick(ticksUntilNextHeal, ModExt.healTicks);
-            HealthUtil.SetNextTick(ticksUntilNextGrow, ModExt.growthTicks);
-            HealthUtil.SetNextTick(ticksUntilNextCure, ModExt.cureTicks);
         }
 
         public override void ExposeData()
