@@ -228,8 +228,8 @@
     <Compile Include="Harmony\Patch_JobDriver_Vomit_MakeNewToils.cs" />
     <Compile Include="Harmony\Patch_InspirationHandler_InspirationHandlerTick.cs" />
     <Compile Include="Harmony\Patch_PawnDiedOrDownedThoughtsUtility.cs" />
-    <Compile Include="Harmony\Patch_InteractionUtility_CanReceiveInteraction.cs" />
-    <Compile Include="Harmony\Patch_InteractionUtility_CanInitiateInteraction.cs" />
+    <None Include="Harmony\Patch_InteractionUtility_CanReceiveInteraction.cs" />
+    <None Include="Harmony\Patch_InteractionUtility_CanInitiateInteraction.cs" />
     <Compile Include="Harmony\Patch_Pawn_InteractionsTracker_CanInteractNowWith.cs" />
     <Compile Include="Harmony\Patch_Pawn_InteractionsTracker_SocialFightChance.cs" />
     <Compile Include="Harmony\Patch_SkillRecord_Interval.cs" />
