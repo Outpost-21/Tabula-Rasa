@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -83,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Genes\Gene_HediffActivator.cs" />
     <Compile Include="IngestionOutcomeDoer\IngestionOutcomeDoer_DrainHediff.cs" />
+    <Compile Include="ModExtensions\DefModExt_GeneHediffActivator.cs" />
     <Compile Include="ModExtensions\DefModExt_GeneRegeneration.cs" />
     <Compile Include="ModExtensions\DefModExt_SpecialButchering.cs" />
     <Compile Include="Genes\Gene_Regeneration.cs" />

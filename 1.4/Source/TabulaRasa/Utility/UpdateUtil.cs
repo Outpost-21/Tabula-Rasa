@@ -9,8 +9,12 @@ using Verse;
 
 namespace TabulaRasa
 {
-    public class UpdateUtil
+    public static class UpdateUtil
     {
+        public static UpdateDef selectedUpdate;
+        public static Vector2 updateScrollPosition;
+        public static float updateViewRectHeight;
+
         public static void DoUpdateListing()
         {
             List<UpdateDef> allUpdates = DefDatabase<UpdateDef>.AllDefsListForReading;
@@ -33,8 +37,10 @@ namespace TabulaRasa
                     }
                 }
             }
-
-            int selectedUpdate = -1;
+            if (allUpdates.Any(u => u.contentList.NullOrEmpty()))
+            {
+                allUpdates.RemoveAll(u => u.contentList.NullOrEmpty());
+            }
 
             float height = 500;
             float width = 300;
@@ -54,40 +60,23 @@ namespace TabulaRasa
             listing.GapLine();
             curY += 12;
 
-            int updateCount = 6;
-            if (allUpdates.Count() < 6)
-            {
-                updateCount = allUpdates.Count();
-            }
+            int updateCount = Mathf.Min(6, allUpdates.Count());
 
             for (int i = 0; i < updateCount; i++)
             {
                 Rect listRect = new Rect(0, curY, inRect.width, 64);
                 Rect hoverRect = new Rect(listRect);
-                DoUpdateSelection(listRect, allUpdates[i]);
-                if (Mouse.IsOver(hoverRect))
-                {
-                    if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
-                    {
-                        RemoveSelection(allUpdates[i].defName);
-                    }
-                    else if (Widgets.ButtonInvisible(hoverRect))
-                    {
-                        Application.OpenURL(allUpdates[i].linkUrl);
-                    }
-                    selectedUpdate = i;
-                }
+                DoUpdateSelection(listRect, allUpdates[i], Mouse.IsOver(hoverRect));
                 curY += 68;
             }
             listing.End();
 
             MainMenuDrawer.DoExpansionIcons();
 
-            if (selectedUpdate < 0)
+            if(selectedUpdate != null)
             {
-                return;
+                DoSelectedUpdateInfo(selectedUpdate);
             }
-            DoSelectedUpdateInfo(allUpdates[selectedUpdate]);
         }
 
         public static void RemoveSelection(string defName)
@@ -100,7 +89,7 @@ namespace TabulaRasa
             TabulaRasaMod.mod.WriteSettings();
         }
 
-        public static void DoUpdateSelection(Rect rect, UpdateDef info)
+        public static void DoUpdateSelection(Rect rect, UpdateDef info, bool highlight = false)
         {
             if (info.important)
             {
@@ -109,6 +98,14 @@ namespace TabulaRasa
             else
             {
                 Widgets.DrawWindowBackground(rect);
+                if(highlight || selectedUpdate == info)
+                {
+                    GUI.DrawTexture(rect, TexUI.HighlightTex);
+                }
+            }
+            if (Widgets.ButtonInvisible(rect))
+            {
+                selectedUpdate = info;
             }
             Rect inRect = rect.ContractedBy(8);
             Listing_Standard listing = new Listing_Standard();
@@ -131,30 +128,113 @@ namespace TabulaRasa
             float height = 500;
             float width = 500;
 
-            float curY = 0;
-
             Rect rect = new Rect(316, (UI.screenHeight - (height + 120)), width, height);
             Widgets.DrawWindowBackground(rect);
             Rect inRect = rect.ContractedBy(16);
-            GUI.BeginGroup(inRect);
+            inRect.y += 12f;
+            inRect.height -= 12f;
+            if (CloseButtonFor(rect))
+            {
+                selectedUpdate = null;
+            }
+            if (TrashButtonFor(rect))
+            {
+                RemoveSelection(info.defName);
+                selectedUpdate = null;
+            }
+            DoLinkIcons(rect, info);
 
+            bool flag = updateViewRectHeight > inRect.height;
+            Rect viewRect = new Rect(inRect.x, inRect.y, inRect.width - (flag ? 26f : 0f), updateViewRectHeight);
+            Widgets.BeginScrollView(inRect, ref updateScrollPosition, viewRect);
+            Listing_Standard listing = new Listing_Standard();
+            Rect scrollRect = new Rect(viewRect.x, viewRect.y, viewRect.width, 999999f);
+            listing.Begin(scrollRect);
+            // ============================ CONTENTS ================================
             if (!info.banner.NullOrEmpty())
             {
                 Texture2D bannerImage = ContentFinder<Texture2D>.Get(info.banner, false);
-                float pWidth = bannerImage?.width ?? 0;
-                float pHeight = bannerImage?.height ?? 0;
-                Rect bannerRect = new Rect((inRect.width - pWidth) / 2, 0, pWidth, pHeight);
-                if (bannerImage != null)
-                {
-                    GUI.DrawTexture(bannerRect, bannerImage);
-                }
-                curY += (pHeight + 16);
+                listing.DoImage(bannerImage);
+                listing.GapLine();
             }
+            if (!info.content.NullOrEmpty())
+            {
+                // Do Legacy Update
+                DoLegacyUpdateContents(listing, info);
+            }
+            if (!info.contentList.NullOrEmpty())
+            {
+                // Do New Style Update
+                DoUpdateContents(listing, info);
+            }
+            // ======================================================================
+            updateViewRectHeight = listing.CurHeight;
+            listing.End();
+            Widgets.EndScrollView();
+        }
 
-            Rect textRect = new Rect(0, curY, inRect.width, inRect.height);
-            Widgets.Label(textRect, info.content);
+        public static void DoLinkIcons(Rect rect, UpdateDef info)
+        {
+            if (info.links.NullOrEmpty()) { return; }
+            List<UpdateLink> links = info.links ?? new List<UpdateLink>();
+            if (!info.linkUrl.NullOrEmpty()) { links.Add(new UpdateLink() { linkUrl = info.linkUrl }); }
+            for (int i = 0; i < links.Count; i++)
+            {
+                UpdateLink link = links[i];
+                if (!link.linkUrl.NullOrEmpty())
+                {
+                    Texture2D icon = link.linkTex.NullOrEmpty() ? TexTabulaRasa.Hyperlink : ContentFinder<Texture2D>.Get(link.linkTex, false);
+                    Rect iconRect = new Rect(rect.x + rect.width - (22f * (3 + i)), rect.y + 4, 18f, 18f);
+                    if (DoLinkButton(iconRect, icon, link.linkLabel))
+                    {
+                        Application.OpenURL(link.linkUrl);
+                    }
+                }
+            }
+        }
 
-            GUI.EndGroup();
+        public static bool DoLinkButton(Rect rect, Texture2D icon, string tooltip = null)
+        {
+            if(tooltip != null)
+            {
+                TooltipHandler.TipRegion(rect, tooltip);
+            }
+            return Widgets.ButtonImage(rect, icon);
+        }
+
+        public static void DoLegacyUpdateContents(Listing_Standard listing, UpdateDef info)
+        {
+            listing.Note(info.content);
+        }
+
+        public static void DoUpdateContents(Listing_Standard listing, UpdateDef info)
+        {
+            foreach(UpdateItem item in info.contentList)
+            {
+                if(!item.header.NullOrEmpty())
+                {
+                    listing.LabelBacked(item.header, Color.white, GameFont.Small);
+                }
+                if (!item.text.NullOrEmpty())
+                {
+                    listing.Note(item.text);
+                }
+                if (!item.image.NullOrEmpty())
+                {
+                    Texture2D image = ContentFinder<Texture2D>.Get(item.image, false);
+                    listing.DoImage(image);
+                }
+            }
+        }
+
+        public static bool CloseButtonFor(Rect rect)
+        {
+            return DoLinkButton(new Rect(rect.x + rect.width - 18f - 4f, rect.y + 4, 18f, 18f), TexButton.CloseXSmall, "Close");
+        }
+
+        public static bool TrashButtonFor(Rect rect)
+        {
+            return DoLinkButton(new Rect(rect.x + rect.width - 36f - 8f, rect.y + 4, 18f, 18f), TexTabulaRasa.UpdateMarkAsRead, "Mark as Read");
         }
     }
 }

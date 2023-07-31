@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace TabulaRasa
 {
@@ -145,6 +146,82 @@ namespace TabulaRasa
 			rect.y -= rect.height;
 			GUI.color = Color.white;
 			listing.Gap(6f);
+		}
+
+		public static void LabelBacked(this Listing_Standard list, string inputText, Color color, GameFont font = GameFont.Medium, bool translate = false)
+		{
+			Text.Font = font;
+			string text = (translate ? inputText.Translate() : inputText);
+			TextAnchor anchor = Text.Anchor;
+			Text.Anchor = TextAnchor.MiddleLeft;
+			float height = Text.CalcHeight(text, list.ColumnWidth - 3f - 6f) + 6f;
+			Rect rect = list.GetRect(height).Rounded();
+			Color color2 = color;
+			color2.r *= 0.25f;
+			color2.g *= 0.25f;
+			color2.b *= 0.25f;
+			color2.a *= 0.2f;
+			GUI.color = color2;
+			Rect position = rect.ContractedBy(1f);
+			position.yMax -= 2f;
+			GUI.DrawTexture(position, BaseContent.WhiteTex);
+			GUI.color = color;
+			rect.xMin += 6f;
+			Widgets.Label(rect, text);
+			GUI.color = Color.white;
+			Text.Anchor = anchor;
+			Text.Font = GameFont.Small;
+		}
+
+		public static void LabelBackedHeader(this Listing_Standard list, string inputText, Color color, ref bool collapsed, GameFont font = GameFont.Medium, bool translate = false)
+		{
+			Text.Font = font;
+			string text = (translate ? inputText.Translate() : inputText);
+			TextAnchor anchor = Text.Anchor;
+			Text.Anchor = TextAnchor.MiddleLeft;
+			float height = Text.CalcHeight(text, list.ColumnWidth - 3f - 6f) + 6f;
+			Rect rect = list.GetRect(height).Rounded();
+			Color color2 = color;
+			color2.r *= 0.25f;
+			color2.g *= 0.25f;
+			color2.b *= 0.25f;
+			color2.a *= 0.2f;
+			GUI.color = color2;
+			Rect position = rect.ContractedBy(1f);
+			position.yMax -= 2f;
+			GUI.DrawTexture(position, BaseContent.WhiteTex);
+			GUI.color = color;
+			rect.xMin += 6f;
+			Rect position2 = new Rect(rect.x, rect.y + (rect.height - 18f) / 2f, 18f, 18f);
+			GUI.DrawTexture(position2, collapsed ? TexButton.Reveal : TexButton.Collapse);
+			if (Widgets.ButtonInvisible(rect))
+			{
+				collapsed = !collapsed;
+				if (collapsed)
+				{
+					SoundDefOf.TabClose.PlayOneShotOnCamera();
+				}
+				else
+				{
+					SoundDefOf.TabOpen.PlayOneShotOnCamera();
+				}
+			}
+			if (Mouse.IsOver(rect))
+			{
+				Widgets.DrawHighlight(rect);
+			}
+			Rect textRect = new Rect(rect.x + 18f, rect.y, rect.width - 18f, rect.height);
+			Widgets.Label(textRect, text);
+			GUI.color = Color.white;
+			Text.Anchor = anchor;
+			Text.Font = GameFont.Small;
+		}
+
+		public static void DoImage(this Listing_Standard listing, Texture2D image)
+		{
+			Rect rect = listing.GetRect(image.height).Rounded();
+			GUI.DrawTexture(rect, image);
+			listing.Gap(4f);
 		}
 	}
 

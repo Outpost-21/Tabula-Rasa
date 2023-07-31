@@ -13,5 +13,7 @@ namespace TabulaRasa
     public static class TexTabulaRasa
     {
         public static readonly Texture2D DebugXenotypeEditor = ContentFinder<Texture2D>.Get("TabulaRasa/UI/XenotypeEditor");
+        public static readonly Texture2D UpdateMarkAsRead = ContentFinder<Texture2D>.Get("TabulaRasa/UI/Bin");
+        public static readonly Texture2D Hyperlink = ContentFinder<Texture2D>.Get("TabulaRasa/UI/Hyperlink");
     }
 }

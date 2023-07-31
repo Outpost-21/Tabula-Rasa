@@ -9,4 +9,6 @@
 	<TabulaRasa.SubCatLabel>Subcategory...</TabulaRasa.SubCatLabel>
 	<TabulaRasa.SubCatDesc>Selecting a subcategory will narrow down the buildable options to only those within the subcategory.</TabulaRasa.SubCatDesc>
 
+	<TabulaRasa.DisabledByCooldown>Disabled by cooldown, can use again in {0}.</TabulaRasa.DisabledByCooldown>
+
 </LanguageData>
