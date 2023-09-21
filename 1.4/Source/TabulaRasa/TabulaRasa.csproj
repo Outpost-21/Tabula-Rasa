@@ -84,7 +84,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
+    <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />
+    <Compile Include="Comps\Comp_ClusterGrower.cs" />
+    <Compile Include="Comps\Comp_DestroyedLeavings.cs" />
+    <Compile Include="DefModExt_HiddenResearch.cs" />
+    <Compile Include="Harmony\Patch_MainTabWindow_Research_VisibleResearchProjects.cs" />
+    <Compile Include="ModExtensions\DefModExt_PreventPlantSpawns.cs" />
     <Compile Include="Genes\Gene_HediffActivator.cs" />
+    <Compile Include="Harmony\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs" />
     <Compile Include="IngestionOutcomeDoer\IngestionOutcomeDoer_DrainHediff.cs" />
     <Compile Include="ModExtensions\DefModExt_GeneHediffActivator.cs" />
     <Compile Include="ModExtensions\DefModExt_GeneRegeneration.cs" />
@@ -97,6 +105,7 @@
     <None Include="Harmony\Patch_Pawn_GeneTracker_CheckForOverrides.cs" />
     <None Include="Harmony\Patch_Gene_Active.cs" />
     <Compile Include="Hediffs\Hediff_VisualOverlay.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Complex.cs" />
     <Compile Include="WorldComps\WorldComp_FactionWars.cs" />
     <None Include="Harmony\Patch_FactionGiftUtility_OfferGiftsCommand.cs" />
     <None Include="Buildings\Building_NeedProvider.cs" />

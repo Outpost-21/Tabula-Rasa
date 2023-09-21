@@ -217,7 +217,7 @@ namespace TabulaRasa
                 }
                 if (!item.text.NullOrEmpty())
                 {
-                    listing.Note(item.text);
+                    listing.TextContent(item.text);
                 }
                 if (!item.image.NullOrEmpty())
                 {

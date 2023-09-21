@@ -50,6 +50,14 @@ namespace TabulaRasa
 			Text.Font = GameFont.Small;
 		}
 
+		public static void TextContent(this Listing_Standard listing, string text, GameFont font = GameFont.Small)
+		{
+			Text.Font = font;
+			GUI.color = Color.white;
+			listing.Label(text, -1f, null);
+			Text.Font = GameFont.Small;
+		}
+
 		public static void ValueLabeled<T>(this Listing_Standard listing, string name, string explanation, ref T value, string tooltip = null)
 		{
 			float curHeight = listing.CurHeight;
