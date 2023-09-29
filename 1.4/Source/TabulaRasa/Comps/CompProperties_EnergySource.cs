@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     public class CompProperties_EnergySource : CompProperties
     {
         public CompProperties_EnergySource()

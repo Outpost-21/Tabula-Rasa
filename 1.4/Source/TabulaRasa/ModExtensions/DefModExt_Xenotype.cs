@@ -9,7 +9,8 @@ using Verse;
 
 namespace TabulaRasa
 {
-    public class Gene_FemaleOnly : Gene
+    public class DefModExt_Xenotype : DefModExtension
     {
+        public XenotypeDef xenotype;
     }
 }

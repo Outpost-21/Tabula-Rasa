@@ -26,6 +26,12 @@ namespace TabulaRasa
             compReloadable = parent.TryGetComp<CompReloadable>();
         }
 
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_References.Look(ref target, "target");
+        }
+
         public override IEnumerable<Gizmo> CompGetWornGizmosExtra()
         {
             foreach (Gizmo gizmo in base.CompGetWornGizmosExtra())
@@ -34,7 +40,7 @@ namespace TabulaRasa
             }
             if (compReloadable == null || compReloadable.CanBeUsed)
             {
-                yield return new Command_Action
+                yield return new Command_Recall
                 {
                     defaultLabel = "Recall",
                     defaultDesc = "Teleports the pawn equipped with this item to the selected destination.",
@@ -42,7 +48,19 @@ namespace TabulaRasa
                     icon = ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true),
                     action = delegate
                     {
-                        Find.WindowStack.Add(new FloatMenu(DestinationFloatMenuOptions(true).ToList()));
+                        if (target == null)
+                        {
+                            Messages.Message("No destination selected. Right click the gizmo to select one.", MessageTypeDefOf.CautionInput);
+                        }
+                        else if (Props.receiverMustBeActive && !target.TryGetComp<Comp_Teleporter>().IsActive)
+                        {
+                            Messages.Message("Selected destination is currently inactive, cannot recall to.", MessageTypeDefOf.CautionInput);
+                        }
+                        else
+                        {
+                            GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseRecall, GetPawn.Position, parent), JobTag.Misc);
+                        }
+                        //Find.WindowStack.Add(new FloatMenu(DestinationFloatMenuOptions(true).ToList()));
                     }
                 };
             }
@@ -95,7 +113,7 @@ namespace TabulaRasa
                         }
                         else
                         {
-                            option.Label = "Teleport To: " + receiver.Label;
+                            option.Label = "Set Destination: " + receiver.Label;
                             option.action = delegate ()
                             {
                                 target = receiver;

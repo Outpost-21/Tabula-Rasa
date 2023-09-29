@@ -10,7 +10,8 @@ using Verse.AI;
 
 namespace TabulaRasa
 {
-    public class JobGiver_IntelligentAnimal : JobGiver_Work
+	//TODO: Remove next RW update
+	public class JobGiver_IntelligentAnimal : JobGiver_Work
     {
         public override ThinkResult TryIssueJobPackage(Pawn pawn, JobIssueParams jobParams)
 		{

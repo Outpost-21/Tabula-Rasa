@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     public class DefModExt_PawnKindRaces : DefModExtension
     {
         /// <summary>

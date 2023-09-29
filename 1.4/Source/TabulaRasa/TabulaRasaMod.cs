@@ -63,94 +63,77 @@ namespace TabulaRasa
 
         public void DoOptionsCategoryContents(Listing_Standard listing)
         {
-            listing.SettingsDropdown("Current Page", "", ref currentPage, listing.ColumnWidth);
-            listing.Note("You will need to restart the game changing any settings as some code is only run on startup.", GameFont.Tiny);
-            listing.GapLine();
-
-            if (currentPage == TabulaRasaSettingsPage.General)
+            listing.LabelBacked("Mod Update Settings", Color.white);
+            if(listing.ButtonTextLabeled("Unmarks all updates you've previously marked as seen, letting you see them again.", "Unmark All Updates"))
             {
-                DoSettings_General(listing);
+                settings.markedAsSeen = new List<string>();
+                UpdateUtil.allUpdatesCached = new List<UpdateDef>();
             }
-            else if (currentPage == TabulaRasaSettingsPage.Race_Spawning)
-            {
-                DoSettings_RaceSpawning(listing);
-            }
-            else if (currentPage == TabulaRasaSettingsPage.Empire_Hostility)
-            {
-                DoSettings_EmpireHostility(listing);
-            }
-        }
-
-        public void DoSettings_General(Listing_Standard listingStandard)
-        {
-            listingStandard.CheckboxLabeled("Special Occasions", ref settings.specialOccasions, "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.");
+            listing.CheckboxLabeled("Show Old Mod Updates", ref settings.showOldUpdates, "By default, mod updates older than three months are hidden automatically, if you enable this, you'll see them regardless of how old they are.");
+            listing.LabelBacked("Incident Settings", Color.white);
+            listing.CheckboxLabeled("Special Occasions", ref settings.specialOccasions, "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.");
             if (ModLister.BiotechInstalled)
             {
-                listingStandard.CheckboxLabeled("Show Xenotype Editor Debug Option", ref settings.showXenotypeEditorMenu, "If Enabled, an icon will be displayed at the top of the screen along with other DevMode icons as long as DevMode is enabled, allowing access to the Xenotype editor from places other than the starter pawn loadout screen.");
+                listing.LabelBacked("Biotech Specific", Color.white);
+                listing.CheckboxLabeled("Show Xenotype Editor Debug Option", ref settings.showXenotypeEditorMenu, "If Enabled, an icon will be displayed at the top of the screen along with other DevMode icons as long as DevMode is enabled, allowing access to the Xenotype editor from places other than the starter pawn loadout screen.");
             }
-        }
-
-        public void DoSettings_EmpireHostility(Listing_Standard listingStandard)
-        {
             if (ModLister.RoyaltyInstalled)
             {
-                listingStandard.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
+                listing.LabelBacked("Royalty Specific", Color.white);
+                listing.CheckboxLabeled("Prevent Empire Hostility", ref settings.preventEmpireHostility, "If Enabled, automatically patches any player faction defs not be always hostile with the Empire from Royalty. Having to do them manually every time because Ludeon chose to make it that way is bullshit and I'm sick of it.");
                 if (settings.preventEmpireHostility)
                 {
-                    listingStandard.GapLine();
-                    listingStandard.Note("The following is a list of player faction defs, these can be toggled so they they are not affected by the faction hostility change in the case where a player faction is intended to be hostile towards them.");
-                    foreach(FactionDef faction in DefDatabase<FactionDef>.AllDefs.Where(f => f.isPlayer))
+                    listing.GapLine();
+                    listing.Note("The following is a list of player faction defs, these can be toggled so they they are not affected by the faction hostility change in the case where a player faction is intended to be hostile towards them.");
+                    foreach (FactionDef faction in DefDatabase<FactionDef>.AllDefs.Where(f => f.isPlayer))
                     {
                         bool bufferBool = settings.empireHostilityFixedFactions[faction.defName];
-                        listingStandard.CheckboxLabeled(faction.LabelCap, ref bufferBool);
+                        listing.CheckboxLabeled(faction.LabelCap, ref bufferBool);
                         settings.empireHostilityFixedFactions[faction.defName] = bufferBool;
                     }
                 }
             }
-            else
-            {
-                listingStandard.Note("You do not have Royalty enabled, options in this page would be useless to you.");
-            }
+            listing.GapLine();
+            listing.Note("If you're looking for HAR race spawning stuff, that's been removed, as of RW 1.4 I'm not even sure it worked properly anymore and no longer feel it's appropriate to maintain this when other options exist, especially since I no longer use HAR in any way.");
         }
 
-        public void DoSettings_RaceSpawning(Listing_Standard listingStandard)
-        {
-            List<RaceSpawningDef> allSpawnDefs = DefDatabase<RaceSpawningDef>.AllDefs.Where(rsd => TabulaRasaStartup.CheckRaceSpawningDefForFlaws(rsd)).ToList();
-            if (allSpawnDefs.NullOrEmpty())
-            {
-                listingStandard.Note("No races using this system are loaded! Only races using Humanoid Alien Races are handled by this!", GameFont.Tiny);
-            }
-            else
-            {
-                listingStandard.Note("Weight of Humans is 100, each additional race skews the balance so you have to decide for yourself how common they are. This list does not cover Xenotypes, those are handled very differently. Race missing from the list? This only supports Humanoid Alien Races and must be set up in the mod to be handled by it.", GameFont.Tiny);
-            }
-            for (int i = 0; i < allSpawnDefs.Count; i++)
-            {
-                // New Line if needed
-                //if (i == Mathf.CeilToInt(allSpawnDefs.Count / 2))
-                //{
-                //    listingStandard.NewColumn();
-                //}
-                // Enabled or not
-                bool tempBool = settings.raceSpawningSettings[allSpawnDefs[i].defName];
-                listingStandard.CheckboxLabeled($"{allSpawnDefs[i].label}", ref tempBool);
-                settings.raceSpawningSettings[allSpawnDefs[i].defName] = tempBool;
+        //public void DoSettings_RaceSpawning(Listing_Standard listingStandard)
+        //{
+        //    List<RaceSpawningDef> allSpawnDefs = DefDatabase<RaceSpawningDef>.AllDefs.Where(rsd => TabulaRasaStartup.CheckRaceSpawningDefForFlaws(rsd)).ToList();
+        //    if (allSpawnDefs.NullOrEmpty())
+        //    {
+        //        listingStandard.Note("No races using this system are loaded! Only races using Humanoid Alien Races are handled by this!", GameFont.Tiny);
+        //    }
+        //    else
+        //    {
+        //        listingStandard.Note("Weight of Humans is 100, each additional race skews the balance so you have to decide for yourself how common they are. This list does not cover Xenotypes, those are handled very differently. Race missing from the list? This only supports Humanoid Alien Races and must be set up in the mod to be handled by it.", GameFont.Tiny);
+        //    }
+        //    for (int i = 0; i < allSpawnDefs.Count; i++)
+        //    {
+        //        // New Line if needed
+        //        //if (i == Mathf.CeilToInt(allSpawnDefs.Count / 2))
+        //        //{
+        //        //    listingStandard.NewColumn();
+        //        //}
+        //        // Enabled or not
+        //        bool tempBool = settings.raceSpawningSettings[allSpawnDefs[i].defName];
+        //        listingStandard.CheckboxLabeled($"{allSpawnDefs[i].label}", ref tempBool);
+        //        settings.raceSpawningSettings[allSpawnDefs[i].defName] = tempBool;
 
-                // Weight setting
-                float tempFloat = settings.raceSpawningWeights[allSpawnDefs[i].defName];
-                listingStandard.AddLabeledNumericalTextField($"Spawn Weight: ", ref tempFloat, 0.5f, 0f, 10000f);
-                settings.raceSpawningWeights[allSpawnDefs[i].defName] = tempFloat;
+        //        // Weight setting
+        //        float tempFloat = settings.raceSpawningWeights[allSpawnDefs[i].defName];
+        //        listingStandard.AddLabeledNumericalTextField($"Spawn Weight: ", ref tempFloat, 0.5f, 0f, 10000f);
+        //        settings.raceSpawningWeights[allSpawnDefs[i].defName] = tempFloat;
 
-                // Gap line to split for the next one
-                listingStandard.GapLine();
-            }
-        }
+        //        // Gap line to split for the next one
+        //        listingStandard.GapLine();
+        //    }
+        //}
     }
 
     public enum TabulaRasaSettingsPage
     {
         General,
-        Race_Spawning,
-        Empire_Hostility
+        Race_Spawning
     }
 }

@@ -24,6 +24,10 @@ namespace TabulaRasa
             {
                 pawnKind = PawnKindDefOf.Colonist;
             }
+            if(xenotype == null)
+            {
+                xenotype = XenotypeDefOf.Baseliner;
+            }
         }
 
         public bool requiresPower = false;
@@ -35,5 +39,7 @@ namespace TabulaRasa
         public float researchSpeedFactor = 1.0f;
 
         public PawnKindDef pawnKind;
+
+        public XenotypeDef xenotype;
     }
 }

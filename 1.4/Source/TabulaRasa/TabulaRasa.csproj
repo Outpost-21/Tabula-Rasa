@@ -84,11 +84,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Comps\CompProperties_TargetEffectApplyHediff.cs" />
+    <Compile Include="Comps\CompTargetable_NotXenotype.cs" />
+    <Compile Include="Comps\CompTargetEffect_ApplyHediff.cs" />
+    <Compile Include="Jobs\JobDriver_ApplyHediff.cs" />
+    <Compile Include="ModExtensions\DefModExt_Xenotype.cs" />
+    <Compile Include="UI\Command_Recall.cs" />
     <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
     <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />
     <Compile Include="Comps\Comp_ClusterGrower.cs" />
     <Compile Include="Comps\Comp_DestroyedLeavings.cs" />
-    <Compile Include="DefModExt_HiddenResearch.cs" />
+    <Compile Include="ModExtensions\DefModExt_HiddenResearch.cs" />
     <Compile Include="Harmony\Patch_MainTabWindow_Research_VisibleResearchProjects.cs" />
     <Compile Include="ModExtensions\DefModExt_PreventPlantSpawns.cs" />
     <Compile Include="Genes\Gene_HediffActivator.cs" />
@@ -100,8 +106,6 @@
     <Compile Include="Genes\Gene_Regeneration.cs" />
     <Compile Include="MapComps\MapComp_VisualOverlays.cs" />
     <Compile Include="ModExtensions\DefModExt_Switcher.cs" />
-    <None Include="Genes\Gene_FemaleOnly.cs" />
-    <None Include="Genes\Gene_MaleOnly.cs" />
     <None Include="Harmony\Patch_Pawn_GeneTracker_CheckForOverrides.cs" />
     <None Include="Harmony\Patch_Gene_Active.cs" />
     <Compile Include="Hediffs\Hediff_VisualOverlay.cs" />
@@ -291,7 +295,7 @@
     <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_LinkRemoved.cs" />
     <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_NewLink.cs" />
     <Compile Include="Harmony\Patch_SelectionDrawer_DrawSelectionBracketFor.cs" />
-    <Compile Include="Harmony\Patch_PawnGenerator_TryGenerateNewPawnInternal.cs" />
+    <None Include="Harmony\Patch_PawnGenerator_TryGenerateNewPawnInternal.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_FinalLevelOfSkill.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_GenerateInitialHediffs.cs" />
     <Compile Include="Harmony\Patch_PawnGenerator_GeneratePawn.cs" />

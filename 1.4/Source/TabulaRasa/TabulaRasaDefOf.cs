@@ -20,6 +20,7 @@ namespace TabulaRasa
         public static JobDef TabulaRasa_TakeFromProducer;
         public static JobDef TabulaRasa_UseTeleporter;
         public static JobDef TabulaRasa_UseRecall;
+        public static JobDef TabulaRasa_UseEffectApplyHediff;
 
         public static HediffDef TabulaRasa_RemovableHediff;
 

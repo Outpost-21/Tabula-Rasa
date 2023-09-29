@@ -65,14 +65,15 @@ namespace TabulaRasa
                 }
                 else
                 {
-                    if (GetAllViableTeleporters(false).NullOrEmpty())
+                    List<Thing> viableTeleporters = GetAllViableTeleporters(false);
+                    if (viableTeleporters.NullOrEmpty())
                     {
                         FloatMenuOption option = new FloatMenuOption("No destinations to choose from.", null);
                         yield return option;
                     }
                     else
                     {
-                        foreach (Thing receiver in GetAllViableTeleporters(false))
+                        foreach (Thing receiver in viableTeleporters)
                         {
                             Comp_Teleporter receiverComp = receiver.TryGetComp<Comp_Teleporter>();
 

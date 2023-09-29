@@ -15,31 +15,56 @@ namespace TabulaRasa
         public static Vector2 updateScrollPosition;
         public static float updateViewRectHeight;
 
-        public static void DoUpdateListing()
+        public static List<UpdateDef> allUpdatesCached;
+        public static List<UpdateDef> AllUpdates
         {
-            List<UpdateDef> allUpdates = DefDatabase<UpdateDef>.AllDefsListForReading;
-
-            if (UI.screenHeight < 768 || UI.screenWidth < 1366 || !TabulaRasaMod.settings.modUpdates || allUpdates.NullOrEmpty())
+            get
             {
-                return;
-            }
-
-            allUpdates.SortBy(x => x.date);
-            allUpdates.Reverse();
-
-            if (!TabulaRasaMod.settings.markedAsSeen.NullOrEmpty())
-            {
-                for (int i = 0; i < TabulaRasaMod.settings.markedAsSeen.Count(); i++)
+                if(allUpdatesCached.NullOrEmpty())
                 {
-                    if (allUpdates.Any(x => x.defName == TabulaRasaMod.settings.markedAsSeen[i]))
+                    allUpdatesCached = new List<UpdateDef>();
+
+                    List<UpdateDef> allUpdatesPre = DefDatabase<UpdateDef>.AllDefsListForReading;
+
+                    foreach(UpdateDef updateDef in allUpdatesPre)
                     {
-                        allUpdates.Remove(DefDatabase<UpdateDef>.GetNamed(TabulaRasaMod.settings.markedAsSeen[i]));
+                        if (updateDef.InPastThreeMonths() || TabulaRasaMod.settings.showOldUpdates) { allUpdatesCached.Add(updateDef); }
+                    }
+
+                    allUpdatesCached.SortBy(x => x.date);
+                    allUpdatesCached.Reverse();
+
+                    if (!TabulaRasaMod.settings.markedAsSeen.NullOrEmpty())
+                    {
+                        for (int i = 0; i < TabulaRasaMod.settings.markedAsSeen.Count(); i++)
+                        {
+                            if (allUpdatesCached.Any(x => x.defName == TabulaRasaMod.settings.markedAsSeen[i]))
+                            {
+                                allUpdatesCached.Remove(DefDatabase<UpdateDef>.GetNamed(TabulaRasaMod.settings.markedAsSeen[i]));
+                            }
+                        }
+                    }
+                    if (allUpdatesCached.Any(u => u.contentList.NullOrEmpty()))
+                    {
+                        allUpdatesCached.RemoveAll(u => u.contentList.NullOrEmpty());
                     }
                 }
+                return allUpdatesCached;
             }
-            if (allUpdates.Any(u => u.contentList.NullOrEmpty()))
+        }
+
+        public static bool InPastThreeMonths(this UpdateDef def)
+        {
+            DateTime uDate = DateTime.ParseExact(def.date, "yyyy/M/d", null).AddMonths(3);
+            return uDate > DateTime.Now;
+        }
+
+        public static void DoUpdateListing()
+        {
+
+            if (UI.screenHeight < 768 || UI.screenWidth < 1366 || !TabulaRasaMod.settings.modUpdates || AllUpdates.NullOrEmpty())
             {
-                allUpdates.RemoveAll(u => u.contentList.NullOrEmpty());
+                return;
             }
 
             float height = 500;
@@ -60,13 +85,13 @@ namespace TabulaRasa
             listing.GapLine();
             curY += 12;
 
-            int updateCount = Mathf.Min(6, allUpdates.Count());
+            int updateCount = Mathf.Min(6, AllUpdates.Count());
 
             for (int i = 0; i < updateCount; i++)
             {
                 Rect listRect = new Rect(0, curY, inRect.width, 64);
                 Rect hoverRect = new Rect(listRect);
-                DoUpdateSelection(listRect, allUpdates[i], Mouse.IsOver(hoverRect));
+                DoUpdateSelection(listRect, AllUpdates[i], Mouse.IsOver(hoverRect));
                 curY += 68;
             }
             listing.End();
@@ -87,6 +112,7 @@ namespace TabulaRasa
             }
             TabulaRasaMod.settings.markedAsSeen.Add(defName);
             TabulaRasaMod.mod.WriteSettings();
+            allUpdatesCached.Clear();
         }
 
         public static void DoUpdateSelection(Rect rect, UpdateDef info, bool highlight = false)
@@ -154,8 +180,11 @@ namespace TabulaRasa
             if (!info.banner.NullOrEmpty())
             {
                 Texture2D bannerImage = ContentFinder<Texture2D>.Get(info.banner, false);
-                listing.DoImage(bannerImage);
-                listing.GapLine();
+                if(bannerImage != null)
+                {
+                    listing.DoImage(bannerImage);
+                    listing.GapLine();
+                }
             }
             if (!info.content.NullOrEmpty())
             {
@@ -222,7 +251,10 @@ namespace TabulaRasa
                 if (!item.image.NullOrEmpty())
                 {
                     Texture2D image = ContentFinder<Texture2D>.Get(item.image, false);
-                    listing.DoImage(image);
+                    if(image != null)
+                    {
+                        listing.DoImage(image);
+                    }
                 }
             }
         }

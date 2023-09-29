@@ -11,8 +11,13 @@ namespace TabulaRasa
 {
     public class DefModExt_BasicConversion : DefModExtension
     {
-        public PawnKindDef defaultPawnKind;
+        public XenotypeDef xenotype;
+        public ThingDef structure;
+        public bool structureOnMapChangesFaction = false;
+
+        // TODO: Remove.
         public bool forceDropEquipment;
         public bool killPawn;
+        public PawnKindDef defaultPawnKind;
     }
 }

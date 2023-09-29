@@ -20,7 +20,7 @@ namespace TabulaRasa
 
             RunCheckForIntelligentPawns();
             FillLinkablesAutomatically();
-            FillRaceAlternatesAutomatically();
+            //FillRaceAlternatesAutomatically();
             DisableCorpseRottingAsNeeded();
             if (ModLister.RoyaltyInstalled)
             {
@@ -110,20 +110,20 @@ namespace TabulaRasa
             }
         }
 
-        public static void FillRaceAlternatesAutomatically()
-        {
-            foreach(RaceSpawningDef rsd in DefDatabase<RaceSpawningDef>.AllDefs)
-            {
-                if (CheckRaceSpawningDefForFlaws(rsd))
-                {
-                    CheckIfSettingsExistAndFix(rsd);
-                    if (DealWithRaceSpawningSettings(rsd))
-                    {
-                        DistributeRaceAmongFactionKinds(rsd);
-                    }
-                }
-            }
-        }
+        //public static void FillRaceAlternatesAutomatically()
+        //{
+        //    foreach(RaceSpawningDef rsd in DefDatabase<RaceSpawningDef>.AllDefs)
+        //    {
+        //        if (CheckRaceSpawningDefForFlaws(rsd))
+        //        {
+        //            CheckIfSettingsExistAndFix(rsd);
+        //            if (DealWithRaceSpawningSettings(rsd))
+        //            {
+        //                DistributeRaceAmongFactionKinds(rsd);
+        //            }
+        //        }
+        //    }
+        //}
 
         public static void CheckIfSettingsExistAndFix(RaceSpawningDef rsd)
         {
@@ -160,60 +160,60 @@ namespace TabulaRasa
             return enabled;
         }
 
-        public static void DistributeRaceAmongFactionKinds(RaceSpawningDef rsd)
-        {
-            List<PawnKindDef> viableKinds = rsd.pawnKinds;
+        //public static void DistributeRaceAmongFactionKinds(RaceSpawningDef rsd)
+        //{
+        //    List<PawnKindDef> viableKinds = rsd.pawnKinds;
 
-            for (int i = 0; i < viableKinds.Count(); i++)
-            {
-                try
-                {
-                    LogUtil.LogDebug($"Patching races into {viableKinds[i].defName}...");
-                    PawnKindDef curPkd = viableKinds[i];
-                    if (!curPkd.HasModExtension<DefModExt_PawnKindRaces>())
-                    {
-                        if (curPkd.modExtensions.NullOrEmpty())
-                        {
-                            curPkd.modExtensions = new List<DefModExtension>();
-                        }
-                        curPkd.modExtensions.Add(new DefModExt_PawnKindRaces());
-                    }
-                    for (int j = 0; j < rsd.races.Count(); j++)
-                    {
-                        DefModExt_PawnKindRaces modExt = curPkd.GetModExtension<DefModExt_PawnKindRaces>();
-                        if (modExt.altRaces.NullOrEmpty())
-                        {
-                            modExt.altRaces = new List<WeightedRaceChoice>();
-                        }
-                        if (!modExt.altRaces.Any(ar => ar.race == rsd.races[j]))
-                        {
-                            WeightedRaceChoice weightedRace = new WeightedRaceChoice(rsd.races[j], rsd.weight);
-                            modExt.altRaces.Add(weightedRace);
-                            LogUtil.LogDebug($"- {weightedRace.race} : {weightedRace.weight}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogUtil.LogWarning($"Exception caught in {viableKinds[i].defName} while trying to distribute races among pawnKinds.\n\n{ex}");
-                }
-            }
-        }
+        //    for (int i = 0; i < viableKinds.Count(); i++)
+        //    {
+        //        try
+        //        {
+        //            LogUtil.LogDebug($"Patching races into {viableKinds[i].defName}...");
+        //            PawnKindDef curPkd = viableKinds[i];
+        //            if (!curPkd.HasModExtension<DefModExt_PawnKindRaces>())
+        //            {
+        //                if (curPkd.modExtensions.NullOrEmpty())
+        //                {
+        //                    curPkd.modExtensions = new List<DefModExtension>();
+        //                }
+        //                curPkd.modExtensions.Add(new DefModExt_PawnKindRaces());
+        //            }
+        //            for (int j = 0; j < rsd.races.Count(); j++)
+        //            {
+        //                DefModExt_PawnKindRaces modExt = curPkd.GetModExtension<DefModExt_PawnKindRaces>();
+        //                if (modExt.altRaces.NullOrEmpty())
+        //                {
+        //                    modExt.altRaces = new List<WeightedRaceChoice>();
+        //                }
+        //                if (!modExt.altRaces.Any(ar => ar.race == rsd.races[j]))
+        //                {
+        //                    WeightedRaceChoice weightedRace = new WeightedRaceChoice(rsd.races[j], rsd.weight);
+        //                    modExt.altRaces.Add(weightedRace);
+        //                    LogUtil.LogDebug($"- {weightedRace.race} : {weightedRace.weight}");
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            LogUtil.LogWarning($"Exception caught in {viableKinds[i].defName} while trying to distribute races among pawnKinds.\n\n{ex}");
+        //        }
+        //    }
+        //}
 
-        public static bool CheckRaceSpawningDefForFlaws(RaceSpawningDef rsd)
-        {
-            if (rsd.races.NullOrEmpty())
-            {
-                LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
-                return false;
-            }
-            if (rsd.pawnKinds.NullOrEmpty())
-            {
-                LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
-                return false;
-            }
-            return true;
-        }
+        //public static bool CheckRaceSpawningDefForFlaws(RaceSpawningDef rsd)
+        //{
+        //    if (rsd.races.NullOrEmpty())
+        //    {
+        //        LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
+        //        return false;
+        //    }
+        //    if (rsd.pawnKinds.NullOrEmpty())
+        //    {
+        //        LogUtil.LogWarning($"RaceSpawning Def {rsd.defName} has no races provided, skipping...");
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         public static void FillLinkablesAutomatically()
         {

@@ -10,6 +10,7 @@ using Verse.AI;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     /// <summary>
     /// Makes the pawn hibernate at a spot. Doing nothing but keep their Energy need from draining.
     /// </summary>

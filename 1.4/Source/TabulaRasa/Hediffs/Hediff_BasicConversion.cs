@@ -17,13 +17,49 @@ namespace TabulaRasa
 
             if (Severity >= 1.0)
             {
-                DoBasicConvert();
+                DefModExt_BasicConversion modExt = def.GetModExtension<DefModExt_BasicConversion>();
+                if(modExt.xenotype != null)
+                {
+                    DoConversion(modExt);
+                }
+                else if (modExt.defaultPawnKind != null)
+                {
+                    DoBasicConvert(modExt);
+                }
             }
         }
 
-        private void DoBasicConvert()
+        public void DoConversion(DefModExt_BasicConversion modExt)
         {
-            DefModExt_BasicConversion modExt = def.GetModExtension<DefModExt_BasicConversion>();
+            List<Gene> list3 = pawn.genes.Endogenes;
+            for (int num = list3.Count - 1; num >= 0; num--)
+            {
+                Gene gene2 = list3[num];
+                if (gene2.def.endogeneCategory != EndogeneCategory.Melanin && gene2.def.endogeneCategory != EndogeneCategory.HairColor)
+                {
+                    pawn.genes.RemoveGene(gene2);
+                }
+            }
+            pawn.genes.SetXenotype(modExt.xenotype);
+            pawn.health.RemoveHediff(this);
+
+
+            if(modExt.structure != null)
+            {
+                List<Building> structures = pawn?.Map?.listerBuildings?.AllBuildingsColonistOfDef(modExt.structure)?.ToList();
+                if (!structures.NullOrEmpty())
+                {
+                    Building structure = structures.First();
+                    if (structure != null && modExt.structureOnMapChangesFaction)
+                    {
+                        pawn.SetFaction(structure.Faction);
+                    }
+                }
+            }
+        }
+
+        public void DoBasicConvert(DefModExt_BasicConversion modExt)
+        {
             PawnGenerationRequest request = new PawnGenerationRequest(
                 modExt.defaultPawnKind,
                 faction: Faction.OfPlayer,

@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     public class Comp_EnergySource : ThingComp
     {
         public CompProperties_EnergySource Props => props as CompProperties_EnergySource;

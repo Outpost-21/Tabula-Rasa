@@ -18,6 +18,7 @@ namespace TabulaRasa
 
         // UpdateListings
         public bool modUpdates = true;
+        public bool showOldUpdates = false;
         public List<string> markedAsSeen = new List<String>();
 
         public bool specialOccasions = true;

@@ -10,6 +10,7 @@ using Verse.AI;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     public class JobDriver_RechargeFromSocket : JobDriver
     {
         private const TargetIndex PowerDestIndex = TargetIndex.A;

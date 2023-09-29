@@ -30,7 +30,13 @@ namespace TabulaRasa
         {
             if (!resolved)
             {
-                __instance.cachedVisibleResearchProjects.RemoveAll(rp => rp.HasModExtension<DefModExt_HiddenResearch>());
+                foreach(ResearchProjectDef def in DefDatabase<ResearchProjectDef>.AllDefs.Where(rp => rp.HasModExtension<DefModExt_HiddenResearch>()))
+                {
+                    if (__instance.cachedVisibleResearchProjects.Contains(def))
+                    {
+                        __instance.cachedVisibleResearchProjects.Remove(def);
+                    }
+                }
                 resolved = true;
             }
         }

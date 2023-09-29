@@ -10,6 +10,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    //TODO: Remove next RW update
     public class WorldComp_EnergyNeed : WorldComponent
     {
         public List<Building> chargingSockets = new List<Building>();
