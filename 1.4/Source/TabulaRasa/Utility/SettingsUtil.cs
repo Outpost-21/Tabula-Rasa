@@ -303,6 +303,16 @@ namespace TabulaRasa
 			return rect;
 		}
 
+		public static Rect LineRectSpilter(this Listing_Standard listing_Standard, out Rect leftRect, out Rect midRect, out Rect rightRect)
+		{
+			Rect rect = listing_Standard.GetRect();
+			float third = rect.width * 0.33f;
+			leftRect = new Rect(rect.x, rect.y, third, rect.height);
+			midRect = new Rect(rect.x + third + 4f, rect.y, third -4f, rect.height);
+			rightRect = new Rect(rect.width - third, rect.y, third, rect.height);
+			return rect;
+		}
+
 		public static void AddLabeledRadioList(this Listing_Standard listing_Standard, string header, string[] labels, ref string val, float? headerHeight = null)
 		{
 			listing_Standard.Gap(EnhancedListingStandard.Gap);
@@ -365,6 +375,18 @@ namespace TabulaRasa
 			Widgets.Label(rect, label);
 			string text = settingsValue.ToString();
 			Widgets.TextFieldNumeric<T>(rect2, ref settingsValue, ref text, minValue, maxValue);
+		}
+
+		public static void AddVector3TextFields<T>(this Listing_Standard listing, string label, ref T valueX, ref T valueY, ref T valueZ, float minValue = -1f, float maxValue = 1f) where T : struct
+		{
+			listing.Label(label);
+			listing.LineRectSpilter(out Rect rectX, out Rect rectY, out Rect rectZ);
+			string bufferX = valueX.ToString();
+			Widgets.TextFieldNumeric(rectX, ref valueX, ref bufferX, minValue, maxValue);
+			string bufferY = valueY.ToString();
+			Widgets.TextFieldNumeric(rectY, ref valueY, ref bufferY, minValue, maxValue);
+			string bufferZ = valueZ.ToString();
+			Widgets.TextFieldNumeric(rectZ, ref valueZ, ref bufferZ, minValue, maxValue);
 		}
 
 		public static void AddLabeledCheckbox(this Listing_Standard listing_Standard, string label, ref bool settingsValue)
