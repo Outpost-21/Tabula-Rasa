@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    [Obsolete]
     public class HediffCompProperties_AutoHeal : HediffCompProperties
     {
         public HediffCompProperties_AutoHeal()

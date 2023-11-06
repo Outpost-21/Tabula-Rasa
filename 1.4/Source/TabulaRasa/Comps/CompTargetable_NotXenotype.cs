@@ -40,7 +40,7 @@ namespace TabulaRasa
                 DefModExt_Xenotype modExt = parent.def.GetModExtension<DefModExt_Xenotype>();
                 if(modExt != null)
                 {
-                    if(pawn.genes.Xenotype == modExt.xenotype)
+                    if(pawn?.genes?.Xenotype == null || pawn.genes.Xenotype == modExt.xenotype)
                     {
                         return false;
                     }

@@ -36,6 +36,18 @@ namespace TabulaRasa
                 }
             }
 
+            HediffComp_PassiveHealing passiveHeal = ___pawn?.health?.hediffSet?.hediffs?.Find(h => h.TryGetComp<HediffComp_PassiveHealing>() != null)?.TryGetComp<HediffComp_PassiveHealing>();
+            if(passiveHeal != null)
+            {
+                if (passiveHeal.Props.preventSicknesses)
+                {
+                    if ((passiveHeal.Props.sicknessWhitelist.NullOrEmpty() && hediff.def.makesSickThought) || passiveHeal.Props.sicknessWhitelist.Contains(hediff.def))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
     }

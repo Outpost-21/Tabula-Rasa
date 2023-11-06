@@ -11,21 +11,50 @@ namespace TabulaRasa
 {
     public class Hediff_BasicConversion : HediffWithComps
     {
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            if (!base.GetGizmos().EnumerableNullOrEmpty())
+            {
+                foreach (Gizmo gizmo in base.GetGizmos())
+                {
+                    yield return gizmo;
+                }
+            }
+            if (DebugSettings.godMode)
+            {
+                yield return new Command_Action()
+                {
+                    defaultLabel = "DEV: Convert Now",
+                    defaultDesc = "Instantly converts the pawn right now.",
+                    action = delegate
+                    {
+                        TryConvert();
+                    }
+                };
+            }
+            yield break;
+        }
+
         public override void Tick()
         {
             base.Tick();
 
             if (Severity >= 1.0)
             {
-                DefModExt_BasicConversion modExt = def.GetModExtension<DefModExt_BasicConversion>();
-                if(modExt.xenotype != null)
-                {
-                    DoConversion(modExt);
-                }
-                else if (modExt.defaultPawnKind != null)
-                {
-                    DoBasicConvert(modExt);
-                }
+                TryConvert();
+            }
+        }
+
+        public void TryConvert()
+        {
+            DefModExt_BasicConversion modExt = def.GetModExtension<DefModExt_BasicConversion>();
+            if (modExt.xenotype != null)
+            {
+                DoConversion(modExt);
+            }
+            else if (modExt.defaultPawnKind != null)
+            {
+                DoBasicConvert(modExt);
             }
         }
 

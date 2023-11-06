@@ -57,6 +57,10 @@ namespace TabulaRasa
         public void ApplyHediff()
         {
             Pawn pawn = job.GetTarget(TargetIndex.A).Thing as Pawn;
+            if(hediffDef == null)
+            {
+                LogUtil.LogError("Trying to apply a null hediff");
+            }
             pawn.health.AddHediff(hediffDef);
             Item.SplitOff(1).Destroy(DestroyMode.Vanish);
         }

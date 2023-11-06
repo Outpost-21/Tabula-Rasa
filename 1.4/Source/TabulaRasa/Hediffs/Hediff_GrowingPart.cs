@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    [Obsolete]
     public class Hediff_GrowingPart : Hediff_AddedPart
     {
 
@@ -16,7 +17,7 @@ namespace TabulaRasa
         {
             get
             {
-                return this.Severity >= this.def.maxSeverity;
+                return Severity >= def.maxSeverity;
             }
         }
 

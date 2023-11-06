@@ -9,6 +9,7 @@ using Verse;
 
 namespace TabulaRasa
 {
+    [Obsolete]
     public class HediffComp_AutoHeal : HediffComp
     {
         public int ticksUntilNextHeal;
