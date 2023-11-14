@@ -377,6 +377,16 @@ namespace TabulaRasa
 			Widgets.TextFieldNumeric<T>(rect2, ref settingsValue, ref text, minValue, maxValue);
 		}
 
+		public static void AddVector2TextFields<T>(this Listing_Standard listing, string label, ref T valueX, ref T valueY, float minValue = -1f, float maxValue = 1f) where T : struct
+		{
+			listing.Label(label);
+			listing.LineRectSpilter(out Rect rectX, out Rect rectY);
+			string bufferX = valueX.ToString();
+			Widgets.TextFieldNumeric(rectX, ref valueX, ref bufferX, minValue, maxValue);
+			string bufferY = valueY.ToString();
+			Widgets.TextFieldNumeric(rectY, ref valueY, ref bufferY, minValue, maxValue);
+		}
+
 		public static void AddVector3TextFields<T>(this Listing_Standard listing, string label, ref T valueX, ref T valueY, ref T valueZ, float minValue = -1f, float maxValue = 1f) where T : struct
 		{
 			listing.Label(label);
