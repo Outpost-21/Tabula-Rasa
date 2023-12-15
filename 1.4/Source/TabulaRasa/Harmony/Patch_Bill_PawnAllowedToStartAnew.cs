@@ -25,7 +25,7 @@ namespace TabulaRasa
                 {
                     if (modExt.requiredHediff != null && !p.health.hediffSet.HasHediff(modExt.requiredHediff))
                     {
-                        JobFailReason.Is(modExt.requiredHediffMissingMsg);
+                        JobFailReason.Is(modExt.requiredHediffMissingMsg.Translate());
                         __result = false;
                         return;
                     }

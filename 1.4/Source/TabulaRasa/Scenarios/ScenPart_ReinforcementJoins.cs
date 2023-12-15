@@ -18,6 +18,8 @@ namespace TabulaRasa
 		public string intervalDaysBuffer;
 		public float occurTick;
 		public bool isFinished;
+		public int maxPawns;
+		public string maxPawnsBuffer;
 		public PlayerPawnsArriveMethod arrivalMode = PlayerPawnsArriveMethod.DropPods;
 		public PawnKindDef pawnKind;
 		public FactionDef faction;
@@ -30,6 +32,8 @@ namespace TabulaRasa
 			}
 		}
 
+		public bool MaxPawnsReached => maxPawns <= 0 ? false : maxPawns < Find.AnyPlayerHomeMap.PlayerPawnsForStoryteller.Count();
+
 		public override void Tick()
 		{
 			base.Tick();
@@ -37,29 +41,33 @@ namespace TabulaRasa
 			{
 				return;
 			}
-			if (this.isFinished)
+            if (MaxPawnsReached)
+            {
+				return;
+            }
+			if (isFinished)
 			{
 				return;
 			}
-			if (this.pawnKind == null)
+			if (pawnKind == null)
 			{
 				Log.Error("Trying to tick ScenPart_SpecificPawnKindJoins but the pawnKind is null");
-				this.isFinished = true;
+				isFinished = true;
 				return;
 			}
-			if ((float)Find.TickManager.TicksGame >= this.occurTick)
+			if (Find.TickManager.TicksGame >= occurTick)
 			{
 				if (!SendPawn())
 				{
-					this.isFinished = true;
+					isFinished = true;
 					return;
 				}
-				if (this.repeat && this.intervalDays > 0f)
+				if (repeat && intervalDays > 0f)
 				{
-					this.occurTick += this.IntervalTicks;
+					occurTick += IntervalTicks;
 					return;
 				}
-				this.isFinished = true;
+				isFinished = true;
 			}
 		}
 
@@ -68,19 +76,19 @@ namespace TabulaRasa
 			Map map = Find.AnyPlayerHomeMap;
 			if (arrivalMode == PlayerPawnsArriveMethod.Standing)
 			{
-				if (!this.CanSpawnJoiner(map))
+				if (!CanSpawnJoiner(map))
 				{
 					return false;
 				}
 			}
-			Pawn pawn = this.GeneratePawn();
+			Pawn pawn = GeneratePawn();
 			if (arrivalMode == PlayerPawnsArriveMethod.Standing)
 			{
-				this.SpawnJoiner(map, pawn);
+				SpawnJoiner(map, pawn);
 			}
 			else
 			{
-				this.SpawnDropPodJoiner(map, pawn);
+				SpawnDropPodJoiner(map, pawn);
 			}
 
 			TaggedString baseLetterLabel = "TabulaRasa_LetterLabel_PawnKindJoins".Translate().Formatted(pawn.Named("PAWN")).AdjustedFor(pawn, "PAWN", true);
@@ -101,14 +109,7 @@ namespace TabulaRasa
 
 		public void SpawnDropPodJoiner(Map map, Pawn pawn)
 		{
-			if (!map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.OrbitalTradeBeacon).EnumerableNullOrEmpty())
-			{
-				DropPodUtility.MakeDropPodAt(map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.OrbitalTradeBeacon).FirstOrDefault().Position, map, MakeDropPodInfo(pawn));
-			}
-			else
-			{
-				DropPodUtility.MakeDropPodAt(DropCellFinder.TradeDropSpot(map), map, MakeDropPodInfo(pawn));
-			}
+			DropPodUtility.MakeDropPodAt(DropCellFinder.TradeDropSpot(map), map, MakeDropPodInfo(pawn));
 		}
 
 		public ActiveDropPodInfo MakeDropPodInfo(Pawn pawn)
@@ -135,7 +136,7 @@ namespace TabulaRasa
 		public void SpawnJoiner(Map map, Pawn pawn)
 		{
 			IntVec3 loc;
-			this.TryFindEntryCell(map, out loc);
+			TryFindEntryCell(map, out loc);
 			GenSpawn.Spawn(pawn, loc, map, WipeMode.Vanish);
 		}
 
@@ -163,6 +164,7 @@ namespace TabulaRasa
 			{
 				this.intervalDays = 0f;
 			}
+			this.maxPawns = (Rand.Range(0, 14));
 			this.repeat = (Rand.Range(0, 100) < 50);
 			this.pawnKind = PawnKindDefOf.Colonist;
 			this.arrivalMode = ((Rand.Value < 0.5f) ? PlayerPawnsArriveMethod.DropPods : PlayerPawnsArriveMethod.Standing);
@@ -170,9 +172,10 @@ namespace TabulaRasa
 
 		public override void DoEditInterface(Listing_ScenEdit listing)
 		{
-			Rect scenPartRect = listing.GetScenPartRect(this, ScenPart.RowHeight * 4f);
+			float rowCount = 5f;
+			Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * rowCount);
 
-			Rect rect = new Rect(scenPartRect.x, scenPartRect.y, scenPartRect.width, scenPartRect.height / 4f);
+			Rect rect = new Rect(scenPartRect.x, scenPartRect.y, scenPartRect.width, scenPartRect.height / rowCount);
 			if (Widgets.ButtonText(rect, this.pawnKind.LabelCap, true, true, true))
 			{
 				List<FloatMenuOption> list = new List<FloatMenuOption>();
@@ -187,13 +190,16 @@ namespace TabulaRasa
 				Find.WindowStack.Add(new FloatMenu(list));
 			}
 
-			Rect rect3 = new Rect(scenPartRect.x, scenPartRect.y + scenPartRect.height / 4f, scenPartRect.width, scenPartRect.height / 4f);
+			Rect rect3 = new Rect(scenPartRect.x, scenPartRect.y + RowHeight, scenPartRect.width, RowHeight);
 			Widgets.TextFieldNumericLabeled<float>(rect3, "intervalDays".Translate(), ref this.intervalDays, ref this.intervalDaysBuffer, 0f, 1E+09f);
 
-			Rect rect4 = new Rect(scenPartRect.x, scenPartRect.y + scenPartRect.height * 2f / 4f, scenPartRect.width, scenPartRect.height / 4f);
+			Rect rect5 = new Rect(scenPartRect.x, scenPartRect.y + (RowHeight * 2), scenPartRect.width, RowHeight);
+			Widgets.TextFieldNumericLabeled<int>(rect5, "TabulaRasa.MaxPawns".Translate(), ref this.maxPawns, ref this.maxPawnsBuffer, 0f, 1E+09f);
+
+			Rect rect4 = new Rect(scenPartRect.x, scenPartRect.y + (RowHeight * 3), scenPartRect.width, RowHeight);
 			Widgets.CheckboxLabeled(rect4, "repeat".Translate(), ref this.repeat, false, null, null, false);
 
-			Rect rect2 = new Rect(scenPartRect.x, scenPartRect.y + scenPartRect.height * 3f / 4f, scenPartRect.width, scenPartRect.height / 4f);
+			Rect rect2 = new Rect(scenPartRect.x, scenPartRect.y + (RowHeight * 4), scenPartRect.width, RowHeight);
 			string labelFormatted;
 			if (arrivalMode == PlayerPawnsArriveMethod.Standing)
 			{
@@ -247,6 +253,10 @@ namespace TabulaRasa
 			else
 			{
 				summary += " They will arrive by drop pod.";
+			}
+			if (maxPawns > 0)
+			{
+				summary += "\nThese pawns will stop arriving if the colony has " + maxPawns + " or more colonists already.";
 			}
 			if (faction != null)
 			{

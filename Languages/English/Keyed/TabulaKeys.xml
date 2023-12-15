@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<!-- ========== Factions ========== -->
+
+    <TabulaRasa.FactionDoesNotAcceptGifts>Faction does not accept gifts.</TabulaRasa.FactionDoesNotAcceptGifts>
+    <TabulaRasa.FactionDoesNotAcceptGiftsGoodwill>Faction goodwill must be between {0} and {1}to accept gifts.</TabulaRasa.FactionDoesNotAcceptGiftsGoodwill>
+
+	<!-- ========== Auto Producer ========== -->
+
+	<SetAutoBill>Set Production</SetAutoBill>
+	<RepeatAutoBillTip>Repeats current production recipe.</RepeatAutoBillTip>
+	<DeleteAutoBillTip>Cancels current production recipe.</DeleteAutoBillTip>
+	<TabAutoProducer>Production</TabAutoProducer>
+
+	<!-- ========== Shield Generator ========== -->
+    
+    <ShieldGenColorLabel>Set Colour</ShieldGenColorLabel>
+    <ShieldGenColorDescription>Sets the colour of the shield.</ShieldGenColorDescription>
+    <ShieldGenColorTitle>Color Setting</ShieldGenColorTitle>
+    <ShieldGenHexLabel>Hex</ShieldGenHexLabel>
+    <ShieldGenHexColorCodeIsIllFormed>Invalid Hex Code Input</ShieldGenHexColorCodeIsIllFormed>
+
+    <ShieldGenRadiusLabel>Set Radius</ShieldGenRadiusLabel>
+    <ShieldGenRadiusDescription>Set the shields current radius.</ShieldGenRadiusDescription>
+    <ShieldGenRadiusTitle>Radius</ShieldGenRadiusTitle>
+
+    <ShieldGenOffsetXLabel>Set Offset X</ShieldGenOffsetXLabel>
+    <ShieldGenOffsetXDescription>Set the shields east/west offset.</ShieldGenOffsetXDescription>
+    <ShieldGenOffsetXTitle>X Offset</ShieldGenOffsetXTitle>
+
+    <ShieldGenOffsetYLabel>Set Offset Y</ShieldGenOffsetYLabel>
+    <ShieldGenOffsetYDescription>Set the shields north/south offset.</ShieldGenOffsetYDescription>
+    <ShieldGenOffsetYTitle>Y Offset</ShieldGenOffsetYTitle>
+
+    <ShieldGenToggleVisibility>Toggle Visibility</ShieldGenToggleVisibility>
+    <ShieldGenToggleVisibilityDesc>Changes whether or not the shield is fully visible when not selected.</ShieldGenToggleVisibilityDesc>
+
+	<!-- ========== Mining ========== -->
+
+	<TabMining>Mining</TabMining>
+
+	<!-- ========== Reinforcements ========== -->
+
+	<TabulaRasa_LetterLabel_PawnKindJoins>Pawn joins: {PAWN_nameDef}</TabulaRasa_LetterLabel_PawnKindJoins>
+	<TabulaRasa_LetterText_PawnKindJoins>A {PAWN_title} named {PAWN_nameDef} has arrived as scheduled to join the colony.\n\nYou can choose to send {PAWN_objective} away. However, your colonists will be disturbed by your decision.</TabulaRasa_LetterText_PawnKindJoins>
+	<TabulaRasa.MaxPawns>Max Pawns</TabulaRasa.MaxPawns>
+
+	<!-- ========== Holograms ========== -->
+
+    <TabulaRasa.ITab_Hologram>Hologram</TabulaRasa.ITab_Hologram>
+    <TabulaRasa.ITab_HologramSelect>Select hologram...</TabulaRasa.ITab_HologramSelect>
+
+	<!-- ========== Gizmos ========== -->
+
+	<O21_CycleGraphic>Cycle Graphic</O21_CycleGraphic>
+	<O21_CycleGraphicDesc>Cycles through the available graphics for this building in order.</O21_CycleGraphicDesc>
+	<O21_ChangeGraphic>Set Graphic</O21_ChangeGraphic>
+	<O21_ChangeGraphicDesc>Provides a full list of all available alternative graphics to choose from.</O21_ChangeGraphicDesc>
+
+	<TabulaRasa.SubCatLabel>Subcategory...</TabulaRasa.SubCatLabel>
+	<TabulaRasa.SubCatDesc>Selecting a subcategory will narrow down the buildable options to only those within the subcategory.</TabulaRasa.SubCatDesc>
+
+	<TabulaRasa.DisabledByCooldown>Disabled by cooldown, can use again in {0}.</TabulaRasa.DisabledByCooldown>
+
+	<!-- ========== Converter ========== -->
+
+	<EnterConverter>perform conversion on self</EnterConverter>
+	<CannotUseNotViable>cannot use, pawn is not a viable candidate</CannotUseNotViable>
+	
+	<!-- ========== Bunker ========== -->
+
+	<EnterBunker>enter bunker</EnterBunker>
+	<EnterEmplacement>enter emplacement</EnterEmplacement>
+	
+	<!-- ========== PawnCrafter ========== -->
+	<PawnCrafterMake>Produce {0} </PawnCrafterMake>
+	<PawnCrafterNeedsResearch>Produce {0} (requires research: {1}) </PawnCrafterNeedsResearch>
+	
+	<PawnCraftedLetterLabel>{0} produced</PawnCraftedLetterLabel>
+	<PawnCraftedLetterDescription>Welcome to {0}\n\nA new pawn has been created. This message has not been customized properly by the mod author.</PawnCraftedLetterDescription>
+	<PawnCrafterStatus>Status: {0}</PawnCrafterStatus>
+	<PawnCrafterProgress>Progress: {0}</PawnCrafterProgress>
+	<PawnCrafterMaterials></PawnCrafterMaterials>
+	<PawnCrafterNeed>Need {0} {1}.</PawnCrafterNeed>
+	<PawnCrafterNutrition>Nutrition</PawnCrafterNutrition>
+	
+	<GizmoTogglePawnCraftingStartLabel>Start producing</GizmoTogglePawnCraftingStartLabel>
+	<GizmoTogglePawnCraftingStartDescription>Initiates production of a pawn.</GizmoTogglePawnCraftingStartDescription>
+	<GizmoTogglePawnCraftingStopLabel>Stop producing</GizmoTogglePawnCraftingStopLabel>
+	<GizmoTogglePawnCraftingStopDescription>Aborts the current production, all used materials and energy will be gone forever.</GizmoTogglePawnCraftingStopDescription>
+	
+	<PawnCrafterStatusEnum0>Idle</PawnCrafterStatusEnum0>
+	<PawnCrafterStatusEnum1>Filling</PawnCrafterStatusEnum1>
+	<PawnCrafterStatusEnum2>Printing</PawnCrafterStatusEnum2>
+	<PawnCrafterStatusEnum3>Finished</PawnCrafterStatusEnum3>
+	
+	<PawnCrafterRepeatLabel>repeat last pawn</PawnCrafterRepeatLabel>
+	<PawnCrafterRepeatDescription>if active, repeats the last pawn production task</PawnCrafterRepeatDescription>
+	
+	<!-- ========== PawnConverter ========== -->
+	
+	<PawnConverterConvert>Conversion: {0} </PawnConverterConvert>
+	<PawnConverterInvalidRace>Conversion: {0} (invalid race) </PawnConverterInvalidRace>
+	<PawnConverterInvalidGender>Conversion: {0} (invalid gender) </PawnConverterInvalidGender>
+	<PawnConverterInvalidHediffs>Conversion: {0} (invalid hediffs) </PawnConverterInvalidHediffs>
+	<PawnConverterNeedsResearch>Conversion: {0} (requires research: {1}) </PawnConverterNeedsResearch>
+	
+	<!-- ========== Needs (Energy) ========== -->
+	
+	<O21MachinelikeHibernate>Hibernate {0} Here</O21MachinelikeHibernate>
+	<O21MachinelikeHibernateFailNoPower>Cannot Hibernate (no power) </O21MachinelikeHibernateFailNoPower>
+	<O21MachinelikeHibernateFailReserveOrReach>Cannot Hibernate (can't reach) </O21MachinelikeHibernateFailReserveOrReach>
+	<O21MachinelikeHibernateFail>Cannot Hibernate (unknown reason)</O21MachinelikeHibernateFail>
+ 
+</LanguageData>

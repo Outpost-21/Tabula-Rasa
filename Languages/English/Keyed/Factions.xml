@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<LanguageData>
-
-    <TabulaRasa.FactionDoesNotAcceptGifts>Faction does not accept gifts.</TabulaRasa.FactionDoesNotAcceptGifts>
-    <TabulaRasa.FactionDoesNotAcceptGiftsGoodwill>Faction goodwill must be between {0} and {1}to accept gifts.</TabulaRasa.FactionDoesNotAcceptGiftsGoodwill>
-	
-</LanguageData>
