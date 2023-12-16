@@ -87,6 +87,8 @@
     <Compile Include="Comps\CompProperties_TargetEffectApplyHediff.cs" />
     <Compile Include="Comps\CompTargetable_NotXenotype.cs" />
     <Compile Include="Comps\CompTargetEffect_ApplyHediff.cs" />
+    <Compile Include="Harmony\Patch_MainTabWindow_Architect_CacheDesPanels.cs" />
+    <Compile Include="ModExtensions\DefModExt_HideArchitectTab.cs" />
     <Compile Include="ModExtensions\DefModExt_FurDef.cs" />
     <Compile Include="Harmony\Patch_PawnGraphicSet_ResolveAllGraphics.cs" />
     <Compile Include="ModExtensions\DefModExt_RegrowingPart.cs" />
