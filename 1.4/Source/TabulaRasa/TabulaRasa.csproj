@@ -84,10 +84,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Utility\ButcherUtil.cs" />
+    <Compile Include="Comps\CompProperties_SlotLoadable.cs" />
     <Compile Include="Comps\CompProperties_TargetEffectApplyHediff.cs" />
     <Compile Include="Comps\CompTargetable_NotXenotype.cs" />
     <Compile Include="Comps\CompTargetEffect_ApplyHediff.cs" />
+    <Compile Include="Comps\Comp_SlotLoadable.cs" />
+    <Compile Include="FloatMenus\FloatMenu_SlotLoadable.cs" />
     <Compile Include="Harmony\Patch_MainTabWindow_Architect_CacheDesPanels.cs" />
+    <Compile Include="Jobs\JobDriver_GatherSlotItem.cs" />
     <Compile Include="ModExtensions\DefModExt_HideArchitectTab.cs" />
     <Compile Include="ModExtensions\DefModExt_FurDef.cs" />
     <Compile Include="Harmony\Patch_PawnGraphicSet_ResolveAllGraphics.cs" />
@@ -97,6 +102,9 @@
     <Compile Include="Hediffs\Hediff_RegrowingPart.cs" />
     <Compile Include="Jobs\JobDriver_ApplyHediff.cs" />
     <Compile Include="ModExtensions\DefModExt_Xenotype.cs" />
+    <Compile Include="Data\SlotLoadable.cs" />
+    <Compile Include="Defs\SlotLoadableDef.cs" />
+    <Compile Include="Recipe_Disassemble.cs" />
     <Compile Include="UI\Command_Recall.cs" />
     <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
     <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />

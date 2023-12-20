@@ -66,5 +66,11 @@ namespace TabulaRasa
                 return floatMenuOptionList;
             }
         }
+
+        public abstract class FloatMenuPatch
+        {
+            public abstract IEnumerable<KeyValuePair<Condition, Func<Vector3, Pawn, Thing, List<FloatMenuOption>>>>
+                GetFloatMenus();
+        }
     }
 }
