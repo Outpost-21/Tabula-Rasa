@@ -1,0 +1,32 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Tabula Rasa\1.3\Assemblies\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.3\Assemblies\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\[O21] Toolbox\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.3\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.3\Assemblies\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Assemblies\TabulaRasa.dll
+C:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Assemblies\TabulaRasa.dll
+C:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.4\Assemblies\TabulaRasa.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Assemblies\TabulaRasa.dll
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.4\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.5\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.5\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.5\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.5\Assemblies\TabulaRasa.dll

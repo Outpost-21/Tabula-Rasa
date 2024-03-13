@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TabulaRasa</RootNamespace>
+    <AssemblyName>TabulaRasa</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>false</Deterministic>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.2.2\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp_public_1.5">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp_public_1.5.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\..\..\..\..\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Utility\ButcherUtil.cs" />
+    <Compile Include="Comps\CompProperties_SlotLoadable.cs" />
+    <Compile Include="Comps\CompProperties_TargetEffectApplyHediff.cs" />
+    <Compile Include="Comps\CompTargetable_NotXenotype.cs" />
+    <Compile Include="Comps\CompTargetEffect_ApplyHediff.cs" />
+    <Compile Include="Comps\Comp_SlotLoadable.cs" />
+    <Compile Include="FloatMenus\FloatMenu_SlotLoadable.cs" />
+    <Compile Include="Harmony\Patch_MainTabWindow_Architect_CacheDesPanels.cs" />
+    <Compile Include="Jobs\JobDriver_GatherSlotItem.cs" />
+    <Compile Include="ModExtensions\DefModExt_HideArchitectTab.cs" />
+    <Compile Include="ModExtensions\DefModExt_FurDef.cs" />
+    <Compile Include="Harmony\Patch_PawnRenderTree_ProcessApparel.cs" />
+    <Compile Include="ModExtensions\DefModExt_RegrowingPart.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_PassiveHealing.cs" />
+    <Compile Include="Hediffs\HediffComp_PassiveHealing.cs" />
+    <Compile Include="Hediffs\Hediff_RegrowingPart.cs" />
+    <Compile Include="Jobs\JobDriver_ApplyHediff.cs" />
+    <Compile Include="ModExtensions\DefModExt_Xenotype.cs" />
+    <Compile Include="Data\SlotLoadable.cs" />
+    <Compile Include="Defs\SlotLoadableDef.cs" />
+    <Compile Include="Recipe_Disassemble.cs" />
+    <Compile Include="UI\Command_Recall.cs" />
+    <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
+    <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />
+    <Compile Include="Comps\Comp_ClusterGrower.cs" />
+    <Compile Include="Comps\Comp_DestroyedLeavings.cs" />
+    <Compile Include="ModExtensions\DefModExt_HiddenResearch.cs" />
+    <None Include="Harmony\Patch_MainTabWindow_Research_VisibleResearchProjects.cs" />
+    <Compile Include="ModExtensions\DefModExt_PreventPlantSpawns.cs" />
+    <Compile Include="Genes\Gene_HediffActivator.cs" />
+    <Compile Include="Harmony\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs" />
+    <Compile Include="IngestionOutcomeDoer\IngestionOutcomeDoer_DrainHediff.cs" />
+    <Compile Include="ModExtensions\DefModExt_GeneHediffActivator.cs" />
+    <Compile Include="ModExtensions\DefModExt_GeneRegeneration.cs" />
+    <Compile Include="ModExtensions\DefModExt_SpecialButchering.cs" />
+    <Compile Include="Genes\Gene_Regeneration.cs" />
+    <Compile Include="MapComps\MapComp_VisualOverlays.cs" />
+    <Compile Include="ModExtensions\DefModExt_Switcher.cs" />
+    <Compile Include="Hediffs\Hediff_VisualOverlay.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Complex.cs" />
+    <Compile Include="WorldComps\WorldComp_FactionWars.cs" />
+    <None Include="Buildings\Building_NeedProvider.cs" />
+    <Compile Include="Data\Allegiance.cs" />
+    <Compile Include="Defs\AllegianceDef.cs" />
+    <Compile Include="Comps\CompProperties_RandomSounds.cs" />
+    <Compile Include="Comps\CompProperties_Shield.cs" />
+    <Compile Include="Comps\Comp_Shield.cs" />
+    <Compile Include="Comps\Comp_RandomSounds.cs" />
+    <Compile Include="DamageWorkers\DamageWorker_AdvExt.cs" />
+    <Compile Include="IngestionOutcomeDoer\IngestionOutcomeDoer_GiveHediffAdv.cs" />
+    <Compile Include="ModExtensions\DefModExt_NeedProvider.cs" />
+    <Compile Include="ModExtensions\DefModExt_EMPShielding.cs" />
+    <Compile Include="Harmony\Patch_Skyfaller_Tick.cs" />
+    <Compile Include="Harmony\Patch_Projectile_CheckForFreeInterceptBetween.cs" />
+    <Compile Include="ModExtensions\DefModExt_DamageAdv.cs" />
+    <Compile Include="Data\NeedProviderOption.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_PollutionExact.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Pollution.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_ShowShieldRadius.cs" />
+    <Compile Include="UI\Gizmo_ShieldStatus.cs" />
+    <Compile Include="MapComps\MapComp_ShieldList.cs" />
+    <Compile Include="ModExtensions\DefModExt_OutputFromEdible.cs" />
+    <Compile Include="Harmony\Patch_Thing_Ingested.cs" />
+    <Compile Include="Buildings\Building_GraveAdv.cs" />
+    <Compile Include="Buildings\Building_ThingProducer.cs" />
+    <Compile Include="Buildings\Building_TurretGunSmart.cs" />
+    <Compile Include="Buildings\Building_RefundOnDeconstruct.cs" />
+    <Compile Include="Comps\CompProperties_AdvFireOverlay.cs" />
+    <Compile Include="Comps\CompProperties_Renameable.cs" />
+    <Compile Include="Comps\CompProperties_TransformThing.cs" />
+    <Compile Include="Comps\CompProperties_Mining.cs" />
+    <Compile Include="Comps\CompProperties_PawnSpawner.cs" />
+    <Compile Include="Comps\CompProperties_AdvancedHatcher.cs" />
+    <Compile Include="Comps\CompProperties_HologramProjection.cs" />
+    <Compile Include="Comps\CompProperties_ExtraGraphics.cs" />
+    <Compile Include="Comps\CompProperties_UseHealthPack.cs" />
+    <Compile Include="Comps\CompProperties_AutoResearch.cs" />
+    <Compile Include="Comps\CompProperties_AlienBodyCorrection.cs" />
+    <Compile Include="Comps\CompProperties_IdeoIconOverlay.cs" />
+    <Compile Include="Comps\CompProperties_TraitsOverTime.cs" />
+    <Compile Include="Comps\Comp_AlienBodyCorrection.cs" />
+    <Compile Include="Comps\Comp_IdeoIconOverlay.cs" />
+    <Compile Include="Comps\Comp_TraitsOverTime.cs" />
+    <Compile Include="Comps\Comp_AutoResearch.cs" />
+    <Compile Include="Comps\Comp_UseHealthPack.cs" />
+    <Compile Include="Comps\Comp_ExtraGraphics.cs" />
+    <Compile Include="Comps\Comp_HologramProjection.cs" />
+    <Compile Include="Comps\Comp_AdvancedHatcher.cs" />
+    <Compile Include="Comps\Comp_PawnSpawner.cs" />
+    <Compile Include="Comps\Comp_Mining.cs" />
+    <Compile Include="Comps\Comp_TransformThing.cs" />
+    <Compile Include="Comps\Comp_Renameable.cs" />
+    <Compile Include="Comps\Comp_AdvFireOverlay.cs" />
+    <Compile Include="Data\WeightedRaceChoice.cs" />
+    <Compile Include="Data\EnergyCategory.cs" />
+    <Compile Include="Data\ExtraGraphicsDetails.cs" />
+    <Compile Include="DeathActionWorker\DeathActionWorker_InstantDessication.cs" />
+    <Compile Include="Defs\ExtendedApparelDef.cs" />
+    <Compile Include="Harmony\Patch_DebugWindowsOpener_DrawButtons.cs" />
+    <Compile Include="Harmony\Patch_MassUtility_Capacity.cs" />
+    <Compile Include="ModExtensions\DefModExt_HeadTypeStuff.cs" />
+    <Compile Include="Harmony\Patch_HeadTypeDef_GetGraphic.cs" />
+    <Compile Include="ModExtensions\DefModExt_GeneEffecter.cs" />
+    <Compile Include="Genes\Gene_Effecter.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GenerateGenes.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_GeneticConversion.cs" />
+    <Compile Include="Hediffs\HediffComp_GeneticConversion.cs" />
+    <Compile Include="ModExtensions\DefModExt_RecipeExtender.cs" />
+    <Compile Include="Data\GeneGroup.cs" />
+    <Compile Include="Harmony\Patch_Dialog_BillConfig_GeneratePawnRestrictionOptions.cs" />
+    <Compile Include="Harmony\Patch_Bill_PawnAllowedToStartAnew.cs" />
+    <Compile Include="ModExtensions\DefModExt_SubCategoryBuilding.cs" />
+    <Compile Include="ModExtensions\DefModExt_GraveAdv.cs" />
+    <Compile Include="Harmony\Patch_GeneCategoryDef_ConfigErrors.cs" />
+    <Compile Include="UI\Popup_ColourPicker.cs" />
+    <Compile Include="UI\Popup_IntSlider.cs" />
+    <Compile Include="Utility\PosUtil.cs" />
+    <Compile Include="Utility\TexTabulaRasa.cs" />
+    <Compile Include="UI\Dialog_NameThing.cs" />
+    <Compile Include="ModExtensions\DefModExt_PlaceNearThing.cs" />
+    <Compile Include="ModExtensions\DefModExt_PlaceOnThing.cs" />
+    <Compile Include="ModExtensions\DefModExt_MineableThing.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_PlaceNearThing.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_PlaceOnThing.cs" />
+    <Compile Include="UI\ITab_Mining.cs" />
+    <Compile Include="Data\Listing_TreeMiningFilter.cs" />
+    <Compile Include="Data\MiningFilter.cs" />
+    <Compile Include="Data\MiningSettings.cs" />
+    <Compile Include="Utility\MiningUtility.cs" />
+    <Compile Include="ModExtensions\DefModExt_GasHediffGiver.cs" />
+    <Compile Include="Gas\Gas_HediffGiver.cs" />
+    <Compile Include="ModExtensions\DefModExt_IntelligentAnimal.cs" />
+    <Compile Include="ModExtensions\DefModExt_RaceProperties.cs" />
+    <Compile Include="Defs\DesignatorSubCategoryDef.cs" />
+    <Compile Include="Harmony\Patch_Designator_Build_Visible.cs" />
+    <Compile Include="Harmony\Patch_HediffComp_Infecter_CheckMakeInfection.cs" />
+    <Compile Include="Harmony\Patch_Pawn_TrainingTrackerTickRare.cs" />
+    <Compile Include="Harmony\Patch_IncidentWorker_Disease_PotentialVictims.cs" />
+    <Compile Include="Harmony\Patch_WorkGiver_Warden_DeliverFood_JobOnThing.cs" />
+    <Compile Include="Harmony\Patch_WorkGiver_Warden_Feed_JobOnThing.cs" />
+    <Compile Include="ModExtensions\DefModExt_GrownBuilding.cs" />
+    <Compile Include="Plants\Plant_GrownBuilding.cs" />
+    <Compile Include="UI\Designator_SubCategory.cs" />
+    <Compile Include="WorldComps\WorldComp_ArchitectSubCategory.cs" />
+    <Compile Include="ModExtensions\DefModExt_CustomMeteoriteStrike.cs" />
+    <Compile Include="Harmony\Patch_CompSchedule_recalculateAllowed.cs" />
+    <Compile Include="Harmony\Patch_Caravan_NightResting.cs" />
+    <Compile Include="Harmony\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs" />
+    <Compile Include="Defs\HologramDef.cs" />
+    <Compile Include="Data\HologramLayer.cs" />
+    <Compile Include="IncidentWorkers\IncidentWorker_CustomMeteoriteStrike.cs" />
+    <Compile Include="UI\ITab_Hologram.cs" />
+    <Compile Include="ModExtensions\DefModExt_Nightlight.cs" />
+    <Compile Include="Harmony\Patch_HealthAIUtility_FindBestMedicine.cs" />
+    <Compile Include="Harmony\Patch_TendUtility_DoTend.cs" />
+    <Compile Include="ModExtensions\DefModExt_Fireproof.cs" />
+    <Compile Include="Harmony\Patch_Thing_TakeDamage.cs" />
+    <Compile Include="Harmony\Patch_ResearchProjectDef_CanBeResearchedAt.cs" />
+    <Compile Include="ModExtensions\DefModExt_ResearchBenchSubstitutes.cs" />
+    <Compile Include="ModExtensions\DefModExt_AutoHealProps.cs" />
+    <Compile Include="Hediffs\Hediff_GrowingPart.cs" />
+    <Compile Include="Hediffs\Hediff_Removable.cs" />
+    <Compile Include="ModExtensions\DefModExt_BasicConversion.cs" />
+    <Compile Include="Hediffs\Hediff_BasicConversion.cs" />
+    <Compile Include="ModExtensions\DefModExt_ThingProducer.cs" />
+    <Compile Include="Hediffs\HediffGiver_Racial.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_TooltipDescription.cs" />
+    <Compile Include="Hediffs\HediffComp_TooltipDescription.cs" />
+    <Compile Include="Jobs\JobDriver_TakeFromProducer.cs" />
+    <Compile Include="ModExtensions\DefModExt_ExtraStrings.cs" />
+    <Compile Include="Harmony\Patch_Pawn_HealthTracker_AddHediff.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_AutoHeal.cs" />
+    <Compile Include="Hediffs\HediffComp_AutoHeal.cs" />
+    <Compile Include="ModExtensions\DefModExt_DiseaseImmunity.cs" />
+    <Compile Include="ModExtensions\DefModExt_EnergyNeed.cs" />
+    <Compile Include="Harmony\Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs" />
+    <Compile Include="Harmony\Patch_Building_Door_PowerOn.cs" />
+    <Compile Include="Data\Condition.cs" />
+    <Compile Include="Data\ConditionType.cs" />
+    <Compile Include="Data\FloatMenuPatch.cs" />
+    <Compile Include="Harmony\Patch_PawnRenderNode_Fur_GraphicFor.cs" />
+    <Compile Include="ModExtensions\DefModExt_ApparelAlts.cs" />
+    <Compile Include="Harmony\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
+    <Compile Include="Data\TraitEntryAdvanced.cs" />
+    <Compile Include="Data\ApparelAlts.cs" />
+    <Compile Include="ModExtensions\DefModExt_SelfPoweredDoor.cs" />
+    <Compile Include="UI\Win_HologramColorPicker.cs" />
+    <Compile Include="Utility\OnDemandUtil.cs" />
+    <Compile Include="PatchOperations\PatchOperation_ReplaceCostThing.cs" />
+    <Compile Include="Defs\RaceSpawningDef.cs" />
+    <Compile Include="Utility\BigBoxUtil.cs" />
+    <Compile Include="Comps\CompProperties_RecipesFromFacilities.cs" />
+    <Compile Include="Comps\Comp_RecipeUnlocker.cs" />
+    <Compile Include="ModExtensions\DefModExt_BigBox.cs" />
+    <Compile Include="Data\FacilityRecipeListing.cs" />
+    <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_LinkRemoved.cs" />
+    <Compile Include="Harmony\Patch_CompAffectedByFacilities_Notify_NewLink.cs" />
+    <Compile Include="Harmony\Patch_SelectionDrawer_DrawSelectionBracketFor.cs" />
+    <None Include="Harmony\Patch_PawnGenerator_TryGenerateNewPawnInternal.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_FinalLevelOfSkill.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GenerateInitialHediffs.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GeneratePawn.cs" />
+    <Compile Include="Harmony\Patch_PawnGenerator_GenerateSkills.cs" />
+    <Compile Include="Data\AdditionalHediffEntry.cs" />
+    <Compile Include="Comps\CompProperties_AreaEffects.cs" />
+    <Compile Include="Comps\CompProperties_Named.cs" />
+    <Compile Include="Comps\CompProperties_VerbSwitch.cs" />
+    <Compile Include="ModExtensions\DefModExt_PawnKindRaces.cs" />
+    <Compile Include="ModExtensions\DefModExt_PawnKindExtended.cs" />
+    <Compile Include="ModExtensions\DefModExt_FactionExtension.cs" />
+    <Compile Include="Enums\ThingNameFormat.cs" />
+    <Compile Include="Data\SkillLevelSetting.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_AprilFools.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_PrideMonth.cs" />
+    <Compile Include="Scenarios\ScenPart_ReinforcementJoins.cs" />
+    <Compile Include="Utility\FactionUtil.cs" />
+    <Compile Include="Harmony\Patch_PawnGroupMaker_CanGenerateFrom.cs" />
+    <Compile Include="Harmony\Patch_Ideo_SetIcon.cs" />
+    <Compile Include="Jobs\JobDriver_PlaySounds.cs" />
+    <Compile Include="Data\HediffSeverityPairing.cs" />
+    <Compile Include="ModExtensions\DefModExt_AutomatedLinkables.cs" />
+    <Compile Include="ModExtensions\DefModExt_CultureExtended.cs" />
+    <Compile Include="ModExtensions\DefModExt_DoorAdv.cs" />
+    <Compile Include="ModExtensions\DefModExt_Sounds.cs" />
+    <Compile Include="ModExtensions\DefModExt_VerbSwitchIcon.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_FactionPoints.cs" />
+    <Compile Include="PawnGroupMakers\PawnGroupMaker_Temperature.cs" />
+    <Compile Include="TabulaRasaStartup.cs" />
+    <Compile Include="Utility\HumanlikeOrdersUtil.cs" />
+    <Compile Include="Utility\NeedsUtil.cs" />
+    <Compile Include="Utility\SettingsUtil.cs" />
+    <Compile Include="Utility\ApparelUtil.cs" />
+    <Compile Include="Comps\CompProperties_Teleporter.cs" />
+    <Compile Include="Comps\Comp_Named.cs" />
+    <Compile Include="Comps\Comp_VerbSwitch.cs" />
+    <Compile Include="Comps\Comp_AreaEffects.cs" />
+    <Compile Include="Comps\Comp_Recall.cs" />
+    <Compile Include="Comps\Comp_Teleporter.cs" />
+    <Compile Include="Jobs\JobDriver_UseRecall.cs" />
+    <Compile Include="Jobs\JobDriver_UseTeleporter.cs" />
+    <Compile Include="MapComps\MapComp_Teleporter.cs" />
+    <Compile Include="Utility\HealthUtil.cs" />
+    <Compile Include="PatchOperations\PatchOperation_FindModByID.cs" />
+    <Compile Include="Harmony\Patch_MainMenuDrawer_MainMenuOnGUI.cs" />
+    <Compile Include="Defs\UpdateDef.cs" />
+    <Compile Include="TabulaRasaDefOf.cs" />
+    <Compile Include="Utility\UpdateUtil.cs" />
+    <Compile Include="Utility\LogUtil.cs" />
+    <Compile Include="PatchOperations\PatchOperation_SettingActive.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabulaRasaMod.cs" />
+    <Compile Include="TabulaRasaSettings.cs" />
+    <Compile Include="WorldComps\WorldComp_EnergyNeed.cs" />
+    <Compile Include="WorldComps\WorldComp_Blueprints.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

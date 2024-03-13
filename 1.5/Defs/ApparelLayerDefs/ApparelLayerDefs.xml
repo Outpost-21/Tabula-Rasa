@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ApparelLayerDef>
+		<defName>OnSkinExtra</defName>
+		<label>skin accessory</label>
+		<drawOrder>50</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>MiddleExtra</defName>
+		<label>middle accessory</label>
+		<drawOrder>150</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>ShellExtra</defName>
+		<label>outer accessory</label>
+		<drawOrder>250</drawOrder>
+	</ApparelLayerDef>
+
+	<ApparelLayerDef>
+		<defName>OverheadExtra</defName>
+		<label>head accessory</label>
+		<drawOrder>450</drawOrder>
+	</ApparelLayerDef>
+  
+</Defs>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<TabulaRasa.UpdateDef>
+		<defName>TabulaRasa_14032024</defName>
+		<date>2024/03/14</date>
+		<banner />
+		<contentList>
+			<li>
+				<header>1.5 Update</header>
+				<text>Test Log</text>
+			</li>
+		</contentList>
+		<links>
+			<li>
+				<linkLabel>Steam Workshop</linkLabel>
+				<linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2695164414</linkUrl>
+				<linkTex>TabulaRasa/UI/Steam</linkTex>
+			</li>
+			<li>
+				<linkLabel>GitHub</linkLabel>
+				<linkUrl>https://github.com/Outpost-21/Tweaks-Galore</linkUrl>
+				<linkTex>TabulaRasa/UI/GitHub</linkTex>
+			</li>
+		</links>
+	</TabulaRasa.UpdateDef>
+
+</Defs>
