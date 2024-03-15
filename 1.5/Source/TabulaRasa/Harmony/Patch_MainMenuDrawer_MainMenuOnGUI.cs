@@ -17,7 +17,6 @@ namespace TabulaRasa
         [HarmonyPostfix]
         public static void Postfix()
         {
-            LogUtil.LogMessage("Doing Update GUI");
             UpdateUtil.DoUpdateListing();
         }
     }
