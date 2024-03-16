@@ -78,7 +78,7 @@ namespace TabulaRasa
 		{
 			if (!ModLister.CheckRoyalty("Projectile interception"))
 			{
-				LogUtil.LogMessage("Shield Setup skipped because user lacks Royalty.");
+				LogUtil.Message("Shield Setup skipped because user lacks Royalty.");
 				parent.Destroy();
 				return;
 			}

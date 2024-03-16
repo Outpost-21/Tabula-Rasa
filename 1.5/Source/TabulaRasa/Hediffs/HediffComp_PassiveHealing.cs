@@ -131,7 +131,7 @@ namespace TabulaRasa
             }
             else
             {
-                LogUtil.LogError($"Hediff {Def.defName} set to regrow parts but has no HediffDef for the regrowablePart to actually do so.");
+                LogUtil.Error($"Hediff {Def.defName} set to regrow parts but has no HediffDef for the regrowablePart to actually do so.");
             }
         }
     }

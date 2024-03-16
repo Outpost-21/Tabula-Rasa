@@ -42,7 +42,7 @@ namespace TabulaRasa
                 }
                 else
                 {
-                    LogUtil.LogError($"{parent.def.defName} has no viable hologram defs! Make sure the tags match!");
+                    LogUtil.Error($"{parent.def.defName} has no viable hologram defs! Make sure the tags match!");
                 }
             }
         }

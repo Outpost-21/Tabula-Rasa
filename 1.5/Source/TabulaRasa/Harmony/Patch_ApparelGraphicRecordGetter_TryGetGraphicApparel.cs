@@ -50,7 +50,7 @@ namespace TabulaRasa
 
             if (graphic == null || graphic.MatSingle == null)
             {
-                LogUtil.LogWarning($"Could not find alternate head apparel textures at '{path}' for head '{curHeadTypeDef}' and apparel '{apparel.def.defName} ({apparel.def.fileName})'.");
+                LogUtil.Warning($"Could not find alternate head apparel textures at '{path}' for head '{curHeadTypeDef}' and apparel '{apparel.def.defName} ({apparel.def.fileName})'.");
                 return;
             }
 

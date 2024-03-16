@@ -171,7 +171,7 @@ namespace TabulaRasa
         {
             if (mcp.AllDefs.Contains(def))
             {
-                LogUtil.LogWarning($"{mcp.Name} already contains def: {def.defName}");
+                LogUtil.Warning($"{mcp.Name} already contains def: {def.defName}");
                 def.modContentPack = mcp;
                 def.fileName = mcp.Name;
                 return;

@@ -18,8 +18,21 @@ namespace TabulaRasa
 	{
 		public static bool patched;
 
+		[HarmonyPrepare]
+		public static bool Prepare()
+		{
+			LongEventHandler.ExecuteWhenFinished(delegate
+			{
+				if (!patched)
+				{
+					LogUtil.Warning("DebugWindowsOpener_Patch could not be applied.");
+				}
+			});
+			return true;
+		}
+
 		[HarmonyTranspiler]
-		public static IEnumerable<CodeInstruction> DrawAdditionalButtons(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			patched = false;
 			CodeInstruction[] instructionsArr = instructions.ToArray();
@@ -27,18 +40,18 @@ namespace TabulaRasa
 			CodeInstruction[] array = instructionsArr;
 			foreach (CodeInstruction inst in array)
 			{
-				if (!patched && widgetRowField != null && inst.opcode == OpCodes.Bne_Un)
+				if (!patched && widgetRowField != null && inst.opcode == OpCodes.Bne_Un_S)
 				{
-					yield return new CodeInstruction(OpCodes.Ldarg_0, (object)null);
-					yield return new CodeInstruction(OpCodes.Ldfld, (object)widgetRowField);
-					yield return new CodeInstruction(OpCodes.Call, (object)new Action<WidgetRow>(DrawDebugToolbarButton).Method);
+					yield return new CodeInstruction(OpCodes.Ldarg_0, null);
+					yield return new CodeInstruction(OpCodes.Ldfld, widgetRowField);
+					yield return new CodeInstruction(OpCodes.Call, new Action<WidgetRow>(DrawToolboxButtons).Method);
 					patched = true;
 				}
 				yield return inst;
 			}
 		}
 
-		public static void DrawDebugToolbarButton(WidgetRow widgets)
+		public static void DrawToolboxButtons(WidgetRow widgets)
 		{
             if (ModLister.BiotechInstalled && TabulaRasaMod.settings.showXenotypeEditorMenu)
 			{

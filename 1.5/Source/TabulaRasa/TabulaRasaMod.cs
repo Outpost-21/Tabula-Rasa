@@ -32,7 +32,7 @@ namespace TabulaRasa
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             CurrentVersion = $"{version.Major}.{version.Minor}.{version.Build}";
 
-            LogUtil.LogMessage($"{CurrentVersion} ::");
+            LogUtil.Message($"{CurrentVersion} ::");
 
             if (Prefs.DevMode)
             {

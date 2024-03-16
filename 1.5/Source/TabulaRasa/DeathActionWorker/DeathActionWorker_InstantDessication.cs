@@ -28,7 +28,7 @@ namespace TabulaRasa
                 }
                 else
                 {
-                    LogUtil.LogWarning($"Tried using DeathActionWorker_InstantDessication on {corpse.InnerPawn.def.defName} which cannot rot.");
+                    LogUtil.Warning($"Tried using DeathActionWorker_InstantDessication on {corpse.InnerPawn.def.defName} which cannot rot.");
                 }
             }
         }

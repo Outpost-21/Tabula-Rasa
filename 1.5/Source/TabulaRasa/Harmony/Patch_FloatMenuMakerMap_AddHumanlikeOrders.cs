@@ -33,8 +33,8 @@ namespace TabulaRasa
                 opts?.AddRange(HumanlikeOrdersUtil.savedList);
                 return;
             }
-            LogUtil.LogDebug("Humanlike Orders :: New list constructed");
-            LogUtil.LogDebug($"Humanlike Orders :: {HumanlikeOrdersUtil.optsID}");
+            LogUtil.Debug("Humanlike Orders :: New list constructed");
+            LogUtil.Debug($"Humanlike Orders :: {HumanlikeOrdersUtil.optsID}");
             HumanlikeOrdersUtil.lastOptsID = HumanlikeOrdersUtil.optsID;
             HumanlikeOrdersUtil.savedList.Clear();
             var things = c.GetThingList(pawn.Map);

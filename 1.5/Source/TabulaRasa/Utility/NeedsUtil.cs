@@ -23,7 +23,7 @@ namespace TabulaRasa
                 }
                 else
                 {
-                    LogUtil.LogError("Could not find WorldComponent_EnergyNeed.");
+                    LogUtil.Error("Could not find WorldComponent_EnergyNeed.");
                 }
                 return null;
             }

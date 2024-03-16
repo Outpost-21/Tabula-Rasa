@@ -23,7 +23,7 @@ namespace TabulaRasa
 
         public static readonly bool debugEnabled = false;
 
-        public static void LogMessage(string msg)
+        public static void Message(string msg)
         {
             if (Log.ReachedMaxMessagesLimit)
             {
@@ -34,7 +34,7 @@ namespace TabulaRasa
             Log.PostMessage();
         }
 
-        public static void LogWarning(string msg)
+        public static void Warning(string msg)
         {
             if (Log.ReachedMaxMessagesLimit)
             {
@@ -45,7 +45,7 @@ namespace TabulaRasa
             Log.PostMessage();
         }
 
-        public static void LogError(string msg)
+        public static void Error(string msg)
         {
             if (Log.ReachedMaxMessagesLimit)
             {
@@ -56,7 +56,7 @@ namespace TabulaRasa
             Log.PostMessage();
         }
 
-        public static void LogDebug(string msg)
+        public static void Debug(string msg)
         {
             if (Log.ReachedMaxMessagesLimit || !debugEnabled)
             {

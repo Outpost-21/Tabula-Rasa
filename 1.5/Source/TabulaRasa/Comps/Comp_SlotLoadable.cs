@@ -70,7 +70,7 @@ namespace TabulaRasa
                     foreach (var slot in Props.slots)
                     {
                         var newSlot = new SlotLoadable(slot, parent);
-                        LogUtil.LogMessage("Added Slot");
+                        LogUtil.Message("Added Slot");
                         slots.Add(newSlot);
                     }
                 }

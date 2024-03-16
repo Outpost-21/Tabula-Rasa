@@ -26,7 +26,7 @@ namespace TabulaRasa
 
                     if (enumerable.EnumerableNullOrEmpty())
                     {
-                        LogUtil.LogError("Comp_Mining: cachedMineableThings list is empty, this is something that should never happen, vanilla contains many of these items.");
+                        LogUtil.Error("Comp_Mining: cachedMineableThings list is empty, this is something that should never happen, vanilla contains many of these items.");
                     }
 
                     return cachedMineableThings = enumerable.ToList();

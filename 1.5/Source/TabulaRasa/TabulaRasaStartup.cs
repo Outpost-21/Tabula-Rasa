@@ -35,7 +35,7 @@ namespace TabulaRasa
                 {
                     if(modExt.subCategory == null)
                     {
-                        LogUtil.LogError($"{def.defName} has a misconfigured DefModExt_SubCategoryBuilding, subCategory MUST be assigned.");
+                        LogUtil.Error($"{def.defName} has a misconfigured DefModExt_SubCategoryBuilding, subCategory MUST be assigned.");
                     }
                     else
                     {

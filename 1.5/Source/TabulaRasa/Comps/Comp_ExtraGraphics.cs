@@ -194,7 +194,7 @@ namespace TabulaRasa
 			}
 			catch
 			{
-				LogUtil.LogMessage("Probably added mid-save. Ignoring load error.");
+				LogUtil.Message("Probably added mid-save. Ignoring load error.");
 			}
 		}
 	}

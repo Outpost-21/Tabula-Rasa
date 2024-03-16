@@ -27,7 +27,7 @@ namespace TabulaRasa
             {
                 if (!TabulaRasaMod.settings.IsValidSetting(settings[i]))
                 {
-                    LogUtil.LogError("Configuration error in patch, { settings[i]} is not an existing setting in this mod. This can only check existing boolean settings.");
+                    LogUtil.Error("Configuration error in patch, { settings[i]} is not an existing setting in this mod. This can only check existing boolean settings.");
                 }
                 if (TabulaRasaMod.settings.GetEnabledSettings.Contains(settings[i]))
                 {

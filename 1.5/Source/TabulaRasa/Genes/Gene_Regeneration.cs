@@ -52,7 +52,7 @@ namespace TabulaRasa
             }
             else
             {
-                LogUtil.LogWarning($"GeneDef {def.defName} has a null DefModExt_GeneRegeneration so regeneration will not function properly.");
+                LogUtil.Warning($"GeneDef {def.defName} has a null DefModExt_GeneRegeneration so regeneration will not function properly.");
             }
         }
 

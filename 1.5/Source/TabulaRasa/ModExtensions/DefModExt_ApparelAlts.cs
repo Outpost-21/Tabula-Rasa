@@ -24,10 +24,10 @@ namespace TabulaRasa
                     for (int j = 0; j < alt.headTypeDef.Count; j++)
                     {
                         string curHeadTypeDef = alt.headTypeDef[j];
-                        if (string.IsNullOrWhiteSpace(curHeadTypeDef)) { LogUtil.LogError($"Missing <headTypeDef> tag in apparelAlts list item."); continue; }
-                        if (apparelAltData.ContainsKey(curHeadTypeDef)) { LogUtil.LogError($"Duplicate apparel data for {curHeadTypeDef}"); }
+                        if (string.IsNullOrWhiteSpace(curHeadTypeDef)) { LogUtil.Error($"Missing <headTypeDef> tag in apparelAlts list item."); continue; }
+                        if (apparelAltData.ContainsKey(curHeadTypeDef)) { LogUtil.Error($"Duplicate apparel data for {curHeadTypeDef}"); }
                         HeadTypeDef htd = DefDatabase<HeadTypeDef>.GetNamedSilentFail(curHeadTypeDef);
-                        if (htd == null) { LogUtil.LogWarning($"Could not find def for headTypeDef named '{curHeadTypeDef}'."); }
+                        if (htd == null) { LogUtil.Warning($"Could not find def for headTypeDef named '{curHeadTypeDef}'."); }
                         apparelAltData.Add(curHeadTypeDef, alt);
                     }
                 }
