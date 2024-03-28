@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="PawnRenderNodes\PawnRenderNode_FurCustom.cs" />
     <Compile Include="Utility\ButcherUtil.cs" />
     <Compile Include="Comps\CompProperties_SlotLoadable.cs" />
     <Compile Include="Comps\CompProperties_TargetEffectApplyHediff.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="ModExtensions\DefModExt_Xenotype.cs" />
     <Compile Include="Data\SlotLoadable.cs" />
     <Compile Include="Defs\SlotLoadableDef.cs" />
-    <Compile Include="Recipe_Disassemble.cs" />
+    <Compile Include="Recipes\Recipe_Disassemble.cs" />
     <Compile Include="UI\Command_Recall.cs" />
     <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
     <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />
@@ -264,7 +265,6 @@
     <Compile Include="Data\Condition.cs" />
     <Compile Include="Data\ConditionType.cs" />
     <Compile Include="Data\FloatMenuPatch.cs" />
-    <Compile Include="Harmony\Patch_PawnRenderNode_Fur_GraphicFor.cs" />
     <Compile Include="ModExtensions\DefModExt_ApparelAlts.cs" />
     <Compile Include="Harmony\Patch_ApparelGraphicRecordGetter_TryGetGraphicApparel.cs" />
     <Compile Include="Data\TraitEntryAdvanced.cs" />
