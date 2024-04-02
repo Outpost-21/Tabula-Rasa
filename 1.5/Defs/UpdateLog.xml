@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
 
-	<TabulaRasa.UpdateDef>
+	<!-- <TabulaRasa.UpdateDef>
 		<defName>TabulaRasa_14032024</defName>
 		<date>2024/03/14</date>
 		<banner />
@@ -23,6 +23,6 @@
 				<linkTex>TabulaRasa/UI/GitHub</linkTex>
 			</li>
 		</links>
-	</TabulaRasa.UpdateDef>
+	</TabulaRasa.UpdateDef> -->
 
 </Defs>
