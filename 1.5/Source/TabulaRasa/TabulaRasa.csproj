@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
+    <Compile Include="Harmony\Patch_PawnRenderUtility_DrawEquipmentAiming.cs" />
     <Compile Include="PawnRenderNodes\PawnRenderNode_FurCustom.cs" />
     <Compile Include="Utility\ButcherUtil.cs" />
     <Compile Include="Comps\CompProperties_SlotLoadable.cs" />
