@@ -127,6 +127,14 @@ namespace TabulaRasa
         {
             if (forced || Rand.Chance(Props.undergrowthCurve.Evaluate(c.DistanceTo(parent.Position))))
             {
+                DefModExt_PlantStuff modExt = Props.undergrowth.GetModExtension<DefModExt_PlantStuff>();
+                if(modExt != null)
+                {
+                    if((modExt.freshWaterPlant && !WaterPlantsUtil.CanGrowFreshWaterPlants(c, map)) && (modExt.oceanWaterPlant && !WaterPlantsUtil.CanGrowOceanWaterPlants(c, map)))
+                    {
+                        return;
+                    }
+                }
                 if (Props.undergrowthClears && c != parent.Position)
                 {
                     Plant plant = c.GetPlant(map);
@@ -190,25 +198,18 @@ namespace TabulaRasa
 
         public bool ValidGrowthSpot(ThingDef targetDef, IntVec3 c, Map map, bool undergrowthOnly, float minDistance)
         {
-            if (!c.InBounds(map))
+            if (!c.InBounds(map)) { return false; }
+            if (c.GetThingList(map).Any(t => t as Plant != null)) { return false; }
+            if (undergrowthOnly && c.GetFirstThing(map, Props.undergrowth) == null) { return false; }
+            if(c.GetThingList(map).Any(t => Props.cannotGrowOver.Contains(t.def))) { return false; }
+            if (CountThingsInRadius(targetDef, c, map, minDistance) > 0) { return false; }
+            DefModExt_PlantStuff modExt = targetDef.GetModExtension<DefModExt_PlantStuff>();
+            if (modExt != null)
             {
-                return false;
-            }
-            if (c.GetThingList(map).Any(t => t as Plant != null))
-            {
-                return false;
-            }
-            if (undergrowthOnly && c.GetFirstThing(map, Props.undergrowth) == null)
-            {
-                return false;
-            }
-            if(c.GetThingList(map).Any(t => Props.cannotGrowOver.Contains(t.def)))
-            {
-                return false;
-            }
-            if (CountThingsInRadius(targetDef, c, map, minDistance) > 0)
-            {
-                return false;
+                if ((modExt.freshWaterPlant || modExt.oceanWaterPlant) && !c.GetTerrain(map).IsWater) { return false; }
+
+                Plant closest = (Plant)GenClosest.ClosestThing_Global(c, map.listerThings.ThingsMatching(new ThingRequest() { singleDef = targetDef }), modExt.distToNearestOther);
+                if (closest != null) { return false; }
             }
             return true;
         }

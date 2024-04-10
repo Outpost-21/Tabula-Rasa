@@ -84,6 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="DefModExt_PlantStuff.cs" />
+    <Compile Include="Harmony\Patch_GenStep_Plants_Generate.cs" />
+    <Compile Include="Harmony\Patch_Map_MapPostTick.cs" />
+    <Compile Include="Harmony\Patch_WildPlantSpawner_CalculatePlantsWhichCanGrowAt.cs" />
     <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
     <Compile Include="Harmony\Patch_PawnRenderUtility_DrawEquipmentAiming.cs" />
     <Compile Include="PawnRenderNodes\PawnRenderNode_FurCustom.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="ModExtensions\DefModExt_Switcher.cs" />
     <Compile Include="Hediffs\Hediff_VisualOverlay.cs" />
     <Compile Include="PawnGroupMakers\PawnGroupMaker_Complex.cs" />
+    <Compile Include="Utility\WaterPlantsUtil.cs" />
     <Compile Include="WorldComps\WorldComp_FactionWars.cs" />
     <None Include="Buildings\Building_NeedProvider.cs" />
     <Compile Include="Data\Allegiance.cs" />
