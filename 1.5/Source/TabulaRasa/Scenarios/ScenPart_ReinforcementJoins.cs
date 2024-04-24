@@ -32,7 +32,7 @@ namespace TabulaRasa
 			}
 		}
 
-		public bool MaxPawnsReached => maxPawns <= 0 || maxPawns <= Find.AnyPlayerHomeMap.PlayerPawnsForStoryteller.Count();
+		public bool MaxPawnsReached => maxPawns > 0 && Find.World.PlayerPawnsForStoryteller.Count() >= maxPawns;
 
 		public override void Tick()
 		{
@@ -42,7 +42,7 @@ namespace TabulaRasa
 				return;
 			}
             if (MaxPawnsReached)
-            {
+			{
 				return;
             }
 			if (isFinished)
@@ -59,7 +59,6 @@ namespace TabulaRasa
 			{
 				if (!SendPawn())
 				{
-					isFinished = true;
 					return;
 				}
 				if (repeat && intervalDays > 0f)
@@ -81,6 +80,13 @@ namespace TabulaRasa
 					return false;
 				}
 			}
+            else
+			{
+				if (!CanSpawnDropPod(map))
+				{
+					return false;
+				}
+			}
 			Pawn pawn = GeneratePawn();
 			if (arrivalMode == PlayerPawnsArriveMethod.Standing)
 			{
@@ -97,6 +103,7 @@ namespace TabulaRasa
 			SendLetter(baseLetterLabel, baseLetterText, LetterDefOf.PositiveEvent, pawn);
 			return true;
 		}
+
 		public void SendLetter(TaggedString label, TaggedString text, LetterDef letterDef, LookTargets lookTargets)
 		{
 			if (label.NullOrEmpty() || text.NullOrEmpty())
@@ -119,18 +126,27 @@ namespace TabulaRasa
 			return activeDropPodInfo;
 		}
 
-		public bool CanSpawnJoiner(Map map)
+		public bool CanSpawnDropPod(Map map)
 		{
+			if (MaxPawnsReached)
+			{
+				return false;
+			}
 			if (faction != null)
 			{
 				Faction intFaction = Find.FactionManager.FirstFactionOfDef(faction);
-				if (intFaction != null && intFaction.AllyOrNeutralTo(Faction.OfPlayer))
+				if (intFaction != null && !intFaction.AllyOrNeutralTo(Faction.OfPlayer))
 				{
 					return false;
 				}
 			}
-			IntVec3 intVec;
-			return TryFindEntryCell(map, out intVec);
+			return true;
+		}
+
+		public bool CanSpawnJoiner(Map map)
+		{
+            if (!CanSpawnDropPod(map)) { return false; }
+			return TryFindEntryCell(map, out IntVec3 intVec);
 		}
 
 		public void SpawnJoiner(Map map, Pawn pawn)
@@ -272,6 +288,7 @@ namespace TabulaRasa
 			Scribe_Values.Look<bool>(ref this.repeat, "repeat", false, false);
 			Scribe_Values.Look<float>(ref this.occurTick, "occurTick", 0f, false);
 			Scribe_Values.Look<bool>(ref this.isFinished, "isFinished", false, false);
+			Scribe_Values.Look<int>(ref this.maxPawns, "maxPawns", 0);
 			Scribe_Values.Look<PlayerPawnsArriveMethod>(ref this.arrivalMode, "arrivalMode", PlayerPawnsArriveMethod.Standing);
 			Scribe_Defs.Look<PawnKindDef>(ref this.pawnKind, "pawnKind");
 			if (Scribe.mode == LoadSaveMode.PostLoadInit && this.pawnKind == null)

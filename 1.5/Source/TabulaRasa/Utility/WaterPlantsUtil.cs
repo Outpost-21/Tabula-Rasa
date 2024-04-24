@@ -11,9 +11,9 @@ namespace TabulaRasa
 {
     public static class WaterPlantsUtil
     {
-		public static Map _map;
+		public static Map map;
 
-		public static int _cycle;
+		public static int cycle;
 
         public static void TryGenerateWaterPlants(Map map)
 		{
@@ -31,24 +31,24 @@ namespace TabulaRasa
 			if (map?.AllCells != null || !map.weatherManager.growthSeasonMemory.GrowthSeasonOutdoorsNow) { return; }
             if(map.wildPlantSpawner.CurrentWholeMapNumDesiredPlants <= 0.0f) { return; }
 			int area = map.Area;
-			if (map != _map)
+			if (map != WaterPlantsUtil.map)
 			{
-				_map = map;
-				_cycle = Rand.Range(0, area);
+                WaterPlantsUtil.map = map;
+                cycle = Rand.Range(0, area);
 			}
 			int num = Mathf.CeilToInt(area * 0.0001f);
             for (int i = 0; i < num; i++)
 			{
-				if (_cycle >= area)
+				if (cycle >= area)
 				{
-					_cycle = 0;
+					cycle = 0;
 				}
-				IntVec3 c = map.cellsInRandomOrder.Get(_cycle);
+				IntVec3 c = map.cellsInRandomOrder.Get(cycle);
 				if (Rand.Chance(map.wildPlantSpawner.CachedChanceFromDensity) && Rand.MTBEventOccurs(map.Biome.wildPlantRegrowDays, 60000f, 10000f))
                 {
                     TrySpawnWaterPlant(map, c, true);
                 }
-				_cycle++;
+				cycle++;
             }
         }
 
@@ -56,7 +56,7 @@ namespace TabulaRasa
 		{
 			TerrainDef terrain = cell.GetTerrain(map);
 			if (!terrain.IsWater || terrain.passability != Traversability.Standable) { return; }
-			List<ThingDef> growablePlants = map.Biome.AllWildPlants.Where((ThingDef x) => x.HasModExtension<DefModExt_PlantStuff>() && (x.GetModExtension<DefModExt_PlantStuff>().freshWaterPlant || x.GetModExtension<DefModExt_PlantStuff>().oceanWaterPlant)).ToList();
+			List<ThingDef> growablePlants = map.Biome.AllWildPlants.Where((ThingDef x) => x.IsWaterPlant()).ToList();
 			if (growablePlants.NullOrEmpty()) { return; }
 			growablePlants.TryRandomElementByWeight((ThingDef x) => map.Biome.CommonalityOfPlant(x), out var randPlant);
 			if (randPlant == null) { return; }
@@ -96,7 +96,7 @@ namespace TabulaRasa
 
 		public static bool AnyWaterPlants()
 		{
-			return DefDatabase<ThingDef>.AllDefsListForReading.Any((ThingDef x) => (x.GetModExtension<DefModExt_PlantStuff>()?.freshWaterPlant ?? false) || (x.GetModExtension<DefModExt_PlantStuff>()?.oceanWaterPlant ?? false)); 
+			return DefDatabase<ThingDef>.AllDefsListForReading.Any((ThingDef x) => (x.IsWaterPlant())); 
 		}
 
 		public static bool IsWaterPlant(this ThingDef thing)

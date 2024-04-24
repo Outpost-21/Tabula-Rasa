@@ -23,7 +23,7 @@ namespace TabulaRasa
         public bool oceanWaterPlant = false;
 
         /// <summary>
-        /// Defines min distance to nearest other plant of the same def.
+        /// Defines min distance to nearest other plant of the same def when naturally generated.
         /// </summary>
         public float distToNearestOther = 11.3f;
     }

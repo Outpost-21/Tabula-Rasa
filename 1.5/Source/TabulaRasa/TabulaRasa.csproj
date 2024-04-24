@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_Switcher.cs" />
-    <Compile Include="DefModExt_PlantStuff.cs" />
+    <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="Harmony\Patch_GenStep_Plants_Generate.cs" />
     <Compile Include="Harmony\Patch_Map_MapPostTick.cs" />
     <Compile Include="Harmony\Patch_WildPlantSpawner_CalculatePlantsWhichCanGrowAt.cs" />
