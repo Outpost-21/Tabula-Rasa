@@ -24,20 +24,16 @@ namespace TabulaRasa
 
 		public string newGraphicSinglePath = "";
 
-		public bool reloading = false;
-
 		public override void PostExposeData()
 		{
 			Scribe_Values.Look(ref newGraphicPath, "newGraphicPath");
 			Scribe_Values.Look(ref newGraphicSinglePath, "newGraphicSinglePath");
-			Scribe_Values.Look(ref reloading, "reloading", false);
 		}
 
 		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
 			thingToGrab = this.parent;
-			reloading = true;
-			LongEventHandler.ExecuteWhenFinished(new Action(this.ChangeGraphic));
+			LongEventHandler.ExecuteWhenFinished(new Action(delegate () { ChangeGraphic(respawningAfterLoad); }));
 		}
 
 		public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -112,21 +108,21 @@ namespace TabulaRasa
 			}
 		}
 
-		public void ChangeGraphic()
+		public void ChangeGraphic(bool reloading = false)
 		{
 			try
 			{
-				Vector2 drawSize = this.parent.Graphic.drawSize;
-				Color color = this.parent.Graphic.color;
-				ShaderTypeDef shaderType = this.parent.def.graphicData.shaderType;
-				if (this.parent.Faction != null && this.parent.Faction.IsPlayer)
+				Vector2 drawSize = parent.Graphic.drawSize;
+				Color color = parent.Graphic.color;
+				ShaderTypeDef shaderType = parent.def.graphicData.shaderType;
+				if (parent.Faction != null && parent.Faction.IsPlayer)
 				{
-					if (this.parent.def.graphicData.graphicClass == typeof(Graphic_Multi))
+					if (parent.def.graphicData.graphicClass == typeof(Graphic_Multi))
 					{
-						if (!this.reloading)
+						if (!reloading)
 						{
-							int num = this.Props.extraGraphics.FindIndex(egi => egi.path == newGraphicPath);
-							if (num + 1 > this.Props.extraGraphics.Count - 1)
+							int num = Props.extraGraphics.FindIndex(egi => egi.path == newGraphicPath);
+							if (num + 1 > Props.extraGraphics.Count - 1)
 							{
 								num = 0;
 							}
@@ -134,34 +130,34 @@ namespace TabulaRasa
 							{
 								num++;
 							}
-							this.newGraphicPath = this.Props.extraGraphics[num].path;
-							this.newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(this.newGraphicPath, shaderType.Shader, drawSize, color);
+							newGraphicPath = Props.extraGraphics[num].path;
+							newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(newGraphicPath, shaderType.Shader, drawSize, color);
 						}
 						else
 						{
-							if (this.newGraphicPath == "")
+							if (newGraphicPath == "")
 							{
-								this.newGraphicPath = this.Props.extraGraphics[0].path;
-								this.newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(this.newGraphicPath, shaderType.Shader, drawSize, color);
+								newGraphicPath = Props.extraGraphics[0].path;
+								newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(newGraphicPath, shaderType.Shader, drawSize, color);
 							}
 							else
 							{
-								this.newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(this.newGraphicPath, shaderType.Shader, drawSize, color);
+								newGraphic = (Graphic_Multi)GraphicDatabase.Get<Graphic_Multi>(newGraphicPath, shaderType.Shader, drawSize, color);
 							}
-							this.reloading = false;
+							reloading = false;
 						}
 						Type typeFromHandle = typeof(Thing);
 						FieldInfo field = typeFromHandle.GetField("graphicInt", BindingFlags.Instance | BindingFlags.NonPublic);
-						field.SetValue(this.thingToGrab, this.newGraphic);
+						field.SetValue(thingToGrab, newGraphic);
 					}
 					else
 					{
-						if (this.parent.def.graphicData.graphicClass == typeof(Graphic_Single))
+						if (parent.def.graphicData.graphicClass == typeof(Graphic_Single))
 						{
-							if (!this.reloading)
+							if (!reloading)
 							{
-								int num2 = this.Props.extraGraphics.FindIndex(egi => egi.path == newGraphicPath);
-								if (num2 + 1 > this.Props.extraGraphics.Count - 1)
+								int num2 = Props.extraGraphics.FindIndex(egi => egi.path == newGraphicPath);
+								if (num2 + 1 > Props.extraGraphics.Count - 1)
 								{
 									num2 = 0;
 								}
@@ -169,25 +165,25 @@ namespace TabulaRasa
 								{
 									num2++;
 								}
-								this.newGraphicSinglePath = this.Props.extraGraphics[num2].path;
-								this.newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(this.newGraphicSinglePath, shaderType.Shader, drawSize, color);
+								newGraphicSinglePath = Props.extraGraphics[num2].path;
+								newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(newGraphicSinglePath, shaderType.Shader, drawSize, color);
 							}
 							else
 							{
-								if (this.newGraphicSinglePath == "")
+								if (newGraphicSinglePath == "")
 								{
-									this.newGraphicSinglePath = this.Props.extraGraphics[0].path;
-									this.newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(this.newGraphicSinglePath, shaderType.Shader, drawSize, color);
+									newGraphicSinglePath = Props.extraGraphics[0].path;
+									newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(newGraphicSinglePath, shaderType.Shader, drawSize, color);
 								}
 								else
 								{
-									this.newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(this.newGraphicSinglePath, shaderType.Shader, drawSize, color);
+									newGraphicSingle = (Graphic_Single)GraphicDatabase.Get<Graphic_Single>(newGraphicSinglePath, shaderType.Shader, drawSize, color);
 								}
-								this.reloading = false;
+								reloading = false;
 							}
 							Type typeFromHandle2 = typeof(Thing);
 							FieldInfo field2 = typeFromHandle2.GetField("graphicInt", BindingFlags.Instance | BindingFlags.NonPublic);
-							field2.SetValue(this.thingToGrab, this.newGraphicSingle);
+							field2.SetValue(thingToGrab, newGraphicSingle);
 						}
 					}
 				}
