@@ -40,6 +40,12 @@
 
 	<TabMining>Mining</TabMining>
 
+	<!-- ========== Teleports ========== -->
+
+	<TabulaRasa.RecallLabel>No Destination Set</TabulaRasa.RecallLabel>
+	<TabulaRasa.RecallDesc>Teleports the pawn equipped with this item to the selected destination.</TabulaRasa.RecallDesc>
+	<TabulaRasa.RecallDest>Recall: {0}</TabulaRasa.RecallDest>
+
 	<!-- ========== Reinforcements ========== -->
 
 	<TabulaRasa_LetterLabel_PawnKindJoins>Pawn joins: {PAWN_nameDef}</TabulaRasa_LetterLabel_PawnKindJoins>

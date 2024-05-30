@@ -41,10 +41,10 @@ namespace TabulaRasa
             string reason = "";
             if (compReloadable == null || compReloadable.CanBeUsed(out reason))
             {
-                yield return new Command_Recall
+                yield return new Command_FloatAction
                 {
-                    defaultLabel = "Recall",
-                    defaultDesc = "Teleports the pawn equipped with this item to the selected destination.",
+                    defaultLabel = target != null ? "TabulaRasa.RecallDest".Translate(target.LabelCap) : "TabulaRasa.RecallLabel".Translate(),
+                    defaultDesc = "TabulaRasa.RecallDesc".Translate(),
                     activateSound = SoundDefOf.Click,
                     icon = ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true),
                     action = delegate
@@ -62,48 +62,62 @@ namespace TabulaRasa
                             GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseRecall, GetPawn.Position, parent), JobTag.Misc);
                         }
                         //Find.WindowStack.Add(new FloatMenu(DestinationFloatMenuOptions(true).ToList()));
-                    }
+                    },
+                    floatMenuFunc = DestinationFloatMenuOptions
                 };
             }
             yield break;
         }
 
-        private List<Thing> GetAllViableTeleporters
+        private List<Thing> GetAllViableTeleporters(bool needPad = false)
         {
-            get
+            List<Thing> results = new List<Thing>();
+            if (Props.teleporterType == TeleporterType.world)
             {
-                List<Thing> results = new List<Thing>();
-
                 foreach (Map map in Current.Game.Maps)
                 {
-                    foreach (Thing port in map.GetComponent<MapComp_Teleporter>().allMapTeleports)
+                    foreach (Thing port in map.GetComponent<MapComp_Teleporter>().allMapTeleports.Where(t => t != parent))
                     {
                         Comp_Teleporter portComp = port.TryGetComp<Comp_Teleporter>();
                         if (portComp != null && !portComp.Props.networkTags.Where(t => Props.networkTags.Contains(t)).ToList().NullOrEmpty()
-                            && portComp.Props.direction != TeleporterDirection.transmitter)
+                            && portComp.Props.direction != TeleporterDirection.transmitter
+                            && (!needPad || Props.isPad || portComp.Props.isPad))
 
                         {
                             results.Add(port);
                         }
                     }
                 }
-                return results;
             }
+            else if (Props.teleporterType == TeleporterType.local)
+            {
+                foreach (Thing port in parent.Map.GetComponent<MapComp_Teleporter>().allMapTeleports)
+                {
+                    Comp_Teleporter portComp = port.TryGetComp<Comp_Teleporter>();
+                    if (portComp != null && !portComp.Props.networkTags.Where(t => Props.networkTags.Contains(t)).ToList().NullOrEmpty()
+                        && portComp.Props.direction != TeleporterDirection.transmitter
+                            && (!needPad || Props.isPad || portComp.Props.isPad))
+                    {
+                        results.Add(port);
+                    }
+                }
+            }
+            return results;
         }
 
-        public IEnumerable<FloatMenuOption> DestinationFloatMenuOptions(bool sending)
+        private IEnumerable<FloatMenuOption> DestinationFloatMenuOptions()
         {
             string reason = "";
             if (compReloadable == null || compReloadable.CanBeUsed(out reason))
             {
-                if (GetAllViableTeleporters.NullOrEmpty())
+                if (GetAllViableTeleporters().NullOrEmpty())
                 {
                     FloatMenuOption option = new FloatMenuOption("No destinations to choose from.", null);
                     yield return option;
                 }
                 else
                 {
-                    foreach (Thing receiver in GetAllViableTeleporters)
+                    foreach (Thing receiver in GetAllViableTeleporters())
                     {
                         Comp_Teleporter receiverComp = receiver.TryGetComp<Comp_Teleporter>();
 
@@ -119,7 +133,7 @@ namespace TabulaRasa
                             option.action = delegate ()
                             {
                                 target = receiver;
-                                GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseRecall, GetPawn.Position, parent), JobTag.Misc);
+                                // GetPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(TabulaRasaDefOf.TabulaRasa_UseRecall, GetPawn.Position, parent), JobTag.Misc);
                             };
                         }
 

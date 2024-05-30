@@ -112,7 +112,7 @@
     <Compile Include="Data\SlotLoadable.cs" />
     <Compile Include="Defs\SlotLoadableDef.cs" />
     <Compile Include="Recipes\Recipe_Disassemble.cs" />
-    <Compile Include="UI\Command_Recall.cs" />
+    <Compile Include="UI\Command_FloatAction.cs" />
     <Compile Include="Comps\CompProperties_ClusterGrower.cs" />
     <Compile Include="Comps\CompProperties_DestroyedLeavings.cs" />
     <Compile Include="Comps\Comp_ClusterGrower.cs" />
