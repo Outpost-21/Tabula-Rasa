@@ -36,18 +36,21 @@ namespace TabulaRasa
                 List<Pawn> touchedPawns = new List<Pawn>();
                 foreach (Thing thing in GenRadial.RadialDistinctThingsAround(this.Position, this.Map, modExt.radius, true))
                 {
-                    Pawn pawn = thing as Pawn;
-                    if (pawn != null)
+                    if(thing != null)
                     {
-                        touchedPawns.Add(pawn);
-                        if (affectedPawns.ContainsKey(pawn))
+                        Pawn pawn = thing as Pawn;
+                        if (pawn != null)
                         {
-                            Dictionary<Pawn, int> dict = affectedPawns;
-                            dict[pawn] += tickRate;
-                        }
-                        else
-                        {
-                            affectedPawns[pawn] = tickRate;
+                            touchedPawns.Add(pawn);
+                            if (affectedPawns.ContainsKey(pawn))
+                            {
+                                Dictionary<Pawn, int> dict = affectedPawns;
+                                dict[pawn] += tickRate;
+                            }
+                            else
+                            {
+                                affectedPawns[pawn] = tickRate;
+                            }
                         }
                     }
                 }
