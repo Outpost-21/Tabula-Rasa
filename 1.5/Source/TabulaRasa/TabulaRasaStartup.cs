@@ -18,12 +18,19 @@ namespace TabulaRasa
         {
             TabulaRasaSettings settings = TabulaRasaMod.settings;
 
-            FillLinkablesAutomatically();
-            if (ModLister.RoyaltyInstalled)
-            {
-                FixRoyaltyBullshit(settings);
-            }
             EnableNeededSubCategories();
+            FillLinkablesAutomatically();
+            try
+            {
+                if (ModLister.RoyaltyInstalled)
+                {
+                    FixRoyaltyHostility(settings);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Message(":: Tabula Rasa :: Empire Hostility Fix Failed: " + ex.Message);
+            }
         }
 
         public static void EnableNeededSubCategories()
@@ -45,7 +52,7 @@ namespace TabulaRasa
             }
         }
 
-        public static void FixRoyaltyBullshit(TabulaRasaSettings settings)
+        public static void FixRoyaltyHostility(TabulaRasaSettings settings)
         {
             if (settings.empireHostilityFixedFactions.NullOrEmpty())
             {
@@ -62,6 +69,7 @@ namespace TabulaRasa
             FactionDef empireDef = DefDatabase<FactionDef>.GetNamedSilentFail("Empire");
             if(empireDef != null)
             {
+                if (empireDef.permanentEnemyToEveryoneExcept.NullOrEmpty()) { return; }
                 foreach (FactionDef fac in DefDatabase<FactionDef>.AllDefs.Where(d => d.isPlayer))
                 {
                     if (!empireDef.permanentEnemyToEveryoneExcept.Contains(fac))
