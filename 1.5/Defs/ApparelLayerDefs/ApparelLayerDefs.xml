@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+	<!-- Layer between OnSkin and Middle -->
+
 	<ApparelLayerDef>
 		<defName>OnSkinExtra</defName>
 		<label>skin accessory</label>
 		<drawOrder>50</drawOrder>
 	</ApparelLayerDef>
+
+	<!-- Layer between Middle and Shell -->
 
 	<ApparelLayerDef>
 		<defName>MiddleExtra</defName>
@@ -13,11 +17,15 @@
 		<drawOrder>150</drawOrder>
 	</ApparelLayerDef>
 
+	<!-- Layer between Shell and the pawns head -->
+
 	<ApparelLayerDef>
 		<defName>ShellExtra</defName>
 		<label>outer accessory</label>
 		<drawOrder>250</drawOrder>
 	</ApparelLayerDef>
+
+	<!-- Fuck knows, it always showed up in a different layer every time. -->
 
 	<ApparelLayerDef>
 		<defName>OverheadExtra</defName>
