@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building_RandomGraphic.cs" />
     <Compile Include="Buildings\Building_Switcher.cs" />
     <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="Harmony\Patch_GenStep_Plants_Generate.cs" />

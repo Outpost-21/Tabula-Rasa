@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.5\\source\\tabularasa\\buildings\\building_randomgraphic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:buildings\\building_randomgraphic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.5\\source\\tabularasa\\tabularasastartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasastartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\gas\\gas_hediffgiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:gas\\gas_hediffgiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\comps\\comp_recall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_recall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\ui\\command_floataction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:ui\\command_floataction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Building_RandomGraphic.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Buildings\\Building_RandomGraphic.cs",
+              "RelativeDocumentMoniker": "Buildings\\Building_RandomGraphic.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Buildings\\Building_RandomGraphic.cs",
+              "RelativeToolTip": "Buildings\\Building_RandomGraphic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:07:06.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TabulaRasaStartup.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\TabulaRasaStartup.cs",
+              "RelativeDocumentMoniker": "TabulaRasaStartup.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\TabulaRasaStartup.cs",
+              "RelativeToolTip": "TabulaRasaStartup.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T21:25:49.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Gas_HediffGiver.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Gas\\Gas_HediffGiver.cs",
+              "RelativeDocumentMoniker": "Gas\\Gas_HediffGiver.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Gas\\Gas_HediffGiver.cs",
+              "RelativeToolTip": "Gas\\Gas_HediffGiver.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAwwCMAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T14:54:33.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Command_FloatAction.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\UI\\Command_FloatAction.cs",
+              "RelativeDocumentMoniker": "UI\\Command_FloatAction.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\UI\\Command_FloatAction.cs",
+              "RelativeToolTip": "UI\\Command_FloatAction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-20T20:29:32.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Comp_Recall.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Comps\\Comp_Recall.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_Recall.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.5\\Source\\TabulaRasa\\Comps\\Comp_Recall.cs",
+              "RelativeToolTip": "Comps\\Comp_Recall.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwBMAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-20T20:08:49.204Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
