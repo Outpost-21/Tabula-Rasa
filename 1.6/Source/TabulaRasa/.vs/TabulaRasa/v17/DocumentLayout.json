@@ -1,0 +1,429 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\floatmenus\\floatmenuprovider_slotloadable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:floatmenus\\floatmenuprovider_slotloadable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\utility\\humanlikeordersutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:utility\\humanlikeordersutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\harmony\\patch_floatmenumakermap_addhumanlikeorders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_floatmenumakermap_addhumanlikeorders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|TabulaRasa||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\harmony\\patch_daysworthoffoodcalculator_approxdaysworthoffood.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_daysworthoffoodcalculator_approxdaysworthoffood.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\harmony\\patch_wildplantspawner_checkspawnwildplantat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_wildplantspawner_checkspawnwildplantat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\utility\\logutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:utility\\logutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\utility\\settingsutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:utility\\settingsutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\comps\\comp_clustergrower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_clustergrower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\harmony\\patch_pawngenerator_generategenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_pawngenerator_generategenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\harmony\\patch_thing_ingested.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_thing_ingested.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\plants\\plant_grownbuilding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:plants\\plant_grownbuilding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\incidentworkers\\incidentworker_custommeteoritestrike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:incidentworkers\\incidentworker_custommeteoritestrike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\scenarios\\scenpart_reinforcementjoins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:scenarios\\scenpart_reinforcementjoins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\jobs\\jobdriver_playsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:jobs\\jobdriver_playsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\comps\\comp_shield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_shield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\comps\\comp_advancedhatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_advancedhatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\buildings\\building_randomgraphic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:buildings\\building_randomgraphic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\tabularasastartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasastartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\gas\\gas_hediffgiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:gas\\gas_hediffgiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\comps\\comp_recall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_recall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\ui\\command_floataction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:ui\\command_floataction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FloatMenuProvider_SlotLoadable.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\FloatMenus\\FloatMenuProvider_SlotLoadable.cs",
+              "RelativeDocumentMoniker": "FloatMenus\\FloatMenuProvider_SlotLoadable.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\FloatMenus\\FloatMenuProvider_SlotLoadable.cs",
+              "RelativeToolTip": "FloatMenus\\FloatMenuProvider_SlotLoadable.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAmwBEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:17:41.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HumanlikeOrdersUtil.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\HumanlikeOrdersUtil.cs",
+              "RelativeDocumentMoniker": "Utility\\HumanlikeOrdersUtil.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\HumanlikeOrdersUtil.cs",
+              "RelativeToolTip": "Utility\\HumanlikeOrdersUtil.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwBoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:16:35.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs",
+              "RelativeDocumentMoniker": "Harmony\\Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs",
+              "RelativeToolTip": "Harmony\\Patch_FloatMenuMakerMap_AddHumanlikeOrders.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:13:41.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Properties\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Properties\\AssemblyInfo.cs",
+              "RelativeToolTip": "Properties\\AssemblyInfo.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:13:15.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TabulaRasa",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasa.csproj",
+              "RelativeDocumentMoniker": "TabulaRasa.csproj",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasa.csproj",
+              "RelativeToolTip": "TabulaRasa.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-11T18:13:08.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs",
+              "RelativeDocumentMoniker": "Harmony\\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs",
+              "RelativeToolTip": "Harmony\\Patch_DaysWorthOfFoodCalculator_ApproxDaysWorthOfFood.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAACdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:10:46.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs",
+              "RelativeDocumentMoniker": "Harmony\\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs",
+              "RelativeToolTip": "Harmony\\Patch_WildPlantSpawner_CheckSpawnWildPlantAt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAACgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:07:51.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TabulaRasaMod.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaMod.cs",
+              "RelativeDocumentMoniker": "TabulaRasaMod.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaMod.cs",
+              "RelativeToolTip": "TabulaRasaMod.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:02:30.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Patch_Thing_Ingested.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_Thing_Ingested.cs",
+              "RelativeDocumentMoniker": "Harmony\\Patch_Thing_Ingested.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_Thing_Ingested.cs",
+              "RelativeToolTip": "Harmony\\Patch_Thing_Ingested.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAlwBYAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:50:19.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Patch_PawnGenerator_GenerateGenes.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_PawnGenerator_GenerateGenes.cs",
+              "RelativeDocumentMoniker": "Harmony\\Patch_PawnGenerator_GenerateGenes.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_PawnGenerator_GenerateGenes.cs",
+              "RelativeToolTip": "Harmony\\Patch_PawnGenerator_GenerateGenes.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAlwCcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:50:12.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SettingsUtil.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\SettingsUtil.cs",
+              "RelativeDocumentMoniker": "Utility\\SettingsUtil.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\SettingsUtil.cs",
+              "RelativeToolTip": "Utility\\SettingsUtil.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAlwFMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:48:01.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LogUtil.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\LogUtil.cs",
+              "RelativeDocumentMoniker": "Utility\\LogUtil.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\LogUtil.cs",
+              "RelativeToolTip": "Utility\\LogUtil.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwDwAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:47:45.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Plant_GrownBuilding.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Plants\\Plant_GrownBuilding.cs",
+              "RelativeDocumentMoniker": "Plants\\Plant_GrownBuilding.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Plants\\Plant_GrownBuilding.cs",
+              "RelativeToolTip": "Plants\\Plant_GrownBuilding.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAtwEoAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:47:01.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IncidentWorker_CustomMeteoriteStrike.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\IncidentWorkers\\IncidentWorker_CustomMeteoriteStrike.cs",
+              "RelativeDocumentMoniker": "IncidentWorkers\\IncidentWorker_CustomMeteoriteStrike.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\IncidentWorkers\\IncidentWorker_CustomMeteoriteStrike.cs",
+              "RelativeToolTip": "IncidentWorkers\\IncidentWorker_CustomMeteoriteStrike.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAlwCcAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:46:20.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Comp_ClusterGrower.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_ClusterGrower.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_ClusterGrower.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_ClusterGrower.cs",
+              "RelativeToolTip": "Comps\\Comp_ClusterGrower.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAawIMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:45:17.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ScenPart_ReinforcementJoins.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Scenarios\\ScenPart_ReinforcementJoins.cs",
+              "RelativeDocumentMoniker": "Scenarios\\ScenPart_ReinforcementJoins.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Scenarios\\ScenPart_ReinforcementJoins.cs",
+              "RelativeToolTip": "Scenarios\\ScenPart_ReinforcementJoins.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAlwIAAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:44:09.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "JobDriver_PlaySounds.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Jobs\\JobDriver_PlaySounds.cs",
+              "RelativeDocumentMoniker": "Jobs\\JobDriver_PlaySounds.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Jobs\\JobDriver_PlaySounds.cs",
+              "RelativeToolTip": "Jobs\\JobDriver_PlaySounds.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:43:14.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Comp_Shield.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Shield.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_Shield.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Shield.cs",
+              "RelativeToolTip": "Comps\\Comp_Shield.cs",
+              "ViewState": "AgIAAEsBAAAAAAAAAAAawF0BAACMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:41:15.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Comp_AdvancedHatcher.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_AdvancedHatcher.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_AdvancedHatcher.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_AdvancedHatcher.cs",
+              "RelativeToolTip": "Comps\\Comp_AdvancedHatcher.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAEwH0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T17:27:49.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Building_RandomGraphic.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Buildings\\Building_RandomGraphic.cs",
+              "RelativeDocumentMoniker": "Buildings\\Building_RandomGraphic.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Buildings\\Building_RandomGraphic.cs",
+              "RelativeToolTip": "Buildings\\Building_RandomGraphic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:07:06.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "TabulaRasaStartup.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaStartup.cs",
+              "RelativeDocumentMoniker": "TabulaRasaStartup.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaStartup.cs",
+              "RelativeToolTip": "TabulaRasaStartup.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T21:25:49.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Gas_HediffGiver.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Gas\\Gas_HediffGiver.cs",
+              "RelativeDocumentMoniker": "Gas\\Gas_HediffGiver.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Gas\\Gas_HediffGiver.cs",
+              "RelativeToolTip": "Gas\\Gas_HediffGiver.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAwwCMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T14:54:33.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Command_FloatAction.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\UI\\Command_FloatAction.cs",
+              "RelativeDocumentMoniker": "UI\\Command_FloatAction.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\UI\\Command_FloatAction.cs",
+              "RelativeToolTip": "UI\\Command_FloatAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-20T20:29:32.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Comp_Recall.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Recall.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_Recall.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Recall.cs",
+              "RelativeToolTip": "Comps\\Comp_Recall.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-20T20:08:49.204Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
