@@ -1,0 +1,85 @@
+ManifestFileVersion: 0
+CRC: 782949178
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 01ec69e6d7f5b7dfbba470c226daa706
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ce3b6d18a872ca8039cd5eb3c4fb7ef5
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 01ec69e6d7f5b7dfbba470c226daa706
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Fat_south.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/ModIcon.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Construction.png
+- Assets/Data/neronix17.toolbox/Sounds/Toolbox/JetPack.ogg
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/Special/JetPackIcon.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Firefighting.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/Special/JetPackBlank.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/Unknown.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Male_east.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Haul.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Hulk_north.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Cooking.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Female_north.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Buttons/ShieldVisibility.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Male_north.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Hulk_south.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Thin_north.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Release.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Female_south.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Buttons/ShieldRadius.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_east.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/CategoryNone.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Cycle.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/Commands_Primary.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/RecipeIcon_Cloning.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/RecipeIcon_Drilling.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Thin_east.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Buttons/ShieldOffsetX.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_south.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Crafting.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Female_east.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/UI/Steam.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Shield/ColorPicker.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Rescue.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Male_south.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/UI/XenotypeEditor.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/CategoryFurniture.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/NoRecipe.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Fat_east.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Obedience.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/RepeatIcon.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Buttons/ShieldColor.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Thin_south.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Tameness.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/UI/Bin.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/CategoryDecor.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Fat_north.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/UI/Hyperlink.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/ThingCat_LootCaches.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Mining.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/Commands_Ancillary.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/MenuIcon_Drones.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/CategoryStructural.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Clean.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/Special/JPSlowBurn.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Research.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/UnknownItem.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Buttons/ShieldOffsetY.png
+- Assets/Data/neronix17.toolbox/Textures/Things/Alpha/Alpha_Hulk_east.png
+- Assets/Data/neronix17.toolbox/Textures/Toolbox/UI/Trainables/Plants.png
+- Assets/Data/neronix17.toolbox/Textures/UI/Toolbox/RecipeIcon_Manufacturing.png
+- Assets/Data/neronix17.toolbox/Textures/TabulaRasa/UI/GitHub.png
+Dependencies: []
