@@ -79,6 +79,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apparel\Apparel_Customizable.cs" />
+    <Compile Include="Apparel\DefModExt_ApparelCustomizable.cs" />
     <Compile Include="Buildings\Building_RandomGraphic.cs" />
     <Compile Include="Buildings\Building_Switcher.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Jobs\JobDriver_GatherSlotItem.cs" />
     <Compile Include="ModExtensions\DefModExt_HideArchitectTab.cs" />
     <Compile Include="ModExtensions\DefModExt_FurDef.cs" />
+    <Compile Include="WorldDrawLayers\WorldDrawLayer_UngeneratedPlanetPartsAsDefaultBiome.cs" />
     <None Include="Harmony\Patch_PawnRenderTree_ProcessApparel.cs" />
     <Compile Include="ModExtensions\DefModExt_RegrowingPart.cs" />
     <Compile Include="Hediffs\HediffCompProperties_PassiveHealing.cs" />
