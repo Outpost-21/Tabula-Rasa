@@ -128,15 +128,15 @@ namespace TabulaRasa
 						return true;
                     }
                 }
-				if (thing is DropPodIncoming pod)
-				{
-                    if (HoldsAnyHostiles(pod))
-                    {
-						return true;
-                    }
-				}
-			}
-			return false;
+            }
+            if (skyfaller is DropPodIncoming pod)
+            {
+                if (HoldsAnyHostiles(pod))
+                {
+                    return true;
+                }
+            }
+            return false;
 		}
 
 		public bool HoldsAnyHostiles(DropPodIncoming pod)
@@ -145,7 +145,7 @@ namespace TabulaRasa
             {
 				return true;
             }
-			foreach (Thing thing in pod.Contents.innerContainer)
+			foreach (Thing thing in pod.Contents.GetDirectlyHeldThings())
 			{
 				if (thing is Pawn pawn)
 				{
@@ -160,15 +160,15 @@ namespace TabulaRasa
 							return true;
 						}
 					}
-					if (thing is Building building)
-					{
-						if (building.HostileTo(Faction.OfPlayer) || building.Faction == Faction.OfMechanoids)
-						{
-							return true;
-						}
-					}
-				}
-			}
+                }
+                if (thing is Building building)
+                {
+                    if (building.HostileTo(Faction.OfPlayer) || building.Faction == Faction.OfMechanoids)
+                    {
+                        return true;
+                    }
+                }
+            }
 			return false;
 		}
 
