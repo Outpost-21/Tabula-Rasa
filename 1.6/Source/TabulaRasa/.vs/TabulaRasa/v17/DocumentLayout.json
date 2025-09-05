@@ -11,15 +11,15 @@
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasasettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\harmony\\patch_command_gizmoongui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\harmony\\patch_command_gizmoongui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:harmony\\patch_command_gizmoongui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -50,8 +50,7 @@
               "RelativeToolTip": "Data\\ArchitectSubCatDesignators.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-05T08:26:29.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-05T08:26:29.535Z"
             },
             {
               "$type": "Document",
@@ -63,8 +62,7 @@
               "RelativeToolTip": "TabulaRasaMod.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAcwE0AAACBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-05T07:55:20.44Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-05T07:55:20.44Z"
             },
             {
               "$type": "Document",
@@ -76,8 +74,7 @@
               "RelativeToolTip": "Harmony\\Patch_Command_GizmoOnGUI.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-05T07:47:52.282Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-05T07:47:52.282Z"
             },
             {
               "$type": "Document",
@@ -89,8 +86,7 @@
               "RelativeToolTip": "TabulaRasaSettings.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAAADQAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T08:28:46.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-03T08:28:46.303Z"
             },
             {
               "$type": "Document",
@@ -100,7 +96,7 @@
               "RelativeDocumentMoniker": "Utility\\SubcategoryUtil.cs",
               "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\SubcategoryUtil.cs",
               "RelativeToolTip": "Utility\\SubcategoryUtil.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAAMoBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAPEAAAAAAAAAAAAwwPoAAABgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-02T09:44:06.208Z",
               "EditorCaption": ""

@@ -134,17 +134,27 @@ namespace TabulaRasa
                 UI.screenHeight - windowHeight - 45f, windowWidth, windowHeight);
             Widgets.DrawWindowBackground(outRect);
             Text.Font = GameFont.Small;
-            float categoryRectWidth = 200f + scrollWidth;
+            bool showCategories = designatorsForTab[tab].Any(c => c.Visible && c.category != uncatCat);
+            bool showOnlyOrders = !showCategories && designatorsForTab[tab].Find(c => c.category == uncatCat) == null;
+            float categoryRectWidth = showCategories ? 200f + scrollWidth : 0f;
             Rect categoryRect = new Rect(outRect.x, outRect.y, categoryRectWidth, outRect.height);
             List<Designator> orderDesignators = designatorsForTab[tab].Find(sc => sc.category == orderCat).designators;
-            float orderRectWidth = !orderDesignators.NullOrEmpty() ? (TabulaRasaMod.settings.enableShrunkOrders ? orderGizmoScale * 2f : orderGizmoScale) + sectionBorder + scrollWidth + (gizmoMargin * 2) : 0f;
+            float orderRectWidth = (!orderDesignators.NullOrEmpty() && !showOnlyOrders) ? (TabulaRasaMod.settings.enableShrunkOrders ? orderGizmoScale * 2f : orderGizmoScale) + sectionBorder + scrollWidth + (gizmoMargin * 2) : 0f;
             float mainRectWidth = outRect.width - categoryRect.width - orderRectWidth;
             Rect mainRect = new Rect(categoryRect.xMax, outRect.y, mainRectWidth, outRect.height);
-            DrawSubcategoryList(categoryRect, tab,
-                designatorsForTab[tab].OrderBy(d => d.category).ToList());
-            Designator mouseoverGizmo = DrawMainDesignators(mainRect, forceActivatedCommand, tab,
-                designatorsForTab[tab].Find(sc => sc.category == currentCatForTab[tab]) ?? null);
-            if (!orderDesignators.NullOrEmpty())
+            if (!showOnlyOrders)
+            {
+                if (currentCatForTab[tab].NullOrEmpty())
+                {
+                    currentCatForTab[tab] = designatorsForTab[tab].OrderBy(d => d.category).Where(d => d.category != orderCat).First().category;
+                }
+            }
+            if (showCategories)
+            {
+                DrawSubcategoryList(categoryRect, tab, designatorsForTab[tab].OrderBy(d => d.category).ToList());
+            }
+            Designator mouseoverGizmo = DrawMainDesignators(mainRect, forceActivatedCommand, tab, GetDesignatorsForShow(tab, showOnlyOrders));
+            if (!orderDesignators.NullOrEmpty() && !showOnlyOrders)
             {
                 Rect orderRect = new Rect(outRect.xMax - orderRectWidth - (sectionBorder / 2f), outRect.y, orderRectWidth - (sectionBorder / 2f), outRect.height);
                 Designator orderMouseoverGizmo = DrawOrderDesignators(orderRect, tab, orderDesignators);
@@ -200,19 +210,16 @@ namespace TabulaRasa
             scrollPositionForTab[tab] = scrollPos;
         }
 
-        public static Designator DrawMainDesignators(Rect rect, Designator forceActivatedCommand, ArchitectCategoryTab tab, ArchitectSubCatDesignators buildablesInCategory)
+        public static Designator DrawMainDesignators(Rect rect, Designator forceActivatedCommand, ArchitectCategoryTab tab, 
+            List<Designator> visibleDesignators)
         {
-            if (currentCatForTab == null || buildablesInCategory is null)
-            {
-                return null;
-            }
-            if (buildablesInCategory.category != currentCatForTab[tab])
+            if (currentCatForTab == null || visibleDesignators.NullOrEmpty())
             {
                 return null;
             }
             Vector2 scrollPos = gizmoScrollPositionForTab[tab];
             Rect outRect = rect.ContractedBy(sectionBorder);
-            List<Designator> designators = buildablesInCategory.designators.Where(x => x.Visible).ToList();
+            List<Designator> designators = visibleDesignators;
             float rowHeight = gizmoScale + gizmoMargin + 5f;
             float gizmosPerRow = Mathf.FloorToInt((outRect.width - scrollWidth) / (gizmoScale + gizmoMargin));
             float rowCount = Mathf.CeilToInt((float)designators.Count() / gizmosPerRow);
@@ -240,7 +247,8 @@ namespace TabulaRasa
             Rect outRect = rect.ContractedBy(0f, sectionBorder);
             float gizmosPerRow = Mathf.FloorToInt((outRect.width - scrollWidth) / (orderGizmoScale + gizmoMargin));
             float rowHeight = orderGizmoScale + gizmoMargin + 5f;
-            Rect viewRect = new Rect(outRect.x, outRect.y, outRect.width - scrollWidth, designators.Count * rowHeight);
+            float rowCount = Mathf.CeilToInt((float)designators.Count() / gizmosPerRow);
+            Rect viewRect = new Rect(outRect.x, outRect.y, outRect.width - scrollWidth, rowCount * rowHeight);
             CaptureScrolling(outRect, viewRect, ref scrollPos);
             Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
             Designator mouseoverGizmo = null;
@@ -256,6 +264,29 @@ namespace TabulaRasa
             Widgets.EndScrollView();
             nbdScrollPositionForTab[tab] = scrollPos;
             return mouseoverGizmo;
+        }
+
+        public static List<Designator> GetDesignatorsForShow(ArchitectCategoryTab tab, bool showOnlyOrders)
+        {
+            List<Designator> designators;
+            ArchitectSubCatDesignators tabDesignators = designatorsForTab[tab].Find(sc => sc.category == currentCatForTab[tab]) ?? null;
+
+            if (showOnlyOrders)
+            {
+                ArchitectSubCatDesignators orderDesignators = designatorsForTab[tab].Find(sc => sc.category == orderCat) ?? null;
+                if (orderDesignators != null) { designators = orderDesignators.designators.Where(d => d.Visible).ToList(); }
+                else { designators = new List<Designator>(); }
+            }
+            else if (tabDesignators != null)
+            {
+                designators = tabDesignators.designators.Where(d => d.Visible).ToList();
+            }
+            else
+            {
+                designators = new List<Designator>();
+            }
+
+            return designators;
         }
 
         public static void DrawOrderGizmo(float curX, float curY, Designator designator, ref Designator mouseoverGizmo)
