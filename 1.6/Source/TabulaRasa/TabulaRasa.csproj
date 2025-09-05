@@ -83,10 +83,14 @@
     <Compile Include="Apparel\DefModExt_ApparelCustomizable.cs" />
     <Compile Include="Buildings\Building_RandomGraphic.cs" />
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Data\ArchitectSubCatDesignators.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
+    <Compile Include="Harmony\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs" />
+    <Compile Include="Harmony\Patch_Command_GizmoOnGUI.cs" />
     <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
     <Compile Include="Harmony\Patch_PawnRenderUtility_DrawEquipmentAiming.cs" />
+    <Compile Include="ModExtensions\DefModExt_SubcategoryDisplay.cs" />
     <Compile Include="PawnRenderNodes\PawnRenderNode_FurCustom.cs" />
     <Compile Include="Utility\ButcherUtil.cs" />
     <Compile Include="Comps\CompProperties_SlotLoadable.cs" />
@@ -98,6 +102,7 @@
     <Compile Include="Jobs\JobDriver_GatherSlotItem.cs" />
     <Compile Include="ModExtensions\DefModExt_HideArchitectTab.cs" />
     <Compile Include="ModExtensions\DefModExt_FurDef.cs" />
+    <Compile Include="Utility\SubcategoryUtil.cs" />
     <Compile Include="WorldDrawLayers\WorldDrawLayer_UngeneratedPlanetPartsAsDefaultBiome.cs" />
     <None Include="Harmony\Patch_PawnRenderTree_ProcessApparel.cs" />
     <Compile Include="ModExtensions\DefModExt_RegrowingPart.cs" />

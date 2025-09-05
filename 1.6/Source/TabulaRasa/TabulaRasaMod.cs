@@ -74,6 +74,10 @@ namespace TabulaRasa
             listing.LabelBacked("Incident Settings", Color.white);
             listing.CheckboxLabeled("Special Occasions", ref settings.specialOccasions, "Some features may only happen during specific special occasions, like April Fools, so this option exists so those can be disabled.");
             listing.Gap();
+            listing.LabelBacked("Subcategories", Color.white);
+            listing.AddLabeledSlider($"Row Count: {settings.gizmoRowHeight}", ref settings.gizmoRowHeight, 1f, 6f, null, null, 1f);
+            listing.CheckboxLabeled("Shrunken Orders (Experimental)", ref settings.enableShrunkOrders, "If enabled, the orders portion of the subcategories menu will be scaled down so more can fit on screen.\n\nFor half scale orders inside subcategories, a patch overriding the hardcoded height for those buttons had to be made, this toggle is here in case this causes unforseen issues.");
+            listing.Gap();
             if (ModLister.BiotechInstalled)
             {
                 listing.LabelBacked("Biotech Specific", Color.white);

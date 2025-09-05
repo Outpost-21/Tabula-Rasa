@@ -28,6 +28,10 @@ namespace TabulaRasa
         public bool preventEmpireHostility = true;
         public Dictionary<string, bool> empireHostilityFixedFactions = new Dictionary<string, bool>();
 
+        // Subcategories
+        public float gizmoRowHeight = 3f;
+        public bool enableShrunkOrders = false;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -44,6 +48,10 @@ namespace TabulaRasa
             // Empire Hostility
             Scribe_Values.Look(ref preventEmpireHostility, "preventEmpireHostility", true);
             Scribe_Collections.Look(ref empireHostilityFixedFactions, "empireHostilityFixedFactions");
+
+            // Subcategories
+            Scribe_Values.Look(ref gizmoRowHeight, "gizmoRowHeight", 3f);
+            Scribe_Values.Look(ref enableShrunkOrders, "disableShrunkOrders", false);
         }
 
         public bool IsValidSetting(string input)
