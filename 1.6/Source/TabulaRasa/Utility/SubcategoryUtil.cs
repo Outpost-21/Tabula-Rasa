@@ -301,6 +301,15 @@ namespace TabulaRasa
             {
                 designator.ProcessInput(result.InteractEvent);
             }
+            if (result.State == GizmoState.OpenedFloatMenu)
+            {
+                List<FloatMenuOption> options = new List<FloatMenuOption>();
+                foreach(FloatMenuOption o in designator.RightClickFloatMenuOptions)
+                {
+                    options.Add(o);
+                }
+                if (options.Any()) { Find.WindowStack.Add(new FloatMenu(options)); }
+            }
         }
         public static GizmoResult OrderGizmoOnGUI(this Designator designator, Rect butRect, GizmoRenderParms parms)
         {
@@ -450,6 +459,15 @@ namespace TabulaRasa
             if (result.State == GizmoState.Interacted)
             {
                 designator.ProcessInput(result.InteractEvent);
+            }
+            if (result.State == GizmoState.OpenedFloatMenu)
+            {
+                List<FloatMenuOption> options = new List<FloatMenuOption>();
+                foreach (FloatMenuOption o in designator.RightClickFloatMenuOptions)
+                {
+                    options.Add(o);
+                }
+                if (options.Any()) { Find.WindowStack.Add(new FloatMenu(options)); }
             }
         }
 
