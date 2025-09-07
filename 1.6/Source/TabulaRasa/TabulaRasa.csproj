@@ -86,7 +86,7 @@
     <Compile Include="Data\ArchitectSubCatDesignators.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
     <Compile Include="Harmony\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs" />
-    <Compile Include="Harmony\Patch_Command_GizmoOnGUI.cs" />
+    <None Include="Harmony\Patch_Command_GizmoOnGUI.cs" />
     <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
     <Compile Include="Harmony\Patch_PawnRenderUtility_DrawEquipmentAiming.cs" />

@@ -19,7 +19,6 @@ namespace TabulaRasa
         {
             if (__instance.def.HasModExtension<DefModExt_SubcategoryDisplay>())
             {
-                Log.Message("Subcategory Tab Detected");
                 SubcategoryUtil.PopulateArchitectCategoryTab(__instance);
                 SubcategoryUtil.DrawSubcategoryWindow(__instance, forceActivatedCommand);
                 return false;
