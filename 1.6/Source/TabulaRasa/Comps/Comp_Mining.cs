@@ -74,7 +74,7 @@ namespace TabulaRasa
                 {
                     currentlyMining = GetRandomAllowedMineable();
                     float timerBase = Props.tickCostMultiplier * (currentlyMining.BaseMarketValue * 1000f);
-                    float timerDebuff = timerBase * (Props.costDebuffPercent * MiningUtility.cachedMineableThings.Except(mineableThings.filter.allowedDefs).Count());
+                    float timerDebuff = timerBase * (Props.costDebuffPercent * Mathf.Clamp(Props.maxDebuffCount - mineableThings.filter.allowedDefs.Count, 0f, 3f));
                     mineTicksRemaining = Mathf.RoundToInt(timerBase + timerDebuff);
                 }
             }
@@ -87,7 +87,7 @@ namespace TabulaRasa
                 Thing t = ThingMaker.MakeThing(d);
                 if (d.deepLumpSizeRange != null)
                 {
-                    t.stackCount = d.deepLumpSizeRange.RandomInRange;
+                    t.stackCount = Mathf.CeilToInt(d.deepLumpSizeRange.RandomInRange * Props.outputCountMultiplier);
                 }
 
                 GenPlace.TryPlaceThing(t, parent.InteractionCell, parent.Map, ThingPlaceMode.Near);

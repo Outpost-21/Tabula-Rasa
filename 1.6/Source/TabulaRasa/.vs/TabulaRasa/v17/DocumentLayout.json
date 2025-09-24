@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\comps\\compproperties_mining.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\compproperties_mining.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\comps\\comp_mining.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:comps\\comp_mining.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\tabularasasettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasasettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|f:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.6\\source\\tabularasa\\data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:data\\architectsubcatdesignators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\tabularasasettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|solutionrelative:tabularasasettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{78DE7258-9B43-4AA0-88AC-4FA70049EF0A}|TabulaRasa.csproj|F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\harmony\\patch_architectcategorytab_designationtabongui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,6 +47,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CompProperties_Mining.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\CompProperties_Mining.cs",
+              "RelativeDocumentMoniker": "Comps\\CompProperties_Mining.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\CompProperties_Mining.cs",
+              "RelativeToolTip": "Comps\\CompProperties_Mining.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T14:20:47.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Comp_Mining.cs",
+              "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Mining.cs",
+              "RelativeDocumentMoniker": "Comps\\Comp_Mining.cs",
+              "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Comps\\Comp_Mining.cs",
+              "RelativeToolTip": "Comps\\Comp_Mining.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAmwFsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T14:14:59.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ArchitectSubCatDesignators.cs",
               "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Data\\ArchitectSubCatDesignators.cs",
               "RelativeDocumentMoniker": "Data\\ArchitectSubCatDesignators.cs",
@@ -51,7 +85,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "TabulaRasaMod.cs",
               "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaMod.cs",
               "RelativeDocumentMoniker": "TabulaRasaMod.cs",
@@ -69,13 +103,14 @@
               "RelativeDocumentMoniker": "TabulaRasaSettings.cs",
               "ToolTip": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\TabulaRasaSettings.cs",
               "RelativeToolTip": "TabulaRasaSettings.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAkwCAAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAkwCAAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T08:28:46.303Z"
+              "WhenOpened": "2025-09-03T08:28:46.303Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "SubcategoryUtil.cs",
               "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Utility\\SubcategoryUtil.cs",
               "RelativeDocumentMoniker": "Utility\\SubcategoryUtil.cs",
@@ -87,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs",
               "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\Harmony\\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs",
               "RelativeDocumentMoniker": "Harmony\\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs",
@@ -99,7 +134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "DefModExt_SubcategoryDisplay.cs",
               "DocumentMoniker": "F:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.6\\Source\\TabulaRasa\\ModExtensions\\DefModExt_SubcategoryDisplay.cs",
               "RelativeDocumentMoniker": "ModExtensions\\DefModExt_SubcategoryDisplay.cs",

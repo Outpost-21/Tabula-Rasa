@@ -18,8 +18,12 @@ namespace TabulaRasa
 
         public MiningSettings defaultMiningSettings;
 
-        public float tickCostMultiplier;
+        public float tickCostMultiplier = 1f;
 
-        public float costDebuffPercent;
+        public float costDebuffPercent = 0.20f;
+
+        public int maxDebuffCount = 4;
+
+        public float outputCountMultiplier = 1f;
     }
 }
