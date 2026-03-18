@@ -81,11 +81,13 @@
   <ItemGroup>
     <Compile Include="Apparel\Apparel_Customizable.cs" />
     <Compile Include="Apparel\DefModExt_ApparelCustomizable.cs" />
+    <Compile Include="Buildings\Building_MultiMoverDoor.cs" />
     <Compile Include="Buildings\Building_RandomGraphic.cs" />
     <Compile Include="Buildings\Building_Switcher.cs" />
     <Compile Include="Data\ArchitectSubCatDesignators.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
     <Compile Include="Harmony\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs" />
+    <Compile Include="ModExtensions\DefModExt_MultiMoverDoor.cs" />
     <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
     <Compile Include="Harmony\Patch_PawnRenderUtility_DrawEquipmentAiming.cs" />
