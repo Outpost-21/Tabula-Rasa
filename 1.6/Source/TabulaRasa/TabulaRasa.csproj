@@ -87,6 +87,7 @@
     <Compile Include="Data\ArchitectSubCatDesignators.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
     <Compile Include="Harmony\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs" />
+    <Compile Include="Harmony\Patch_Plant_DyingBecauseExposedToLight.cs" />
     <Compile Include="ModExtensions\DefModExt_MultiMoverDoor.cs" />
     <Compile Include="ModExtensions\DefModExt_PlantStuff.cs" />
     <Compile Include="ModExtensions\DefModExt_InvisibleWeapon.cs" />
