@@ -138,7 +138,15 @@ namespace TabulaRasa
             bool showOnlyOrders = !showCategories && designatorsForTab[tab].Find(c => c.category == uncatCat) == null;
             float categoryRectWidth = showCategories ? 200f + scrollWidth : 0f;
             Rect categoryRect = new Rect(outRect.x, outRect.y, categoryRectWidth, outRect.height);
-            List<Designator> orderDesignators = designatorsForTab[tab].Find(sc => sc.category == orderCat).designators;
+            List<Designator> orderDesignators;
+            if (designatorsForTab[tab].Any(sc => sc.category == orderCat))
+            {
+                orderDesignators = designatorsForTab[tab].Find(sc => sc.category == orderCat).designators;
+            }
+            else
+            {
+                orderDesignators = new List<Designator>();
+            }
             float orderRectWidth = (!orderDesignators.NullOrEmpty() && !showOnlyOrders) ? (TabulaRasaMod.settings.enableShrunkOrders ? orderGizmoScale * 2f : orderGizmoScale) + sectionBorder + scrollWidth + (gizmoMargin * 2) : 0f;
             float mainRectWidth = outRect.width - categoryRect.width - orderRectWidth;
             Rect mainRect = new Rect(categoryRect.xMax, outRect.y, mainRectWidth, outRect.height);

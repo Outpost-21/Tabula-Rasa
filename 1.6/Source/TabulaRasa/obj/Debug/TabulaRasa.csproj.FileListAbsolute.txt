@@ -34,3 +34,7 @@ F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Assemblies\TabulaRasa.dl
 F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
 F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
 F:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Assemblies\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.AssemblyReference.cache
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.6\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
