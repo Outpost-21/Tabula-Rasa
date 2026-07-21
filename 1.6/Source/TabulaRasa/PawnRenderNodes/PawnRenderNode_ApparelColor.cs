@@ -13,7 +13,7 @@ namespace TabulaRasa
     {
         public PawnRenderNode_ApparelColor(Pawn pawn, PawnRenderNodeProperties props, PawnRenderTree tree) : base(pawn, props, tree)
         {
-            // Required to function.
+
         }
 
         public override Color ColorFor(Pawn pawn)

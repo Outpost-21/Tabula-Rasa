@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+    
+    <TabulaRasa.ImprovedShuttleDef ParentName="BuildingBase" Name="ImprovedShuttleBase" Abstract="True">
+        <thingClass>TabulaRasa.Building_ImprovedShuttleMain</thingClass>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <stealable>false</stealable>
+        <drawGUIOverlay>true</drawGUIOverlay>
+        <statBases>
+            <Flammability>0</Flammability>
+        </statBases>
+        <rotatable>false</rotatable>
+        <tickerType>Normal</tickerType>
+        <passability>Standable</passability>
+        <pathCost>0</pathCost>
+        <fillPercent>0.99</fillPercent>
+        <hasTooltip>true</hasTooltip>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <altitudeLayer>WorldClipper</altitudeLayer>
+        <placeWorkers>
+            <li>TabulaRasa.PlaceWorker_DrawImprovedShuttle</li>
+            <li>PlaceWorker_NotUnderRoof</li>
+        </placeWorkers>
+        <building>
+            <ai_combatDangerous>true</ai_combatDangerous>
+            <expandHomeArea>false</expandHomeArea>
+            <isInert>true</isInert>
+            <isEdifice>False</isEdifice>
+        </building>
+        <inspectorTabs>
+            <li>TabulaRasa.ITab_ShuttleInfo</li>
+        </inspectorTabs>
+        <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
+        <filthLeaving>Filth_RubbleBuilding</filthLeaving>
+        <seeThroughFog>true</seeThroughFog>
+        <drawOffscreen>true</drawOffscreen>
+    </TabulaRasa.ImprovedShuttleDef>
+    
+    <ThingDef ParentName="BuildingBase" Name="ImprovedShuttleTurretMountBase" Abstract="True">
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <graphicData>
+            <texPath>Things/Alpha</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,1)</drawSize>
+            <drawRotated>false</drawRotated>
+            <allowFlip>false</allowFlip>
+        </graphicData>
+        <uiIconScale>1</uiIconScale>
+        <stealable>false</stealable>
+        <drawGUIOverlay>true</drawGUIOverlay>
+        <statBases>
+            <MaxHitPoints>100</MaxHitPoints>
+            <Flammability>0</Flammability>
+            <WorkToBuild>3000</WorkToBuild>
+            <Mass>5</Mass>
+            <Beauty>0</Beauty>
+        </statBases>
+        <rotatable>false</rotatable>
+        <tickerType>Normal</tickerType>
+        <passability>Standable</passability>
+        <pathCost>0</pathCost>
+        <fillPercent>0</fillPercent>
+        <hasTooltip>true</hasTooltip>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <altitudeLayer>WorldClipper</altitudeLayer>
+        <building>
+            <ai_combatDangerous>true</ai_combatDangerous>
+            <expandHomeArea>false</expandHomeArea>
+            <isInert>true</isInert>
+            <isEdifice>false</isEdifice>
+            <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+        </building>
+        <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+        <size>(1,1)</size>
+        <uiOrder>3000</uiOrder>
+        <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+        <designationCategory>Security</designationCategory>
+        <placeWorkers>
+            <li>TabulaRasa.PlaceWorker_InBaseThing</li>
+        </placeWorkers>
+    </ThingDef>
+    
+    <ThingDef ParentName="BaseGun" Name="ImprovedShuttleWeaponBase" Abstract="True">
+        <smeltable>True</smeltable>
+        <relicChance>1</relicChance>
+        <graphicData>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <weaponClasses>
+            <li>Ranged</li>
+        </weaponClasses>
+        <useHitPoints>false</useHitPoints>
+        <weaponTags></weaponTags>
+        <statBases>
+            <Flammability>0</Flammability>
+            <DeteriorationRate>0</DeteriorationRate>
+        </statBases>
+        <techLevel>Industrial</techLevel>
+        <comps>
+            <li Class="CompProperties_Stunnable">
+                <affectedDamageDefs>
+                    <li>Stun</li>
+                    <li>EMP</li>
+                </affectedDamageDefs>
+            </li>
+        </comps>
+    </ThingDef>
+
+</Defs>

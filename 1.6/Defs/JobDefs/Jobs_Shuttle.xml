@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+    <JobDef>
+        <defName>TabulaRasa_EnterShuttleAsPilot</defName>
+        <driverClass>TabulaRasa.JobDriver_EnterImprovedShuttlePilot</driverClass>
+        <reportString>boarding shuttle as pilot</reportString>
+    </JobDef>
+
+    <JobDef>
+        <defName>TabulaRasa_EnterShuttleAsPassenger</defName>
+        <driverClass>TabulaRasa.JobDriver_EnterImprovedShuttlePassenger</driverClass>
+        <reportString>boarding shuttle as passenger</reportString>
+    </JobDef>
+    
+    <JobDef>
+        <defName>TabulaRasa_ReplaceShuttleWeapon</defName>
+        <driverClass>TabulaRasa.JobDriver_ReplaceImprovedShuttleWeapon</driverClass>
+        <reportString>replacing shuttle weapon</reportString>
+    </JobDef>
+    
+    <JobDef>
+        <defName>TabulaRasa_LoadShuttleShell</defName>
+        <driverClass>TabulaRasa.JobDriver_LoadImprovedShuttleShells</driverClass>
+        <reportString>loading shells into shuttle</reportString>
+    </JobDef>
+
+    <JobDef>
+        <defName>TabulaRasa_InstallShuttleUpgrade</defName>
+        <driverClass>TabulaRasa.JobDriver_ShuttleUpgradeInstall</driverClass>
+        <reportString>installing shuttle upgrade</reportString>
+        <allowOpportunisticPrefix>false</allowOpportunisticPrefix>
+        <suspendable>true</suspendable>
+    </JobDef>
+
+    <JobDef>
+        <defName>TabulaRasa_UninstallShuttleUpgrade</defName>
+        <driverClass>TabulaRasa.JobDriver_ShuttleUpgradeUninstall</driverClass>
+        <reportString>uninstalling shuttle upgrade</reportString>
+        <allowOpportunisticPrefix>false</allowOpportunisticPrefix>
+        <suspendable>true</suspendable>
+    </JobDef>
+
+</Defs>

@@ -32,6 +32,11 @@ namespace TabulaRasa
         public float gizmoRowHeight = 3f;
         public bool enableShrunkOrders = false;
 
+        // Shuttle Stuff
+        public bool drawShuttleShadows = true;
+        public bool checkMapBoundary = true;
+        public bool canFireOnlyFlying = true;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -52,6 +57,9 @@ namespace TabulaRasa
             // Subcategories
             Scribe_Values.Look(ref gizmoRowHeight, "gizmoRowHeight", 3f);
             Scribe_Values.Look(ref enableShrunkOrders, "disableShrunkOrders", false);
+
+            // Shuttle Stuff
+            Scribe_Values.Look(ref drawShuttleShadows, "drawShuttleShadows", true);
         }
 
         public bool IsValidSetting(string input)

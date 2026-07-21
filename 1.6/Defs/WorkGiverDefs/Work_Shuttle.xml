@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+    <WorkGiverDef>
+        <defName>TabulaRasa_ShuttleUpgradeInstall</defName>
+        <label>install upgrade</label>
+        <giverClass>TabulaRasa.WorkGiver_ShuttleUpgradeInstall</giverClass>
+        <verb>install</verb>
+        <gerund>installing upgrade</gerund>
+        <workType>Construction</workType>
+        <priorityInType>80</priorityInType>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </WorkGiverDef>
+
+    <WorkGiverDef>
+        <defName>TabulaRasa_ShuttleUpgradeUninstall</defName>
+        <label>install upgrade</label>
+        <giverClass>TabulaRasa.WorkGiver_ShuttleUpgradeUninstall</giverClass>
+        <verb>install</verb>
+        <gerund>installing upgrade</gerund>
+        <workType>Construction</workType>
+        <priorityInType>80</priorityInType>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </WorkGiverDef>
+
+</Defs>
