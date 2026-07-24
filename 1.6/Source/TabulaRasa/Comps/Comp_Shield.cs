@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RimWorld;
+using RimWorld.Planet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using UnityEngine;
-using RimWorld;
 using Verse;
 using Verse.Grammar;
 using Verse.Sound;
@@ -48,6 +48,8 @@ namespace TabulaRasa
 
 		public Color currentColor;
 
+		public Rot4 lastCheckedRotation;
+
 		public virtual bool Active => !overloaded && (PowerTrader == null || PowerTrader.PowerOn) && (FuelComp == null || FuelComp.HasFuel) && (Flicker == null || Flicker.SwitchIsOn);
 
 		public Vector3 CurShieldPosition => new IntVec3(parent.Position.x + shieldOffsetX, parent.Position.y, parent.Position.z + shieldOffsetY).ToVector3Shifted();
@@ -85,18 +87,25 @@ namespace TabulaRasa
 
 			base.PostSpawnSetup(respawningAfterLoad);
 
-			if (curShieldRadius < Props.shieldScaleLimits.min)
-			{
-				SetShieldRadius = Props.shieldScaleDefault;
-			}
+			if (curShieldRadius < Props.shieldScaleLimits.min) { SetShieldRadius = Props.shieldScaleDefault; }
 			if (!respawningAfterLoad)
 			{
 				currentColor = Props.shieldColour;
 				SetShieldRadius = Props.shieldScaleDefault;
 			}
+			if (lastCheckedRotation != null && lastCheckedRotation != parent.Rotation) { CorrectShieldOffsets(); }
+			else { lastCheckedRotation = parent.Rotation; }
 
 			parent.Map.GetComponent<MapComp_ShieldList>().shieldGenList.Add(parent);
 		}
+
+		public void CorrectShieldOffsets()
+		{
+            IntVec3 rotated = new IntVec3(shieldOffsetX, 0, shieldOffsetY).RotatedBy(Rot4.GetRelativeRotation(lastCheckedRotation, parent.Rotation));
+			shieldOffsetX = rotated.x;
+			shieldOffsetY = rotated.z;
+			lastCheckedRotation = parent.Rotation;
+        }
 
 		public bool CheckIntercept(Skyfaller skyfaller)
 		{
@@ -335,8 +344,10 @@ namespace TabulaRasa
 		}
 
 		public override void CompTick()
-		{
-			if (Active)
+        {
+            if (lastCheckedRotation != null && lastCheckedRotation != parent.Rotation) { CorrectShieldOffsets(); }
+
+            if (Active)
 			{
 				if (this.ReactivatedThisTick && this.Props.reactivateEffect != null)
 				{
@@ -617,6 +628,7 @@ namespace TabulaRasa
 			Scribe_Values.Look(ref shieldOffsetY, "shieldOffsetY", 0);
 			Scribe_Values.Look(ref curShieldRadius, "curShieldRadius", Props.shieldScaleDefault);
 			Scribe_Values.Look(ref currentColor, "currentColor", Props.shieldColour);
+			Scribe_Values.Look(ref lastCheckedRotation, "lastCheckedRotation");
 		}
 	}
 }
