@@ -1,0 +1,11 @@
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.csproj.AssemblyReference.cache
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.GeneratedMSBuildEditorConfig.editorconfig
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.AssemblyInfoInputs.cache
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.AssemblyInfo.cs
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.csproj.CoreCompileInputs.cache
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Assemblies\net10.0\TabulaRasa.deps.json
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Assemblies\net10.0\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\refint\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\ref\TabulaRasa.dll
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\net10.0\TabulaRasa.csproj.Up2Date

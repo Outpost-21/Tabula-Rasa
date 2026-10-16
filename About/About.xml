@@ -3,7 +3,6 @@
 	<name>Tabula Rasa</name>
 	<author>Neronix17</author>
 	<packageId>neronix17.toolbox</packageId>
-	<modIconPath IgnoreIfNoMatchingField="True">TabulaRasa/ModIcon</modIconPath>
 	<url>https://www.patreon.com/neronix17</url>
 	<description>Formerly [O21] Toolbox. A library mod, provides a lot of useful, reusable code, primarily for Outpost 21 mods, but usable by anyone.</description>
 	<supportedVersions>
@@ -11,6 +10,7 @@
 		<li>1.4</li>
 		<li>1.5</li>
 		<li>1.6</li>
+		<li>1.7</li>
 	</supportedVersions>
 	<modDependencies />
 	<loadBefore />

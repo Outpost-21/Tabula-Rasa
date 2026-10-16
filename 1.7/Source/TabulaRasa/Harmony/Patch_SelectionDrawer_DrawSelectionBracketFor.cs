@@ -1,0 +1,67 @@
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using Verse;
+
+using HarmonyLib;
+
+namespace TabulaRasa
+{
+    [HarmonyPatch(typeof(SelectionDrawer), "DrawSelectionBracketFor")]
+    public static class Patch_SelectionDrawer_DrawSelectionBracketFor
+    {
+        [HarmonyPrefix]
+        public static bool Prefix(object obj, Vector3[] ___bracketLocs, Material ___SelectionBracketMat,
+            Dictionary<object, float> ___selectTimes)
+        {
+            if (obj is ThingWithComps thing && thing.def?.GetModExtensionBigBox() is DefModExt_BigBox bigBox)
+            {
+                var drawPos = thing.DrawPos;
+                Vector2 drawSize;
+                if (!bigBox.directionBased)
+                {
+                    drawPos += bigBox.offset;
+                    drawSize = bigBox.size;
+                }
+                else
+                {
+                    if (thing.Rotation == Rot4.East)
+                    {
+                        drawPos += bigBox.eastOffset;
+                        drawSize = bigBox.eastSize;
+                    }
+                    else if (thing.Rotation == Rot4.North)
+                    {
+                        drawPos += bigBox.northOffset;
+                        drawSize = bigBox.northSize;
+                    }
+                    else if (thing.Rotation == Rot4.West)
+                    {
+                        drawPos += bigBox.westOffset;
+                        drawSize = bigBox.westSize;
+                    }
+                    else
+                    {
+                        drawPos += bigBox.southOffset;
+                        drawSize = bigBox.southSize;
+                    }
+                }
+
+                SelectionDrawerUtility.CalculateSelectionBracketPositionsWorld(___bracketLocs, thing, drawPos, drawSize, ___selectTimes, Vector2.one);
+                var num = 0;
+                for (var i = 0; i < 4; i++)
+                {
+                    var rotation = Quaternion.AngleAxis(num, Vector3.up);
+                    Graphics.DrawMesh(MeshPool.plane10, ___bracketLocs[i], rotation, ___SelectionBracketMat, 0);
+                    num -= 90;
+                }
+                return false;
+            }
+            return true;
+        }
+    }
+}
