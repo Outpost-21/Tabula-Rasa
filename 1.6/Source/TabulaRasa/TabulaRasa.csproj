@@ -84,6 +84,8 @@
     <Compile Include="Buildings\Building_MultiMoverDoor.cs" />
     <Compile Include="Buildings\Building_RandomGraphic.cs" />
     <Compile Include="Buildings\Building_Switcher.cs" />
+    <Compile Include="Comps\CompProperties_CropGrower.cs" />
+    <Compile Include="Comps\Comp_CropGrower.cs" />
     <Compile Include="Data\ArchitectSubCatDesignators.cs" />
     <Compile Include="FloatMenus\FloatMenuProvider_SlotLoadable.cs" />
     <Compile Include="Harmony\Patch_ArchitectCategoryTab_DesignationTabOnGUI.cs" />
