@@ -44,8 +44,8 @@ G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\De
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\TabulaRasa.AssemblyInfo.cs
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.CoreCompileInputs.cache
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\TabulaRasa.dll
-G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Assemblies\TabulaRasa.deps.json
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Assemblies\TabulaRasa.dll
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\refint\TabulaRasa.dll
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\ref\TabulaRasa.dll
 G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\TabulaRasa.csproj.Up2Date
+G:\RWModCategories\Neronix17\_Libraries\Tabula Rasa\1.7\Source\TabulaRasa\obj\Debug\TabulaRasa.sourcelink.json

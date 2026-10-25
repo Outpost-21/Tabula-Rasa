@@ -18,13 +18,16 @@ namespace TabulaRasa
         [HarmonyPostfix]
         public static void Postfix(PawnGenerationRequest request, Pawn __result)
         {
-            Pawn pawn = __result;
-            DefModExt_PawnKindExtended modExt = pawn.kindDef.GetModExtension<DefModExt_PawnKindExtended>();
-            if (modExt != null && modExt.clearApparel)
+            if (__result != null)
             {
-                for (int i = 0; i < pawn.apparel.WornApparel.Count(); i++)
+                Pawn pawn = __result;
+                DefModExt_PawnKindExtended modExt = pawn.kindDef.GetModExtension<DefModExt_PawnKindExtended>();
+                if (modExt != null && modExt.clearApparel)
                 {
-                    pawn.apparel.Remove(pawn.apparel.WornApparel[i]);
+                    for (int i = 0; i < pawn.apparel.WornApparel.Count(); i++)
+                    {
+                        pawn.apparel.Remove(pawn.apparel.WornApparel[i]);
+                    }
                 }
             }
         }

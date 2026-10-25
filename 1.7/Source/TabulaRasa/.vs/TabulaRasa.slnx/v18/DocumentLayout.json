@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "G:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.7\\Source\\TabulaRasa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E8DB6978-0E66-4363-7F60-A3A41101694B}|TabulaRasa.csproj|g:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.7\\source\\tabularasa\\tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8DB6978-0E66-4363-7F60-A3A41101694B}|TabulaRasa.csproj|solutionrelative:tabularasamod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E8DB6978-0E66-4363-7F60-A3A41101694B}|TabulaRasa.csproj|g:\\rwmodcategories\\neronix17\\_libraries\\tabula rasa\\1.7\\source\\tabularasa\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8DB6978-0E66-4363-7F60-A3A41101694B}|TabulaRasa.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TabulaRasaMod.cs",
-              "DocumentMoniker": "G:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.7\\Source\\TabulaRasa\\TabulaRasaMod.cs",
-              "RelativeDocumentMoniker": "TabulaRasaMod.cs",
-              "ToolTip": "G:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.7\\Source\\TabulaRasa\\TabulaRasaMod.cs",
-              "RelativeToolTip": "TabulaRasaMod.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA0wCIAAABmAAAAAAAAAA==",
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "G:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.7\\Source\\TabulaRasa\\Properties\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
+              "ToolTip": "G:\\RWModCategories\\Neronix17\\_Libraries\\Tabula Rasa\\1.7\\Source\\TabulaRasa\\Properties\\AssemblyInfo.cs",
+              "RelativeToolTip": "Properties\\AssemblyInfo.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAqwCIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T09:51:28.983Z",
+              "WhenOpened": "2026-10-25T14:30:13.396Z",
               "EditorCaption": ""
             }
           ]
